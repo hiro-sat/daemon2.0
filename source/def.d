@@ -134,7 +134,9 @@ enum CL
     BONUS       = 2,
     ENCOUNT     = 4,
     TREASURE    = 6,
-    MONSTER     = 5
+    MONSTER     = 5,
+    TRAP        = 5,
+    TRAP_FAIL   = 4
 }
 
 

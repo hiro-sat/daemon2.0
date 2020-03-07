@@ -362,7 +362,7 @@ class EventL2 : Event
                 getChar();
                 textout("「vorpal_toothは持ったかい? S.」\n");
                 break;
-            case 'G':
+            case 'g':
                 if ( ! party.doTheyHave( 170 ) )
                 {
                     textout("*** 頭の中で声が響いた:\n");

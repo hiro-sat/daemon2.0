@@ -752,7 +752,9 @@ void treasure_main( int monnum )
                     if ( get_rand( 6 ) == 0 )
                         goto FAIL;
 
+                setColor( CL.TRAP );
                 textout( "\n=== " ~ TRAP_NAME[ mem.predict ] ~ "? ===\n" );
+                setColor( CL.NORMAL );
                 break;
 
             case 'd':   // disarm
@@ -843,9 +845,11 @@ FAIL:
         goto SUCEED;
     }
 
+    setColor( CL.TRAP_FAIL );
     textout( "oops! " );
     textout( TRAP_NAME[ trap ] );
     textout( "\n" );
+    setColor( CL.NORMAL );
     switch ( trap )
     {
         case TRAP.POISON: /* poison needle */
