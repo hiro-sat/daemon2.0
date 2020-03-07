@@ -471,7 +471,7 @@ class Monster
 
         for ( i = 0; i < def.atk[ 1 ]; i++ )
         {
-            if ( 20 - mem.ac[ 0 ] - mem.ac[1] - parryup - acup - party.ac
+            if ( 20 - mem.ac[ 0 ] - mem.ac[ 1 ] + parryup - acup - party.ac
                     - def.level < get_rand( 19 ) + 1 )
             {
                 hit_times++;

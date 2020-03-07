@@ -77,7 +77,7 @@ void camp_spell_sub( int mag )
             header_disp( HSTS.CAMP );
             break;
         case MAG_TYPE.KADOR :       // resurrection
-            if ( ! ( mem.status == STS.DEAD || mem.status == STS.ASHED ) )
+            if ( ! ( mem.status != STS.DEAD || mem.status != STS.ASHED ) )
             {
                 textout( "  what?\n" );
             }
@@ -127,7 +127,7 @@ void camp_spell_sub( int mag )
             party.win_disp();
             break;
         case MAG_TYPE.DI :
-            if ( mem.status == STS.DEAD )
+            if ( mem.status != STS.DEAD )
             {
                 textout( "  what?\n" );
             }
