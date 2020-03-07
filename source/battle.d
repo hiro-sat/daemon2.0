@@ -248,7 +248,10 @@ BATTLE_RESULT battle_main()
         for ( i = 0; i < party.num; i++ )
             if ( party.mem[ i ].poisoned )
             {
-                party.mem[ i ].hp -= party.mem[ i ].hp / 10;
+                if( party.mem[ i ].hp < 10 )
+                    party.mem[ i ].hp --;
+                else
+                    party.mem[ i ].hp -= party.mem[ i ].hp / 10 ;
                 if ( party.mem[ i ].hp < 1 )
                     party.mem[ i ].hp = 1;
             }

@@ -465,7 +465,7 @@ public:
             if( mem[ i ] is null )
                 continue;
 
-            if( mem[ i ].status == STS.OK )
+            if( mem[ i ].status <= STS.SLEEP )
             {
                 ok[ ok_cnt ] = mem[i];
                 ok_cnt ++;
