@@ -88,7 +88,10 @@ private:
             case '$':
                 return party.isShine ;
             default:
-                return false;
+                if( orgmap[ y ][ x ] >= 'a' && orgmap[ y ][ x ] <= 'z' )
+                    return true;
+                else
+                    return false;
         }
     }
 
