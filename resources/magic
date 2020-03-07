@@ -1,0 +1,69 @@
+1	sleep	0	3	15	0	0	0
+2	fire	0	3	1	1	1	7
+3	mapper	1	0	27	0	0	0
+4	harden	0	1	9	0	-2	0
+
+5	flames	0	3	2	1	1	7
+6	soften	0	3	7	0	2	0
+7	transp	0	1	9	0	-4	0
+
+8	xflames	0	3	2	1	4	20
+9	spark	0	3	2	3	3	15
+
+a	fear	0	3	7	0	4	0
+b	floatn	1	0	24	0	0	0
+c	icebol	0	3	2	2	6	30
+d	firstm	0	3	2	1	6	30
+
+e	panic	0	1	8	0	4	0
+f	sufcatn	0	3	18	0	0	0
+10	snowstm	0	3	2	2	8	56
+
+11	mirage	0	1	17	0	-4	0
+12	prifict	0	3	1	4	10	1990
+13	vacuity	0	1	19	0	0	0
+
+14	rinkai	0	3	1	0	50	250
+15	telept	1	1	30	0	0	0
+16	ncfusyn	0	1	3	0	10	140
+
+1e	heal	2	2	4	0	1	7
+1f	prot	0	1	17	0	-1	0
+20	incant	0	3	1	0	1	7
+21	shine	1	0	28	0	0	0
+22	shild	0	1	9	0	-4	0
+
+23	protct	0	1	17	0	-2	0
+24	inspct	0	0	0	0	0	0
+25	bind	0	3	16	0	0	0
+26	silenc	0	3	26	0	0	0
+
+27	cure	2	2	12	0	0	0
+28	awaken	1	1	25	0	0	0
+29	birdseye	1	0	29	0	0	0
+2a	guard	0	1	17	0	-4	0
+
+2b	healin	2	2	4	0	2	14
+2c	cuttin	0	3	1	0	2	14
+2d	detxify	2	2	11	0	0	0
+2e	mgcshld	1	1	14	0	0	0
+
+2f	exheal	2	2	4	0	3	21
+30	slashn	0	3	1	0	3	21
+31	clenfir	0	3	2	0	3	21
+32	breathe	2	2	20	0	0	0
+33	nokessn	0	3	22	0	0	0
+
+34	bless	2	2	13	0	0	0
+35	dyng	0	3	23	0	0	0
+36	ndlstm	0	3	2	0	6	30
+37	return	1	1	31	0	0	0
+
+38	scourge	0	1	3	0	12	60
+39	Bless	2	2	21	0	0	0
+3a	healall	1	1	10	0	6	14
+ffff
+
+camp	battle	type	attr	min	add
+
+
