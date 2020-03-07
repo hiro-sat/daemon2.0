@@ -375,11 +375,16 @@ class EventL2 : Event
             case 'h':
                 textout("*** なんだかウサギ臭い。。。。\n");
                 textout("探しますか(y/n)? ");
-                if ( answerYN == 'y' )
+                if ( answerYN == 'y' && !eventflg[ 1 ] )
                 {
+                    eventflg[ 1 ] = true;
                     monParty.add( [ 14,14,14,14 ] );
                     if ( battle_main() == BATTLE_RESULT.WON )
                         party.theyGet( 170 ); // vorpal_toth, 3Fへの階段のキーアイテム
+                }
+                else
+                {
+                  textout("気のせいだったようだ。\n");
                 }
                 break;
             case 'i':
@@ -493,7 +498,7 @@ class EventL3 : Event
                 break;
             case 'p':
                 textout("壁にmessageが書かれている:\n");
-                getchar();
+                getChar();
                 textout("「このダンジョンのヌシは相当あぶねぇ\n");
                 textout("　奴のようだ。こんなに上層にwerebearが\n");
                 textout("　うろついているとは。 S.」\n");
@@ -523,6 +528,63 @@ class EventL4 : Event
         if( rtncode != 0 )
             return rtncode;
 
+        switch( m )
+        {
+            case 'a':
+                textout("焼け付くように熱い部屋だ。\n");
+                textout("何者かがflamoeでも使ったあとか?\n");
+                break;
+            case 'b':
+                textout("バナナの皮が落ちている。\n");
+                textout("それで滑って転んだ時にちょうど頭が\n");
+                textout("来る位置に、硬そうな石が置いてある。\n");
+                textout("・・・罠だ!\n");
+                break;
+            case 'c':
+                textout("首のない死体が3体横たわっている。\n");
+                textout("忍者に殺された冒険者か?\n");
+                break;
+            case 'd':
+                textout("操り人形が落ちている。\n");
+                textout("どうやら生きているらしいが、糸がからまって\n");
+                textout("身動きができないようだ。\n");
+                break;
+            case 'e':
+                textout("壊れた機械らしきものが置いてある。\n");
+                textout("蹴ってみたが反応は無かった。\n");
+                break;
+            case 'f':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「しくじった!\n");
+                textout("　Cynthiaの奴が呪いのメイスに取り付かれ\n");
+                textout("　ちまった。進むべきか、いったん引き上げ\n");
+                textout("　るか。。。 S.」\n");
+                break;
+            case 'h':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「まいった。。。\n");
+                textout("　Cynthiaの奴、ショック状態から回復しねぇ。\n");
+                textout("　ここでは呪いが強くなっているのか。。 S.」\n");
+                break;
+            case 'i':
+                if( eventflg[ 0 ] )
+                    break;
+                textout("突然、目の前に黒い影が現れた!\n");
+                textout("「グルルル・・・ガガガッ」\n");
+                getChar();
+                monParty.add( [ 86,59 ] ); // vampireとwerewolf
+                if ( battle_main() == BATTLE_RESULT.WON )
+                {
+                    eventflg[ 0 ] = true;
+                    party.theyGet( 43 ); // garcon jacket(e)
+                }
+                break;
+            default:
+                break;
+        }
+
         return rtncode;
     }
 }
@@ -543,6 +605,40 @@ class EventL5 : Event
         rtncode = super.event_chk( m );
         if( rtncode != 0 )
             return rtncode;
+
+        switch( m )
+        {
+            case 'a':
+                textout("このフロアは壁が磨き上げられた大理石で\n");
+                textout("できているようだ。カツカツと足音が響く。\n");
+                break;
+            case 'b':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「Cynthiaを宿屋に預けてきた。\n");
+                textout("　ずいぶんと時間をロスしちまったぜ。 S.」\n");
+                break;
+            case 'c':
+                textout("!! モンスターが!\n");
+                textout("・・と思ったら、壁に映った自分たちだった。\n");
+                break;
+            case 'd':
+                textout("ポロンポロン、とピアノを弾く音が聞こえて\n");
+                textout("くる。なぜこのようなダンジョンにピアノが??\n");
+                break;
+            case 'e':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「やはり一人欠けると厳しいか。。\n");
+                textout("　回復魔法の残りが気になる。 S.」\n");
+                break;
+            case 'f':
+                textout("グランドピアノが置いてある。\n");
+                textout("モンスターがピアノを・・・?\n");
+                break;
+            default:
+                break;
+        }
 
         return rtncode;
     }
@@ -565,6 +661,77 @@ class EventL6 : Event
         if( rtncode != 0 )
             return rtncode;
 
+        switch( m )
+        {
+            case 'a':
+                if( eventflg[ 0 ] )
+                    break;
+                textout("突然、目の前に黒い影が現れた!\n");
+                textout("「おや、珍しい。お客さんだ。」\n");
+                getChar();
+                monParty.add([ 99,86,86,86 ]); // vampire lordとvampire
+                if ( battle_main() == BATTLE_RESULT.WON  )
+                {
+                    eventflg[ 0 ] = true;
+                    party.theyGet( 102 ); // amulet of muomoe(makanito)
+                }
+                break;
+            case 'b':
+                textout("ふわふわと風船のような物が漂っている。\n");
+                textout("特に何もしないようだ。\n");
+                break;
+            case 'c':
+                textout("ちろちろと水が流れている。\n");
+                textout("ひんやりとしたきれいな水だ。\n");
+                break;
+            case 'd':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「やべぇ。\n");
+                textout("　モンスターがかなり手強くなってきた。 S.」\n");
+                break;
+            case 'e':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「くそっ。\n");
+                textout("　なんだ、この部屋の数は!? S.」\n");
+                break;
+            case 'f':
+                textout("耳鳴りがする。圧迫されたダンジョンの\n");
+                textout("空気で、気が変になりそうだ。。\n");
+                break;
+            case 'g':
+                textout("冒険者とみられる死体が6体倒れている。\n");
+                textout("こうはなりたくないものだ。。。\n");
+                break;
+            case 'h':
+                textout("フランス人形が笑い声をたてている。\n");
+                textout("剣でまっぷたつに切ったら笑い声は止んだ。\n");
+                break;
+            case 'i':
+                textout("壁に大きな字で｢6｣と書いてある。\n");
+                textout("何かの意味があるのだろうか?\n");
+                break;
+            case 'j':
+                textout("たて看板がある:\n");
+                textout("「危険!回れ右をせよ」\n");
+                break;
+            case 'k':
+                textout("たて看板がある:\n");
+                textout("「危険!立ち止まるな」\n");
+                break;
+            case 'l':
+                textout("たて看板がある:\n");
+                textout("「危険!右に行け」\n");
+                break;
+            case 'm':
+                textout("たて看板がある:\n");
+                textout("「危険!南に行くな」\n");
+                break;
+            default:
+                break;
+        }
+
         return rtncode;
     }
 }
@@ -585,6 +752,62 @@ class EventL7 : Event
         rtncode = super.event_chk( m );
         if( rtncode != 0 )
             return rtncode;
+
+        switch( m )
+        {
+            case 'a':
+                textout("\n*** chute! ***\n");
+
+                party.layer++;
+                party.setDungeon;
+
+                /* party.dungeon.setStartPos; */
+                party.x = 1;
+                party.y = 2;
+
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 'b':
+                textout("壁に大きな看板がかかっている。\n");
+                textout("「引き返せ!さもないと、」\n");
+                textout("その続きは汚れて読めない。\n");
+                break;
+            case 'c':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「地下1Fに似ているな。\n");
+                textout("　しかし、陰険な罠だらけのフロアだ。 S.」\n");
+                break;
+            case 'd':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「やべぇ。前衛の一人が倒れて、\n");
+                textout("　盗賊が前衛に立つことになった。 S.」\n");
+                break;
+            case 'e':
+                if( eventflg[ 0 ] )
+                    break;
+                textout("*** 異常な妖気が満ちている。\n  探しますか(y/n)? ");
+                if ( answerYN == 'y' )
+                {
+                    textout( "地鳴りがする。。。来るぞ!!!\n" );
+                    getChar();
+                    monParty.add( [ 98,89,89,89 ] ); // maelificとdoragon zombies
+                    if ( battle_main() == BATTLE_RESULT.WON )
+                    {
+                        eventflg[ 0 ] = true;
+                        party.theyGet( 96 ); // dragon slayer
+                    }
+                }
+                rtncode = 1;
+                break;
+            default:
+                break;
+        }
 
         return rtncode;
     }
@@ -609,6 +832,122 @@ class EventL8 : Event
         rtncode = super.event_chk( m );
         if( rtncode != 0 )
             return rtncode;
+
+        switch( m )
+        {
+            case 'a':
+                // L8 start 地点
+                break;
+            case 'b':
+                textout( "\n*** jump to the castle! ***\n" );
+                getChar();
+                party.x = 1;
+                party.y = 2;
+                party.layer = 0;
+                for ( int i = 0; i < party.num; i++ )
+                    party.mem[ i ].outflag = OUT_F.CASTLE ; // in castle
+                break;
+            case 'c':
+                textout( "\n*** teleporter! ***\n" );
+                party.x = 1;
+                party.y = 2;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 'd':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「俺は見た!\n");
+                textout("　50回攻撃し、最後には首を刎ねるという\n");
+                textout("　伝説の魔神を! S.」\n");
+                break;
+            case 'e':
+                textout("頭の中に声が響いた。\n");
+                textout("「お前たちは来てはいけない領域に迷い混んで\n");
+                textout("　しまった。引き返すがよい。今のうちに。。」\n");
+                break;
+            case 'f':
+                textout("壁にmessageが書かれている:\n");
+                getChar();
+                textout("「俺たちはもうボロボロだ。\n");
+                textout("　最強のpurple beretがこんなにも簡単に\n");
+                textout("　やられるとは。。。。 S.」\n");
+                getChar();
+                textout("その下に、白骨化した死体が転がっている。\n");
+                break;
+            case 'g':
+                if( eventflg[ 0 ] )
+                    break;
+                textout("頭の中に声が響いた。\n");
+                textout("「私の忠告を無視したようだな。\n");
+                textout("　あの世で後悔するがいい。。。」\n");
+                break;
+            case 'h':
+                if( eventflg[ 1 ] )
+                {
+                    rtncode = 1;
+                    break;
+                }
+                textout( "一筋の風が吹いた。\n" );
+                getChar();
+                monParty.add( [ 91,91,91,91 ] ); // the_high_masters
+                if ( battle_main() == BATTLE_RESULT.WON )
+                    eventflg[ 1 ] = true;
+                rtncode = 1;
+                break;
+            case 'i':
+                if( eventflg[ 0 ] )
+                    break;
+                textout("頭の中に声が響いた。\n");
+                textout("「思ったよりやるようだ。\n");
+                textout("　楽しみになってきたよ。。。」\n");
+                break;
+            case 'j':
+                if( eventflg[ 2 ] )
+                {
+                    rtncode = 1;
+                    break;
+                }
+                textout( "暗闇に雷が轟いた!!\n" );
+                getChar();
+                monParty.add( [ 102,97,87,68 ] ); // demon lord
+                if ( battle_main() == BATTLE_RESULT.WON )
+                    eventflg[ 2 ] = true;
+                rtncode = 1;
+                break;
+            case 'k':
+                if( eventflg[ 0 ] )
+                    break;
+                textout("頭の中に声が響いた。\n");
+                textout("「ほほう。よかろう。\n");
+                textout("　来るがいい、私の元へ。。。」\n");
+                break;
+            case 'l':
+                if( eventflg[ 0 ] )
+                {
+                    rtncode = 1;
+                    break;
+                }
+                textout( "長身の男が立ったまま瞑想している。\n" );
+                getChar();
+                monParty.add( [ 108,101,91,91 ] ); // DAEMON, petit_daemon
+
+                if( battle_main == BATTLE_RESULT.WON )
+                    eventflg[ 0 ] = true;
+
+                rtncode = 1;
+                break;
+            case 'm':
+                if ( party.doTheyHave(171) )
+                    break;
+                textout( "一冊の本が落ちている。\n" );
+                party.theyGet( 171 ); // diary
+                break;
+            default:
+                break;
+        }
 
         return rtncode;
     }
