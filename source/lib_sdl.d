@@ -21,8 +21,10 @@ class MySDL
 private:
 
     string window_name = "SDL";
-    int window_width = WINDOW_WIDTH;
-    int window_height = WINDOW_HEIGHT;
+    /* int window_width  = WINDOW_WIDTH; */
+    /* int window_height = WINDOW_HEIGHT; */
+    int window_width;
+    int window_height;
 
     // draw color
     ubyte color_r = 20;
@@ -41,6 +43,9 @@ public:
 
     this()
     {
+
+        window_width  = WINDOW_WIDTH;
+        window_height = WINDOW_HEIGHT;
 
         DerelictSDL2.load();
         DerelictSDL2Image.load();

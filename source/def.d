@@ -57,21 +57,29 @@ string DATA_FOLDER = "data";
 string FONTNAME = "resources/mplus-2m-regular.ttf";
 
 // 画面サイズ設定
-enum FONTSIZE = 16;
-enum FONT_WIDTH = 8;
-enum FONT_HEIGHT = 23;
-enum FONT_J_WIDTH = 16;
-enum FONT_J_HEIGHT = 23;
-enum FONT_X_MARGINE = 1;
-enum FONT_Y_MARGINE = -4;
+enum S_FONTSIZE = 16;
+enum S_FONT_WIDTH = 8;
+enum S_FONT_HEIGHT = 23;
+enum S_FONT_J_WIDTH = 16;
+enum S_FONT_J_HEIGHT = 23;
+enum S_FONT_X_MARGINE = 1;
+enum S_FONT_Y_MARGINE = -4;
+enum L_FONTSIZE = 24;
+enum L_FONT_WIDTH = 12;
+enum L_FONT_HEIGHT = 35;
+enum L_FONT_J_WIDTH = 24;
+enum L_FONT_J_HEIGHT = 35;
+enum L_FONT_X_MARGINE = 1;
+enum L_FONT_Y_MARGINE = -4;
 
-/* enum FONTSIZE = 24; */
-/* enum FONT_WIDTH = 12; */
-/* enum FONT_HEIGHT = 35; */
-/* enum FONT_J_WIDTH = 24; */
-/* enum FONT_J_HEIGHT = 35; */
-/* enum FONT_X_MARGINE = 1; */
-/* enum FONT_Y_MARGINE = -4; */
+int FONTSIZE;
+int FONT_WIDTH;
+int FONT_HEIGHT;
+int FONT_J_WIDTH;
+int FONT_J_HEIGHT;
+int FONT_X_MARGINE;
+int FONT_Y_MARGINE;
+
 
 
 enum TEXT_WIDTH = 80;
@@ -82,12 +90,14 @@ enum WINDOW_BOTTOM_MARGINE = 4;
 enum WINDOW_LEFT_MARGINE = 6;
 enum WINDOW_RIGHT_MARGINE = 2;
 
-enum WINDOW_WIDTH = ( FONT_WIDTH + FONT_X_MARGINE ) * TEXT_WIDTH
-                  + WINDOW_TOP_MARGINE + WINDOW_BOTTOM_MARGINE 
-                  + WINDOW_LEFT_MARGINE + WINDOW_RIGHT_MARGINE ;
-enum WINDOW_HEIGHT = ( FONT_HEIGHT + FONT_Y_MARGINE ) * TEXT_HEIGHT
-                  + WINDOW_TOP_MARGINE + WINDOW_BOTTOM_MARGINE 
-                  + WINDOW_LEFT_MARGINE + WINDOW_RIGHT_MARGINE ;
+/* enum WINDOW_WIDTH = ( FONT_WIDTH + FONT_X_MARGINE ) * TEXT_WIDTH */
+/*                   + WINDOW_TOP_MARGINE + WINDOW_BOTTOM_MARGINE  */
+/*                   + WINDOW_LEFT_MARGINE + WINDOW_RIGHT_MARGINE ; */
+/* enum WINDOW_HEIGHT = ( FONT_HEIGHT + FONT_Y_MARGINE ) * TEXT_HEIGHT */
+/*                   + WINDOW_TOP_MARGINE + WINDOW_BOTTOM_MARGINE  */
+/*                   + WINDOW_LEFT_MARGINE + WINDOW_RIGHT_MARGINE ; */
+int WINDOW_WIDTH;
+int WINDOW_HEIGHT;
 
 
 /* display */

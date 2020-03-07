@@ -34,9 +34,10 @@ import cMonsterTeam;
 import cMonster;
 import cMonsterDef;
 
-
-void main()
+void main(string[] args)
 {
+
+    setFontSize( args );
 
     /* debugmode = true; */
     debugmodeOffFlg = true;
@@ -136,6 +137,69 @@ void ending()
     getChar();
 
     return;
+}
+
+
+/*--------------------
+   setFontSize - フォントサイズ設定
+   --------------------*/
+void setFontSize( string[] args )
+{
+    int para;
+    para = 0;
+    if( args.length > 1 )
+        switch( args[ 1 ] )
+        {
+            case "1":
+                para = 1;
+                break;
+            case "2":
+                para = 2;
+                break;
+            default:
+                para = 0;
+        }
+
+    if( para == 1 )
+    {
+        FONTSIZE        = S_FONTSIZE;
+        FONT_WIDTH      = S_FONT_WIDTH;
+        FONT_HEIGHT     = S_FONT_HEIGHT;
+        FONT_J_WIDTH    = S_FONT_J_WIDTH;
+        FONT_J_HEIGHT   = S_FONT_J_HEIGHT;
+        FONT_X_MARGINE  = S_FONT_X_MARGINE;
+        FONT_Y_MARGINE  = S_FONT_Y_MARGINE;
+    }
+    else if( para == 2 )
+    {
+        FONTSIZE        = L_FONTSIZE;
+        FONT_WIDTH      = L_FONT_WIDTH;
+        FONT_HEIGHT     = L_FONT_HEIGHT;
+        FONT_J_WIDTH    = L_FONT_J_WIDTH;
+        FONT_J_HEIGHT   = L_FONT_J_HEIGHT;
+        FONT_X_MARGINE  = L_FONT_X_MARGINE;
+        FONT_Y_MARGINE  = L_FONT_Y_MARGINE;
+    }
+    else
+    {
+        FONTSIZE        = L_FONTSIZE;
+        FONT_WIDTH      = L_FONT_WIDTH;
+        FONT_HEIGHT     = L_FONT_HEIGHT;
+        FONT_J_WIDTH    = L_FONT_J_WIDTH;
+        FONT_J_HEIGHT   = L_FONT_J_HEIGHT;
+        FONT_X_MARGINE  = L_FONT_X_MARGINE;
+        FONT_Y_MARGINE  = L_FONT_Y_MARGINE;
+    }
+
+    WINDOW_WIDTH = ( FONT_WIDTH + FONT_X_MARGINE ) * TEXT_WIDTH
+                  + WINDOW_TOP_MARGINE + WINDOW_BOTTOM_MARGINE 
+                  + WINDOW_LEFT_MARGINE + WINDOW_RIGHT_MARGINE ;
+    WINDOW_HEIGHT = ( FONT_HEIGHT + FONT_Y_MARGINE ) * TEXT_HEIGHT
+                  + WINDOW_TOP_MARGINE + WINDOW_BOTTOM_MARGINE 
+                  + WINDOW_LEFT_MARGINE + WINDOW_RIGHT_MARGINE ;
+
+    return;
+
 }
 
 /*--------------------
