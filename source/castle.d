@@ -247,8 +247,15 @@ void inn()
 
         mem = party.mem[ ch - '1' ];
         textout( mem.name ~ "\n" );
-        mem.char_disp;
   
+        if( mem.status >= STS.PARALY )
+        {
+            textout( "\n  ...You must be joking!\n\n" );
+            continue;
+        }
+
+        mem.char_disp;
+
         /+
         setColor( CL.MENU );
         textout( "*** welcome, " );
