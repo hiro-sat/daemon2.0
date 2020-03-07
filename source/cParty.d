@@ -861,11 +861,13 @@ public:
                 else if ( c == 'i' )
                 {
                     monParty.dispMonsterInfo;
+                    setColor( CL.MONSTER );
                     textout( "****** encounter ****** - push any key -" );
                     getChar();
                     textout( "\n" );
                     monParty.disp();
                     textout( "***********************\n" );
+                    setColor( CL.NORMAL );
                     textout( "input action...\n" );
                 }
                 else if ( c == 't'  // take back

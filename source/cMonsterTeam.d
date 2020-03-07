@@ -49,7 +49,7 @@ class MonsterTeam
 
         string check;
         if( name.back == 's' || name.back == 'x' || name.back == 'o' )
-            return name ~ "s";
+            return name ~ "es";
 
         if( name.back == 'h' )
         {
