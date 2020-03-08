@@ -755,7 +755,7 @@ public:
             if ( mem[ i ].consume_spell( 0x28 ) == 0 )
             {
               setIdentify;
-              textout("  awaken...done.\n");
+              textout("  rcgnize...done.\n");
               break;
             }
         }
@@ -799,7 +799,7 @@ public:
             if ( mem[ i ].consume_spell( 0x2e ) == 0 )
             {
               ac = -2;
-              textout( "  mgcshld...done.\n" );
+              textout( "  guard...done.\n" );
               break;
             }
         }
