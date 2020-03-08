@@ -25,7 +25,7 @@ class Party
 {
 
 private:
-    enum BIT_PARTY_STS_SHINE    = 0x08;
+    enum BIT_PARTY_STS_SCOPE    = 0x08;
     enum BIT_PARTY_STS_MAPPER   = 0x10;
     enum BIT_PARTY_STS_LIGHT    = 0x20;
     enum BIT_PARTY_STS_FLOAT    = 0x40;
@@ -94,9 +94,9 @@ public:
                   // bit6:f, litofeit
                   // bit5:l, milwa/lomilwa
                   // bit4:p, mapper
-                  // bit3:s, shine
+                  // bit3:s, scope
     int lightCount;   // milwacnt
-    int shineCount;
+    int scopeCount;
     byte num;
     byte actnum;
     byte ac;
@@ -148,14 +148,14 @@ public:
     bool isMapper()   { return ( ( status & BIT_PARTY_STS_MAPPER   ) != 0 ); }
     bool isFloat()    { return ( ( status & BIT_PARTY_STS_FLOAT    ) != 0 ); }
     bool isLight()    { return ( ( status & BIT_PARTY_STS_LIGHT    ) != 0 ); }
-    bool isShine()    { return ( ( status & BIT_PARTY_STS_SHINE    ) != 0 ); }
+    bool isScope()    { return ( ( status & BIT_PARTY_STS_SCOPE    ) != 0 ); }
     bool isIdentify() { return ( ( status & BIT_PARTY_STS_IDENTIFY ) != 0 ); }
-    void setShine()    { status |= BIT_PARTY_STS_SHINE    ; }
+    void setScope()    { status |= BIT_PARTY_STS_SCOPE    ; }
     void setMapper()   { status |= BIT_PARTY_STS_MAPPER   ; }
     void setFloat()    { status |= BIT_PARTY_STS_FLOAT    ; }
     void setLight()    { status |= BIT_PARTY_STS_LIGHT    ; }
     void setIdentify() { status |= BIT_PARTY_STS_IDENTIFY ; }
-    void resetShine()    { status ^= BIT_PARTY_STS_SHINE    ; }
+    void resetScope()    { status ^= BIT_PARTY_STS_SCOPE    ; }
     void resetMapper()   { status ^= BIT_PARTY_STS_MAPPER   ; }
     void resetFloat()    { status ^= BIT_PARTY_STS_FLOAT    ; }
     void resetLight()    { status ^= BIT_PARTY_STS_LIGHT    ; }
@@ -228,7 +228,7 @@ public:
                 break;
 
             c = to!char( keycode - '1' );
-            if ( ( c < 0 ) || ( c > 6 ) )
+            if ( ( c < 0 ) || ( c >= num ) )
                 break;
 
             if ( mem[ c ] is null )
@@ -324,6 +324,17 @@ public:
         return;
     }
 
+    /*--------------------
+       checkAlive - 全滅判定
+       --------------------*/
+    bool checkAlive()
+    {
+        for ( int i = 0; i < num; i++ )
+            if ( ( mem[ i ].status ) < STS.PARALY )
+                return true;
+
+        return false;
+    }
 
     /*--------------------
        win_disp - パーティウィンドウ表示
@@ -770,14 +781,16 @@ public:
                 break;
             }
         }
-        // birdseye
+        // shine
         if ( ! isLight ){
           for (i = 0; i < num; i++)
             if ( mem[ i ].consume_spell( 0x29 ) == 0 )
             {
-                setLight;
-                lightCount += LIGHT_COUNT;
-              textout("  birdseye...done.\n");
+                party.setLight;
+                party.lightCount += L_LIGHT_COUNT;
+                party.setScope;
+                party.scopeCount += L_SCOPE_COUNT;
+              textout("  shine...done.\n");
               break;
             }
         }

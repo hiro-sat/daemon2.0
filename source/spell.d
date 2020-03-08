@@ -49,22 +49,26 @@ void camp_spell_sub( int mag )
     {
         case MAG_TYPE.MAPPER :
             party.setMapper;
-            party.setLight;
-            party.lightCount += 1;
+            party.setScope;
+            party.scopeCount += 1;
             textout( "done.\n" );
             header_disp( HSTS.CAMP );
             break;
-        case MAG_TYPE.LOMILWA :     // light
+        case MAG_TYPE.MILWA :       // flash
             party.setLight;
-            party.lightCount += LIGHT_COUNT;
+            party.lightCount += S_LIGHT_COUNT;
+            party.setScope;
+            party.scopeCount += S_SCOPE_COUNT;
+            textout( "done.\n" );
+            header_disp( HSTS.CAMP );
+            break;
+        case MAG_TYPE.LOMILWA :     // shine
+            party.setLight;
+            party.lightCount += L_LIGHT_COUNT;
+            party.setScope;
+            party.scopeCount += L_SCOPE_COUNT;
             textout( "done.\n" );
             header_disp(HSTS.CAMP);
-            break;
-        case MAG_TYPE.MILWA :       // shine darkzone
-            party.setShine;
-            party.shineCount = SHINE_COUNT;
-            textout( "done.\n" );
-            header_disp( HSTS.CAMP );
             break;
         case MAG_TYPE.LITO :        // float
             party.setFloat;

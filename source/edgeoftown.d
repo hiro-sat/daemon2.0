@@ -41,6 +41,7 @@ int eoftown()
     while ( true )
     {
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "*** edge of town ***\n" );
         textout( "c)astle q)uit game\n" );
         textout( "t)raining d)ungeon\n" );
@@ -53,8 +54,7 @@ int eoftown()
         switch (ch)
         {
             case 't': /* training */
-                textout( ch );
-                textout( '\n' );
+                textout( "training\n" );
                 training();
                 break;
             case 'q': /* leave game */
@@ -85,8 +85,7 @@ int eoftown()
                 }
                 goto KEYIN;
             case 'r': // restart an out party
-                textout( ch );
-                textout( '\n' );
+                textout( "restart an out party\n" );
                 for ( i = 0; i < 20; i++ )
                     if ( member[ i ].outflag == OUT_F.CASTLE )
                         member[ i ].outflag = OUT_F.BAR ;
@@ -159,8 +158,7 @@ int eoftown()
                 party.win_disp();
                 return 1; // maze
             case 'c': /* castle */
-                textout( ch );
-                textout( '\n' );
+                textout( "castle\n" );
                 return 0;
             default:
                 goto KEYIN;
@@ -226,14 +224,17 @@ private void training()
                 scrwin_clear();
                 break;
             case 'd': // delete
+                textout( "delete a character\n\n" );
                 delete_chr();
                 scrwin_clear();
                 break;
             case 'h': // change class
+                textout( "change a character's class\n\n" );
                 chg_class();
                 scrwin_clear();
                 break;
             case 'i': // inspect
+                textout( "inspect a character\n\n" );
                 inspect_chr();
                 scrwin_clear();
                 break;
@@ -243,10 +244,12 @@ private void training()
                 header_disp( HSTS.EOT );
                 return;
             case 'n': // change name
+                textout( "change a character's name\n\n" );
                 chg_name();
                 scrwin_clear();
                 break;
             case 's': // swap characters
+                textout( "swap a character (reorder)\n\n" );
                 swap_chr();
                 scrwin_clear();
                 break;

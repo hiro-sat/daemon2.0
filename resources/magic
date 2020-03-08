@@ -30,7 +30,7 @@ f	sufcatn	0	3	18	0	0	0	敵1グループレベル8未満全滅
 1e	heal	2	2	4	0	1	7	回復魔法(激弱)
 1f	shild	0	1	17	0	-1	0	パーティーAC-1
 20	curse	0	3	1	0	1	7	敵単体を呪いの言葉で攻撃(激弱)
-21	shine	1	0	28	0	0	0	30歩の間darkzoneで周囲が見える
+21	flash	1	0	28	0	0	0	30歩の間darkzoneで周囲が見える
 22	protct	0	1	9	0	-4	0	自分のAC-4
 
 23	mshild	0	1	17	0	-2	0	パーティーのAC-2
@@ -40,7 +40,7 @@ f	sufcatn	0	3	18	0	0	0	敵1グループレベル8未満全滅
 
 27	cure	2	2	12	0	0	0	paralized, sleep, afraid回復
 28	rcgnize	1	1	25	0	0	0	敵の正体を識別する(永続)
-29	birdseye	1	0	29	0	0	0	darkzoneで周囲が見える(999歩)
+29	shine	1	0	29	0	0	0	darkzoneで周囲が見える(999歩)
 2a	exshild	0	1	17	0	-4	0	パーティーのAC-4
 
 2b	mheal	2	2	4	0	2	14	回復魔法(弱)

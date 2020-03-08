@@ -87,6 +87,7 @@ bool castle_main()
     while( true )
     {
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "******** castle ********\n" );
         textout( "g)inger's forest bar\n" );
         textout( "s)helton yankee flipper\n" );
@@ -105,24 +106,34 @@ bool castle_main()
             if (keycode=='g' || keycode=='s' || keycode=='t' || keycode=='a' 
               || keycode=='e') break;
         }
-        textout( to!string( keycode ) ~ "\n" );
+        /* textout( to!string( keycode ) ~ "\n" ); */
 
         switch( keycode )
         {
             case 's': // shelton hotel
                 if ( party.num == 0 )
                     continue;
+                textout( "shelton hotel\n" );
                 inn();
                 break;
             case 'a': // albertsan's
                 if ( party.num == 0 )
                     continue;
+                textout( "albertsan's mart\n" );
                 boltac();
                 break;
             case 'g': // ginger's bar
+                textout( "ginger's forest bar\n" );
                 gilgamesh();
                 break;
+            case 't': /* temple of dice */ 
+                if ( party.num == 0 )
+                    continue;
+                textout( "temple of dice\n" );
+                temple();
+                break;
             case 'e': /* edge of town */ 
+                textout( "edge of tonw\n" );
                 rtncode = eoftown();
                 if ( rtncode==1 )
                 {
@@ -134,11 +145,6 @@ bool castle_main()
                 }
                 header_disp( HSTS.CASTLE );
                 party.win_disp();
-                break;
-            case 't': /* temple of dice */ 
-                if ( party.num == 0 )
-                    continue;
-                temple();
                 break;
             default:
                 continue;
@@ -162,6 +168,7 @@ void seeMonsterMarks()
     char c;
 
     setColor( CL.MENU );
+    textout( "\n" );
     textout( "****** monster marks! ******\n" );
     textout( "n)ext(6) z)leave(9)\n" );
     setColor( CL.NORMAL );
@@ -229,6 +236,7 @@ void inn()
     while ( true )
     {
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "****** shelton yankee flipper hotel ******\n" );
         setColor( CL.NORMAL );
         textout( "who will stay(z:leave(9))? " );
@@ -358,6 +366,7 @@ void inn()
         mem.char_disp;
         getChar;
     }
+    textout( "\n" );
     header_disp( HSTS.CASTLE );
 
     return;
@@ -417,6 +426,7 @@ void gilgamesh()
     void dispGilgameshMenu()
     {
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "*** ginger's forest bar ***\n" );
         textout( "a)dd  r)emove  n)inspect\n" );
         textout( "d)ivvy gold  z)leave(9)\n" );
@@ -424,7 +434,8 @@ void gilgamesh()
         textout( "s)ee monster marks\n" );
         textout( "***************************\n" );
         setColor( CL.NORMAL );
-        textout( "option? \n" );
+        /* textout( "option? \n" ); */
+        textout( "option? " );
         return;
     }
     //////////////////// 
@@ -450,12 +461,14 @@ void gilgamesh()
         switch( keycode )
         {
             case 's':   // see monster marks 
+                textout( "see monster marks\n" );
                 seeMonsterMarks;
                 scrwin_clear();
                 dispGilgameshMenu;
                 break;
 
             case 'e':   // equip
+                textout( "equip\n" );
                 if( party.num < 1 )
                     break;
                 party.equip;
@@ -466,6 +479,7 @@ void gilgamesh()
             case 'n':   // n) inspect
                 if( party.num < 1 )
                     break;
+                textout( "inspect\n" );
                 party.inspect();
                 scrwin_clear();
                 dispGilgameshMenu;
@@ -474,12 +488,14 @@ void gilgamesh()
             case 'd':   // divvy
                 if( party.num < 1 )
                     break;
+                textout( "divvy gold\n" );
                 party.divvy;
                 party.mem[ current ].char_disp;
                 break;
 
             case 'z': 
             case '9':   // z)leave(9)
+                textout( "leave\n" );
                 for( i = 0 ; i < 6 ; i++ )
                     party.memsv[ i ] = party.mem[ i ];
                 header_disp( HSTS.CASTLE );
@@ -488,6 +504,7 @@ void gilgamesh()
             case 'a': /* add */
                 if( party.num == 6 )
                     break;
+                textout( "add\n" );
                 party.add();
                 scrwin_clear();
                 dispGilgameshMenu;
@@ -496,6 +513,7 @@ void gilgamesh()
             case 'r': /* remove */
                 if( party.num < 1 )
                     break;
+                textout( "remove\n" );
                 party.remove();
                 scrwin_clear();
                 dispGilgameshMenu;
@@ -525,6 +543,7 @@ void boltac()
     {
         scrwin_clear();
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "****** albertsan's mart ******\n" );
         textout( "b)uy s)ell u)ncurse i)dentify\n" );
         textout( "p)ool gold z)leave(9)\n" );
@@ -538,11 +557,11 @@ void boltac()
             if ( c == 'b' || c == 's' || c == 'u' || c == 'i' || c == 'p' || c == 'z' || c == '9' )
                 break;
         }
-        textout( to!string( c ) ~ "\n" );
 
         switch ( c )
         {
             case 'p': /* pool gold */
+                textout( "pool gold\n" );
                 textout( "pool gold to whom(z:leave(9))? " );
                 while ( true )
                 {
@@ -559,20 +578,26 @@ void boltac()
                 break;
             case 'z': /* leave */
             case '9': /* leave */
+                textout( "leave\n" );
                 header_disp( HSTS.CASTLE );
                 return;
             case 'b': /* buy */
+                textout( "buy\n" );
+                header_disp( HSTS.CASTLE );
                 boltac_buy();
                 break;
             case 's': /* sell */
+                textout( "sell\n" );
                 boltac_sell();
                 break;
             case 'u': // uncurse
+                textout( "uncurse\n" );
                 uncurse();
                 party.calcAtkAC;
                 party.win_disp();
                 break;
             case 'i': // identify
+                textout( "identify\n" );
                 boltac_identify();
                 break;
             default:
@@ -599,6 +624,7 @@ void boltac_buy()
     void dispBoltacBuyMenu()
     {
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "********* buy *********\n" );
         textout( "p)urchase z)leave(9)\n" );
         textout( "n)ext page(6)\n" );
@@ -629,8 +655,7 @@ void boltac_buy()
         {
             case 'z':
             case '9':
-                textout( c );
-                textout( '\n' );
+                textout( "leave\n" );
                 scrwin_clear();
                 return;
             case 'w':
@@ -667,7 +692,7 @@ void boltac_buy()
                 top = last + 1;
                 break;
             case 'p':
-                textout( "p\n" );
+                textout( "purchase\n" );
                 while ( true )
                 {
                     textout( "purchase(a,b,...,z:quit(9))? " );
@@ -1312,6 +1337,7 @@ void temple()
     {
 
         setColor( CL.MENU );
+        textout( "\n" );
         textout( "*** temple of dice, we have: ***\n" );
         setColor( CL.NORMAL );
 

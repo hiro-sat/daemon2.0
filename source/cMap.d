@@ -51,6 +51,7 @@ private:
             case ' ':
             case '<':
             case '>':
+            case '#':
                 return true;
             case '-':
             case '|':
@@ -59,7 +60,7 @@ private:
             case '^':
                 return false;
             case '$':
-                return party.isShine ;
+                return party.isLight ;
             default:
                 return false;
         }
@@ -86,7 +87,7 @@ private:
             case '^':
                 return false;
             case '$':
-                return party.isShine ;
+                return party.isLight ;
             default:
                 if( orgmap[ y ][ x ] >= 'a' && orgmap[ y ][ x ] <= 'z' )
                     return true;
@@ -712,7 +713,7 @@ public:
             xmax = party.x + viewarea;
       
 
-        // set map data
+        // set map data ( orgmap -> map )
         for ( y = party.y - viewarea; y <= ymax; y++ )
         {
             if (y < 0)
@@ -734,8 +735,7 @@ public:
                         if ( orgmap[ y ][ x - 1 ] == ' ' 
                           || orgmap[ y ][ x + 1 ] == ' ' )
                             c = '|';
-                        else
-                            c = '-';
+                        else c = '-';
                     }
                     map[ y ][ x ] = c;
                 }
@@ -752,9 +752,7 @@ public:
                 if ( party.x - SCRW_X_SIZ / 2 + x + 1 < 0 
                   || party.x - SCRW_X_SIZ / 2 + x + 1 >= MAP_MAX_X
                   || party.y - SCRW_Y_SIZ / 2 + y < 0 
-                  || party.y - SCRW_Y_SIZ / 2 + y >= MAP_MAX_Y 
-                  || ( orgmap[ party.y ][ party.x ] == '$' 
-                      && !party.isLight && !party.isShine ) ) 
+                  || party.y - SCRW_Y_SIZ / 2 + y >= MAP_MAX_Y )
                 {
                     vram[ x ][ y ] = '^';
                     continue;
@@ -763,34 +761,34 @@ public:
                 {
 
                     if( orgmap[ party.y ][ party.x ] == '$' )  
-                    {
-                        if( party.isLight && !party.isShine )
-                        {   // 3 x 3
-                            _x = ( party.x - ( SCRW_X_SIZ / 2 ) + x + 1 );
-                            _y = ( party.y - ( SCRW_Y_SIZ / 2 ) + y );
-                            if( ( abs( party.x - _x ) > 1 ) 
-                             || ( abs( party.y - _y ) > 1 ) )
-                            {
-                                vram[ x ][ y ] = '^';
-                                continue;
-                            }
+                    { 
+                        if( ! party.isLight && ! party.isScope  )
+                        {
+                            vram[ x ][ y ] = '^';
+                            continue;
                         }
+                        
+                        /* if( party.isLight && ! party.isScope ) */
+                        /* {   // 3 x 3 */
+                        /*     _x = ( party.x - ( SCRW_X_SIZ / 2 ) + x + 1 ); */
+                        /*     _y = ( party.y - ( SCRW_Y_SIZ / 2 ) + y ); */
+                        /*     if( ( abs( party.x - _x ) > 1 )  */
+                        /*      || ( abs( party.y - _y ) > 1 ) ) */
+                        /*     { */
+                        /*         vram[ x ][ y ] = '^'; */
+                        /*         continue; */
+                        /*     } */
+                        /* } */
                     }
 
                     c = map[ party.y - ( SCRW_Y_SIZ / 2 ) + y ]
                            [ party.x - ( SCRW_X_SIZ / 2 ) + x + 1 ];
 
-                    if (c == '#' && ! debugmode )
-                        c = ' ';
-
                     if (c == '_' && ! debugmode )  // pit
                         c = ' ';
 
-                    /* if (c == '*' && ! debugmode )  // secret door */
-                    /*     c = ' '; */
-
                     if ( ( c >= 'a' && c <= 'z' ) && ! debugmode )
-                        c = ' ';
+                        c = '#';
 
                     vram[ x ][ y ] = c;
 
@@ -815,7 +813,7 @@ public:
                 // 可視チェック
                 if( ! checkViewVram( px , py , x , y ) )
                 {
-                    if( party.isLight )
+                    if( party.isScope )
                     {
                         vramCl[ x ][ y ] = MAP_CL.NUL;
                         continue;
@@ -836,8 +834,11 @@ public:
                         vramCl[ x ][ y ] = MAP_CL.DARKZONE;
                     else if( vram[ x ][ y ] == '>' || vram[ x ][ y ] == '<' )
                         vramCl[ x ][ y ] = MAP_CL.STAIRS;
+                    else if( vram[ x ][ y ] == '#' )
+                        vramCl[ x ][ y ] = MAP_CL.NUL;
                     else
                         vramCl[ x ][ y ] = MAP_CL.LIGHT;
+
                     continue;
                 }
 
@@ -860,6 +861,9 @@ public:
                     case '>':
                     case '<':
                         vramCl[ x ][ y ] = MAP_CL.STAIRS;
+                        break;
+                    case '#':
+                        vramCl[ x ][ y ] = MAP_CL.NUL;
                         break;
                     default:
                         vramCl[ x ][ y ] = CL.NORMAL;

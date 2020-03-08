@@ -190,14 +190,14 @@ bool dungeon_main()
             case 'H':
                 if ( debugmode && party.layer > 0 )
                 {
-                    if( ! party.isShine )
+                    if( ! party.isScope )
                     {
-                        party.setShine;
-                        party.shineCount = 999;
+                        party.setScope;
+                        party.scopeCount = 999;
                     }
                     else
                     {
-                        party.resetShine;
+                        party.resetScope;
                     }
                     header_disp( HSTS.DUNGEON );
                     party.dungeon.disp;
@@ -473,10 +473,10 @@ void step_proc()
         header_disp( HSTS.DUNGEON , false);
     }
 
-    if ( party.isShine&& --party.shineCount < 0 )
+    if ( party.isScope && --party.scopeCount < 0 )
     {
-        party.shineCount = 0;
-        party.resetShine;
+        party.scopeCount = 0;
+        party.resetScope;
         header_disp( HSTS.DUNGEON , false);
     }
 
@@ -928,8 +928,10 @@ FAIL:
                 case BATTLE_RESULT.LOST :
                     goto EXIT;
                 default:
-                    assert( 0 );
+                    break;      
+                    /* assert( 0 ); */  // friendly group -> error!
             }
+            break;
         default:
             assert( 0 );
     }

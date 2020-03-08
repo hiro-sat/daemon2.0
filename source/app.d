@@ -780,21 +780,23 @@ void header_disp( HSTS sts , bool rewrite = true )
         else
             printw(" ");
 
-        if ( party.isShine )
-            printw("s"); // shine
-        else
-            printw(" ");
-
         if ( party.isIdentify )
             printw("i"); // identify
         else
             printw(" ");
         
         if ( party.ac < 0 )
-            printw("p ");
+            printw("p");
         else
-            printw("  ");
+            printw(" ");
+
+        if ( party.isScope )
+            printw("s"); // scope
+        else
+            printw(" ");
+
     }
+
 
     switch( sts )
     {

@@ -150,8 +150,10 @@ enum MAXMEMBER  = 20;
 enum MAXCARRY   = 8;
 enum AC_UP_SLEEP  = 5; // AC up when sleep, paralized, ...
 enum AC_UP_PARRY  = 2; // AC up when player parry
-enum LIGHT_COUNT  = 999;
-enum SHINE_COUNT  = 200;
+enum S_LIGHT_COUNT  = 100;
+enum L_LIGHT_COUNT  = 999;
+enum S_SCOPE_COUNT  = 1;
+enum L_SCOPE_COUNT  = 20;
 //----------------------------------------
 // マップ情報
 //----------------------------------------

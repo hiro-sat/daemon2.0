@@ -202,12 +202,8 @@ BATTLE_RESULT battle_main()
         if ( monParty.num == 0 )
           break;
 
-        for ( i = 0; i < party.num; i++ )
-            if ( ( party.mem[ i ].status ) < STS.PARALY )
-                break;
-
         // check loose
-        if ( i == party.num )
+        if( ! party.checkAlive ) 
         {
             party.win_disp();
             party.num = 0;
@@ -219,6 +215,7 @@ BATTLE_RESULT battle_main()
                 if ( c == ' ' || c == '5' )
                     break;
             }
+            rtncode = BATTLE_RESULT.LOST;
             goto BATTLE_LOOP_EXIT;
         }
 
