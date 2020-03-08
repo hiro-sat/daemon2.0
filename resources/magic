@@ -1,67 +1,67 @@
-1	sleep	0	3	15	0	0	0
-2	fire	0	3	1	1	1	7
-3	mapper	1	0	27	0	0	0
-4	harden	0	1	9	0	-2	0
+1	sleep	0	3	15	0	0	0	敵を1グループ眠らせる
+2	fire	0	3	1	1	1	7	敵一体に小火炎のダメージ
+3	mapper	1	0	27	0	0	0	座標表示(永続)
+4	harden	0	1	9	0	-2	0	自分のAC-2
 
-5	flames	0	3	2	1	1	7
-6	soften	0	3	7	0	2	0
-7	transp	0	1	9	0	-4	0
+5	flames	0	3	2	1	1	7	敵1グループに小火炎ダメージ
+6	soften	0	3	7	0	2	0	敵1グループのAC+2
+7	transp	0	1	9	0	-4	0	自分のAC-4
 
-8	xflames	0	3	2	1	4	20
-9	spark	0	3	2	3	3	15
+8	mflames	0	3	2	1	4	20	敵1グループに火炎ダメージ
+9	spark	0	3	2	3	3	15	敵1グループに火花の雨
 
-a	fear	0	3	7	0	4	0
-b	floatn	1	0	24	0	0	0
-c	icebol	0	3	2	2	6	30
-d	firstm	0	3	2	1	6	30
+a	fear	0	3	7	0	4	0	敵1グループのAC+4
+b	floatn	1	0	24	0	0	0	パーティーを浮遊させる(永続)
+c	icestm	0	3	2	2	6	30	敵1グループに冷気ダメージ
+d	firstm	0	3	2	1	6	30	敵1グループに強火炎ダメージ
 
-e	panic	0	1	8	0	4	0
-f	sufcatn	0	3	18	0	0	0
-10	snowstm	0	3	2	2	8	56
+e	panic	0	1	8	0	4	0	全敵のAC+4
+f	sufcatn	0	3	18	0	0	0	敵1グループレベル8未満全滅
+10	blizard	0	3	2	2	8	56	敵1グループに強冷気ダメージ
 
-11	mirage	0	1	17	0	-4	0
-12	prifict	0	3	1	4	10	1990
-13	vacuity	0	1	19	0	0	0
+11	mirage	0	1	17	0	-4	0	パーティーAC-4
+12	burial	0	3	1	4	10	1990	undead1体に強烈ダメージ
+13	vacuity	0	1	19	0	0	0	全敵レベル8未満全滅
 
-14	rinkai	0	3	1	0	50	250
-15	telept	1	1	30	0	0	0
-16	ncfusyn	0	1	3	0	10	140
+14	rinkai	0	3	1	0	50	250	最強の単体攻撃魔法
+15	telept	1	1	30	0	0	0	座標指定のテレポート。戦闘中に使うと<ランダムにジャンプする
+16	ncfusyn	0	1	3	0	10	140	全敵に核融合ダメージ
 
-1e	heal	2	2	4	0	1	7
-1f	prot	0	1	17	0	-1	0
-20	incant	0	3	1	0	1	7
-21	shine	1	0	28	0	0	0
-22	shild	0	1	9	0	-4	0
+1e	heal	2	2	4	0	1	7	回復魔法(激弱)
+1f	shild	0	1	17	0	-1	0	パーティーAC-1
+20	curse	0	3	1	0	1	7	敵単体を呪いの言葉で攻撃(激弱)
+21	shine	1	0	28	0	0	0	30歩の間darkzoneで周囲が見える
+22	protct	0	1	9	0	-4	0	自分のAC-4
 
-23	protct	0	1	17	0	-2	0
-24	inspct	0	0	0	0	0	0
-25	bind	0	3	16	0	0	0
-26	silenc	0	3	26	0	0	0
+23	mshild	0	1	17	0	-2	0	パーティーのAC-2
+24	inspct	0	0	0	0	0	0	宝箱の罠を95%の確率で判別。最高レベルの盗賊に匹敵。
+25	bind	0	3	16	0	0	0	敵1グループを金縛りにする
+26	silenc	0	3	26	0	0	0	敵1グループを沈黙させる
 
-27	cure	2	2	12	0	0	0
-28	awaken	1	1	25	0	0	0
-29	birdseye	1	0	29	0	0	0
-2a	guard	0	1	17	0	-4	0
+27	cure	2	2	12	0	0	0	paralized, sleep, afraid回復
+28	rcgnize	1	1	25	0	0	0	敵の正体を識別する(永続)
+29	birdseye	1	0	29	0	0	0	darkzoneで周囲が見える(999歩)
+2a	exshild	0	1	17	0	-4	0	パーティーのAC-4
 
-2b	healin	2	2	4	0	2	14
-2c	cuttin	0	3	1	0	2	14
-2d	detxify	2	2	11	0	0	0
-2e	mgcshld	1	1	14	0	0	0
+2b	mheal	2	2	4	0	2	14	回復魔法(弱)
+2c	mcurse	0	3	1	0	2	14	敵単体を呪いの言葉で攻撃(弱)
+2d	detxify	2	2	11	0	0	0	解毒
+2e	guard	1	1	14	0	0	0	パーティーのAC-2(永続)
 
-2f	exheal	2	2	4	0	3	21
-30	slashn	0	3	1	0	3	21
-31	clenfir	0	3	2	0	3	21
-32	breathe	2	2	20	0	0	0
-33	nokessn	0	3	22	0	0	0
+2f	exheal	2	2	4	0	3	21	回復魔法(中)
+30	xcurse	0	3	1	0	3	21	敵単体を呪いの言葉で攻撃(中)
+31	holyfla	0	3	2	0	3	21	敵1グループを炎の塔で攻撃
+32	breathe	2	2	20	0	0	0	HP=1で蘇生(確率低)
+33	nokessn	0	3	22	0	0	0	敵単体を脳血栓で死に至らしめる
 
-34	bless	2	2	13	0	0	0
-35	dyng	0	3	23	0	0	0
-36	ndlstm	0	3	2	0	6	30
-37	return	1	1	31	0	0	0
+34	bless	2	2	13	0	0	0	最高の回復魔法。dead,ashed,lost以外のステータスも回復
+35	dyng	0	3	23	0	0	0	敵単体を瀕死にさせる
+36	ndlstm	0	3	2	0	6	30	敵1グループをかまいたちで攻撃
+37	return	1	1	31	0	0	0	(なんと!)ペナルティー無しで城に戻る
 
-38	scourge	0	1	3	0	12	60
-39	Bless	2	2	21	0	0	0
-3a	healall	1	1	10	0	6	14
+38	scourge	0	1	3	0	12	60	僧侶版のxyamoet(tiltowait)
+39	Bless	2	2	21	0	0	0	死や灰からも蘇生(HP全回復)
+3a	healall	1	1	10	0	6	14	グループ回復魔法(弱)
 ffff
 
 camp	battle	type	attr	min	add
