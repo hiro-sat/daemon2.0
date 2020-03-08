@@ -169,8 +169,8 @@ enum MAP_CL
     PARTY    = 2,
     DARKZONE = 1,
     NUL      = 15,
-    WALL     = 7,
-    WALL2    = 3,
+    WALL     = 3,
+    WALL2    = 7,
     DOOR     = 2,
     STAIRS   = 5,
     LIGHT    = 6

@@ -286,10 +286,104 @@ class EventL1 : Event
                 getChar();
                 textout( "「ここまで来たか。\n　おまえらなかなかやるな S.」\n" );
                 break;
-            case 'p':
+            case 'o':
                 textout( "どこか遠くの部屋でガタガタと物音が聞こえてくる。 \n" );
                 getChar();
                 break;
+
+
+            case 'p':
+                textout( "この部屋は異様な妖気で満たされている。\n" );
+                break;
+            case '3':
+                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                getChar();
+
+                party.layer=3;
+                party.setDungeon;
+                party.x = 37;
+                party.y = 17;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 'q':
+                textout( "この部屋は異様な妖気で満たされている。\n" );
+                break;
+            case '4':
+                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                getChar();
+                party.layer=4;
+                party.setDungeon;
+                party.x =  4;
+                party.y = 16;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 'r':
+                textout( "この部屋は異様な妖気で満たされている。\n" );
+                break;
+            case '5':
+                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                getChar();
+                party.layer=5;
+                party.setDungeon;
+                party.x = 28;
+                party.y =  4;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 's':
+                textout( "この部屋は異様な妖気で満たされている。\n" );
+                break;
+            case '6':
+                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                getChar();
+                party.layer=6;
+                party.setDungeon;
+                party.x = 37;
+                party.y = 24;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 't':
+                textout( "この部屋は異様な妖気で満たされている。\n" );
+                break;
+            case '7':
+                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                getChar();
+                party.layer=7;
+                party.setDungeon;
+                party.x =  1;
+                party.y =  2;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+            case 'u':
+                textout( "この部屋は異様な妖気で満たされている。\n" );
+                break;
+            case '8':
+                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                getChar();
+                party.layer=8;
+                party.setDungeon;
+                party.x =  1;
+                party.y =  2;
+                party.dungeon.initDisp;
+                party.dungeon.disp;
+                header_disp( HSTS.DUNGEON );
+                rtncode = 1;
+                break;
+
             default:
                 break;
         }

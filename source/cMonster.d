@@ -895,7 +895,8 @@ class Monster
                     damage = 0;
                     break;
                 default:
-                    assert( 0 );
+                    break;
+                    /* assert( 0 ); */
             }
 
             textout( "   " );

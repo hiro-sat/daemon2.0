@@ -91,6 +91,8 @@ private:
             default:
                 if( orgmap[ y ][ x ] >= 'a' && orgmap[ y ][ x ] <= 'z' )
                     return true;
+                else if( orgmap[ y ][ x ] >= '0' && orgmap[ y ][ x ] <= '9' )
+                    return true;
                 else
                     return false;
         }
@@ -452,7 +454,8 @@ public:
     {
         char c = map[ y ][ x ];
 
-        if( c >= 'a' && c <= 'z' )
+        if( ( c >= 'a' && c <= 'z' )
+         || ( c >= '0' && c <= '9' ) )
             return true;
 
         if ( c == '<' 
@@ -788,6 +791,8 @@ public:
                         c = ' ';
 
                     if ( ( c >= 'a' && c <= 'z' ) && ! debugmode )
+                        c = '#';
+                    if ( ( c >= '0' && c <= '9' ) && ! debugmode )
                         c = '#';
 
                     vram[ x ][ y ] = c;
