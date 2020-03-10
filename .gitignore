@@ -2,3 +2,4 @@
 /data
 /.dub
 /dub.selections.json
+/source/*.swp

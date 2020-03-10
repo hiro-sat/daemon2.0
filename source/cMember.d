@@ -2104,11 +2104,11 @@ public:
                 pspl_max[ i ] = 9; 
             pspl_pt[ i ] = pspl_max[ i ];
         }
-        pspl_know[ 0 ] &= 0xf0;
+        pspl_know[ 0 ] &= 0xf8;
         pspl_know[ 1 ] &= 0xf0;
         pspl_know[ 2 ] &= 0xf0;
         pspl_know[ 3 ] &= 0xf0;
-        pspl_know[ 4 ] &= 0xf0;
+        pspl_know[ 4 ] &= 0xf8;
         pspl_know[ 5 ] &= 0xf0;
         pspl_know[ 6 ] &= 0xe0;
         for ( i = 0; i < 7; i++ )
