@@ -858,6 +858,7 @@ public:
                     textout( "f/4:fight, p/5:parry, s/6:spell,\n" );
                     textout( "r/7:run, u/8:use, t/9:take back, \n" );
                     textout( "d/0:dispell, i:monster info\n" );
+                    textout( "b/:read spells Book\n" );
                     textout( "------ short cut ------\n" );
                     textout( "j/1:fight1, h/2:fight2, n/3:fight3\n" );
                     textout( "k:parry, l:take back, ;:run\n" );
@@ -881,6 +882,17 @@ public:
                     monParty.disp();
                     textout( "***********************\n" );
                     setColor( CL.NORMAL );
+                    textout( "input action...\n" );
+                }
+                else if( c == 'b' )
+                {
+                    textout("  " ~ pl.name ~ " read mage spells\n");
+                    pl.disp_mspell;
+                    getChar();
+                    textout("  " ~ pl.name ~ " read priest spells\n");
+                    pl.disp_pspell;
+                    getChar();
+                    dungeon.disp();
                     textout( "input action...\n" );
                 }
                 else if ( c == 't'  // take back

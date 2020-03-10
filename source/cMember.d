@@ -1351,39 +1351,73 @@ public:
     void disp_mspell()
     {
         int i;
-        scrwin_clear();
 
-        setColor( CL.KIND );
-        mvprintw( SCRW_Y_TOP + 1 , SCRW_X_TOP, "[ mage spell ]" );
-        setColor( CL.NORMAL );
+        scrwin_clear();
+        rewriteOff;
 
         for ( i = 0; i < 4; i++ )
             if ( ( mspl_know[ 0 ] & ( 0x80 >> i ) ) != 0 )
-                mvprintw( SCRW_Y_TOP + 2 + i, SCRW_X_TOP,  magic_data[ i + 1 ].name );
+                mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP,  magic_data[ i + 1 ].name );
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 1 ] & ( 0x80 >> i )) != 0)
-                mvprintw( SCRW_Y_TOP + 2 + i, SCRW_X_TOP + 10,  magic_data[ i + 5 ].name );
+                mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 5 ].name );
         
         for ( i = 0; i < 2; i++ )
             if ((mspl_know[ 2 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 2 + i, SCRW_X_TOP + 20,  magic_data[ i + 8 ].name );
+                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 8 ].name );
 
         for ( i = 0; i < 4; i++ )
             if ((mspl_know[ 3 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 7 + i, SCRW_X_TOP,  magic_data[ i + 10 ].name );
+                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 10 ].name );
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 4 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 7 + i, SCRW_X_TOP + 10,  magic_data[ i + 14 ].name );
+                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 14 ].name );
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 5 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 7 + i, SCRW_X_TOP + 20,  magic_data[ i + 17 ].name );
+                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 17 ].name );
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 6 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 12 + i, SCRW_X_TOP,  magic_data[ i + 20 ].name );
+                mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 20 ].name );
+
+        setColor( CL.KIND );
+        mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP + 10 , "[ mage spell ]" );
+        setColor( CL.NORMAL );
+
+        mvprintw( SCRW_Y_TOP + 12 , SCRW_X_TOP + 10 , "pnt:" );
+        intDispD( mspl_pt[ 0 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_pt[ 1 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_pt[ 2 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_pt[ 3 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_pt[ 4 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_pt[ 5 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_pt[ 6 ] , 1 );
+
+        mvprintw( SCRW_Y_TOP + 13 , SCRW_X_TOP + 10 , "max:" );
+        intDispD( mspl_max[ 0 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_max[ 1 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_max[ 2 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_max[ 3 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_max[ 4 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_max[ 5 ] , 1 );
+        printw( "/" );
+        intDispD( mspl_max[ 6 ] , 1 );
+
+        rewriteOn;
 
         return;
 
@@ -1395,39 +1429,73 @@ public:
     void disp_pspell()
     {
         int i;
-        scrwin_clear();
 
-        setColor( CL.KIND );
-        mvprintw( SCRW_Y_TOP + 1 , SCRW_X_TOP, "[ priest spell ]" );
-        setColor( CL.NORMAL );
+        scrwin_clear();
+        rewriteOff;
 
         for ( i = 0; i < 5; i++ )
             if ((pspl_know[ 0 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 2 + i, SCRW_X_TOP,  magic_data[ i + 30 ].name);
+                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP,  magic_data[ i + 30 ].name);
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 1 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 2 + i, SCRW_X_TOP + 10,  magic_data[ i + 35 ].name);
+                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 35 ].name);
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 2 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 2 + i, SCRW_X_TOP + 20,  magic_data[ i + 39 ].name);
+                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 39 ].name);
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 3 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 7 + i, SCRW_X_TOP,  magic_data[ i + 43 ].name);
+                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 43 ].name);
 
         for ( i = 0; i < 5; i++ )
             if ((pspl_know[ 4 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 7 + i, SCRW_X_TOP + 10,  magic_data[ i + 47 ].name);
+                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 47 ].name);
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 5 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 7 + i, SCRW_X_TOP + 20,  magic_data[ i + 52 ].name);
+                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 52 ].name);
 
         for ( i = 0; i < 3; i++ )
             if ((pspl_know[ 6 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 12 + i, SCRW_X_TOP,  magic_data[ i + 56 ].name);
+                mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 56 ].name);
+        
+        setColor( CL.KIND );
+        mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP + 10 , "[ priest spell ]" );
+        setColor( CL.NORMAL );
+
+        mvprintw( SCRW_Y_TOP + 12 , SCRW_X_TOP + 10 , "pnt:" );
+        intDispD( pspl_pt[ 0 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_pt[ 1 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_pt[ 2 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_pt[ 3 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_pt[ 4 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_pt[ 5 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_pt[ 6 ] , 1 );
+
+        mvprintw( SCRW_Y_TOP + 13 , SCRW_X_TOP + 10 , "max:" );
+        intDispD( pspl_max[ 0 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_max[ 1 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_max[ 2 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_max[ 3 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_max[ 4 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_max[ 5 ] , 1 );
+        printw( "/" );
+        intDispD( pspl_max[ 6 ] , 1 );
+
+        rewriteOn;
         
         return;
     }
@@ -2104,11 +2172,11 @@ public:
                 pspl_max[ i ] = 9; 
             pspl_pt[ i ] = pspl_max[ i ];
         }
-        pspl_know[ 0 ] &= 0xf0;
+        pspl_know[ 0 ] &= 0xf8;
         pspl_know[ 1 ] &= 0xf0;
         pspl_know[ 2 ] &= 0xf0;
         pspl_know[ 3 ] &= 0xf0;
-        pspl_know[ 4 ] &= 0xf0;
+        pspl_know[ 4 ] &= 0xf8;
         pspl_know[ 5 ] &= 0xf0;
         pspl_know[ 6 ] &= 0xe0;
         for ( i = 0; i < 7; i++ )
