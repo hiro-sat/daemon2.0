@@ -37,6 +37,7 @@ abstract class Event
     }
 
     // (super) override  event_chk
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     int event_chk( char m ) 
     {
         switch( m )
@@ -45,12 +46,15 @@ abstract class Event
                 return downStairs;
             case '<':
                 return upStairs;
+            case '_':
+                return pit;
             default:
                 break;
         }
         return 0;        
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     int upStairs()
     {
         textout( "\n*** up stairs ***\n" );
@@ -77,6 +81,7 @@ abstract class Event
         return 1;
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     int downStairs()
     {
         textout( "\n*** down stairs ***\n" );
@@ -93,6 +98,60 @@ abstract class Event
         }
         return 1;
     }
+
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+    int pit()
+    {
+
+        int i;
+        char c;
+
+        // pit! but floating.
+        if ( party.isFloat )
+        {
+            textout( "a pit, but floating.\n" );
+            return 0;
+        }
+
+        // pit!
+        textout( "\n*** a pit! ***\n\n" );
+        for ( i = 0; i < party.num; i++ )
+        {
+            if ( party.mem[ i ].status < STS.DEAD )
+            {
+                party.mem[ i ].hp -= get_rand( party.layer * 4 );
+                if ( party.mem[ i ].hp <= 0 )
+                {
+                    party.mem[ i ].hp = 0;
+                    party.mem[ i ].status = STS.DEAD;
+                }
+            }
+        }
+        party.win_disp();
+        
+
+        if( party.checkAlive )
+            return 0;
+
+         //全滅!
+        for ( i = 0; i < party.num; i++ )
+            if ( party.mem[ i ].status < STS.DEAD )
+                party.mem[ i ].status = STS.DEAD;
+
+        party.num = 0;
+        party.layer = 0;
+        textout( "\n*** your party is lost...\n<push space bar(5)>\n" );
+
+        while ( true )
+        {
+            c = getChar();
+            if ( c == ' ' || c == '5' )
+                break;
+        }
+
+        return 2;
+    }
+
 
     /*====== encount =================================================*/
     /* tre=0 : gold */
@@ -185,6 +244,7 @@ class EventL1 : Event
             return get_rand( 5 );
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;
@@ -402,6 +462,7 @@ class EventL2 : Event
         return 6 + get_rand(8);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
 
@@ -512,6 +573,7 @@ class EventL3 : Event
         return 15 + get_rand(14);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;
@@ -613,6 +675,7 @@ class EventL4 : Event
         return 20 + get_rand(19);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;
@@ -691,6 +754,7 @@ class EventL5 : Event
         return 30 + get_rand(24);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;
@@ -746,6 +810,7 @@ class EventL6 : Event
         return 40 + get_rand(39);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;
@@ -838,6 +903,7 @@ class EventL7 : Event
         return 55 + get_rand(34);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;
@@ -918,6 +984,7 @@ class EventL8 : Event
             return 70 + get_rand(37);
     }
 
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
     {
         int rtncode = 0;

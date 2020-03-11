@@ -342,56 +342,6 @@ bool dungeon_main()
 
                 /* header_disp( HSTS.DUNGEON ); */
 
-                if ( party.dungeon.isPit() )
-                { // pit!
-                    if ( !party.isFloat )
-                    {
-                        textout( "\n*** a pit! ***\n\n" );
-                        for ( i = 0; i < party.num; i++ )
-                        {
-                            if ( party.mem[ i ].status < STS.DEAD )
-                            {
-                                party.mem[ i ].hp -= get_rand( party.layer * 4 );
-                                if ( party.mem[ i ].hp <= 0 )
-                                {
-                                    party.mem[ i ].hp = 0;
-                                    party.mem[ i ].status = STS.DEAD;
-                                }
-                            }
-                        }
-                        party.win_disp();
-                        
-                        for ( i = 0; i < party.num; i++ )
-                          if ( party.mem[ i ].status < STS.PARALY )
-                              break;
-
-                        if ( i == party.num )
-                        { //全滅!
-
-                            for ( i = 0; i < party.num; i++ )
-                                if ( party.mem[ i ].status < STS.DEAD )
-                                    party.mem[ i ].status = STS.DEAD;
-
-                            party.num = 0;
-                            party.layer = 0;
-                            textout( "\n*** your party is lost...\n<push space bar(5)>\n" );
-
-                            while ( true )
-                            {
-                                c = getChar();
-                                if ( c == ' ' || c == '5' )
-                                    break;
-                            }
-                            goto EXIT;
-                        }
-                        party.win_disp();
-                    }
-                    else
-                    {
-                        textout( "a pit, but floating.\n" );
-                    }
-                }
-
                 switch( party.dungeon.event_chk() )
                 {
                     case 2: /* exit from maze */
