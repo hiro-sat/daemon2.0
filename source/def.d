@@ -154,6 +154,9 @@ enum S_LIGHT_COUNT  = 100;
 enum L_LIGHT_COUNT  = 999;
 enum S_SCOPE_COUNT  = 1;
 enum L_SCOPE_COUNT  = 20;
+
+enum RATE_ENCOUNT       = 127;  // 1/128
+enum RATE_ENCOUNT_STOP  = 63;   //  1/64
 //----------------------------------------
 // マップ情報
 //----------------------------------------

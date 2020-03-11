@@ -344,7 +344,7 @@ public:
        encounter - 移動後のイベントチェック
        t = TRE gold / treauser / alarm
        --------------------*/
-    int encounter( int t )
+    BATTLE_RESULT encounter( int t )
     {
         assert( t == TRE.GOLD || t == TRE.TREASURE || t == TRE.ALARM );
         return event.encounter( cast( TRE ) t );
