@@ -34,14 +34,13 @@ import cMonsterDef;
 bool dungeon_main()
 {
 
-    //  party.layer = 1;
-    //  party.olayer = 1;
-
     int i; 
-    bool rtnval = false;
+    bool leave_game = false;
     int  dx, dy;
     char c;
     bool doorflg = false;
+
+    int rate_encount;   // -1 : not encount
 
     char keycode;
   
@@ -69,11 +68,6 @@ bool dungeon_main()
   
     while ( party.layer > 0 )
     {
-        // if (party.num==0){
-        //     party.layer = 0;
-        //     rtnval = 1;
-        //     goto EXIT; // 全滅
-        // }
 
         // in rock check
         if ( party.dungeon.checkInRock )
@@ -87,12 +81,13 @@ bool dungeon_main()
             party.olayer = 0;
             party.setDungeon;
             party.num = 0;
-  //          rtnval = 1;
             goto EXIT;
         }
 
         dx = 0;
         dy = 0;
+        rate_encount = RATE_ENCOUNT;
+
         keycode = getChar();
         switch ( keycode )
         {
@@ -129,114 +124,6 @@ bool dungeon_main()
                     party.win_disp();
                 }
                 break;
-            case 'D':
-                if( debugmode || debugmodeOffFlg )
-                {
-                    if( debugmode )
-                    {
-                        debugmode = false;
-                        debugmodeOffFlg = true;
-                    }
-                    else
-                    {
-                        debugmode = true;
-                        debugmodeOffFlg = true;
-                    }
-                    header_disp( HSTS.DUNGEON );
-                    party.dungeon.disp;
-                }
-                break;
-            case 'E':   // EncountRoom 出力
-                if ( debugmode && party.layer > 0 )
-                    party.dungeon.testOutputEncountRoom;
-                break;
-            case 'M':
-                if ( debugmode && party.layer > 0 )
-                {
-                    if( ! party.isMapper )
-                    {
-                        party.setMapper;
-                        party.setLight;
-                        party.lightCount = 0;
-                    }
-                    else
-                    {
-                        party.resetMapper;
-                    }
-                    header_disp( HSTS.DUNGEON );
-                    party.dungeon.disp;
-                }
-                break;
-            case 'F':
-                if ( debugmode && party.layer > 0 )
-                {
-                    if( ! party.isFloat )
-                        party.setFloat;
-                    else
-                        party.resetFloat;
-                    header_disp( HSTS.DUNGEON );
-                }
-                break;
-            case 'I':
-                if ( debugmode && party.layer > 0 )
-                {
-                    if( ! party.isIdentify )
-                        party.setIdentify;
-                    else
-                        party.resetIdentify;
-                    header_disp( HSTS.DUNGEON );
-                }
-                break;
-            case 'H':
-                if ( debugmode && party.layer > 0 )
-                {
-                    if( ! party.isScope )
-                    {
-                        party.setScope;
-                        party.scopeCount = 999;
-                    }
-                    else
-                    {
-                        party.resetScope;
-                    }
-                    header_disp( HSTS.DUNGEON );
-                    party.dungeon.disp;
-                }
-                break;
-            case 'L':
-                if ( debugmode && party.layer > 0 )
-                {
-                    if( ! party.isLight )
-                    {
-                        party.setLight;
-                        party.lightCount = 999;
-                    }
-                    else
-                    {
-                        party.resetLight;
-                    }
-                    header_disp( HSTS.DUNGEON );
-                    party.dungeon.disp;
-                }
-                break;
-            case '<':
-                if ( debugmode && party.layer > 0 ){
-                  party.layer--;
-                  party.setDungeon;
-                  party.dungeon.initDisp;
-                  party.dungeon.disp;
-                  header_disp( HSTS.DUNGEON );
-                }
-                break;
-            case '>':
-                if ( debugmode && party.layer < MAXLAYER ){
-                  party.layer++;
-                  party.setDungeon;
-                  party.dungeon.initDisp;
-                  party.dungeon.disp;
-                  header_disp( HSTS.DUNGEON );
-                }
-                break;
             case 'o':
             case '5':
                 if( ! doorflg )
@@ -267,8 +154,7 @@ bool dungeon_main()
                 party.oy = party.y;
                 party.olayer = party.layer;
                 step_proc();
-                if ( get_rand( 63 ) == 0 )
-                    party.dungeon.encounter( 0 );
+                rate_encount = RATE_ENCOUNT_STOP;   // 1/64
                 break;
             case 'u': // unlock a door
                 if ( ! party.dungeon.unlockDoor )
@@ -293,12 +179,14 @@ bool dungeon_main()
             case '9':
                 if ( camp() != 0 )
                 {
-                    rtnval = true; // quit from maze
+                    leave_game = true; // quit from maze
                     goto EXIT;
                 }
                 step_proc();
                 break;
             default:
+                if( debugmode || debugmodeOffFlg )
+                    checkDebugCommand( keycode );
                 break;
         }
 
@@ -319,19 +207,11 @@ bool dungeon_main()
                 textout( "south\n" );
             setColor( CL.NORMAL);
 
-
-            /* if ((keycode=='H'||keycode=='J'||keycode=='K'||keycode=='L') */
-            /*            &&debugmode==1){ */
-            /*     party.olayer = party.layer; */
-            /*     party.ox = party.x; */
-            /*     party.oy = party.y; */
-            /*     party.x += dx; */
-            /*     party.y += dy; */
-            /*     scroll_win(); */
-            /*     header_disp(0); */
-            /* } */
-            /* else  */
-            if( party.dungeon.isPassable( party.y + dy , party.x + dx , doorflg  ) )
+            if( ! party.dungeon.isPassable( party.y + dy , party.x + dx , doorflg  ) )
+            {
+                textout( "      ... ouch!\n" );
+            }
+            else
             {
                 party.olayer = party.layer;
                 party.ox = party.x;
@@ -340,51 +220,169 @@ bool dungeon_main()
                 party.y += dy;
                 party.dungeon.disp();
 
-                /* header_disp( HSTS.DUNGEON ); */
-
                 switch( party.dungeon.event_chk() )
                 {
                     case 2: /* exit from maze */
                         goto EXIT;
-                    case 1:
+                    case 1: /* not excount */
+                        rate_encount = -1;
                         break;
                     default:
-                        if ( get_rand( 127 ) == 0 )
-                            party.dungeon.encounter( 0 );
+                        break;
                 }
 
                 party.dungeon.disp();
                 /* header_disp( HSTS.DUNGEON ); */
             }
-            else
-            {
-                textout( "      ... ouch!\n" );
-                if ( get_rand( 127 ) == 0 )
-                  party.dungeon.encounter( 0 );
-            }
+
+
+            // check encounter
+            if ( rate_encount > 0 && ( get_rand( rate_encount ) == 0 ) )
+                switch( party.dungeon.encounter( 0 ) )
+                {
+                    case BATTLE_RESULT.WON:
+                    case BATTLE_RESULT.RAN:
+                        break;
+                    case BATTLE_RESULT.LOST:
+                        goto EXIT;
+                    default:
+                        assert( 0 );
+                }
+
 
             if ( doorflg )
                 doorflg = false;
         }
     }
-    if ( keycode == 'q' )
-        return 1;
 
 EXIT:
     party.ac = 0;
-    /+
-    for (i=0; i<6; i++)
-      party.memsv[i] = party.mem[i];
-    +/
   
     party.win_disp();
-    if( rtnval )
+    if( leave_game )
         return false;   // leave game
     else
         return true;    // go to castle
 
 }
 
+
+void checkDebugCommand( char keycode )
+{
+    switch( keycode )
+    {
+        case 'D':
+            if( debugmode || debugmodeOffFlg )
+            {
+                if( debugmode )
+                {
+                    debugmode = false;
+                    debugmodeOffFlg = true;
+                }
+                else
+                {
+                    debugmode = true;
+                    debugmodeOffFlg = true;
+                }
+                header_disp( HSTS.DUNGEON );
+                party.dungeon.disp;
+            }
+            break;
+        case 'E':   // EncountRoom 出力
+            if ( debugmode && party.layer > 0 )
+                party.dungeon.testOutputEncountRoom;
+            break;
+        case 'M':
+            if ( debugmode && party.layer > 0 )
+            {
+                if( ! party.isMapper )
+                {
+                    party.setMapper;
+                    party.setLight;
+                    party.lightCount = 0;
+                }
+                else
+                {
+                    party.resetMapper;
+                }
+                header_disp( HSTS.DUNGEON );
+                party.dungeon.disp;
+            }
+            break;
+        case 'F':
+            if ( debugmode && party.layer > 0 )
+            {
+                if( ! party.isFloat )
+                    party.setFloat;
+                else
+                    party.resetFloat;
+                header_disp( HSTS.DUNGEON );
+            }
+            break;
+        case 'I':
+            if ( debugmode && party.layer > 0 )
+            {
+                if( ! party.isIdentify )
+                    party.setIdentify;
+                else
+                    party.resetIdentify;
+                header_disp( HSTS.DUNGEON );
+            }
+            break;
+        case 'H':
+            if ( debugmode && party.layer > 0 )
+            {
+                if( ! party.isScope )
+                {
+                    party.setScope;
+                    party.scopeCount = 999;
+                }
+                else
+                {
+                    party.resetScope;
+                }
+                header_disp( HSTS.DUNGEON );
+                party.dungeon.disp;
+            }
+            break;
+        case 'L':
+            if ( debugmode && party.layer > 0 )
+            {
+                if( ! party.isLight )
+                {
+                    party.setLight;
+                    party.lightCount = 999;
+                }
+                else
+                {
+                    party.resetLight;
+                }
+                header_disp( HSTS.DUNGEON );
+                party.dungeon.disp;
+            }
+            break;
+        case '<':
+            if ( debugmode && party.layer > 0 ){
+              party.layer--;
+              party.setDungeon;
+              party.dungeon.initDisp;
+              party.dungeon.disp;
+              header_disp( HSTS.DUNGEON );
+            }
+            break;
+        case '>':
+            if ( debugmode && party.layer < MAXLAYER ){
+              party.layer++;
+              party.setDungeon;
+              party.dungeon.initDisp;
+              party.dungeon.disp;
+              header_disp( HSTS.DUNGEON );
+            }
+            break;
+        default:
+            break;
+    }
+}
 
 // 一歩毎の処理
 void step_proc()
@@ -601,7 +599,8 @@ EXIT:
 
 
 /*====== treasure ================================================*/
-void treasure_main( int monnum )
+// rtn : true : OK , false : 全滅!
+bool treasure_main( int monnum )
 {
 
     int i;
@@ -875,8 +874,9 @@ FAIL:
                 case BATTLE_RESULT.WON : 
                     goto SUCEED;
                 case BATTLE_RESULT.RAN :
-                case BATTLE_RESULT.LOST :
                     goto EXIT;
+                case BATTLE_RESULT.LOST :
+                    return false;
                 default:
                     break;      
                     /* assert( 0 ); */  // friendly group -> error!
@@ -887,6 +887,22 @@ FAIL:
     }
     getChar();
   
+    // failed
+    if( ! party.checkAlive )
+    {
+        party.win_disp();
+        party.num = 0;
+        party.layer = 0;
+        textout( "\n*** your party is lost...<push space bar>\n" );
+        while ( true )
+        {
+            c = getChar();
+            if ( c == ' ' || c == '5' )
+                break;
+        }
+        return false;
+    }
+
 SUCEED:
     get_treasure( monnum );
     getgold = monster_data[ monnum ].mingp + get_rand( monster_data[ monnum ].addgp );
@@ -902,7 +918,7 @@ SUCEED:
   
 EXIT:
     party.win_disp();
-    return;
+    return true;
 }
 
 

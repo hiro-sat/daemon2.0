@@ -3,52 +3,43 @@
 !_TAG_FILE_AUTHOR	Brian Schott
 !_TAG_PROGRAM_URL	https://github.com/Hackerpilot/Dscanner/
 ABC	./lib_readline.d	28;"	e	line:28	enum:MODE
-ACALL	./def.d	375;"	e	line:375	enum:MAG
-ACALL	./def.d	493;"	e	line:493	enum:MAG_TYPE
-ACGRP	./def.d	374;"	e	line:374	enum:MAG
-ACGRP	./def.d	492;"	e	line:492	enum:MAG_TYPE
-ACONE	./def.d	373;"	e	line:373	enum:MAG
-ACONE	./def.d	491;"	e	line:491	enum:MAG_TYPE
-ACPGR	./def.d	384;"	e	line:384	enum:MAG
-ACPGR	./def.d	502;"	e	line:502	enum:MAG_TYPE
-ACPONE	./def.d	376;"	e	line:376	enum:MAG
-ACPONE	./def.d	494;"	e	line:494	enum:MAG_TYPE
-ACT	./def.d	337;"	g	line:337
-AC_UP_PARRY	./def.d	140;"	v	line:140
-AC_UP_SLEEP	./def.d	139;"	v	line:139
-AFRAID	./def.d	248;"	e	line:248	enum:STS
-ALARM	./def.d	422;"	e	line:422	enum:TRE
-ALARM	./def.d	531;"	e	line:531	enum:TRAP
-ALIGN	./def.d	282;"	g	line:282
-ANIMAL	./def.d	308;"	e	line:308	enum:ITM_ATKEF
-ANML	./def.d	443;"	e	line:443	enum:MON_TYPE
-ARMOR	./def.d	293;"	e	line:293	enum:ITM_KIND
-ASHED	./def.d	252;"	e	line:252	enum:STS
-ATKALL	./def.d	371;"	e	line:371	enum:MAG
-ATKALL	./def.d	489;"	e	line:489	enum:MAG_TYPE
-ATKEF	./def.d	348;"	g	line:348
-ATKGRP	./def.d	370;"	e	line:370	enum:MAG
-ATKGRP	./def.d	488;"	e	line:488	enum:MAG_TYPE
-ATKONE	./def.d	369;"	e	line:369	enum:MAG
-ATKONE	./def.d	487;"	e	line:487	enum:MAG_TYPE
-ATK_ATK	./def.d	469;"	e	line:469	enum:MON_ACT
-ATK_ATKE	./def.d	476;"	e	line:476	enum:MON_ACT
-ATK_BIT	./def.d	472;"	e	line:472	enum:MON_ACT
-ATK_BITE	./def.d	479;"	e	line:479	enum:MON_ACT
-ATK_SLS	./def.d	470;"	e	line:470	enum:MON_ACT
-ATK_SLSE	./def.d	477;"	e	line:477	enum:MON_ACT
-ATK_TCH	./def.d	471;"	e	line:471	enum:MON_ACT
-ATK_TCHE	./def.d	478;"	e	line:478	enum:MON_ACT
+ACALL	./def.d	538;"	e	line:538	enum:MAG_TYPE
+ACGRP	./def.d	537;"	e	line:537	enum:MAG_TYPE
+ACONE	./def.d	536;"	e	line:536	enum:MAG_TYPE
+ACPGR	./def.d	547;"	e	line:547	enum:MAG_TYPE
+ACPONE	./def.d	539;"	e	line:539	enum:MAG_TYPE
+ACT	./def.d	351;"	g	line:351
+AC_UP_PARRY	./def.d	152;"	v	line:152
+AC_UP_SLEEP	./def.d	151;"	v	line:151
+AFRAID	./def.d	262;"	e	line:262	enum:STS
+ALARM	./def.d	437;"	e	line:437	enum:TRE
+ALARM	./def.d	576;"	e	line:576	enum:TRAP
+ALIGN	./def.d	296;"	g	line:296
+ANIMAL	./def.d	322;"	e	line:322	enum:ITM_ATKEF
+ANML	./def.d	458;"	e	line:458	enum:MON_TYPE
+ARMOR	./def.d	307;"	e	line:307	enum:ITM_KIND
+ASHED	./def.d	266;"	e	line:266	enum:STS
+ATKALL	./def.d	534;"	e	line:534	enum:MAG_TYPE
+ATKEF	./def.d	362;"	g	line:362
+ATKGRP	./def.d	533;"	e	line:533	enum:MAG_TYPE
+ATKONE	./def.d	532;"	e	line:532	enum:MAG_TYPE
+ATK_ATK	./def.d	484;"	e	line:484	enum:MON_ACT
+ATK_ATKE	./def.d	491;"	e	line:491	enum:MON_ACT
+ATK_BIT	./def.d	487;"	e	line:487	enum:MON_ACT
+ATK_BITE	./def.d	494;"	e	line:494	enum:MON_ACT
+ATK_SLS	./def.d	485;"	e	line:485	enum:MON_ACT
+ATK_SLSE	./def.d	492;"	e	line:492	enum:MON_ACT
+ATK_TCH	./def.d	486;"	e	line:486	enum:MON_ACT
+ATK_TCHE	./def.d	493;"	e	line:493	enum:MON_ACT
 Align	./cItem.d	54;"	f	line:54	class:Item	access:public	signature:()
 Align	./cItemDef.d	35;"	v	line:35	class:ItemDef	access:public
 Align	./cMember.d	206;"	v	line:206	class:Member	access:public
-BADI	./def.d	389;"	e	line:389	enum:MAG
-BADI	./def.d	507;"	e	line:507	enum:MAG_TYPE
-BAR	./def.d	227;"	e	line:227	enum:OUT_F
-BAR	./def.d	410;"	e	line:410	enum:HSTS
-BATTLE	./def.d	406;"	e	line:406	enum:HSTS
-BATTLE_RESULT	./def.d	426;"	g	line:426
-BIS	./def.d	275;"	e	line:275	enum:CLS
+BAR	./def.d	241;"	e	line:241	enum:OUT_F
+BAR	./def.d	425;"	e	line:425	enum:HSTS
+BATTLE	./def.d	421;"	e	line:421	enum:HSTS
+BATTLE_RESULT	./def.d	441;"	g	line:441
+BIND	./def.d	546;"	e	line:546	enum:MAG_TYPE
+BIS	./def.d	289;"	e	line:289	enum:CLS
 BIT_ATKEF_CRITICAL	./cMonsterDef.d	18;"	v	line:18	class:MonsterDef	access:private
 BIT_ATKEF_DRAINLV	./cMonsterDef.d	19;"	v	line:19	class:MonsterDef	access:private
 BIT_ATKEF_PARALIZE	./cMonsterDef.d	16;"	v	line:16	class:MonsterDef	access:private
@@ -85,181 +76,158 @@ BIT_PARTY_STS_FLOAT	./cParty.d	31;"	v	line:31	class:Party	access:private
 BIT_PARTY_STS_IDENTIFY	./cParty.d	32;"	v	line:32	class:Party	access:private
 BIT_PARTY_STS_LIGHT	./cParty.d	30;"	v	line:30	class:Party	access:private
 BIT_PARTY_STS_MAPPER	./cParty.d	29;"	v	line:29	class:Party	access:private
-BIT_PARTY_STS_SHINE	./cParty.d	28;"	v	line:28	class:Party	access:private
+BIT_PARTY_STS_SCOPE	./cParty.d	28;"	v	line:28	class:Party	access:private
 BIT_STS_EXCEPTING_POISONED	./cMember.d	25;"	v	line:25	class:Member	access:private
 BIT_STS_POISONED	./cMember.d	24;"	v	line:24	class:Member	access:private
-BONUS	./def.d	124;"	e	line:124	enum:CL
-BRT	./def.d	468;"	e	line:468	enum:MON_ACT
+BONUS	./def.d	134;"	e	line:134	enum:CL
+BREATHE	./def.d	550;"	e	line:550	enum:MAG_TYPE
+BRESS	./def.d	543;"	e	line:543	enum:MAG_TYPE
+BRT	./def.d	483;"	e	line:483	enum:MON_ACT
 BattleTurn	./cBattleTurn.d	16;"	c	line:16
+Bress	./def.d	551;"	e	line:551	enum:MAG_TYPE
 Buffer	./lib_screen.d	27;"	s	line:27	class:Screen	access:private
-CAMP	./def.d	407;"	e	line:407	enum:HSTS
-CASTLE	./def.d	228;"	e	line:228	enum:OUT_F
-CASTLE	./def.d	408;"	e	line:408	enum:HSTS
-CHRW_X_SIZ	./def.d	104;"	v	line:104
-CHRW_X_TOP	./def.d	106;"	v	line:106
-CHRW_Y_SIZ	./def.d	105;"	v	line:105
-CHRW_Y_TOP	./def.d	107;"	v	line:107
-CL	./def.d	118;"	g	line:118
-CLS	./def.d	269;"	g	line:269
-COLD	./def.d	361;"	e	line:361	enum:DEFEF
-CRITICAL	./def.d	303;"	e	line:303	enum:ITM_ATKEF
-CRITICAL	./def.d	317;"	e	line:317	enum:ITM_DEFEF
-CRITICAL	./def.d	354;"	e	line:354	enum:ATKEF
-CROSSBOW	./def.d	525;"	e	line:525	enum:TRAP
-CUREPAR	./def.d	379;"	e	line:379	enum:MAG
-CUREPAR	./def.d	497;"	e	line:497	enum:MAG_TYPE
-CUREPOI	./def.d	378;"	e	line:378	enum:MAG
-CUREPOI	./def.d	496;"	e	line:496	enum:MAG_TYPE
+CAMP	./def.d	422;"	e	line:422	enum:HSTS
+CASTLE	./def.d	242;"	e	line:242	enum:OUT_F
+CASTLE	./def.d	423;"	e	line:423	enum:HSTS
+CHRW_X_SIZ	./def.d	114;"	v	line:114
+CHRW_X_TOP	./def.d	116;"	v	line:116
+CHRW_Y_SIZ	./def.d	115;"	v	line:115
+CHRW_Y_TOP	./def.d	117;"	v	line:117
+CL	./def.d	128;"	g	line:128
+CLS	./def.d	283;"	g	line:283
+COLD	./def.d	375;"	e	line:375	enum:DEFEF
+CRITICAL	./def.d	317;"	e	line:317	enum:ITM_ATKEF
+CRITICAL	./def.d	331;"	e	line:331	enum:ITM_DEFEF
+CRITICAL	./def.d	368;"	e	line:368	enum:ATKEF
+CROSSBOW	./def.d	570;"	e	line:570	enum:TRAP
+CURE	./def.d	542;"	e	line:542	enum:MAG_TYPE
 Class	./cItem.d	50;"	f	line:50	class:Item	access:public	signature:()
 Class	./cItemDef.d	33;"	v	line:33	class:ItemDef	access:public
 Class	./cMember.d	205;"	v	line:205	class:Member	access:public
-DARKZONE	./def.d	156;"	e	line:156	enum:MAP_CL
+DARKZONE	./def.d	170;"	e	line:170	enum:MAP_CL
 DATA_FOLDER	./def.d	53;"	v	line:53
-DEAD	./def.d	251;"	e	line:251	enum:STS
-DEFEF	./def.d	358;"	g	line:358
-DEM	./def.d	449;"	e	line:449	enum:MON_TYPE
-DEMON	./def.d	310;"	e	line:310	enum:ITM_ATKEF
-DI	./def.d	387;"	e	line:387	enum:MAG
-DI	./def.d	505;"	e	line:505	enum:MAG_TYPE
-DISPEL	./def.d	344;"	e	line:344	enum:ACT
-DOOR	./def.d	160;"	e	line:160	enum:MAP_CL
-DRA	./def.d	442;"	e	line:442	enum:MON_TYPE
-DRAGON	./def.d	309;"	e	line:309	enum:ITM_ATKEF
-DRAIN	./def.d	324;"	e	line:324	enum:ITM_DEFEF
-DUNGEON	./def.d	229;"	e	line:229	enum:OUT_F
-DUNGEON	./def.d	405;"	e	line:405	enum:HSTS
-DWARF	./def.d	263;"	e	line:263	enum:RACE
-ELF	./def.d	262;"	e	line:262	enum:RACE
-ENCOUNT	./def.d	125;"	e	line:125	enum:CL
-EOT	./def.d	409;"	e	line:409	enum:HSTS
-ETC	./def.d	436;"	e	line:436	enum:MON_TYPE
-EVIL	./def.d	285;"	e	line:285	enum:ALIGN
-EXPLODING	./def.d	526;"	e	line:526	enum:TRAP
+DEAD	./def.d	265;"	e	line:265	enum:STS
+DEFEF	./def.d	372;"	g	line:372
+DEM	./def.d	464;"	e	line:464	enum:MON_TYPE
+DEMON	./def.d	324;"	e	line:324	enum:ITM_ATKEF
+DETXIFY	./def.d	541;"	e	line:541	enum:MAG_TYPE
+DISPEL	./def.d	358;"	e	line:358	enum:ACT
+DOOR	./def.d	174;"	e	line:174	enum:MAP_CL
+DRA	./def.d	457;"	e	line:457	enum:MON_TYPE
+DRAGON	./def.d	323;"	e	line:323	enum:ITM_ATKEF
+DRAIN	./def.d	338;"	e	line:338	enum:ITM_DEFEF
+DUNGEON	./def.d	243;"	e	line:243	enum:OUT_F
+DUNGEON	./def.d	420;"	e	line:420	enum:HSTS
+DWARF	./def.d	277;"	e	line:277	enum:RACE
+DYNG	./def.d	553;"	e	line:553	enum:MAG_TYPE
+ELF	./def.d	276;"	e	line:276	enum:RACE
+ENCOUNT	./def.d	135;"	e	line:135	enum:CL
+EOT	./def.d	424;"	e	line:424	enum:HSTS
+ETC	./def.d	451;"	e	line:451	enum:MON_TYPE
+EVIL	./def.d	299;"	e	line:299	enum:ALIGN
+EXPLODING	./def.d	571;"	e	line:571	enum:TRAP
 Event	./cEvent.d	19;"	c	line:19
-EventL1	./cEvent.d	177;"	c	line:177
-EventL2	./cEvent.d	304;"	c	line:304
-EventL3	./cEvent.d	409;"	c	line:409
-EventL4	./cEvent.d	510;"	c	line:510
-EventL5	./cEvent.d	531;"	c	line:531
-EventL6	./cEvent.d	552;"	c	line:552
-EventL7	./cEvent.d	573;"	c	line:573
-EventL8	./cEvent.d	594;"	c	line:594
-FAIRY	./def.d	445;"	e	line:445	enum:MON_TYPE
-FIG	./def.d	271;"	e	line:271	enum:CLS
-FIG	./def.d	437;"	e	line:437	enum:MON_TYPE
-FIGHT	./def.d	339;"	e	line:339	enum:ACT
-FIRE	./def.d	322;"	e	line:322	enum:ITM_DEFEF
-FIRE	./def.d	360;"	e	line:360	enum:DEFEF
+EventL1	./cEvent.d	219;"	c	line:219
+EventL2	./cEvent.d	441;"	c	line:441
+EventL3	./cEvent.d	552;"	c	line:552
+EventL4	./cEvent.d	654;"	c	line:654
+EventL5	./cEvent.d	733;"	c	line:733
+EventL6	./cEvent.d	789;"	c	line:789
+EventL7	./cEvent.d	882;"	c	line:882
+EventL8	./cEvent.d	960;"	c	line:960
+FAIRY	./def.d	460;"	e	line:460	enum:MON_TYPE
+FIG	./def.d	285;"	e	line:285	enum:CLS
+FIG	./def.d	452;"	e	line:452	enum:MON_TYPE
+FIGHT	./def.d	353;"	e	line:353	enum:ACT
+FIRE	./def.d	336;"	e	line:336	enum:ITM_DEFEF
+FIRE	./def.d	374;"	e	line:374	enum:DEFEF
+FLASH	./def.d	558;"	e	line:558	enum:MAG_TYPE
+FLOATN	./def.d	554;"	e	line:554	enum:MAG_TYPE
 FONTNAME	./def.d	57;"	v	line:57
-FONTSIZE	./def.d	60;"	v	line:60
-FONT_HEIGHT	./def.d	62;"	v	line:62
-FONT_J_HEIGHT	./def.d	64;"	v	line:64
-FONT_J_WIDTH	./def.d	63;"	v	line:63
-FONT_WIDTH	./def.d	61;"	v	line:61
-FONT_X_MARGINE	./def.d	65;"	v	line:65
-FONT_Y_MARGINE	./def.d	66;"	v	line:66
+FONTSIZE	./def.d	75;"	v	line:75
+FONT_HEIGHT	./def.d	77;"	v	line:77
+FONT_J_HEIGHT	./def.d	79;"	v	line:79
+FONT_J_WIDTH	./def.d	78;"	v	line:78
+FONT_WIDTH	./def.d	76;"	v	line:76
+FONT_X_MARGINE	./def.d	80;"	v	line:80
+FONT_Y_MARGINE	./def.d	81;"	v	line:81
 Font	./lib_font.d	18;"	c	line:18
-GASBOMB	./def.d	524;"	e	line:524	enum:TRAP
-GIA	./def.d	448;"	e	line:448	enum:MON_TYPE
-GLOVES	./def.d	296;"	e	line:296	enum:ITM_KIND
-GNOME	./def.d	264;"	e	line:264	enum:RACE
-GOD	./def.d	450;"	e	line:450	enum:MON_TYPE
-GOLD	./def.d	420;"	e	line:420	enum:TRE
-GOOD	./def.d	284;"	e	line:284	enum:ALIGN
-GetRenderer	./lib_sdl.d	163;"	f	line:163	class:MySDL	access:public	signature:()
-HEALALL	./def.d	377;"	e	line:377	enum:MAG
-HEALALL	./def.d	495;"	e	line:495	enum:MAG_TYPE
-HEALONE	./def.d	372;"	e	line:372	enum:MAG
-HEALONE	./def.d	490;"	e	line:490	enum:MAG_TYPE
-HELM	./def.d	295;"	e	line:295	enum:ITM_KIND
+GASBOMB	./def.d	569;"	e	line:569	enum:TRAP
+GIA	./def.d	463;"	e	line:463	enum:MON_TYPE
+GLOVES	./def.d	310;"	e	line:310	enum:ITM_KIND
+GNOME	./def.d	278;"	e	line:278	enum:RACE
+GOD	./def.d	465;"	e	line:465	enum:MON_TYPE
+GOLD	./def.d	435;"	e	line:435	enum:TRE
+GOOD	./def.d	298;"	e	line:298	enum:ALIGN
+GUARD	./def.d	544;"	e	line:544	enum:MAG_TYPE
+GetRenderer	./lib_sdl.d	168;"	f	line:168	class:MySDL	access:public	signature:()
+HEALALL	./def.d	540;"	e	line:540	enum:MAG_TYPE
+HEALONE	./def.d	535;"	e	line:535	enum:MAG_TYPE
+HELM	./def.d	309;"	e	line:309	enum:ITM_KIND
 HIRA	./lib_readline.d	28;"	e	line:28	enum:MODE
-HLP	./def.d	467;"	e	line:467	enum:MON_ACT
-HOBBIT	./def.d	265;"	e	line:265	enum:RACE
-HSTS	./def.d	403;"	g	line:403
-HUMAN	./def.d	261;"	e	line:261	enum:RACE
-HUMAN	./def.d	307;"	e	line:307	enum:ITM_ATKEF
-ICE	./def.d	323;"	e	line:323	enum:ITM_DEFEF
-INN	./def.d	411;"	e	line:411	enum:HSTS
-INS	./def.d	447;"	e	line:447	enum:MON_TYPE
-INSECT	./def.d	311;"	e	line:311	enum:ITM_ATKEF
-ITEM	./def.d	297;"	e	line:297	enum:ITM_KIND
-ITEMFILE	./def.d	170;"	v	line:170
-ITM_ATKEF	./def.d	301;"	g	line:301
-ITM_DEFEF	./def.d	315;"	g	line:315
-ITM_KIND	./def.d	290;"	g	line:290
-InitScreen	./lib_sdl.d	87;"	f	line:87	class:MySDL	access:public	signature:()
+HLP	./def.d	482;"	e	line:482	enum:MON_ACT
+HOBBIT	./def.d	279;"	e	line:279	enum:RACE
+HSTS	./def.d	418;"	g	line:418
+HUMAN	./def.d	275;"	e	line:275	enum:RACE
+HUMAN	./def.d	321;"	e	line:321	enum:ITM_ATKEF
+ICE	./def.d	337;"	e	line:337	enum:ITM_DEFEF
+INN	./def.d	426;"	e	line:426	enum:HSTS
+INS	./def.d	462;"	e	line:462	enum:MON_TYPE
+INSECT	./def.d	325;"	e	line:325	enum:ITM_ATKEF
+ITEM	./def.d	311;"	e	line:311	enum:ITM_KIND
+ITEMFILE	./def.d	184;"	v	line:184
+ITM_ATKEF	./def.d	315;"	g	line:315
+ITM_DEFEF	./def.d	329;"	g	line:329
+ITM_KIND	./def.d	304;"	g	line:304
+InitScreen	./lib_sdl.d	92;"	f	line:92	class:MySDL	access:public	signature:()
 Item	./cItem.d	14;"	c	line:14
 ItemDef	./cItemDef.d	11;"	c	line:11
-KADOR	./def.d	388;"	e	line:388	enum:MAG
-KADOR	./def.d	506;"	e	line:506	enum:MAG_TYPE
-KANI	./def.d	385;"	e	line:385	enum:MAG
-KANI	./def.d	503;"	e	line:503	enum:MAG_TYPE
 KATA	./lib_readline.d	28;"	e	line:28	enum:MODE
-KATINO	./def.d	382;"	e	line:382	enum:MAG
-KATINO	./def.d	500;"	e	line:500	enum:MAG_TYPE
 KEY_BS	./lib_readline.d	31;"	v	line:31	class:ReadLine	access:private
-KIND	./def.d	123;"	e	line:123	enum:CL
-LABADI	./def.d	390;"	e	line:390	enum:MAG
-LABADI	./def.d	508;"	e	line:508	enum:MAG_TYPE
-LATUMA	./def.d	392;"	e	line:392	enum:MAG
-LATUMA	./def.d	510;"	e	line:510	enum:MAG_TYPE
-LIGHT	./def.d	162;"	e	line:162	enum:MAP_CL
-LIGHT_COUNT	./def.d	141;"	v	line:141
-LITO	./def.d	391;"	e	line:391	enum:MAG
-LITO	./def.d	509;"	e	line:509	enum:MAG_TYPE
-LOKTO	./def.d	398;"	e	line:398	enum:MAG
-LOKTO	./def.d	516;"	e	line:516	enum:MAG_TYPE
-LOMILWA	./def.d	396;"	e	line:396	enum:MAG
-LOMILWA	./def.d	514;"	e	line:514	enum:MAG_TYPE
-LONG	./def.d	333;"	e	line:333	enum:RANGE
-LONG	./def.d	363;"	e	line:363	enum:DEFEF
-LOR	./def.d	277;"	e	line:277	enum:CLS
-LOST	./def.d	253;"	e	line:253	enum:STS
-LOST	./def.d	430;"	e	line:430	enum:BATTLE_RESULT
-MADI	./def.d	380;"	e	line:380	enum:MAG
-MADI	./def.d	498;"	e	line:498	enum:MAG_TYPE
-MAG	./def.d	274;"	e	line:274	enum:CLS
-MAG	./def.d	367;"	g	line:367
-MAG	./def.d	438;"	e	line:438	enum:MON_TYPE
-MAGBLASTER	./def.d	529;"	e	line:529	enum:TRAP
-MAGIC	./def.d	446;"	e	line:446	enum:MON_TYPE
-MAGICFILE	./def.d	182;"	v	line:182
-MAG_TYPE	./def.d	485;"	g	line:485
-MAKANI	./def.d	386;"	e	line:386	enum:MAG
-MAKANI	./def.d	504;"	e	line:504	enum:MAG_TYPE
-MALOR	./def.d	397;"	e	line:397	enum:MAG
-MALOR	./def.d	515;"	e	line:515	enum:MAG_TYPE
-MANIFO	./def.d	383;"	e	line:383	enum:MAG
-MANIFO	./def.d	501;"	e	line:501	enum:MAG_TYPE
-MAPFILE	./def.d	149;"	v	line:149
-MAPOR	./def.d	381;"	e	line:381	enum:MAG
-MAPOR	./def.d	499;"	e	line:499	enum:MAG_TYPE
-MAPPER	./def.d	394;"	e	line:394	enum:MAG
-MAPPER	./def.d	512;"	e	line:512	enum:MAG_TYPE
-MAP_CL	./def.d	153;"	g	line:153
-MAP_MAX_X	./def.d	146;"	v	line:146
-MAP_MAX_Y	./def.d	147;"	v	line:147
-MARKSFILE	./def.d	211;"	v	line:211
-MAXCARRY	./def.d	138;"	v	line:138
-MAXITEM	./def.d	132;"	v	line:132
-MAXLAYER	./def.d	134;"	v	line:134
-MAXMAGIC	./def.d	133;"	v	line:133
-MAXMEMBER	./def.d	137;"	v	line:137
-MAXMONSTER	./def.d	135;"	v	line:135
-MAXTRAP	./def.d	136;"	v	line:136
-MAX_MEMBER_NAME	./def.d	224;"	v	line:224
-MEMBERFILE	./def.d	222;"	v	line:222
-MENU	./def.d	122;"	e	line:122	enum:CL
-MILWA	./def.d	395;"	e	line:395	enum:MAG
-MILWA	./def.d	513;"	e	line:513	enum:MAG_TYPE
+KIND	./def.d	133;"	e	line:133	enum:CL
+LIGHT	./def.d	176;"	e	line:176	enum:MAP_CL
+LONG	./def.d	347;"	e	line:347	enum:RANGE
+LONG	./def.d	377;"	e	line:377	enum:DEFEF
+LOR	./def.d	291;"	e	line:291	enum:CLS
+LOST	./def.d	267;"	e	line:267	enum:STS
+LOST	./def.d	445;"	e	line:445	enum:BATTLE_RESULT
+L_FONTSIZE	./def.d	67;"	v	line:67
+L_FONT_HEIGHT	./def.d	69;"	v	line:69
+L_FONT_J_HEIGHT	./def.d	71;"	v	line:71
+L_FONT_J_WIDTH	./def.d	70;"	v	line:70
+L_FONT_WIDTH	./def.d	68;"	v	line:68
+L_FONT_X_MARGINE	./def.d	72;"	v	line:72
+L_FONT_Y_MARGINE	./def.d	73;"	v	line:73
+L_LIGHT_COUNT	./def.d	154;"	v	line:154
+L_SCOPE_COUNT	./def.d	156;"	v	line:156
+MAG	./def.d	288;"	e	line:288	enum:CLS
+MAG	./def.d	453;"	e	line:453	enum:MON_TYPE
+MAGBLASTER	./def.d	574;"	e	line:574	enum:TRAP
+MAGIC	./def.d	461;"	e	line:461	enum:MON_TYPE
+MAGICFILE	./def.d	196;"	v	line:196
+MAG_TYPE	./def.d	500;"	g	line:500
+MAPFILE	./def.d	163;"	v	line:163
+MAPPER	./def.d	557;"	e	line:557	enum:MAG_TYPE
+MAP_CL	./def.d	167;"	g	line:167
+MAP_MAX_X	./def.d	160;"	v	line:160
+MAP_MAX_Y	./def.d	161;"	v	line:161
+MARKSFILE	./def.d	225;"	v	line:225
+MAXCARRY	./def.d	150;"	v	line:150
+MAXITEM	./def.d	144;"	v	line:144
+MAXLAYER	./def.d	146;"	v	line:146
+MAXMAGIC	./def.d	145;"	v	line:145
+MAXMEMBER	./def.d	149;"	v	line:149
+MAXMONSTER	./def.d	147;"	v	line:147
+MAXTRAP	./def.d	148;"	v	line:148
+MAX_MEMBER_NAME	./def.d	238;"	v	line:238
+MEMBERFILE	./def.d	236;"	v	line:236
+MENU	./def.d	132;"	e	line:132	enum:CL
 MODE	./lib_readline.d	28;"	g	line:28	class:ReadLine	access:private
-MONSTER	./def.d	127;"	e	line:127	enum:CL
-MONSTERFILE	./def.d	200;"	v	line:200
-MONTI	./def.d	393;"	e	line:393	enum:MAG
-MONTI	./def.d	511;"	e	line:511	enum:MAG_TYPE
-MON_ACT	./def.d	464;"	g	line:464
-MON_STS	./def.d	455;"	g	line:455
-MON_TYPE	./def.d	434;"	g	line:434
+MONSTER	./def.d	137;"	e	line:137	enum:CL
+MONSTERFILE	./def.d	214;"	v	line:214
+MON_ACT	./def.d	479;"	g	line:479
+MON_STS	./def.d	470;"	g	line:470
+MON_TYPE	./def.d	449;"	g	line:449
 Map	./cMap.d	25;"	c	line:25
 MapEncountRoom	./cMapEncountRoom.d	13;"	c	line:13
 MapEncountRoomChip	./cMapEncountRoom.d	18;"	c	line:18	class:MapEncountRoom	access:private
@@ -269,98 +237,117 @@ MonsterDef	./cMonsterDef.d	11;"	c	line:11
 MonsterParty	./cMonsterParty.d	18;"	c	line:18
 MonsterTeam	./cMonsterTeam.d	13;"	c	line:13
 MySDL	./lib_sdl.d	18;"	c	line:18
-NEWT	./def.d	286;"	e	line:286	enum:ALIGN
-NIN	./def.d	278;"	e	line:278	enum:CLS
-NO	./def.d	522;"	e	line:522	enum:TRAP
-NORMAL	./def.d	120;"	e	line:120	enum:CL
-NORMAL_DARK	./def.d	121;"	e	line:121	enum:CL
-NOT	./def.d	331;"	e	line:331	enum:RANGE
-NUL	./def.d	157;"	e	line:157	enum:MAP_CL
-OK	./def.d	246;"	e	line:246	enum:STS
-OK	./def.d	457;"	e	line:457	enum:MON_STS
-ORGMAPFILE	./def.d	148;"	v	line:148
-OUT_F	./def.d	225;"	g	line:225
-PARALIZE	./def.d	319;"	e	line:319	enum:ITM_DEFEF
-PARALIZE	./def.d	459;"	e	line:459	enum:MON_STS
-PARALY	./def.d	249;"	e	line:249	enum:STS
-PARALY	./def.d	352;"	e	line:352	enum:ATKEF
-PARRY	./def.d	340;"	e	line:340	enum:ACT
-PARTY	./def.d	155;"	e	line:155	enum:MAP_CL
-POISON	./def.d	321;"	e	line:321	enum:ITM_DEFEF
-POISON	./def.d	350;"	e	line:350	enum:ATKEF
-POISON	./def.d	523;"	e	line:523	enum:TRAP
-PRI	./def.d	273;"	e	line:273	enum:CLS
-PRI	./def.d	439;"	e	line:439	enum:MON_TYPE
-PRIBLASTER	./def.d	530;"	e	line:530	enum:TRAP
+NEWT	./def.d	300;"	e	line:300	enum:ALIGN
+NIN	./def.d	292;"	e	line:292	enum:CLS
+NO	./def.d	567;"	e	line:567	enum:TRAP
+NOKESSN	./def.d	552;"	e	line:552	enum:MAG_TYPE
+NORMAL	./def.d	130;"	e	line:130	enum:CL
+NORMAL_DARK	./def.d	131;"	e	line:131	enum:CL
+NOT	./def.d	345;"	e	line:345	enum:RANGE
+NUL	./def.d	171;"	e	line:171	enum:MAP_CL
+OK	./def.d	260;"	e	line:260	enum:STS
+OK	./def.d	472;"	e	line:472	enum:MON_STS
+ORGMAPFILE	./def.d	162;"	v	line:162
+OUT_F	./def.d	239;"	g	line:239
+PARALIZE	./def.d	333;"	e	line:333	enum:ITM_DEFEF
+PARALIZE	./def.d	474;"	e	line:474	enum:MON_STS
+PARALY	./def.d	263;"	e	line:263	enum:STS
+PARALY	./def.d	366;"	e	line:366	enum:ATKEF
+PARRY	./def.d	354;"	e	line:354	enum:ACT
+PARTY	./def.d	169;"	e	line:169	enum:MAP_CL
+POISON	./def.d	335;"	e	line:335	enum:ITM_DEFEF
+POISON	./def.d	364;"	e	line:364	enum:ATKEF
+POISON	./def.d	568;"	e	line:568	enum:TRAP
+PRI	./def.d	287;"	e	line:287	enum:CLS
+PRI	./def.d	454;"	e	line:454	enum:MON_TYPE
+PRIBLASTER	./def.d	575;"	e	line:575	enum:TRAP
 Party	./cParty.d	24;"	c	line:24
-RACE	./def.d	259;"	g	line:259
-RAN	./def.d	429;"	e	line:429	enum:BATTLE_RESULT
-RANGE	./def.d	329;"	g	line:329
-RUN	./def.d	343;"	e	line:343	enum:ACT
-RUN	./def.d	466;"	e	line:466	enum:MON_ACT
+RACE	./def.d	273;"	g	line:273
+RAN	./def.d	444;"	e	line:444	enum:BATTLE_RESULT
+RANGE	./def.d	343;"	g	line:343
+RCGNIZE	./def.d	555;"	e	line:555	enum:MAG_TYPE
+RETURN	./def.d	561;"	e	line:561	enum:MAG_TYPE
+RUN	./def.d	357;"	e	line:357	enum:ACT
+RUN	./def.d	481;"	e	line:481	enum:MON_ACT
 ReadLine	./lib_readline.d	15;"	c	line:15
-SAM	./def.d	276;"	e	line:276	enum:CLS
-SCRW_X_SIZ	./def.d	98;"	v	line:98
-SCRW_X_TOP	./def.d	96;"	v	line:96
-SCRW_Y_SIZ	./def.d	99;"	v	line:99
-SCRW_Y_TOP	./def.d	97;"	v	line:97
-SHIELD	./def.d	294;"	e	line:294	enum:ITM_KIND
-SHINE_COUNT	./def.d	142;"	v	line:142
-SHOP	./def.d	413;"	e	line:413	enum:HSTS
-SHOPFILE	./def.d	176;"	v	line:176
-SHORT	./def.d	332;"	e	line:332	enum:RANGE
-SHUM	./def.d	441;"	e	line:441	enum:MON_TYPE
-SLEEP	./def.d	247;"	e	line:247	enum:STS
-SLEEP	./def.d	305;"	e	line:305	enum:ITM_ATKEF
-SLEEP	./def.d	320;"	e	line:320	enum:ITM_DEFEF
-SLEEP	./def.d	353;"	e	line:353	enum:ATKEF
-SLEEP	./def.d	362;"	e	line:362	enum:DEFEF
-SLEEP	./def.d	458;"	e	line:458	enum:MON_STS
-SPELL	./def.d	341;"	e	line:341	enum:ACT
-STAIRS	./def.d	161;"	e	line:161	enum:MAP_CL
-STONE	./def.d	304;"	e	line:304	enum:ITM_ATKEF
-STONE	./def.d	318;"	e	line:318	enum:ITM_DEFEF
-STONE	./def.d	351;"	e	line:351	enum:ATKEF
-STONED	./def.d	250;"	e	line:250	enum:STS
-STONED	./def.d	460;"	e	line:460	enum:MON_STS
-STS	./def.d	244;"	g	line:244
-STUNNER	./def.d	527;"	e	line:527	enum:TRAP
+SAM	./def.d	290;"	e	line:290	enum:CLS
+SCRW_X_SIZ	./def.d	108;"	v	line:108
+SCRW_X_TOP	./def.d	106;"	v	line:106
+SCRW_Y_SIZ	./def.d	109;"	v	line:109
+SCRW_Y_TOP	./def.d	107;"	v	line:107
+SHIELD	./def.d	308;"	e	line:308	enum:ITM_KIND
+SHINE	./def.d	559;"	e	line:559	enum:MAG_TYPE
+SHOP	./def.d	428;"	e	line:428	enum:HSTS
+SHOPFILE	./def.d	190;"	v	line:190
+SHORT	./def.d	346;"	e	line:346	enum:RANGE
+SHUM	./def.d	456;"	e	line:456	enum:MON_TYPE
+SILENC	./def.d	556;"	e	line:556	enum:MAG_TYPE
+SLEEP	./def.d	261;"	e	line:261	enum:STS
+SLEEP	./def.d	319;"	e	line:319	enum:ITM_ATKEF
+SLEEP	./def.d	334;"	e	line:334	enum:ITM_DEFEF
+SLEEP	./def.d	367;"	e	line:367	enum:ATKEF
+SLEEP	./def.d	376;"	e	line:376	enum:DEFEF
+SLEEP	./def.d	473;"	e	line:473	enum:MON_STS
+SLEEP	./def.d	545;"	e	line:545	enum:MAG_TYPE
+SPELL	./def.d	355;"	e	line:355	enum:ACT
+STAIRS	./def.d	175;"	e	line:175	enum:MAP_CL
+STONE	./def.d	318;"	e	line:318	enum:ITM_ATKEF
+STONE	./def.d	332;"	e	line:332	enum:ITM_DEFEF
+STONE	./def.d	365;"	e	line:365	enum:ATKEF
+STONED	./def.d	264;"	e	line:264	enum:STS
+STONED	./def.d	475;"	e	line:475	enum:MON_STS
+STS	./def.d	258;"	g	line:258
+STUNNER	./def.d	572;"	e	line:572	enum:TRAP
+SUFCATN	./def.d	548;"	e	line:548	enum:MAG_TYPE
+S_FONTSIZE	./def.d	60;"	v	line:60
+S_FONT_HEIGHT	./def.d	62;"	v	line:62
+S_FONT_J_HEIGHT	./def.d	64;"	v	line:64
+S_FONT_J_WIDTH	./def.d	63;"	v	line:63
+S_FONT_WIDTH	./def.d	61;"	v	line:61
+S_FONT_X_MARGINE	./def.d	65;"	v	line:65
+S_FONT_Y_MARGINE	./def.d	66;"	v	line:66
+S_LIGHT_COUNT	./def.d	153;"	v	line:153
+S_SCOPE_COUNT	./def.d	155;"	v	line:155
 Screen	./lib_screen.d	17;"	c	line:17
-TELEPORT	./def.d	528;"	e	line:528	enum:TRAP
-TEMPLE	./def.d	412;"	e	line:412	enum:HSTS
+TELEPORT	./def.d	573;"	e	line:573	enum:TRAP
+TELEPT	./def.d	560;"	e	line:560	enum:MAG_TYPE
+TEMPLE	./def.d	427;"	e	line:427	enum:HSTS
 TEXTURE_EXTENTIONS	./lib_font.d	36;"	v	line:36	class:Font	access:private
 TEXTURE_START	./lib_font.d	35;"	v	line:35	class:Font	access:private
-TEXT_HEIGHT	./def.d	78;"	v	line:78
-TEXT_WIDTH	./def.d	77;"	v	line:77
-THI	./def.d	272;"	e	line:272	enum:CLS
-THI	./def.d	440;"	e	line:440	enum:MON_TYPE
-TRAINING	./def.d	414;"	e	line:414	enum:HSTS
-TRAP	./def.d	520;"	g	line:520
-TRAP_NAME	./def.d	533;"	v	line:533
-TRE	./def.d	418;"	g	line:418
-TREASURE	./def.d	126;"	e	line:126	enum:CL
-TREASURE	./def.d	421;"	e	line:421	enum:TRE
-TXTW_X_SIZ	./def.d	102;"	v	line:102
-TXTW_X_TOP	./def.d	100;"	v	line:100
-TXTW_Y_SIZ	./def.d	103;"	v	line:103
-TXTW_Y_TOP	./def.d	101;"	v	line:101
-UND	./def.d	444;"	e	line:444	enum:MON_TYPE
-USE	./def.d	342;"	e	line:342	enum:ACT
-WALL	./def.d	158;"	e	line:158	enum:MAP_CL
-WALL2	./def.d	159;"	e	line:159	enum:MAP_CL
-WEAPON	./def.d	292;"	e	line:292	enum:ITM_KIND
-WINDOW_BOTTOM_MARGINE	./def.d	81;"	v	line:81
-WINDOW_HEIGHT	./def.d	88;"	v	line:88
-WINDOW_LEFT_MARGINE	./def.d	82;"	v	line:82
-WINDOW_RIGHT_MARGINE	./def.d	83;"	v	line:83
-WINDOW_TOP_MARGINE	./def.d	80;"	v	line:80
-WINDOW_WIDTH	./def.d	85;"	v	line:85
-WIN_X_SIZ	./def.d	94;"	v	line:94
-WIN_Y_SIZ	./def.d	95;"	v	line:95
-WITH_EFEECT_ED	./def.d	480;"	e	line:480	enum:MON_ACT
-WITH_EFEECT_ST	./def.d	475;"	e	line:475	enum:MON_ACT
-WON	./def.d	428;"	e	line:428	enum:BATTLE_RESULT
-Window	./lib_sdl.d	37;"	v	line:37	class:MySDL	access:private
+TEXT_HEIGHT	./def.d	86;"	v	line:86
+TEXT_WIDTH	./def.d	85;"	v	line:85
+THI	./def.d	286;"	e	line:286	enum:CLS
+THI	./def.d	455;"	e	line:455	enum:MON_TYPE
+TRAINING	./def.d	429;"	e	line:429	enum:HSTS
+TRAP	./def.d	138;"	e	line:138	enum:CL
+TRAP	./def.d	565;"	g	line:565
+TRAP_FAIL	./def.d	139;"	e	line:139	enum:CL
+TRAP_NAME	./def.d	578;"	v	line:578
+TRE	./def.d	433;"	g	line:433
+TREASURE	./def.d	136;"	e	line:136	enum:CL
+TREASURE	./def.d	436;"	e	line:436	enum:TRE
+TXTW_X_SIZ	./def.d	112;"	v	line:112
+TXTW_X_TOP	./def.d	110;"	v	line:110
+TXTW_Y_SIZ	./def.d	113;"	v	line:113
+TXTW_Y_TOP	./def.d	111;"	v	line:111
+UND	./def.d	459;"	e	line:459	enum:MON_TYPE
+USE	./def.d	356;"	e	line:356	enum:ACT
+VACUITY	./def.d	549;"	e	line:549	enum:MAG_TYPE
+WALL	./def.d	172;"	e	line:172	enum:MAP_CL
+WALL2	./def.d	173;"	e	line:173	enum:MAP_CL
+WEAPON	./def.d	306;"	e	line:306	enum:ITM_KIND
+WINDOW_BOTTOM_MARGINE	./def.d	89;"	v	line:89
+WINDOW_HEIGHT	./def.d	100;"	v	line:100
+WINDOW_LEFT_MARGINE	./def.d	90;"	v	line:90
+WINDOW_RIGHT_MARGINE	./def.d	91;"	v	line:91
+WINDOW_TOP_MARGINE	./def.d	88;"	v	line:88
+WINDOW_WIDTH	./def.d	99;"	v	line:99
+WIN_X_SIZ	./def.d	104;"	v	line:104
+WIN_Y_SIZ	./def.d	105;"	v	line:105
+WITH_EFEECT_ED	./def.d	495;"	e	line:495	enum:MON_ACT
+WITH_EFEECT_ST	./def.d	490;"	e	line:490	enum:MON_ACT
+WON	./def.d	443;"	e	line:443	enum:BATTLE_RESULT
+Window	./lib_sdl.d	39;"	v	line:39	class:MySDL	access:private
 _buffer	./lib_screen.d	33;"	v	line:33	class:Screen	access:private
 ac	./cItem.d	59;"	f	line:59	class:Item	access:public	signature:()
 ac	./cItemDef.d	38;"	v	line:38	class:ItemDef	access:public
@@ -370,21 +357,21 @@ ac	./cMonsterDef.d	47;"	v	line:47	class:MonsterDef	access:public
 ac	./cParty.d	102;"	v	line:102	class:Party	access:public
 acplus	./cMonster.d	29;"	v	line:29	class:Monster	access:public
 act	./cBattleTurn.d	67;"	f	line:67	class:BattleTurn	access:public	signature:()
-act	./cMember.d	2777;"	f	line:2777	class:Member	access:public	signature:()
+act	./cMember.d	2845;"	f	line:2845	class:Member	access:public	signature:()
 act	./cMonster.d	123;"	f	line:123	class:Monster	access:public	signature:()
-actDispel	./cMember.d	3067;"	f	line:3067	class:Member	access:public	signature:(MonsterTeam mt)
-actFight	./cMember.d	2833;"	f	line:2833	class:Member	access:public	signature:(Monster m)
-actSpellInBattle	./cMember.d	3121;"	f	line:3121	class:Member	access:public	signature:()
+actDispel	./cMember.d	3135;"	f	line:3135	class:Member	access:public	signature:(MonsterTeam mt)
+actFight	./cMember.d	2901;"	f	line:2901	class:Member	access:public	signature:(Monster m)
+actSpellInBattle	./cMember.d	3189;"	f	line:3189	class:Member	access:public	signature:()
 action	./cMember.d	259;"	v	line:259	class:Member	access:public
 action	./cMonsterDef.d	119;"	v	line:119	class:MonsterDef	access:public
-action_input	./cParty.d	815;"	f	line:815	class:Party	access:public	signature:()
+action_input	./cParty.d	828;"	f	line:828	class:Party	access:public	signature:()
 actitem	./cMember.d	260;"	v	line:260	class:Member	access:public
 actnum	./cMonsterTeam.d	16;"	v	line:16	class:MonsterTeam	access:public
 actnum	./cParty.d	101;"	v	line:101	class:Party	access:public
 add	./cMonster.d	244;"	f	line:244	class:Monster	access:public	signature:()
 add	./cMonsterParty.d	31;"	f	line:31	class:MonsterParty	access:public	signature:(int[] mdef)
 add	./cParty.d	167;"	f	line:167	class:Party	access:public	signature:()
-add	./def.d	193;"	v	line:193	struct:magicdef	access:public
+add	./def.d	207;"	v	line:207	struct:magicdef	access:public
 addCurXY	./lib_screen.d	51;"	f	line:51	class:Screen	access:private	signature:(ref int cx, ref int cy, int x, int y)
 addMem_disp	./cParty.d	37;"	f	line:37	class:Party	access:private	signature:()
 addgp	./cMonsterDef.d	115;"	v	line:115	class:MonsterDef	access:public
@@ -394,9 +381,9 @@ age	./cMember.d	184;"	v	line:184	class:Member	access:public
 agi	./cBattleTurn.d	59;"	v	line:59	class:BattleTurn	access:public
 agi	./cMember.d	212;"	v	line:212	class:Member	access:public
 agi	./cMonsterDef.d	50;"	v	line:50	class:MonsterDef	access:public
-answerYN	./app.d	1106;"	f	line:1106	signature:()
-appExit	./app.d	78;"	f	line:78	signature:()
-appSave	./app.d	86;"	f	line:86	signature:()
+answerYN	./app.d	1172;"	f	line:1172	signature:()
+appExit	./app.d	79;"	f	line:79	signature:()
+appSave	./app.d	87;"	f	line:87	signature:()
 atk	./cItem.d	67;"	f	line:67	class:Item	access:public	signature:()
 atk	./cItemDef.d	42;"	v	line:42	class:ItemDef	access:public
 atk	./cMember.d	216;"	v	line:216	class:Member	access:public
@@ -407,18 +394,18 @@ atkef	./cMember.d	218;"	v	line:218	class:Member	access:public
 atkef	./cMonsterDef.d	52;"	v	line:52	class:MonsterDef	access:public
 attack	./cMonster.d	424;"	f	line:424	class:Monster	access:public	signature:(int monaction, int target)
 attackLvDrain	./cMonster.d	629;"	f	line:629	class:Monster	access:public	signature:(Member mem)
-attr	./def.d	191;"	v	line:191	struct:magicdef	access:public
+attr	./def.d	205;"	v	line:205	struct:magicdef	access:public
 backSpace	./lib_readline.d	46;"	f	line:46	class:ReadLine	access:private	signature:()
 backSpace	./lib_screen.d	402;"	f	line:402	class:Screen	access:public	signature:(int len = 1)
-batl	./def.d	187;"	v	line:187	struct:magicdef	access:public
+batl	./def.d	201;"	v	line:201	struct:magicdef	access:public
 battle_main	./battle.d	28;"	f	line:28	signature:()
-boltac	./castle.d	511;"	f	line:511	signature:()
-boltac_buy	./castle.d	582;"	f	line:582	signature:()
-boltac_identify	./castle.d	1035;"	f	line:1035	signature:()
-boltac_list	./castle.d	772;"	f	line:772	signature:(int top, ITM_KIND kind, ref int lines, ref int[MAXITEM] item)
-boltac_sell	./castle.d	860;"	f	line:860	signature:()
-boltacitem	./def.d	177;"	v	line:177
-bonus_disp	./edgeoftown.d	1173;"	f	line:1173	access:private	signature:(int bonus, int pnt, Member mem)
+boltac	./castle.d	536;"	f	line:536	signature:()
+boltac_buy	./castle.d	614;"	f	line:614	signature:()
+boltac_identify	./castle.d	1067;"	f	line:1067	signature:()
+boltac_list	./castle.d	804;"	f	line:804	signature:(int top, ITM_KIND kind, ref int lines, ref int[MAXITEM] item)
+boltac_sell	./castle.d	892;"	f	line:892	signature:()
+boltacitem	./def.d	191;"	v	line:191
+bonus_disp	./edgeoftown.d	1176;"	f	line:1176	access:private	signature:(int bonus, int pnt, Member mem)
 breathe	./cMonster.d	288;"	f	line:288	class:Monster	access:public	signature:()
 breef	./cMonsterDef.d	68;"	v	line:68	class:MonsterDef	access:public
 broken	./cItem.d	90;"	f	line:90	class:Item	access:public	signature:()
@@ -431,35 +418,37 @@ budratio	./cMonsterDef.d	109;"	v	line:109	class:MonsterDef	access:public
 buffer	./lib_screen.d	32;"	v	line:32	class:Screen	access:private
 bufferPrint	./lib_screen.d	72;"	f	line:72	class:Screen	access:private	signature:(ref int x, ref int y, int cl, string word)
 calcAtkAC	./cMember.d	1168;"	f	line:1168	class:Member	access:public	signature:()
-calcAtkAC	./cParty.d	584;"	f	line:584	class:Party	access:public	signature:()
-calcHp	./cMember.d	1761;"	f	line:1761	class:Member	access:public	signature:()
+calcAtkAC	./cParty.d	595;"	f	line:595	class:Party	access:public	signature:()
+calcHp	./cMember.d	1829;"	f	line:1829	class:Member	access:public	signature:()
 calcLevel	./cMember.d	1151;"	f	line:1151	class:Member	access:public	signature:()
 calcNextExp	./cMember.d	1074;"	f	line:1074	class:Member	access:public	signature:()
 calcNextExp	./cMember.d	1078;"	f	line:1078	class:Member	access:public	signature:(int lv)
-calcProperty	./cMember.d	1926;"	f	line:1926	class:Member	access:public	signature:()
-camp	./def.d	186;"	v	line:186	struct:magicdef	access:public
-camp	./dungeon.d	492;"	f	line:492	signature:()
-camp_spell	./cMember.d	2342;"	f	line:2342	class:Member	access:public	signature:()
+calcProperty	./cMember.d	1994;"	f	line:1994	class:Member	access:public	signature:()
+camp	./def.d	200;"	v	line:200	struct:magicdef	access:public
+camp	./dungeon.d	437;"	f	line:437	signature:()
+camp_spell	./cMember.d	2410;"	f	line:2410	class:Member	access:public	signature:()
 camp_spell_sub	./spell.d	23;"	f	line:23	signature:(int mag)
-canAddMem	./edgeoftown.d	265;"	f	line:265	signature:(Member mem)
+canAddMem	./edgeoftown.d	268;"	f	line:268	signature:(Member mem)
 canBeEquipped	./cItem.d	196;"	f	line:196	class:Item	access:public	signature:(int cl)
 canBeEquipped	./cItemDef.d	101;"	f	line:101	class:ItemDef	access:public	signature:(int cl)
-canCarry	./cMember.d	2473;"	f	line:2473	class:Member	access:public	signature:()
+canCarry	./cMember.d	2541;"	f	line:2541	class:Member	access:public	signature:()
 castle_main	./castle.d	27;"	f	line:27	signature:()
 cha	./cMember.d	214;"	v	line:214	class:Member	access:public
-change_property	./cMember.d	1872;"	f	line:1872	class:Member	access:public	signature:(bool message)
+change_property	./cMember.d	1940;"	f	line:1940	class:Member	access:public	signature:(bool message)
 char_disp	./cMember.d	571;"	f	line:571	class:Member	access:public	signature:()
+checkAlive	./cParty.d	330;"	f	line:330	class:Party	access:public	signature:()
 checkAtkEf	./cItem.d	207;"	f	line:207	class:Item	access:public	signature:(ITM_ATKEF ef)
 checkBufferDoesNotChange	./lib_screen.d	137;"	f	line:137	class:Screen	access:private	signature:()
+checkDebugCommand	./dungeon.d	267;"	f	line:267	signature:(char keycode)
 checkDefEf	./cItem.d	215;"	f	line:215	class:Item	access:public	signature:(ITM_DEFEF ef)
-checkEncounterArea	./cMap.d	371;"	f	line:371	class:Map	access:public	signature:()
-checkInRock	./cMap.d	480;"	f	line:480	class:Map	access:public	signature:()
-checkView	./cMap.d	946;"	f	line:946	class:Map	access:public	signature:(int x1, int y1, int x2, int y2, bool delegate(int, int) isVisible)
-checkViewOrgMap	./cMap.d	899;"	f	line:899	class:Map	access:public	signature:(int mx, int my, int x, int y)
-checkViewVram	./cMap.d	909;"	f	line:909	class:Map	access:public	signature:(int mx, int my, int x, int y)
+checkEncounterArea	./cMap.d	374;"	f	line:374	class:Map	access:public	signature:()
+checkInRock	./cMap.d	484;"	f	line:484	class:Map	access:public	signature:()
+checkView	./cMap.d	955;"	f	line:955	class:Map	access:public	signature:(int x1, int y1, int x2, int y2, bool delegate(int, int) isVisible)
+checkViewOrgMap	./cMap.d	908;"	f	line:908	class:Map	access:public	signature:(int mx, int my, int x, int y)
+checkViewVram	./cMap.d	918;"	f	line:918	class:Map	access:public	signature:(int mx, int my, int x, int y)
 checked	./cMapEncountRoom.d	22;"	v	line:22	class:MapEncountRoomChip	access:private
-chg_class	./edgeoftown.d	326;"	f	line:326	signature:()
-chg_name	./edgeoftown.d	551;"	f	line:551	signature:()
+chg_class	./edgeoftown.d	329;"	f	line:329	signature:()
+chg_name	./edgeoftown.d	554;"	f	line:554	signature:()
 chip	./cMapEncountRoom.d	16;"	v	line:16	class:MapEncountRoom	access:private
 clear	./cMapEncountRoom.d	129;"	f	line:129	class:MapEncountRoom	access:public	signature:(int y, int x)
 clear	./cMapEncountRoom.d	57;"	f	line:57	class:MapEncountRoomChip	access:public	signature:()
@@ -467,17 +456,17 @@ cls	./lib_screen.d	208;"	f	line:208	class:Screen	access:public	signature:()
 color	./lib_font.d	24;"	v	line:24	class:Font	access:private
 color	./lib_screen.d	25;"	v	line:25	class:Screen	access:private
 color	./lib_screen.d	30;"	v	line:30	struct:Buffer	access:public
-color_a	./lib_sdl.d	31;"	v	line:31	class:MySDL	access:private
-color_b	./lib_sdl.d	30;"	v	line:30	class:MySDL	access:private
-color_g	./lib_sdl.d	29;"	v	line:29	class:MySDL	access:private
-color_r	./lib_sdl.d	28;"	v	line:28	class:MySDL	access:private
-consume_spell	./cMember.d	2215;"	f	line:2215	class:Member	access:public	signature:(int sno)
+color_a	./lib_sdl.d	33;"	v	line:33	class:MySDL	access:private
+color_b	./lib_sdl.d	32;"	v	line:32	class:MySDL	access:private
+color_g	./lib_sdl.d	31;"	v	line:31	class:MySDL	access:private
+color_r	./lib_sdl.d	30;"	v	line:30	class:MySDL	access:private
+consume_spell	./cMember.d	2283;"	f	line:2283	class:Member	access:public	signature:(int sno)
 convertHira	./lib_readline.d	78;"	f	line:78	class:ReadLine	access:private	signature:(string key)
 convertKata	./lib_readline.d	98;"	f	line:98	class:ReadLine	access:private	signature:(string key)
 createFont	./lib_screen.d	39;"	f	line:39	class:Screen	access:private	signature:(ubyte r, ubyte g, ubyte b)
-create_chr	./edgeoftown.d	782;"	f	line:782	signature:()
+create_chr	./edgeoftown.d	785;"	f	line:785	signature:()
 ctrlkey	./lib_readline.d	42;"	v	line:42	class:ReadLine	access:private
-ctrlkey	./lib_sdl.d	35;"	v	line:35	class:MySDL	access:private
+ctrlkey	./lib_sdl.d	37;"	v	line:37	class:MySDL	access:private
 cursed	./cItem.d	32;"	v	line:32	class:Item	access:public
 curx	./lib_screen.d	24;"	v	line:24	class:Screen	access:private
 cury	./lib_screen.d	24;"	v	line:24	class:Screen	access:private
@@ -500,58 +489,58 @@ defined	./cItem.d	41;"	f	line:41	class:Item	access:public	signature:(bool flg)
 del	./cBattleTurn.d	93;"	f	line:93	class:BattleTurn	access:public	signature:()
 del	./cMonster.d	96;"	f	line:96	class:Monster	access:public	signature:()
 del	./cMonsterTeam.d	118;"	f	line:118	class:MonsterTeam	access:public	signature:()
-delay	./lib_sdl.d	153;"	f	line:153	class:MySDL	access:public	signature:(int wait)
-delete_chr	./edgeoftown.d	630;"	f	line:630	signature:()
-disp	./cMap.d	683;"	f	line:683	class:Map	access:public	signature:()
+delay	./lib_sdl.d	158;"	f	line:158	class:MySDL	access:public	signature:(int wait)
+delete_chr	./edgeoftown.d	633;"	f	line:633	signature:()
+disp	./cMap.d	687;"	f	line:687	class:Map	access:public	signature:()
 disp	./cMonsterParty.d	168;"	f	line:168	class:MonsterParty	access:public	signature:()
 disp	./lib_screen.d	259;"	f	line:259	class:Screen	access:public	signature:()
-disp	./lib_sdl.d	139;"	f	line:139	class:MySDL	access:public	signature:()
+disp	./lib_sdl.d	144;"	f	line:144	class:MySDL	access:public	signature:()
 dispMonsterInfo	./cMonsterParty.d	212;"	f	line:212	class:MonsterParty	access:public	signature:()
 dispStatusLine	./cMember.d	940;"	f	line:940	class:Member	access:public	signature:(int num)
 disp_mspell	./cMember.d	1351;"	f	line:1351	class:Member	access:public	signature:()
-disp_pspell	./cMember.d	1395;"	f	line:1395	class:Member	access:public	signature:()
+disp_pspell	./cMember.d	1429;"	f	line:1429	class:Member	access:public	signature:()
 divvy	./cParty.d	260;"	f	line:260	class:Party	access:public	signature:()
-doTheyHave	./cParty.d	649;"	f	line:649	class:Party	access:public	signature:(int item)
+doTheyHave	./cParty.d	660;"	f	line:660	class:Party	access:public	signature:(int item)
 doesHeHave	./cMember.d	1296;"	f	line:1296	class:Member	access:public	signature:(int itm)
 down	./cMapEncountRoom.d	26;"	v	line:26	class:MapEncountRoomChip	access:private
-downStairs	./cEvent.d	80;"	f	line:80	class:Event	access:public	signature:()
-dropitem	./cMember.d	1584;"	f	line:1584	class:Member	access:public	signature:()
+downStairs	./cEvent.d	85;"	f	line:85	class:Event	access:public	signature:()
+dropitem	./cMember.d	1652;"	f	line:1652	class:Member	access:public	signature:()
 dungeon	./cParty.d	84;"	v	line:84	class:Party	access:public
-dungeonMap	./def.d	151;"	v	line:151
+dungeonMap	./def.d	165;"	v	line:165
 dungeon_main	./dungeon.d	34;"	f	line:34	signature:()
 effect	./cItem.d	85;"	f	line:85	class:Item	access:public	signature:()
 effect	./cItemDef.d	51;"	v	line:51	class:ItemDef	access:public
 encount	./cMapEncountRoom.d	23;"	v	line:23	class:MapEncountRoomChip	access:private
 encountRoom	./cMap.d	34;"	v	line:34	class:Map	access:private
-encounter	./cEvent.d	103;"	f	line:103	class:Event	access:public	signature:(TRE tre)
-encounter	./cMap.d	344;"	f	line:344	class:Map	access:public	signature:(int t)
+encounter	./cEvent.d	162;"	f	line:162	class:Event	access:public	signature:(TRE tre)
+encounter	./cMap.d	347;"	f	line:347	class:Map	access:public	signature:(int t)
 end	./cMonsterParty.d	23;"	v	line:23	class:MonsterParty	access:public
 end	./cMonsterTeam.d	25;"	v	line:25	class:MonsterTeam	access:public
 endX	./cMap.d	37;"	v	line:37	class:Map	access:private
 endY	./cMap.d	37;"	v	line:37	class:Map	access:private
-end_turn	./def.d	237;"	v	line:237
-ending	./app.d	100;"	f	line:100	signature:()
+end_turn	./def.d	251;"	v	line:251
+ending	./app.d	101;"	f	line:101	signature:()
 eoftown	./edgeoftown.d	33;"	f	line:33	signature:()
-equip	./cMember.d	1438;"	f	line:1438	class:Member	access:public	signature:()
-equip	./cParty.d	661;"	f	line:661	class:Party	access:public	signature:()
+equip	./cMember.d	1506;"	f	line:1506	class:Member	access:public	signature:()
+equip	./cParty.d	672;"	f	line:672	class:Party	access:public	signature:()
 equip_sub	./cMember.d	27;"	f	line:27	class:Member	access:private	signature:(ITM_KIND itm_kind)
 equipped	./cItem.d	31;"	v	line:31	class:Item	access:public
 event	./cMap.d	30;"	v	line:30	class:Map	access:private
-event_chk	./cEvent.d	188;"	f	line:188	class:EventL1	access:public	signature:(char m)
-event_chk	./cEvent.d	311;"	f	line:311	class:EventL2	access:public	signature:(char m)
-event_chk	./cEvent.d	40;"	f	line:40	class:Event	access:public	signature:(char m)
-event_chk	./cEvent.d	416;"	f	line:416	class:EventL3	access:public	signature:(char m)
-event_chk	./cEvent.d	517;"	f	line:517	class:EventL4	access:public	signature:(char m)
-event_chk	./cEvent.d	538;"	f	line:538	class:EventL5	access:public	signature:(char m)
-event_chk	./cEvent.d	559;"	f	line:559	class:EventL6	access:public	signature:(char m)
-event_chk	./cEvent.d	580;"	f	line:580	class:EventL7	access:public	signature:(char m)
-event_chk	./cEvent.d	604;"	f	line:604	class:EventL8	access:public	signature:(char m)
-event_chk	./cMap.d	328;"	f	line:328	class:Map	access:public	signature:()
+event_chk	./cEvent.d	231;"	f	line:231	class:EventL1	access:public	signature:(char m)
+event_chk	./cEvent.d	41;"	f	line:41	class:Event	access:public	signature:(char m)
+event_chk	./cEvent.d	449;"	f	line:449	class:EventL2	access:public	signature:(char m)
+event_chk	./cEvent.d	560;"	f	line:560	class:EventL3	access:public	signature:(char m)
+event_chk	./cEvent.d	662;"	f	line:662	class:EventL4	access:public	signature:(char m)
+event_chk	./cEvent.d	741;"	f	line:741	class:EventL5	access:public	signature:(char m)
+event_chk	./cEvent.d	797;"	f	line:797	class:EventL6	access:public	signature:(char m)
+event_chk	./cEvent.d	890;"	f	line:890	class:EventL7	access:public	signature:(char m)
+event_chk	./cEvent.d	971;"	f	line:971	class:EventL8	access:public	signature:(char m)
+event_chk	./cMap.d	331;"	f	line:331	class:Map	access:public	signature:()
 eventflg	./cEvent.d	24;"	v	line:24	class:Event	access:public
 exp	./cMember.d	176;"	v	line:176	class:Member	access:public
 exp	./cMonster.d	43;"	f	line:43	class:Monster	access:public	signature:()
 exp	./cMonsterDef.d	46;"	v	line:46	class:MonsterDef	access:public
-fill	./app.d	1019;"	f	line:1019	signature:(string word, int size)
+fill	./app.d	1085;"	f	line:1085	signature:(string word, int size)
 font	./lib_font.d	23;"	v	line:23	class:Font	access:private
 font	./lib_screen.d	35;"	v	line:35	class:Screen	access:private
 fontMap	./lib_font.d	40;"	v	line:40	class:Font	access:private
@@ -559,8 +548,8 @@ gExePath	./def.d	50;"	v	line:50
 getAtkDrainLv	./cMonster.d	79;"	f	line:79	class:Monster	access:public	signature:()
 getAtkDrainLv	./cMonsterDef.d	64;"	f	line:64	class:MonsterDef	access:public	signature:()
 getBreEfDrainLv	./cMonsterDef.d	80;"	f	line:80	class:MonsterDef	access:public	signature:()
-getChar	./app.d	1092;"	f	line:1092	signature:()
-getColor	./app.d	1083;"	f	line:1083	signature:()
+getChar	./app.d	1158;"	f	line:1158	signature:()
+getColor	./app.d	1149;"	f	line:1149	signature:()
 getCurX	./lib_screen.d	252;"	f	line:252	class:Screen	access:public	signature:()
 getCurY	./lib_screen.d	253;"	f	line:253	class:Screen	access:public	signature:()
 getDispName	./cItem.d	152;"	f	line:152	class:Item	access:public	signature:()
@@ -573,68 +562,68 @@ getDispNameS	./cMonster.d	57;"	f	line:57	class:Monster	access:public	signature:(
 getDispNameS	./cMonsterParty.d	132;"	f	line:132	class:MonsterParty	access:public	signature:()
 getDispNameS	./cMonsterParty.d	148;"	f	line:148	class:MonsterParty	access:public	signature:(int target)
 getDispNameS	./cMonsterTeam.d	42;"	f	line:42	class:MonsterTeam	access:public	signature:()
-getEncounterMonster	./cEvent.d	180;"	f	line:180	class:EventL1	access:public	signature:()
+getEncounterMonster	./cEvent.d	222;"	f	line:222	class:EventL1	access:public	signature:()
 getEncounterMonster	./cEvent.d	22;"	f	line:22	class:Event	access:public	signature:()
-getEncounterMonster	./cEvent.d	306;"	f	line:306	class:EventL2	access:public	signature:()
-getEncounterMonster	./cEvent.d	411;"	f	line:411	class:EventL3	access:public	signature:()
-getEncounterMonster	./cEvent.d	512;"	f	line:512	class:EventL4	access:public	signature:()
-getEncounterMonster	./cEvent.d	533;"	f	line:533	class:EventL5	access:public	signature:()
-getEncounterMonster	./cEvent.d	554;"	f	line:554	class:EventL6	access:public	signature:()
-getEncounterMonster	./cEvent.d	575;"	f	line:575	class:EventL7	access:public	signature:()
-getEncounterMonster	./cEvent.d	596;"	f	line:596	class:EventL8	access:public	signature:()
+getEncounterMonster	./cEvent.d	443;"	f	line:443	class:EventL2	access:public	signature:()
+getEncounterMonster	./cEvent.d	554;"	f	line:554	class:EventL3	access:public	signature:()
+getEncounterMonster	./cEvent.d	656;"	f	line:656	class:EventL4	access:public	signature:()
+getEncounterMonster	./cEvent.d	735;"	f	line:735	class:EventL5	access:public	signature:()
+getEncounterMonster	./cEvent.d	791;"	f	line:791	class:EventL6	access:public	signature:()
+getEncounterMonster	./cEvent.d	884;"	f	line:884	class:EventL7	access:public	signature:()
+getEncounterMonster	./cEvent.d	962;"	f	line:962	class:EventL8	access:public	signature:()
 getGroup	./cMonsterParty.d	329;"	f	line:329	class:MonsterParty	access:public	signature:(int target)
 getHpPlus	./cMember.d	1267;"	f	line:1267	class:Member	access:public	signature:()
-getItem	./cMember.d	2481;"	f	line:2481	class:Member	access:public	signature:(int itemNo)
+getItem	./cMember.d	2549;"	f	line:2549	class:Member	access:public	signature:(int itemNo)
 getItemSavedata	./cItem.d	133;"	f	line:133	class:Item	access:public	signature:()
 getJWord	./lib_font.d	146;"	f	line:146	class:Font	access:public	signature:(string ch)
 getParaPtr	./cMember.d	1235;"	f	line:1235	class:Member	access:public	signature:(int idx, ref byte para0)
 getRandMonster	./cMonsterTeam.d	105;"	f	line:105	class:MonsterTeam	access:public	signature:()
 getTargetMonster	./cMember.d	133;"	f	line:133	class:Member	access:private	signature:()
 getTargetMonsterTeam	./cMember.d	159;"	f	line:159	class:Member	access:private	signature:()
-get_exp	./def.d	206;"	v	line:206
-get_rand	./app.d	653;"	f	line:653	signature:(int maxl)
-get_treasure	./dungeon.d	956;"	f	line:956	signature:(int mon)
-gilgamesh	./castle.d	404;"	f	line:404	signature:()
+get_exp	./def.d	220;"	v	line:220
+get_rand	./app.d	717;"	f	line:717	signature:(int maxl)
+get_treasure	./dungeon.d	923;"	f	line:923	signature:(int mon)
+gilgamesh	./castle.d	420;"	f	line:420	signature:()
 gold	./cItem.d	60;"	f	line:60	class:Item	access:public	signature:()
 gold	./cItemDef.d	39;"	v	line:39	class:ItemDef	access:public
 gold	./cMember.d	178;"	v	line:178	class:Member	access:public
 gsdl	./def.d	32;"	v	line:32
-header_disp	./app.d	682;"	f	line:682	signature:(HSTS sts, bool rewrite = true)
+header_disp	./app.d	746;"	f	line:746	signature:(HSTS sts, bool rewrite = true)
 healHP	./cMember.d	1283;"	f	line:1283	class:Member	access:public	signature:(int plus)
-heal_all	./cParty.d	721;"	f	line:721	class:Party	access:public	signature:()
+heal_all	./cParty.d	732;"	f	line:732	class:Party	access:public	signature:()
 hira	./lib_readline.d	33;"	v	line:33	class:ReadLine	access:private
 hp	./cMember.d	180;"	v	line:180	class:Member	access:public
 hp	./cMonster.d	26;"	v	line:26	class:Monster	access:public
 hpplus	./cItem.d	82;"	f	line:82	class:Item	access:public	signature:()
 hpplus	./cItemDef.d	50;"	v	line:50	class:ItemDef	access:public
 hpplus	./cMonsterDef.d	105;"	v	line:105	class:MonsterDef	access:public
-hpplus	./cParty.d	598;"	f	line:598	class:Party	access:public	signature:()
+hpplus	./cParty.d	609;"	f	line:609	class:Party	access:public	signature:()
 id	./cItemDef.d	27;"	v	line:27	class:ItemDef	access:public
 id	./cMonsterDef.d	38;"	v	line:38	class:MonsterDef	access:public
 ident	./cMonster.d	44;"	f	line:44	class:Monster	access:public	signature:()
 ident	./cMonsterParty.d	112;"	f	line:112	class:MonsterParty	access:public	signature:()
 ident	./cMonsterParty.d	116;"	f	line:116	class:MonsterParty	access:public	signature:(bool flg)
 ident	./cMonsterTeam.d	18;"	v	line:18	class:MonsterTeam	access:public
-identify	./cMember.d	2386;"	f	line:2386	class:Member	access:public	signature:()
-initCharactor	./app.d	512;"	f	line:512	access:private	signature:()
-initDisp	./cMap.d	666;"	f	line:666	class:Map	access:public	signature:()
+identify	./cMember.d	2454;"	f	line:2454	class:Member	access:public	signature:()
+initCharactor	./app.d	576;"	f	line:576	access:private	signature:()
+initDisp	./cMap.d	670;"	f	line:670	class:Map	access:public	signature:()
 init_roma	./lib_readline.d	119;"	f	line:119	class:ReadLine	access:private	signature:()
-initialize	./app.d	144;"	f	line:144	access:private	signature:()
-initialize	./cMap.d	133;"	f	line:133	class:Map	access:public	signature:()
-inkey	./lib_sdl.d	171;"	f	line:171	class:MySDL	access:public	signature:(ref bool quit)
-inn	./castle.d	221;"	f	line:221	signature:()
-inn_sub	./castle.d	362;"	f	line:362	signature:(Member mem, long money, int plus)
+initialize	./app.d	208;"	f	line:208	access:private	signature:()
+initialize	./cMap.d	136;"	f	line:136	class:Map	access:public	signature:()
+inkey	./lib_sdl.d	176;"	f	line:176	class:MySDL	access:public	signature:(ref bool quit)
+inn	./castle.d	228;"	f	line:228	signature:()
+inn_sub	./castle.d	378;"	f	line:378	signature:(Member mem, long money, int plus)
 input	./lib_readline.d	556;"	f	line:556	class:ReadLine	access:public	signature:(int size_max, int y, int x, ref bool quit)
 input	./lib_readline.d	561;"	f	line:561	class:ReadLine	access:public	signature:(int size_max, ref bool quit)
-inputAction	./cMember.d	2535;"	f	line:2535	class:Member	access:public	signature:(int row, char command)
+inputAction	./cMember.d	2603;"	f	line:2603	class:Member	access:public	signature:(int row, char command)
 inputChar	./lib_readline.d	26;"	v	line:26	class:ReadLine	access:private
 inspect	./cMember.d	820;"	f	line:820	class:Member	access:public	signature:()
-inspect	./cParty.d	694;"	f	line:694	class:Party	access:public	signature:()
+inspect	./cParty.d	705;"	f	line:705	class:Party	access:public	signature:()
 inspect_chr	./cMember.d	909;"	f	line:909	class:Member	access:public	signature:()
-inspect_chr	./edgeoftown.d	600;"	f	line:600	signature:()
-intDisp	./app.d	984;"	f	line:984	signature:(long num)
-intDispD	./app.d	993;"	f	line:993	signature:(long num, int digit)
-intFormat	./app.d	1003;"	f	line:1003	signature:(long num, int digit)
+inspect_chr	./edgeoftown.d	603;"	f	line:603	signature:()
+intDisp	./app.d	1050;"	f	line:1050	signature:(long num)
+intDispD	./app.d	1059;"	f	line:1059	signature:(long num, int digit)
+intFormat	./app.d	1069;"	f	line:1069	signature:(long num, int digit)
 iq	./cMember.d	209;"	v	line:209	class:Member	access:public
 isAtkCritical	./cMonster.d	78;"	f	line:78	class:Monster	access:public	signature:()
 isAtkCritical	./cMonsterDef.d	62;"	f	line:62	class:MonsterDef	access:public	signature:()
@@ -687,21 +676,21 @@ isDefefUndead	./cMonsterDef.d	89;"	f	line:89	class:MonsterDef	access:public	sign
 isEncount	./cMapEncountRoom.d	124;"	f	line:124	class:MapEncountRoom	access:public	signature:(int y, int x)
 isEncount	./cMapEncountRoom.d	48;"	f	line:48	class:MapEncountRoomChip	access:public	signature:()
 isFloat	./cParty.d	149;"	f	line:149	class:Party	access:public	signature:()
-isHankaku	./app.d	1162;"	f	line:1162	signature:(char c)
+isHankaku	./app.d	1228;"	f	line:1228	signature:(char c)
 isIdentify	./cParty.d	152;"	f	line:152	class:Party	access:public	signature:()
 isLight	./cParty.d	150;"	f	line:150	class:Party	access:public	signature:()
 isMapper	./cParty.d	148;"	f	line:148	class:Party	access:public	signature:()
 isMonster	./cBattleTurn.d	27;"	f	line:27	class:BattleTurn	access:public	signature:()
 isNothing	./cItem.d	39;"	f	line:39	class:Item	access:public	signature:()
-isPassable	./cMap.d	450;"	f	line:450	class:Map	access:public	signature:(int y, int x, bool doorFlg = false)
-isPit	./cMap.d	472;"	f	line:472	class:Map	access:public	signature:()
+isPassable	./cMap.d	453;"	f	line:453	class:Map	access:public	signature:(int y, int x, bool doorFlg = false)
+isPit	./cMap.d	476;"	f	line:476	class:Map	access:public	signature:()
 isPlayer	./cBattleTurn.d	22;"	f	line:22	class:BattleTurn	access:public	signature:()
-isShine	./cParty.d	151;"	f	line:151	class:Party	access:public	signature:()
-isVisibleOrgMap	./cMap.d	71;"	f	line:71	class:Map	access:private	signature:(int x, int y)
+isScope	./cParty.d	151;"	f	line:151	class:Party	access:public	signature:()
+isVisibleOrgMap	./cMap.d	72;"	f	line:72	class:Map	access:private	signature:(int x, int y)
 isVisibleVram	./cMap.d	47;"	f	line:47	class:Map	access:private	signature:(int x, int y)
 item	./cMember.d	189;"	v	line:189	class:Member	access:public
 itemNo	./cItem.d	38;"	f	line:38	class:Item	access:public	signature:()
-item_data	./def.d	171;"	v	line:171
+item_data	./def.d	185;"	v	line:185
 item_disp	./cMember.d	1309;"	f	line:1309	class:Member	access:public	signature:()
 item_no	./cItem.d	24;"	v	line:24	class:Item	access:private
 itemmax	./cMonsterDef.d	118;"	v	line:118	class:MonsterDef	access:public
@@ -711,7 +700,7 @@ kanaThreshold	./lib_font.d	33;"	v	line:33	class:Font	access:private
 kanjiCount	./lib_font.d	37;"	v	line:37	class:Font	access:private
 kata	./lib_readline.d	34;"	v	line:34	class:ReadLine	access:private
 keyInput	./lib_readline.d	321;"	f	line:321	class:ReadLine	access:private	signature:(SDL_Event e, int size_max)
-keyInput	./lib_sdl.d	216;"	f	line:216	class:MySDL	access:public	signature:(SDL_Event e)
+keyInput	./lib_sdl.d	221;"	f	line:221	class:MySDL	access:public	signature:(SDL_Event e)
 kind	./cBattleTurn.d	19;"	v	line:19	class:BattleTurn	access:private
 kind	./cItem.d	47;"	f	line:47	class:Item	access:public	signature:()
 kind	./cItemDef.d	32;"	v	line:32	class:ItemDef	access:public
@@ -719,15 +708,15 @@ lakanidef	./cMonsterDef.d	107;"	v	line:107	class:MonsterDef	access:public
 layer	./cMap.d	29;"	v	line:29	class:Map	access:private
 layer	./cMember.d	267;"	v	line:267	class:Member	access:public
 layer	./cParty.d	89;"	v	line:89	class:Party	access:public
-learn_mspell	./cMember.d	2036;"	f	line:2036	class:Member	access:public	signature:(int lvl)
-learn_pspell	./cMember.d	2082;"	f	line:2082	class:Member	access:public	signature:(int lvl)
-learn_spell	./cMember.d	2003;"	f	line:2003	class:Member	access:public	signature:()
+learn_mspell	./cMember.d	2104;"	f	line:2104	class:Member	access:public	signature:(int lvl)
+learn_pspell	./cMember.d	2150;"	f	line:2150	class:Member	access:public	signature:(int lvl)
+learn_spell	./cMember.d	2071;"	f	line:2071	class:Member	access:public	signature:()
 left	./cMapEncountRoom.d	27;"	v	line:27	class:MapEncountRoomChip	access:private
-leftB	./app.d	1032;"	f	line:1032	signature:(string word, int size, bool fill = true)
+leftB	./app.d	1098;"	f	line:1098	signature:(string word, int size, bool fill = true)
 level	./cMember.d	179;"	v	line:179	class:Member	access:public
 level	./cMonster.d	42;"	f	line:42	class:Monster	access:public	signature:()
 level	./cMonsterDef.d	108;"	v	line:108	class:MonsterDef	access:public
-levelup_chk	./cMember.d	1718;"	f	line:1718	class:Member	access:public	signature:()
+levelup_chk	./cMember.d	1786;"	f	line:1786	class:Member	access:public	signature:()
 lightCount	./cParty.d	98;"	v	line:98	class:Party	access:public
 line	./lib_readline.d	23;"	v	line:23	class:ReadLine	access:private
 lineCharWidth	./lib_readline.d	24;"	v	line:24	class:ReadLine	access:private
@@ -739,9 +728,9 @@ magdef	./cItemDef.d	49;"	v	line:49	class:ItemDef	access:public
 magdef	./cMember.d	256;"	v	line:256	class:Member	access:public
 magdef	./cMonster.d	41;"	f	line:41	class:Monster	access:public	signature:()
 magdef	./cMonsterDef.d	106;"	v	line:106	class:MonsterDef	access:public
-magic_data	./def.d	183;"	v	line:183
-magicdef	./def.d	184;"	s	line:184
-main	./app.d	38;"	f	line:38	signature:()
+magic_data	./def.d	197;"	v	line:197
+magicdef	./def.d	198;"	s	line:198
+main	./app.d	37;"	f	line:37	signature:(string[] args)
 makeKanjiTexture	./lib_font.d	126;"	f	line:126	class:Font	access:public	signature:(string kanji)
 map	./cMap.d	32;"	v	line:32	class:Map	access:private
 map_encount	./cMapEncountRoom.d	24;"	v	line:24	class:MapEncountRoomChip	access:private
@@ -751,52 +740,53 @@ marksUp	./cMonsterDef.d	195;"	f	line:195	class:MonsterDef	access:public	signatur
 maxhp	./cMember.d	181;"	v	line:181	class:Member	access:public
 maxhp	./cMonster.d	25;"	v	line:25	class:Monster	access:public
 mem	./cParty.d	82;"	v	line:82	class:Party	access:public
-mem_disp	./edgeoftown.d	754;"	f	line:754	signature:()
+mem_disp	./edgeoftown.d	757;"	f	line:757	signature:()
 member	./cBattleTurn.d	57;"	v	line:57	class:BattleTurn	access:public
-member	./def.d	223;"	v	line:223
+member	./def.d	237;"	v	line:237
 memsv	./cParty.d	83;"	v	line:83	class:Party	access:public
-min	./def.d	192;"	v	line:192	struct:magicdef	access:public
+min	./def.d	206;"	v	line:206	struct:magicdef	access:public
 mingp	./cMonsterDef.d	114;"	v	line:114	class:MonsterDef	access:public
 minhp	./cMonsterDef.d	44;"	v	line:44	class:MonsterDef	access:public
 minnum	./cMonsterDef.d	41;"	v	line:41	class:MonsterDef	access:public
 mode	./lib_readline.d	29;"	v	line:29	class:ReadLine	access:private
-monParty	./def.d	203;"	v	line:203
-monTeam	./def.d	204;"	v	line:204
+monParty	./def.d	217;"	v	line:217
+monTeam	./def.d	218;"	v	line:218
 monster	./cBattleTurn.d	58;"	v	line:58	class:BattleTurn	access:public
-monster	./def.d	205;"	v	line:205
+monster	./def.d	219;"	v	line:219
 monsterTeam	./cBattleTurn.d	51;"	f	line:51	class:BattleTurn	access:public	signature:()
-monster_data	./def.d	202;"	v	line:202
-monstermarks	./def.d	212;"	v	line:212
+monster_data	./def.d	216;"	v	line:216
+monstermarks	./def.d	226;"	v	line:226
 mspl_know	./cMember.d	191;"	v	line:191	class:Member	access:public
 mspl_max	./cMember.d	195;"	v	line:195	class:Member	access:public
 mspl_pt	./cMember.d	196;"	v	line:196	class:Member	access:public
-mvIntDispD	./app.d	1009;"	f	line:1009	signature:(int y, int x, long num, int digit)
-mvprintw	./app.d	955;"	f	line:955	signature:(int nY, int nX, char ch)
-mvprintw	./app.d	960;"	f	line:960	signature:(int nY, int nX, int i)
-mvprintw	./app.d	965;"	f	line:965	signature:(int nY, int nX, string text)
+mvIntDispD	./app.d	1075;"	f	line:1075	signature:(int y, int x, long num, int digit)
+mvprintw	./app.d	1021;"	f	line:1021	signature:(int nY, int nX, char ch)
+mvprintw	./app.d	1026;"	f	line:1026	signature:(int nY, int nX, int i)
+mvprintw	./app.d	1031;"	f	line:1031	signature:(int nY, int nX, string text)
 name	./cItem.d	43;"	f	line:43	class:Item	access:public	signature:()
 name	./cItemDef.d	28;"	v	line:28	class:ItemDef	access:public
 name	./cMember.d	200;"	v	line:200	class:Member	access:public
 name	./cMonsterDef.d	39;"	v	line:39	class:MonsterDef	access:public
-name	./def.d	185;"	v	line:185	struct:magicdef	access:public
+name	./def.d	199;"	v	line:199	struct:magicdef	access:public
 next	./cBattleTurn.d	62;"	v	line:62	class:BattleTurn	access:public
 next	./cMonster.d	32;"	v	line:32	class:Monster	access:public
 next	./cMonsterTeam.d	22;"	v	line:22	class:MonsterTeam	access:public
 nextexp	./cMember.d	177;"	v	line:177	class:Member	access:public
-nlevelup	./cMember.d	1827;"	f	line:1827	class:Member	access:public	signature:(int n)
+nlevelup	./cMember.d	1895;"	f	line:1895	class:Member	access:public	signature:(int n)
 num	./cMonsterParty.d	21;"	v	line:21	class:MonsterParty	access:public
 num	./cMonsterTeam.d	15;"	v	line:15	class:MonsterTeam	access:public
 num	./cParty.d	100;"	v	line:100	class:Party	access:public
 olayer	./cParty.d	92;"	v	line:92	class:Party	access:public
-order	./cParty.d	454;"	f	line:454	class:Party	access:public	signature:()
+order	./cParty.d	465;"	f	line:465	class:Party	access:public	signature:()
 orgmap	./cMap.d	33;"	v	line:33	class:Map	access:private
 outflag	./cMember.d	264;"	v	line:264	class:Member	access:public
-outmem_disp	./edgeoftown.d	290;"	f	line:290	signature:(Member mem = null)
+outmem_disp	./edgeoftown.d	293;"	f	line:293	signature:(Member mem = null)
 ox	./cParty.d	90;"	v	line:90	class:Party	access:public
 oy	./cParty.d	91;"	v	line:91	class:Party	access:public
 parent	./cItem.d	29;"	v	line:29	class:Item	access:public
-party	./def.d	217;"	v	line:217
+party	./def.d	231;"	v	line:231
 pie	./cMember.d	210;"	v	line:210	class:Member	access:public
+pit	./cEvent.d	103;"	f	line:103	class:Event	access:public	signature:()
 poisoned	./cMember.d	203;"	v	line:203	class:Member	access:public
 poolGold	./cParty.d	288;"	f	line:288	class:Party	access:public	signature:(Member m)
 poolGold	./cParty.d	309;"	f	line:309	class:Party	access:public	signature:(int no)
@@ -814,10 +804,10 @@ println	./lib_screen.d	371;"	f	line:371	class:Screen	access:public	signature:(st
 println	./lib_screen.d	379;"	f	line:379	class:Screen	access:public	signature:(int x, int y, string word)
 println	./lib_screen.d	385;"	f	line:385	class:Screen	access:public	signature:(int x, int y, string word, int c)
 println	./lib_screen.d	391;"	f	line:391	class:Screen	access:public	signature:(string[] word)
-printw	./app.d	974;"	f	line:974	signature:(string text)
+printw	./app.d	1040;"	f	line:1040	signature:(string text)
 promptx	./lib_readline.d	37;"	v	line:37	class:ReadLine	access:private
 prompty	./lib_readline.d	38;"	v	line:38	class:ReadLine	access:private
-protect_all	./cParty.d	749;"	f	line:749	class:Party	access:public	signature:()
+protect_all	./cParty.d	760;"	f	line:760	class:Party	access:public	signature:()
 pspl_know	./cMember.d	192;"	v	line:192	class:Member	access:public
 pspl_max	./cMember.d	197;"	v	line:197	class:Member	access:public
 pspl_pt	./cMember.d	198;"	v	line:198	class:Member	access:public
@@ -825,34 +815,34 @@ race	./cMember.d	204;"	v	line:204	class:Member	access:public
 range	./cItem.d	63;"	f	line:63	class:Item	access:public	signature:()
 range	./cItemDef.d	41;"	v	line:41	class:ItemDef	access:public
 range	./cMember.d	215;"	v	line:215	class:Member	access:public
-readBoltac	./app.d	337;"	f	line:337	access:private	signature:()
-readCharacter	./app.d	439;"	f	line:439	access:private	signature:()
-readItem	./app.d	221;"	f	line:221	access:private	signature:()
-readMagic	./app.d	246;"	f	line:246	access:private	signature:()
-readMap	./cMap.d	214;"	f	line:214	class:Map	access:public	signature:()
-readMapAll	./app.d	280;"	f	line:280	access:private	signature:()
-readMarks	./app.d	392;"	f	line:392	access:private	signature:()
-readMonster	./app.d	311;"	f	line:311	access:private	signature:()
+readBoltac	./app.d	401;"	f	line:401	access:private	signature:()
+readCharacter	./app.d	503;"	f	line:503	access:private	signature:()
+readItem	./app.d	285;"	f	line:285	access:private	signature:()
+readMagic	./app.d	310;"	f	line:310	access:private	signature:()
+readMap	./cMap.d	217;"	f	line:217	class:Map	access:public	signature:()
+readMapAll	./app.d	344;"	f	line:344	access:private	signature:()
+readMarks	./app.d	456;"	f	line:456	access:private	signature:()
+readMonster	./app.d	375;"	f	line:375	access:private	signature:()
 readline	./def.d	34;"	v	line:34
 release	./cItem.d	236;"	f	line:236	class:Item	access:public	signature:()
-releaseItem	./cMember.d	2500;"	f	line:2500	class:Member	access:public	signature:(Item itm)
-releaseItem	./cMember.d	2517;"	f	line:2517	class:Member	access:public	signature:(int no)
+releaseItem	./cMember.d	2568;"	f	line:2568	class:Member	access:public	signature:(Item itm)
+releaseItem	./cMember.d	2585;"	f	line:2585	class:Member	access:public	signature:(int no)
 remove	./cParty.d	209;"	f	line:209	class:Party	access:public	signature:()
-renderClear	./lib_sdl.d	129;"	f	line:129	class:MySDL	access:public	signature:()
+renderClear	./lib_sdl.d	134;"	f	line:134	class:MySDL	access:public	signature:()
 renderer	./lib_font.d	22;"	v	line:22	class:Font	access:private
 renderer	./lib_screen.d	36;"	v	line:36	class:Screen	access:private
-renderer	./lib_sdl.d	38;"	v	line:38	class:MySDL	access:private
-reorder	./cParty.d	503;"	f	line:503	class:Party	access:public	signature:(Member m)
+renderer	./lib_sdl.d	40;"	v	line:40	class:MySDL	access:private
+reorder	./cParty.d	514;"	f	line:514	class:Party	access:public	signature:(Member m)
 reset	./cMapEncountRoom.d	138;"	f	line:138	class:MapEncountRoom	access:public	signature:()
 reset	./cMapEncountRoom.d	50;"	f	line:50	class:MapEncountRoomChip	access:public	signature:()
-resetEncounterArea	./cMap.d	362;"	f	line:362	class:Map	access:public	signature:()
-resetEventFlg	./cMap.d	353;"	f	line:353	class:Map	access:public	signature:()
+resetEncounterArea	./cMap.d	365;"	f	line:365	class:Map	access:public	signature:()
+resetEventFlg	./cMap.d	356;"	f	line:356	class:Map	access:public	signature:()
 resetFlg	./cEvent.d	32;"	f	line:32	class:Event	access:public	signature:()
 resetFloat	./cParty.d	160;"	f	line:160	class:Party	access:public	signature:()
 resetIdentify	./cParty.d	162;"	f	line:162	class:Party	access:public	signature:()
 resetLight	./cParty.d	161;"	f	line:161	class:Party	access:public	signature:()
 resetMapper	./cParty.d	159;"	f	line:159	class:Party	access:public	signature:()
-resetShine	./cParty.d	158;"	f	line:158	class:Party	access:public	signature:()
+resetScope	./cParty.d	158;"	f	line:158	class:Party	access:public	signature:()
 rewriteOff	./def.d	37;"	f	line:37	signature:()
 rewriteOn	./def.d	38;"	f	line:38	signature:()
 rewrite_flg	./def.d	36;"	v	line:36
@@ -860,34 +850,36 @@ right	./cMapEncountRoom.d	28;"	v	line:28	class:MapEncountRoomChip	access:private
 rip	./cMember.d	183;"	v	line:183	class:Member	access:public
 rnd	./def.d	47;"	v	line:47
 save	./cMember.d	469;"	f	line:469	class:Member	access:public	signature:(File fout)
-saveBoltac	./app.d	373;"	f	line:373	access:public	signature:()
+saveBoltac	./app.d	437;"	f	line:437	access:public	signature:()
 saveBuffer	./lib_screen.d	123;"	f	line:123	class:Screen	access:private	signature:()
-saveCharacter	./app.d	497;"	f	line:497	access:public	signature:()
-saveMap	./app.d	297;"	f	line:297	access:public	signature:()
-saveMap	./cMap.d	303;"	f	line:303	class:Map	access:public	signature:()
-saveMarks	./app.d	421;"	f	line:421	access:public	signature:()
+saveCharacter	./app.d	561;"	f	line:561	access:public	signature:()
+saveMap	./app.d	361;"	f	line:361	access:public	signature:()
+saveMap	./cMap.d	306;"	f	line:306	class:Map	access:public	signature:()
+saveMarks	./app.d	485;"	f	line:485	access:public	signature:()
+scopeCount	./cParty.d	99;"	v	line:99	class:Party	access:public
 scr	./def.d	33;"	v	line:33
 scr	./lib_readline.d	21;"	v	line:21	class:ReadLine	access:private
-scrwin_clear	./app.d	934;"	f	line:934	signature:()
+scrwin_clear	./app.d	1000;"	f	line:1000	signature:()
 sdl	./lib_readline.d	20;"	v	line:20	class:ReadLine	access:private
 sdl	./lib_screen.d	22;"	v	line:22	class:Screen	access:private
-searchHiddenDoor	./cMap.d	638;"	f	line:638	class:Map	access:public	signature:()
-searchMember	./cMap.d	559;"	f	line:559	class:Map	access:public	signature:()
-seeMonsterMarks	./castle.d	158;"	f	line:158	signature:()
-selectActiveMember	./cParty.d	913;"	f	line:913	class:Party	access:public	signature:(string msg)
+searchHiddenDoor	./cMap.d	642;"	f	line:642	class:Map	access:public	signature:()
+searchMember	./cMap.d	563;"	f	line:563	class:Map	access:public	signature:()
+seeMonsterMarks	./castle.d	164;"	f	line:164	signature:()
+selectActiveMember	./cParty.d	940;"	f	line:940	class:Party	access:public	signature:(string msg)
 selectGroup	./cMonsterParty.d	279;"	f	line:279	class:MonsterParty	access:public	signature:(int row)
-selectMemberInBattle	./cParty.d	947;"	f	line:947	class:Party	access:public	signature:(int row)
+selectMemberInBattle	./cParty.d	974;"	f	line:974	class:Party	access:public	signature:(int row)
 set	./cBattleTurn.d	34;"	f	line:34	class:BattleTurn	access:public	signature:(Member p)
 set	./cBattleTurn.d	42;"	f	line:42	class:BattleTurn	access:public	signature:(Monster m)
-setColor	./app.d	1073;"	f	line:1073	signature:(int cl)
+setColor	./app.d	1139;"	f	line:1139	signature:(int cl)
 setColor	./lib_screen.d	226;"	f	line:226	class:Screen	access:public	signature:(int c)
 setDown	./cMapEncountRoom.d	32;"	f	line:32	class:MapEncountRoomChip	access:public	signature:(MapEncountRoomChip r)
-setDrawColor	./lib_sdl.d	112;"	f	line:112	class:MySDL	access:public	signature:(ubyte r, ubyte g, ubyte b, ubyte a)
+setDrawColor	./lib_sdl.d	117;"	f	line:117	class:MySDL	access:public	signature:(ubyte r, ubyte g, ubyte b, ubyte a)
 setDungeon	./cParty.d	132;"	f	line:132	class:Party	access:public	signature:()
 setEncount	./cMapEncountRoom.d	118;"	f	line:118	class:MapEncountRoom	access:public	signature:(int y, int x, bool e)
 setEncount	./cMapEncountRoom.d	35;"	f	line:35	class:MapEncountRoomChip	access:public	signature:(bool e)
-setEndPos	./cMap.d	203;"	f	line:203	class:Map	access:public	signature:()
+setEndPos	./cMap.d	206;"	f	line:206	class:Map	access:public	signature:()
 setFloat	./cParty.d	155;"	f	line:155	class:Party	access:public	signature:()
+setFontSize	./app.d	146;"	f	line:146	signature:(string[] args)
 setIdentify	./cParty.d	157;"	f	line:157	class:Party	access:public	signature:()
 setItem	./cItem.d	100;"	f	line:100	class:Item	access:public	signature:(int no)
 setLeft	./cMapEncountRoom.d	33;"	f	line:33	class:MapEncountRoomChip	access:public	signature:(MapEncountRoomChip r)
@@ -895,38 +887,37 @@ setLight	./cParty.d	156;"	f	line:156	class:Party	access:public	signature:()
 setMapper	./cParty.d	154;"	f	line:154	class:Party	access:public	signature:()
 setNull	./cItem.d	223;"	f	line:223	class:Item	access:public	signature:()
 setRight	./cMapEncountRoom.d	34;"	f	line:34	class:MapEncountRoomChip	access:public	signature:(MapEncountRoomChip r)
-setRndSeed	./app.d	657;"	f	line:657	signature:()
-setShine	./cParty.d	153;"	f	line:153	class:Party	access:public	signature:()
-setStartPos	./cMap.d	193;"	f	line:193	class:Map	access:public	signature:()
+setRndSeed	./app.d	721;"	f	line:721	signature:()
+setScope	./cParty.d	153;"	f	line:153	class:Party	access:public	signature:()
+setStartPos	./cMap.d	196;"	f	line:196	class:Map	access:public	signature:()
 setUp	./cMapEncountRoom.d	31;"	f	line:31	class:MapEncountRoomChip	access:public	signature:(MapEncountRoomChip r)
 shiftkey	./lib_readline.d	41;"	v	line:41	class:ReadLine	access:private
-shiftkey	./lib_sdl.d	34;"	v	line:34	class:MySDL	access:private
-shineCount	./cParty.d	99;"	v	line:99	class:Party	access:public
+shiftkey	./lib_sdl.d	36;"	v	line:36	class:MySDL	access:private
 silenced	./cMember.d	262;"	v	line:262	class:Member	access:public
 silenced	./cMonster.d	28;"	v	line:28	class:Monster	access:public
 spell	./cMonster.d	685;"	f	line:685	class:Monster	access:public	signature:(int mag, int target)
-spell_acDownAll	./cMember.d	3516;"	f	line:3516	class:Member	access:public	signature:(int acplus)
-spell_acDownGrp	./cMember.d	3498;"	f	line:3498	class:Member	access:public	signature:(MonsterTeam mt, int acplus)
-spell_acPlusParty	./cMember.d	3548;"	f	line:3548	class:Member	access:public	signature:(int mag)
-spell_acPlusPlayer	./cMember.d	3532;"	f	line:3532	class:Member	access:public	signature:(int mag)
-spell_atk	./cMember.d	3258;"	f	line:3258	class:Member	access:public	signature:(int mag, Monster m)
+spell_acDownAll	./cMember.d	3584;"	f	line:3584	class:Member	access:public	signature:(int acplus)
+spell_acDownGrp	./cMember.d	3566;"	f	line:3566	class:Member	access:public	signature:(MonsterTeam mt, int acplus)
+spell_acPlusParty	./cMember.d	3616;"	f	line:3616	class:Member	access:public	signature:(int mag)
+spell_acPlusPlayer	./cMember.d	3600;"	f	line:3600	class:Member	access:public	signature:(int mag)
+spell_atk	./cMember.d	3326;"	f	line:3326	class:Member	access:public	signature:(int mag, Monster m)
 spell_atk	./cMonster.d	864;"	f	line:864	class:Monster	access:public	signature:(int mag, int target)
-spell_atkAll	./cMember.d	3341;"	f	line:3341	class:Member	access:public	signature:(int mag)
-spell_atkGrp	./cMember.d	3325;"	f	line:3325	class:Member	access:public	signature:(int mag, MonsterTeam mt)
-spell_badi	./cMember.d	3726;"	f	line:3726	class:Member	access:public	signature:(Monster m)
-spell_cureParalize	./cMember.d	3475;"	f	line:3475	class:Member	access:public	signature:()
-spell_curePoison	./cMember.d	3452;"	f	line:3452	class:Member	access:public	signature:()
-spell_healAll	./cMember.d	3442;"	f	line:3442	class:Member	access:public	signature:(int mag)
-spell_healOne	./cMember.d	3407;"	f	line:3407	class:Member	access:public	signature:(int mag, int target)
-spell_kanito	./cMember.d	3357;"	f	line:3357	class:Member	access:public	signature:(MonsterTeam mt)
-spell_katino	./cMember.d	3624;"	f	line:3624	class:Member	access:public	signature:(MonsterTeam mt)
-spell_know	./cMember.d	2131;"	f	line:2131	class:Member	access:public	signature:(int no)
-spell_labadi	./cMember.d	3757;"	f	line:3757	class:Member	access:public	signature:(Monster m)
-spell_latuma	./cMember.d	3238;"	f	line:3238	class:Member	access:public	signature:()
-spell_madi	./cMember.d	3562;"	f	line:3562	class:Member	access:public	signature:()
-spell_makanito	./cMember.d	3391;"	f	line:3391	class:Member	access:public	signature:()
-spell_manifo	./cMember.d	3676;"	f	line:3676	class:Member	access:public	signature:(MonsterTeam mt)
-spell_montino	./cMember.d	3587;"	f	line:3587	class:Member	access:public	signature:(MonsterTeam mt)
+spell_atkAll	./cMember.d	3409;"	f	line:3409	class:Member	access:public	signature:(int mag)
+spell_atkGrp	./cMember.d	3393;"	f	line:3393	class:Member	access:public	signature:(int mag, MonsterTeam mt)
+spell_bind	./cMember.d	3744;"	f	line:3744	class:Member	access:public	signature:(MonsterTeam mt)
+spell_bress	./cMember.d	3630;"	f	line:3630	class:Member	access:public	signature:()
+spell_cureParalize	./cMember.d	3543;"	f	line:3543	class:Member	access:public	signature:()
+spell_curePoison	./cMember.d	3520;"	f	line:3520	class:Member	access:public	signature:()
+spell_dyng	./cMember.d	3825;"	f	line:3825	class:Member	access:public	signature:(Monster m)
+spell_healAll	./cMember.d	3510;"	f	line:3510	class:Member	access:public	signature:(int mag)
+spell_healOne	./cMember.d	3475;"	f	line:3475	class:Member	access:public	signature:(int mag, int target)
+spell_know	./cMember.d	2199;"	f	line:2199	class:Member	access:public	signature:(int no)
+spell_latuma	./cMember.d	3306;"	f	line:3306	class:Member	access:public	signature:()
+spell_nokessn	./cMember.d	3794;"	f	line:3794	class:Member	access:public	signature:(Monster m)
+spell_silenc	./cMember.d	3655;"	f	line:3655	class:Member	access:public	signature:(MonsterTeam mt)
+spell_sleep	./cMember.d	3692;"	f	line:3692	class:Member	access:public	signature:(MonsterTeam mt)
+spell_sufcatn	./cMember.d	3425;"	f	line:3425	class:Member	access:public	signature:(MonsterTeam mt)
+spell_vacuity	./cMember.d	3459;"	f	line:3459	class:Member	access:public	signature:()
 srcHeight	./lib_font.d	28;"	v	line:28	class:Font	access:private
 srcHeightJ	./lib_font.d	30;"	v	line:30	class:Font	access:private
 srcWidth	./lib_font.d	27;"	v	line:27	class:Font	access:private
@@ -937,38 +928,38 @@ status	./cMember.d	201;"	v	line:201	class:Member	access:public
 status	./cMonster.d	27;"	v	line:27	class:Monster	access:public
 status	./cParty.d	93;"	v	line:93	class:Party	access:public
 step	./cParty.d	86;"	v	line:86	class:Party	access:public
-step_proc	./dungeon.d	440;"	f	line:440	signature:()
+step_proc	./dungeon.d	385;"	f	line:385	signature:()
 str	./cMember.d	208;"	v	line:208	class:Member	access:public
 str	./cMonsterDef.d	49;"	v	line:49	class:MonsterDef	access:public
 suprised	./cMonsterParty.d	25;"	v	line:25	class:MonsterParty	access:public
 suprised	./cParty.d	104;"	v	line:104	class:Party	access:public
-swap_chr	./edgeoftown.d	692;"	f	line:692	signature:()
-swap_disp	./edgeoftown.d	671;"	f	line:671	signature:()
+swap_chr	./edgeoftown.d	695;"	f	line:695	signature:()
+swap_disp	./edgeoftown.d	674;"	f	line:674	signature:()
 target	./cMember.d	261;"	v	line:261	class:Member	access:public
 team	./cMonster.d	24;"	v	line:24	class:Monster	access:public
-temple	./castle.d	1292;"	f	line:1292	signature:()
-testOutputEncountRoom	./cMap.d	113;"	f	line:113	class:Map	access:public	signature:()
+temple	./castle.d	1324;"	f	line:1324	signature:()
+testOutputEncountRoom	./cMap.d	116;"	f	line:116	class:Map	access:public	signature:()
 text	./lib_screen.d	29;"	v	line:29	struct:Buffer	access:public
-text_color	./def.d	111;"	v	line:111
-text_curx	./def.d	110;"	v	line:110
-text_cury	./def.d	110;"	v	line:110
-text_top	./def.d	112;"	v	line:112
-text_win_buffer	./def.d	113;"	v	line:113
-text_win_buffer_color	./def.d	115;"	v	line:115
-text_win_buffer_size	./def.d	114;"	v	line:114
-textout	./app.d	783;"	f	line:783	signature:(int i)
-textout	./app.d	785;"	f	line:785	signature:(long l)
-textout	./app.d	787;"	f	line:787	signature:(char c)
-textout	./app.d	789;"	f	line:789	signature:(string text)
+text_color	./def.d	121;"	v	line:121
+text_curx	./def.d	120;"	v	line:120
+text_cury	./def.d	120;"	v	line:120
+text_top	./def.d	122;"	v	line:122
+text_win_buffer	./def.d	123;"	v	line:123
+text_win_buffer_color	./def.d	125;"	v	line:125
+text_win_buffer_size	./def.d	124;"	v	line:124
+textout	./app.d	849;"	f	line:849	signature:(int i)
+textout	./app.d	851;"	f	line:851	signature:(long l)
+textout	./app.d	853;"	f	line:853	signature:(char c)
+textout	./app.d	855;"	f	line:855	signature:(string text)
 texture	./lib_font.d	26;"	v	line:26	class:Font	access:private
 textureKana	./lib_font.d	32;"	v	line:32	class:Font	access:private
 textureKanji	./lib_font.d	34;"	v	line:34	class:Font	access:private
-theyGet	./cParty.d	619;"	f	line:619	class:Party	access:public	signature:(int itemno)
+theyGet	./cParty.d	630;"	f	line:630	class:Party	access:public	signature:(int itemno)
 this	./cEvent.d	26;"	f	line:26	class:Event	signature:()	access:public
 this	./cItem.d	176;"	f	line:176	class:Item	signature:(Member p)	access:public
 this	./cItem.d	184;"	f	line:184	class:Item	signature:(Member p, int itm_no)	access:public
 this	./cItemDef.d	61;"	f	line:61	class:ItemDef	signature:(char[][] data)	access:public
-this	./cMap.d	104;"	f	line:104	class:Map	signature:(int l)	access:public
+this	./cMap.d	107;"	f	line:107	class:Map	signature:(int l)	access:public
 this	./cMapEncountRoom.d	42;"	f	line:42	class:MapEncountRoomChip	signature:(int _y, int _x)	access:public
 this	./cMapEncountRoom.d	83;"	f	line:83	class:MapEncountRoom	signature:()	access:public
 this	./cMember.d	276;"	f	line:276	class:Member	signature:(string line)	access:public
@@ -978,42 +969,42 @@ this	./cParty.d	109;"	f	line:109	class:Party	signature:()	access:public
 this	./lib_font.d	43;"	f	line:43	class:Font	signature:(string fontname, int fontsize, SDL_Renderer* r, SDL_Color cl)	access:public
 this	./lib_readline.d	540;"	f	line:540	class:ReadLine	signature:(MySDL sd, Screen sc)	access:public
 this	./lib_screen.d	158;"	f	line:158	class:Screen	signature:(MySDL s, SDL_Renderer* r)	access:public
-this	./lib_sdl.d	42;"	f	line:42	class:MySDL	signature:()	access:public
-this	./lib_sdl.d	67;"	f	line:67	class:MySDL	signature:(int w, int h)	access:public
-tline_input	./app.d	1128;"	f	line:1128	signature:(int size_max)
-tline_input	./app.d	1146;"	f	line:1146	signature:(int size_max, int y, int x)
+this	./lib_sdl.d	44;"	f	line:44	class:MySDL	signature:()	access:public
+this	./lib_sdl.d	72;"	f	line:72	class:MySDL	signature:(int w, int h)	access:public
+tline_input	./app.d	1194;"	f	line:1194	signature:(int size_max)
+tline_input	./app.d	1212;"	f	line:1212	signature:(int size_max, int y, int x)
 top	./cMonsterParty.d	22;"	v	line:22	class:MonsterParty	access:public
 top	./cMonsterTeam.d	24;"	v	line:24	class:MonsterTeam	access:public
-top_turn	./def.d	237;"	v	line:237
+top_turn	./def.d	251;"	v	line:251
 trade	./cItem.d	245;"	f	line:245	class:Item	access:public	signature:(Item itm)
-tradeitem	./cMember.d	1502;"	f	line:1502	class:Member	access:public	signature:()
-training	./edgeoftown.d	173;"	f	line:173	access:private	signature:()
+tradeitem	./cMember.d	1570;"	f	line:1570	class:Member	access:public	signature:()
+training	./edgeoftown.d	171;"	f	line:171	access:private	signature:()
 treasure	./cMonsterParty.d	20;"	v	line:20	class:MonsterParty	access:public
-treasure_main	./dungeon.d	654;"	f	line:654	signature:(int monnum)
+treasure_main	./dungeon.d	599;"	f	line:599	signature:(int monnum)
 turn	./cMonster.d	34;"	v	line:34	class:Monster	access:public
-turn	./def.d	238;"	v	line:238
+turn	./def.d	252;"	v	line:252
 type	./cMonster.d	39;"	f	line:39	class:Monster	access:public	signature:()
 type	./cMonsterDef.d	111;"	v	line:111	class:MonsterDef	access:public
-type	./def.d	188;"	v	line:188	struct:magicdef	access:public
-uncurse	./castle.d	947;"	f	line:947	signature:()
+type	./def.d	202;"	v	line:202	struct:magicdef	access:public
+uncurse	./castle.d	979;"	f	line:979	signature:()
 undefined	./cItem.d	33;"	v	line:33	class:Item	access:public
-unlockDoor	./cMap.d	489;"	f	line:489	class:Map	access:public	signature:()
+unlockDoor	./cMap.d	493;"	f	line:493	class:Map	access:public	signature:()
 unname	./cItem.d	44;"	f	line:44	class:Item	access:public	signature:()
 unname	./cItemDef.d	29;"	v	line:29	class:ItemDef	access:public
 unname	./cMonsterDef.d	40;"	v	line:40	class:MonsterDef	access:public
 up	./cMapEncountRoom.d	25;"	v	line:25	class:MapEncountRoomChip	access:private
-upStairs	./cEvent.d	54;"	f	line:54	class:Event	access:public	signature:()
+upStairs	./cEvent.d	58;"	f	line:58	class:Event	access:public	signature:()
 updateIdentify	./cMonsterParty.d	157;"	f	line:157	class:MonsterParty	access:public	signature:()
-useitem	./cMember.d	1634;"	f	line:1634	class:Member	access:public	signature:()
+useitem	./cMember.d	1702;"	f	line:1702	class:Member	access:public	signature:()
 vit	./cMember.d	211;"	v	line:211	class:Member	access:public
 vram	./cMap.d	40;"	v	line:40	class:Map	access:private
 vramCl	./cMap.d	41;"	v	line:41	class:Map	access:private
-win_disp	./cParty.d	332;"	f	line:332	class:Party	access:public	signature:(bool rewrite = true)
-win_disp_noreorder	./cParty.d	346;"	f	line:346	class:Party	access:public	signature:()
-win_disp_sub	./cParty.d	419;"	f	line:419	class:Party	access:public	signature:(bool rewrite = true)
-window_height	./lib_sdl.d	25;"	v	line:25	class:MySDL	access:private
+win_disp	./cParty.d	343;"	f	line:343	class:Party	access:public	signature:(bool rewrite = true)
+win_disp_noreorder	./cParty.d	357;"	f	line:357	class:Party	access:public	signature:()
+win_disp_sub	./cParty.d	430;"	f	line:430	class:Party	access:public	signature:(bool rewrite = true)
+window_height	./lib_sdl.d	27;"	v	line:27	class:MySDL	access:private
 window_name	./lib_sdl.d	23;"	v	line:23	class:MySDL	access:private
-window_width	./lib_sdl.d	24;"	v	line:24	class:MySDL	access:private
+window_width	./lib_sdl.d	26;"	v	line:26	class:MySDL	access:private
 x	./cMapEncountRoom.d	21;"	v	line:21	class:MapEncountRoomChip	access:private
 x	./cMember.d	265;"	v	line:265	class:Member	access:public
 x	./cParty.d	87;"	v	line:87	class:Party	access:public
@@ -1022,4 +1013,4 @@ y	./cMember.d	266;"	v	line:266	class:Member	access:public
 y	./cParty.d	88;"	v	line:88	class:Party	access:public
 ~this	./lib_font.d	115;"	f	line:115	class:Font
 ~this	./lib_screen.d	198;"	f	line:198	class:Screen
-~this	./lib_sdl.d	75;"	f	line:75	class:MySDL
+~this	./lib_sdl.d	80;"	f	line:80	class:MySDL

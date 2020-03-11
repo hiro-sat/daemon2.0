@@ -102,7 +102,10 @@ BATTLE_RESULT battle_main()
         }
 
         if ( c == 'z' )
+        {
+            rtncode = BATTLE_RESULT.RAN;
             goto EXIT;
+        }
     }
     else if ( get_rand(99) + 1 < 20 )
     { // surprised the monster(20%)
@@ -208,7 +211,7 @@ BATTLE_RESULT battle_main()
             party.win_disp();
             party.num = 0;
             party.layer = 0;
-            textout( "\n*** your party is lost...<push space bar(5)>\n" );
+            textout( "\n*** your party is lost...<push space bar)>\n" );
             while ( true )
             {
                 c = getChar();

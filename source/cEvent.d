@@ -166,7 +166,7 @@ abstract class Event
 
         int[] mon;
 
-        BATTLE_RESULT rtncode;
+        BATTLE_RESULT bt_result;
         char c;
 
         mon.length = 1;
@@ -185,16 +185,17 @@ abstract class Event
 
         monParty.add( mon[] );
 
-        // rtncode = 1 : won
-        //           2 : ran
-        //           3 : lost
-        rtncode = battle_main();
+        // bt_result = 1 : won
+        //             2 : ran
+        //             3 : lost
+        bt_result = battle_main();
 
-        if ( rtncode == BATTLE_RESULT.WON )
+        if ( bt_result == BATTLE_RESULT.WON )
         { /* won */
             if ( tre == TRE.TREASURE )
             {
-                treasure_main( mon[ 0 ] );
+                if( ! treasure_main( mon[ 0 ] ) )
+                    return BATTLE_RESULT.LOST;      // 罠により全滅
             }
             else if ( tre == TRE.GOLD )
             {
@@ -210,24 +211,7 @@ abstract class Event
             }
         }
 
-        for ( i = 0; i < party.num; i++ )
-            if ( party.mem[ i ].status < STS.PARALY )
-                break;
-
-        if ( i == party.num  )
-        {
-            party.win_disp();
-            party.num = 0;
-            party.layer = 0;
-            textout( "\n*** your party is lost...<push space bar>\n" );
-            while ( true )
-            {
-                c = getChar();
-                if ( c == ' ' || c == '5' )
-                    break;
-            }
-        }
-        return rtncode;
+        return bt_result;
     }
 }
 
