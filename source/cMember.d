@@ -3235,7 +3235,7 @@ public:
                 spell_atkAll( mag );
                 break;
             case MAG_TYPE.KANI:     // vanished
-                spell_katino( getTargetMonsterTeam );
+                spell_kanito( getTargetMonsterTeam );
                 break;
             case MAG_TYPE.MAKANI:
                 spell_makanito();
