@@ -54,7 +54,7 @@ void camp_spell_sub( int mag )
             textout( "done.\n" );
             header_disp( HSTS.CAMP );
             break;
-        case MAG_TYPE.MILWA :       // flash
+        case MAG_TYPE.FLASH :       // flash
             party.setLight;
             party.lightCount += S_LIGHT_COUNT;
             party.setScope;
@@ -62,7 +62,7 @@ void camp_spell_sub( int mag )
             textout( "done.\n" );
             header_disp( HSTS.CAMP );
             break;
-        case MAG_TYPE.LOMILWA :     // shine
+        case MAG_TYPE.SHINE :     // shine
             party.setLight;
             party.lightCount += L_LIGHT_COUNT;
             party.setScope;
@@ -70,17 +70,17 @@ void camp_spell_sub( int mag )
             textout( "done.\n" );
             header_disp(HSTS.CAMP);
             break;
-        case MAG_TYPE.LITO :        // float
+        case MAG_TYPE.FLOATN :        // float
             party.setFloat;
             textout( "done.\n" );
             header_disp( HSTS.CAMP );
             break;
-        case MAG_TYPE.LATUMA :      // identify
+        case MAG_TYPE.RCGNIZE :      // identify
             party.setIdentify;
             textout( "done.\n" );
             header_disp( HSTS.CAMP );
             break;
-        case MAG_TYPE.KADOR :       // resurrection
+        case MAG_TYPE.Bress :       // resurrection
             if ( ! ( mem.status != STS.DEAD || mem.status != STS.ASHED ) )
             {
                 textout( "  what?\n" );
@@ -130,7 +130,7 @@ void camp_spell_sub( int mag )
             }
             party.win_disp();
             break;
-        case MAG_TYPE.DI :
+        case MAG_TYPE.BREATHE :
             if ( mem.status != STS.DEAD )
             {
                 textout( "  what?\n" );
@@ -193,21 +193,21 @@ void camp_spell_sub( int mag )
             }
             party.win_disp();
             break;
-        case MAG_TYPE.MAPOR :       // ac - 2
+        case MAG_TYPE.GUARD :       // ac - 2
             party.ac =  - 2;
             party.win_disp();
             header_disp( HSTS.CAMP );
             break;
-        case MAG_TYPE.CUREPOI :     // cure poison
+        case MAG_TYPE.DETXIFY :     // cure poison
             mem.poisoned = false;
             party.win_disp();
             break;
-        case MAG_TYPE.CUREPAR :     // cure paralyze
+        case MAG_TYPE.CURE :     // cure paralyze
             if ( mem.status <= STS.PARALY )
                 mem.status = STS.OK;
             party.win_disp();
             break;
-        case MAG_TYPE.MADI :        // cure stone
+        case MAG_TYPE.BRESS :        // cure stone
             if ( mem.status <= STS.STONED  )
             {
                 mem.status = STS.OK ;
@@ -215,13 +215,13 @@ void camp_spell_sub( int mag )
                 party.win_disp();
             }
             break;
-        case MAG_TYPE.LOKTO :       // return castle
+        case MAG_TYPE.RETURN :       // return castle
             party.x = 1;
             party.y = 2;
             party.layer = 0;
             textout( "teleport to the castle!\n" );
             break;
-        case MAG_TYPE.MALOR :       // teleport
+        case MAG_TYPE.TELEPT :       // teleport
             textout( "\n*** where do you want to teleport? ***\n" );
 
         XPOS:

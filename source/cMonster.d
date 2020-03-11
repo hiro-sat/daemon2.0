@@ -688,7 +688,7 @@ class Monster
 
         switch ( magic_data[ mag ].type )
         {
-            case MAG.MONTI:     // silence
+            case MAG_TYPE.SILENC:     // silence
                 for ( i = 0; i < party.num; i++ )
                 {
                     if ( party.mem[ i ].silenced )
@@ -712,7 +712,7 @@ class Monster
                     getChar();
                 }
                 break;
-            case MAG.LABADI:    // dying
+            case MAG_TYPE.DYNG:    // dying
                 if ( party.mem[ target ].status >= STS.DEAD )
                     break;
                 textout( "  " );
@@ -734,7 +734,7 @@ class Monster
                 party.win_disp_noreorder();
                 getChar();
                 break;
-            case MAG.BADI:      // sudden death
+            case MAG_TYPE.NOKESSN:      // sudden death
                 if ( party.mem[ target ].status >= STS.DEAD )
                     break;
                 textout( "  " );
@@ -756,24 +756,24 @@ class Monster
                     textout( " is alive.\n" );
                 }
                 break;
-            case MAG.ATKONE: /* atk(1) */
+            case MAG_TYPE.ATKONE: /* atk(1) */
                 spell_atk( mag , target );
                 break;
-            case MAG.ATKGRP: /* atk(gr) */
-            case MAG.ATKALL: /* atk(all) */
+            case MAG_TYPE.ATKGRP: /* atk(gr) */
+            case MAG_TYPE.ATKALL: /* atk(all) */
                 spell_atk( mag, -1 );
                 break;
-            case MAG.ACONE: // plus player AC(one)
+            case MAG_TYPE.ACONE: // plus player AC(one)
                 party.mem[ target ].ac[ 1 ] += magic_data[ mag ].min;
                 party.win_disp_noreorder();
                 break;
-            case MAG.ACGRP: // plus player AC(gr)
-            case MAG.ACALL: // plus player AC(all)
+            case MAG_TYPE.ACGRP: // plus player AC(gr)
+            case MAG_TYPE.ACALL: // plus player AC(all)
                 for ( i = 0; i < party.num; i++ )
                     party.mem[ i ].ac[ 1 ] += magic_data[ mag ].min;
                 party.win_disp_noreorder;
                 break;
-            case MAG.KATINO: /* katino(gr) */
+            case MAG_TYPE.SLEEP: /* katino(gr) */
                 for ( i = 0; i < party.num; i++ )
                 {
                     if ( party.mem[ i ].status == STS.OK )
@@ -798,7 +798,7 @@ class Monster
                     }
                 }
                 break;
-            case MAG.MANIFO: /* manifo(gr) */
+            case MAG_TYPE.BIND: /* manifo(gr) */
                 for ( i = 0; i < party.num; i++ )
                 {
                     if ( party.mem[ i ].status == STS.OK )
@@ -823,8 +823,8 @@ class Monster
                     }
                 }
                 break;
-            case MAG.KANI:   // kanito(gr)
-            case MAG.MAKANI: // makanito(all)
+            case MAG_TYPE.SUFCATN:   // kanito(gr)
+            case MAG_TYPE.VACUITY: // makanito(all)
                 for ( i = 0; i < party.num; i++ )
                 {
                     if ( party.mem[ i ].status >= STS.DEAD )

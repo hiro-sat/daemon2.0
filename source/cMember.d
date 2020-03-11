@@ -3211,18 +3211,18 @@ public:
       
         switch ( magic_data[ mag ].type )
         {
-            case MAG_TYPE.LOKTO:    // return castle
+            case MAG_TYPE.RETURN:    // return castle
                 party.x     = 1;
                 party.y     = 2;
                 party.layer = 0;
                 for (i = 0; i < party.num; i++)
                     party.mem[ i ].outflag = OUT_F.CASTLE ; // in castle
                 return 2;
-            case MAG_TYPE.MALOR:                        // escape( random )
+            case MAG_TYPE.TELEPT:                        // escape( random )
                 party.x = to!byte( get_rand( MAP_MAX_X ) + 1 );
                 party.y = to!byte( get_rand( MAP_MAX_Y ) + 1 );
                 return 2;
-            case MAG_TYPE.LATUMA:       // identify
+            case MAG_TYPE.RCGNIZE:       // identify
                 spell_latuma;
                 break;
             case MAG_TYPE.ATKONE: /* atk(1) */
@@ -3234,11 +3234,11 @@ public:
             case MAG_TYPE.ATKALL: /* atk(all) */
                 spell_atkAll( mag );
                 break;
-            case MAG_TYPE.KANI:     // vanished
-                spell_katino( getTargetMonsterTeam );
+            case MAG_TYPE.SUFCATN:     // vanished
+                spell_sufcatn( getTargetMonsterTeam );
                 break;
-            case MAG_TYPE.MAKANI:
-                spell_makanito();
+            case MAG_TYPE.VACUITY:
+                spell_vacuity();
                 break;
             case MAG_TYPE.HEALONE: /* HP+(1) */
                 spell_healOne( mag , target );
@@ -3263,34 +3263,34 @@ public:
             case MAG_TYPE.HEALALL: /* HP(all) */
                 spell_healAll( mag );
                 break;
-            case MAG_TYPE.CUREPOI: /* latumofis */
+            case MAG_TYPE.DETXIFY: /* latumofis */
                 spell_curePoison;
                 break;
-            case MAG_TYPE.CUREPAR: /* dialko */
+            case MAG_TYPE.CURE: /* dialko */
                 spell_cureParalize;
                 break;
-            case MAG_TYPE.MADI: /* madi */
-                spell_madi();
+            case MAG_TYPE.BRESS: /* madi */
+                spell_bress();
                 break;
-            case MAG_TYPE.MAPOR: /* maporfic */
+            case MAG_TYPE.GUARD: /* maporfic */
                 party.ac = -2;
                 party.win_disp_noreorder;
                 getChar();
                 break;
-            case MAG_TYPE.MONTI: // montino(gr)
-                spell_montino( getTargetMonsterTeam );
+            case MAG_TYPE.SILENC: // montino(gr)
+                spell_silenc( getTargetMonsterTeam );
                 break;
-            case MAG_TYPE.KATINO: /* katino(gr) */
-                spell_katino( getTargetMonsterTeam );
+            case MAG_TYPE.SLEEP: /* sleep(gr) */
+                spell_sleep( getTargetMonsterTeam );
                 break;
-            case MAG_TYPE.MANIFO: /* manifo(gr) */
-                spell_manifo( getTargetMonsterTeam );
+            case MAG_TYPE.BIND: /* manifo(gr) */
+                spell_bind( getTargetMonsterTeam );
                 break;
-            case MAG_TYPE.BADI:
-                spell_badi( getTargetMonsterTeam.getRandMonster );
+            case MAG_TYPE.NOKESSN:
+                spell_nokessn( getTargetMonsterTeam.getRandMonster );
                 break;
-            case MAG_TYPE.LABADI:
-                spell_labadi( getTargetMonsterTeam.getRandMonster );
+            case MAG_TYPE.DYNG:
+                spell_dyng( getTargetMonsterTeam.getRandMonster );
                 break;
             default:
                 assert( 0 );
@@ -3420,9 +3420,9 @@ public:
     }
 
     /*--------------------
-       spell_kanito
+       spell_sufcatn
        --------------------*/
-    void spell_kanito( MonsterTeam mt )
+    void spell_sufcatn( MonsterTeam mt )
     {
         Monster m;
 
@@ -3454,16 +3454,16 @@ public:
     }
 
     /*--------------------
-       spell_makanito
+       spell_vacuity
        --------------------*/
-    void spell_makanito()
+    void spell_vacuity()
     {
         MonsterTeam mt;
 
         mt = monParty.top;
         while( mt !is null )
         {
-            spell_kanito( mt );
+            spell_sufcatn( mt );
             mt = mt.next;
         }
         return;
@@ -3625,9 +3625,9 @@ public:
 
 
     /*--------------------
-       spell_madi
+       spell_bress
        --------------------*/
-    void spell_madi()
+    void spell_bress()
     {
 
         if ( party.mem[ target ].status >= STS.DEAD )
@@ -3650,9 +3650,9 @@ public:
 
 
     /*--------------------
-       spell_montino - silence
+       spell_silenc - silence
        --------------------*/
-    void spell_montino( MonsterTeam mt )
+    void spell_silenc( MonsterTeam mt )
     {
 
         getChar();
@@ -3687,9 +3687,9 @@ public:
     }
 
     /*--------------------
-       spell_katino - sleep
+       spell_sleep sleep
        --------------------*/
-    void spell_katino( MonsterTeam mt )
+    void spell_sleep( MonsterTeam mt )
     {
 
         Monster m;
@@ -3739,9 +3739,9 @@ public:
     }
 
     /*--------------------
-       spell_manifo - paralyze
+       spell_bind - paralyze
        --------------------*/
-    void spell_manifo( MonsterTeam mt )
+    void spell_bind( MonsterTeam mt )
     {
 
 
@@ -3789,9 +3789,9 @@ public:
     }
 
     /*--------------------
-       spell_badi - sudden death
+       spell_nokessn - sudden death
        --------------------*/
-    void spell_badi( Monster m )
+    void spell_nokessn( Monster m )
     {
         textout("  ");
         textout( m.getDispNameA );
@@ -3820,9 +3820,9 @@ public:
     }
 
     /*--------------------
-       spell_labadi - dying
+       spell_dyng - dying
        --------------------*/
-    void spell_labadi( Monster m )
+    void spell_dyng( Monster m )
     {
 
         int mon_hp;
