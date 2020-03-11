@@ -378,6 +378,7 @@ enum DEFEF
 }
 
 /* magic type */
+/+
 enum MAG
 {
     ATKONE  = 1,    /* attack one monster */
@@ -411,7 +412,7 @@ enum MAG
     MALOR   = 30,   // malor(xoowgn)
     LOKTO   = 31   // loktofeit(vxvxpow)
 }
-
++/
 
 // header info status 
 enum HSTS
@@ -498,6 +499,36 @@ enum MON_ACT
 /* magic type */
 enum MAG_TYPE
 {
+//     ATKONE  = 1  ,   /* attack one monster */
+//    ATKGRP  = 2  ,   /* attack group */
+//    ATKALL  = 3  ,   /* attack all */
+//    HEALONE = 4  ,   /* heal one player */
+//    ACONE   = 6  ,   /* increase one monster's AC */
+//    ACGRP   = 7  ,   /* increase one monster group's AC */
+//    ACALL   = 8  ,   /* increase all monsters' AC */
+//    ACPONE  = 9  ,   /* decrease one player's AC */
+//    HEALALL = 10 ,   /* heal all */
+//    CUREPOI = 11 ,   /* latumofis */
+//    CUREPAR = 12 ,   /* dialko */
+//    MADI    = 13 ,   /* madi */
+//    MAPOR   = 14 ,   /* maporfic */
+//    KATINO  = 15 ,   /* katino(gr) */
+//    MANIFO  = 16 ,   /* manifo(gr) */
+//    ACPGR   = 17 ,   /* decrease player group's AC */
+//    KANI    = 18 ,   // kanito(gr)
+//    MAKANI  = 19 ,   // makanito(all)
+//    DI      = 20 ,   // di
+//    KADOR   = 21 ,   // katorto
+//    BADI    = 22 ,   // badi(one)
+//    LABADI  = 23 ,   // labadi(one)
+//    LITO    = 24 ,   // litofeit
+//    LATUMA  = 25 ,   // latumapic
+//    MONTI   = 26 ,   // montino(gr)
+//    MAPPER  = 27 ,   // dumapic
+//    MILWA   = 28 ,   // milwa
+//    LOMILWA = 29 ,   // lomilwa
+//    MALOR   = 30 ,   // malor(xoowgn)
+//    LOKTO   = 31     // loktofeit(vxvxpow)
     ATKONE  = 1  ,   /* attack one monster */
     ATKGRP  = 2  ,   /* attack group */
     ATKALL  = 3  ,   /* attack all */
@@ -507,27 +538,27 @@ enum MAG_TYPE
     ACALL   = 8  ,   /* increase all monsters' AC */
     ACPONE  = 9  ,   /* decrease one player's AC */
     HEALALL = 10 ,   /* heal all */
-    CUREPOI = 11 ,   /* latumofis */
-    CUREPAR = 12 ,   /* dialko */
-    MADI    = 13 ,   /* madi */
-    MAPOR   = 14 ,   /* maporfic */
-    KATINO  = 15 ,   /* katino(gr) */
-    MANIFO  = 16 ,   /* manifo(gr) */
+    DETXIFY = 11 ,   /* latumofis */
+    CURE    = 12 ,   /* dialko */
+    BRESS   = 13 ,   /* madi */
+    GUARD   = 14 ,   /* maporfic */
+    SLEEP   = 15 ,   /* katino(gr) */
+    BIND    = 16 ,   /* manifo(gr) */
     ACPGR   = 17 ,   /* decrease player group's AC */
-    KANI    = 18 ,   // kanito(gr)
-    MAKANI  = 19 ,   // makanito(all)
-    DI      = 20 ,   // di
-    KADOR   = 21 ,   // katorto
-    BADI    = 22 ,   // badi(one)
-    LABADI  = 23 ,   // labadi(one)
-    LITO    = 24 ,   // litofeit
-    LATUMA  = 25 ,   // latumapic
-    MONTI   = 26 ,   // montino(gr)
+    SUFCATN = 18 ,   // kanito(gr)
+    VACUITY = 19 ,   // makanito(all)
+    BREATHE = 20 ,   // di
+    Bress   = 21 ,   //katorto
+    NOKESSN = 22 ,   // badi(one)
+    DYNG    = 23 ,   // labadi(one)
+    FLOATN  = 24 ,   // litofeit
+    RCGNIZE = 25 ,   // latumapic
+    SILENC  = 26 ,   // montino(gr)
     MAPPER  = 27 ,   // dumapic
-    MILWA   = 28 ,   // milwa
-    LOMILWA = 29 ,   // lomilwa
-    MALOR   = 30 ,   // malor(xoowgn)
-    LOKTO   = 31     // loktofeit(vxvxpow)
+    FLASH   = 28 ,   // milwa
+    SHINE   = 29 ,   // lomilwa
+    TELEPT  = 30 ,   // malor(xoowgn)
+    RETURN  = 31     // loktofeit(vxvxpow)
 }
 
 /* trap name */
