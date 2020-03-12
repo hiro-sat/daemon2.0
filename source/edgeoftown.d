@@ -622,7 +622,7 @@ void inspect_chr()
         return;
 
 
-    member[ c - 'a' ].inspect_chr;
+    member[ c - 'a' ].inspect_chr( 0 );
     return;
 
 }

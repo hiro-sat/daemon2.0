@@ -700,9 +700,10 @@ public:
 
     /*--------------------
        inspect - メンバー情報表示
+        type: 1:camp , 2:battle
        --------------------*/
     /* void inspect_party() */
-    void inspect()
+    void inspect( int type = 0 )
     {
         char c;
         
@@ -887,10 +888,10 @@ public:
                 else if( c == 'c' )
                 {
                     textout("  " ~ pl.name ~ " read mage spells\n");
-                    pl.disp_mspell;
+                    pl.disp_mspell();
                     getChar();
                     textout("  " ~ pl.name ~ " read priest spells\n");
-                    pl.disp_pspell;
+                    pl.disp_pspell();
                     getChar();
                     dungeon.disp();
 
