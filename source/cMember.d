@@ -710,10 +710,10 @@ public:
         intDispD( rip, 3 );
         printw( " sts " );
       
-        switch( status & BIT_STS_EXCEPTING_POISONED )
+        switch( status )
         {
             case STS.OK:
-                if( status >= BIT_STS_POISONED )
+                if( poisoned )
                     printw( "poisoned" );
                 else
                     printw( "      ok" );
@@ -2740,7 +2740,7 @@ public:
         string spell_name;
 
         void dispCommand( string com )
-            { mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 48, com ); }
+        { mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 48, com ); }
         void dispTargetInt( int t )
             { mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 54, " " ~ to!string( t ) ); }
         void dispTarget( string txt )
@@ -2872,12 +2872,12 @@ public:
 
             actitem = c - 'a';
             magic &= 0x7f;
-            dispCommand( "       " );
-            dispCommand( magic_data[ magic ].name );
+            dispCommand( leftB( magic_data[ magic ].name , 6 ) ~ " " );
 
             if ( magic_data[ magic ].batl == 1 )
             { /* row target */
-                dispTarget( " ???????????????????????" );
+                /* dispTarget( " ???????????????????????" ); */
+                dispTarget( "                        " );
             }
             else if ( magic_data[ magic ].batl == 2 )
             { /* to a party member */
@@ -2930,11 +2930,11 @@ public:
                 return false;
             }
 
-            dispCommand( "       " );
-            dispCommand( spell_name );
+            dispCommand( leftB( spell_name , 6 ) ~ " " );
             if ( magic_data[ mag ].batl == 1 )
             { /* row target */
-                dispTarget( " ???????????????????????" );
+                /* dispTarget( " ???????????????????????" ); */
+                dispTarget( "                        " );
             }
             else if ( magic_data[ mag ].batl == 2 )
             { /* to a party member */

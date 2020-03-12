@@ -839,12 +839,41 @@ public:
       
     AGAIN:
         for ( j = 0; j < num; j++ )
-          mvprintw( CHRW_Y_TOP + j + 1, CHRW_X_TOP + 48, "?????? ???????????????????????" );
+            mvprintw( CHRW_Y_TOP + j + 1, CHRW_X_TOP + 48, "?????? ???????????????????????" );
       
         for ( row = 0; row < num; row++)
         {
             if ( mem[ row ].status != STS.OK )
+            {
+                switch( mem[ row ].status )
+                {
+                    case STS.SLEEP:
+                        printw( "SLEEP " );
+                        break;
+                    case STS.AFRAID:
+                        printw( "AFRAID" );
+                        break;
+                    case STS.PARALY:
+                        printw( "PARALY" );
+                        break;
+                    case STS.STONED:
+                        printw( "STONED" );
+                        break;
+                    case STS.DEAD:
+                        printw( "DEAD  " );
+                        break;
+                    case STS.ASHED:
+                        printw( "ASHED " );
+                        break;
+                    case STS.LOST:
+                        printw( "LOST  " );
+                        break;
+                    default:
+                        assert( 0 );
+                }
+                mvprintw( CHRW_Y_TOP + j + 1, CHRW_X_TOP + 48 + 6, "                        " );
                 continue;
+            }
 
             pl = mem[ row ];
             mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 48, "what?  " );
