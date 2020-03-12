@@ -1347,6 +1347,34 @@ public:
 
 
     /*--------------------
+       dispSpellsInCamp - 戦闘中呪文表示
+       --------------------*/
+    void dispSpellsInCamp()
+    {
+        disp_mspell();
+        getChar();
+        disp_pspell();
+        getChar();
+        inspect;
+        return;
+    }
+
+    /*--------------------
+       dispSpellsInBattle - 戦闘中呪文表示
+       --------------------*/
+    void dispSpellsInBattle()
+    {
+        textout("  " ~ name ~ " read mage spells\n");
+        disp_mspell();
+        getChar();
+        textout("  " ~ name ~ " read priest spells\n");
+        disp_pspell();
+        getChar();
+        party.dungeon.disp();
+        return;
+    }
+
+    /*--------------------
        disp_mspell - 魔法使い呪文表示
         type: 1:camp , 2:battle
        --------------------*/
@@ -2544,7 +2572,8 @@ public:
         string spell_name;
 
         textout( "what spell?\n" );
-        spell_name = tline_input( 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
+        /* spell_name = tline_input( 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP ); */
+        spell_name = tline_input_spell( this , 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
         textout( '>' );
         textout( spell_name );
         textout( '\n' );
@@ -2900,7 +2929,8 @@ public:
         else if ( ( command == 's' || command == '6' ) && ! monParty.suprised )
         {
             dispCommand( "spell  ?                      " );
-            spell_name = tline_input( 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 );
+            /* spell_name = tline_input( 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 ); */
+            spell_name = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 );
 
             for ( mag = 0; mag < MAXMAGIC; mag++ )
               if ( spell_name == magic_data[ mag ].name )

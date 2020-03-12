@@ -519,11 +519,7 @@ int camp()
             }
             else if ( ch == 'r' )
             {   // read spell
-                mem.disp_mspell();
-                getChar();
-                mem.disp_pspell();
-                getChar();
-                mem.inspect;
+                mem.dispSpellsInCamp;
                 break;
             }
             else if ( ch == 'e' )

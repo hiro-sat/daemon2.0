@@ -894,7 +894,7 @@ public:
         mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2, SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 , '@' );
         setColor( CL.NORMAL );
 
-        header_disp( HSTS.DUNGEON );
+        /* header_disp( HSTS.DUNGEON ); */
 
         rewriteOn;
 
