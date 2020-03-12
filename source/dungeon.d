@@ -713,9 +713,7 @@ bool treasure_main( int monnum )
                 textout( "\n=== " ~ TRAP_NAME[ inspected ] ~ "? ===\n" );
                 setColor( CL.NORMAL );
 
-
-                /* textout( mem.name ~ " disarm?(y/n)\n" ); */
-                textout( "  disarm?(y/n)\n" );
+                textout( mem.name ~ " disarm?(y/n)\n" );
                 if( answerYN == 'n' )
                     continue;
 
