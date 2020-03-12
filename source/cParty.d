@@ -836,46 +836,49 @@ public:
 
         header_disp( HSTS.BATTLE );
         textout( "input action...\n" );
-      
+
     AGAIN:
         for ( j = 0; j < num; j++ )
             mvprintw( CHRW_Y_TOP + j + 1, CHRW_X_TOP + 48, "?????? ???????????????????????" );
       
         for ( row = 0; row < num; row++)
         {
-            if ( mem[ row ].status != STS.OK )
+
+            pl = mem[ row ];
+
+            if ( pl.status != STS.OK )
             {
-                switch( mem[ row ].status )
+                mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 48 - 1, " " );
+                switch( pl.status )
                 {
                     case STS.SLEEP:
-                        printw( "SLEEP " );
+                        printw( "sleep " );
                         break;
                     case STS.AFRAID:
-                        printw( "AFRAID" );
+                        printw( "afraid" );
                         break;
                     case STS.PARALY:
-                        printw( "PARALY" );
+                        printw( "paraly" );
                         break;
                     case STS.STONED:
-                        printw( "STONED" );
+                        printw( "stoned" );
                         break;
                     case STS.DEAD:
-                        printw( "DEAD  " );
+                        printw( "dead  " );
                         break;
                     case STS.ASHED:
-                        printw( "ASHED " );
+                        printw( "ashed " );
                         break;
                     case STS.LOST:
-                        printw( "LOST  " );
+                        printw( "lost  " );
                         break;
                     default:
                         assert( 0 );
                 }
-                mvprintw( CHRW_Y_TOP + j + 1, CHRW_X_TOP + 48 + 6, "                        " );
+                mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 48 + 6, "                        " );
                 continue;
             }
 
-            pl = mem[ row ];
             mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 48, "what?  " );
 
             while ( true )
