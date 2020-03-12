@@ -608,9 +608,11 @@ bool treasure_main( int monnum )
     int rtn;
     Member mem;
     string disarm;
+    string inspected;
+    string inspected_bycast = "";
     char c;
     int trap;
-    
+
     int getgold;
   
   
@@ -659,8 +661,8 @@ bool treasure_main( int monnum )
         textout( "\n*** a chest! you may: ***\n" );
         setColor( CL.MENU );
 
-        textout( "o)pen i)nspect(4) d)isarm(5)\n" );
-        textout( "v)ilumani(6) z)leave alone(9)\n" );
+        textout( "o)pen i)nspect&disarm(4)\n" );
+        textout( "c)ast inspct(6) z)leave alone(9)\n" );
         textout( "*************************\n" );
         setColor( CL.NORMAL );
         textout( "option? " );
@@ -674,11 +676,10 @@ bool treasure_main( int monnum )
                 case 'o':
                 case 'i':
                 case 'd':
-                case 'v':
+                case 'c':
                 case 'z':
                 case '9':
                 case '4':
-                case '5':
                 case '6':
                     break;
                 default:
@@ -701,22 +702,25 @@ bool treasure_main( int monnum )
                     if ( get_rand( 6 ) == 0 )
                         goto FAIL;
 
-                setColor( CL.TRAP );
-                textout( "\n=== " ~ TRAP_NAME[ mem.predict ] ~ "? ===\n" );
-                setColor( CL.NORMAL );
-                break;
+                if( inspected_bycast != "" )
+                    inspected = inspected_bycast;
+                else
+                    inspected = TRAP_NAME[ mem.predict ];
 
-            case 'd':   // disarm
-            case '5':
-                mem = party.selectActiveMember( "who disarms the chest(z:leave(9))? " );
-                if( mem is null )
+                setColor( CL.TRAP );
+                textout( "\n=== " ~ inspected ~ "? ===\n" );
+                setColor( CL.NORMAL );
+
+
+                textout( mem.name ~ " disarm?(y/n)\n" );
+                if( answerYN == 'n' )
                     continue;
 
-                disarm = tline_input( 20 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
+                // disarm
                 textout( ">" );
-                textout( disarm );
+                textout( inspected );
                 textout( "\n" );
-                if ( disarm != TRAP_NAME[ trap ] )
+                if ( inspected != TRAP_NAME[ trap ] )
                 {
                     goto FAIL;
                 }
@@ -755,9 +759,9 @@ bool treasure_main( int monnum )
               textout( "leave alone ...\n" );
               goto EXIT;
 
-            case 'v':   // spell
+            case 'c':   // spell
             case '6':
-                mem = party.selectActiveMember("who casts a vilumani(z:leave(9))? ");
+                mem = party.selectActiveMember("who casts a inspct(z:leave(9))? ");
                 if( mem is null )
                     continue;
 
@@ -775,12 +779,12 @@ bool treasure_main( int monnum )
                     break;
                 }
 
-                textout( "\n=== " );
                 if ( get_rand( 99 ) <= 95 )
-                    textout( TRAP_NAME[ trap ] );
+                    inspected_bycast = TRAP_NAME[ trap ];
                 else
-                    textout( TRAP_NAME[ get_rand( MAXTRAP ) ] );
-                textout( "? ===\n" );
+                    inspected_bycast = TRAP_NAME[ get_rand( MAXTRAP ) ];
+
+                textout( "\n=== " ~ inspected_bycast ~ "? ===\n" );
                 break;
             default:
                 assert( 0 );
