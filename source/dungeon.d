@@ -242,6 +242,7 @@ bool dungeon_main()
                 {
                     case BATTLE_RESULT.WON:
                     case BATTLE_RESULT.RAN:
+                    case BATTLE_RESULT.LEAVE:
                         break;
                     case BATTLE_RESULT.LOST:
                         goto EXIT;
@@ -608,10 +609,11 @@ bool treasure_main( int monnum )
     int rtn;
     Member mem;
     string disarm;
-    string inspected;
-    string inspected_bycast = "";
     char c;
+
     int trap;
+    int inspected;
+    int inspected_bycast = -1;
 
     int getgold;
   
@@ -702,30 +704,38 @@ bool treasure_main( int monnum )
                     if ( get_rand( 6 ) == 0 )
                         goto FAIL;
 
-                if( inspected_bycast != "" )
+                if( inspected_bycast != -1 )
                     inspected = inspected_bycast;
                 else
-                    inspected = TRAP_NAME[ mem.predict ];
+                    inspected = mem.predict;
 
                 setColor( CL.TRAP );
-                textout( "\n=== " ~ inspected ~ "? ===\n" );
+                textout( "\n=== " ~ TRAP_NAME[ inspected ] ~ "? ===\n" );
                 setColor( CL.NORMAL );
 
 
-                textout( mem.name ~ " disarm?(y/n)\n" );
+                /* textout( mem.name ~ " disarm?(y/n)\n" ); */
+                textout( "  disarm?(y/n)\n" );
                 if( answerYN == 'n' )
                     continue;
 
                 // disarm
                 textout( ">" );
-                textout( inspected );
+                textout( TRAP_NAME[ inspected ] );
                 textout( "\n" );
-                if ( inspected != TRAP_NAME[ trap ] )
+                if ( inspected != trap )
                 {
                     goto FAIL;
                 }
                 else
                 {
+
+                    if ( trap == TRAP.NO )
+                    {
+                        textout( "no trap ...\n" );
+                        goto SUCEED;
+                    }
+
                     ratio = mem.level - party.layer - 7;
                     if ( mem.Class == CLS.THI || mem.Class == CLS.NIN )
                     { /* thief or ninja */
@@ -780,11 +790,11 @@ bool treasure_main( int monnum )
                 }
 
                 if ( get_rand( 99 ) <= 95 )
-                    inspected_bycast = TRAP_NAME[ trap ];
+                    inspected_bycast = trap;
                 else
-                    inspected_bycast = TRAP_NAME[ get_rand( MAXTRAP ) ];
+                    inspected_bycast = get_rand( MAXTRAP );
 
-                textout( "\n=== " ~ inspected_bycast ~ "? ===\n" );
+                textout( "\n=== " ~ TRAP_NAME[ inspected_bycast ] ~ "? ===\n" );
                 break;
             default:
                 assert( 0 );
@@ -876,6 +886,7 @@ FAIL:
             switch ( party.dungeon.encounter( TRE.ALARM ) ) /* recursive call */
             {
                 case BATTLE_RESULT.WON : 
+                case BATTLE_RESULT.LEAVE :
                     goto SUCEED;
                 case BATTLE_RESULT.RAN :
                     goto EXIT;

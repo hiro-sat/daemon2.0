@@ -446,9 +446,10 @@ enum TRE
 // battle result
 enum BATTLE_RESULT
 {
-    WON  = 1,
-    RAN  = 2,
-    LOST = 3
+    WON   = 1,
+    RAN   = 2,
+    LOST  = 3,
+    LEAVE = 4
 }
 
 // Monster type

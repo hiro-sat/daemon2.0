@@ -342,7 +342,7 @@ public:
 
     /**--------------------
        encounter - 移動後のイベントチェック
-       t = TRE gold / treauser / alarm
+       t = TRE gold / treasure / alarm
        --------------------*/
     BATTLE_RESULT encounter( int t )
     {
