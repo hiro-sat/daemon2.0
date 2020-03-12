@@ -746,6 +746,8 @@ void setRndSeed()
 void header_disp( HSTS sts , bool rewrite = true )
 {
 
+    now_mode = sts;
+
     rewriteOff;
 
     mvprintw( 0, 0, "                                                       " );

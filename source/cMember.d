@@ -905,8 +905,9 @@ public:
 
     /*--------------------
        inspect_chr - メンバー詳細情報表示
+        type: 1:camp , 2:battle
        --------------------*/
-    void inspect_chr()
+    void inspect_chr( int type = 0 )
     {
 
         char_disp;
@@ -917,11 +918,11 @@ public:
 
         textout("  push any key to read mage spells\n");
         getChar();
-        disp_mspell;
+        disp_mspell();
 
         textout("  push any key to read priest spells\n");
         getChar();
-        disp_pspell;
+        disp_pspell();
 
         textout("  push any key to return\n");
         getChar();
@@ -1347,41 +1348,106 @@ public:
 
     /*--------------------
        disp_mspell - 魔法使い呪文表示
+        type: 1:camp , 2:battle
        --------------------*/
     void disp_mspell()
     {
         int i;
+        int type;
+
+        if( now_mode == HSTS.CAMP )
+            type = 1;
+        else if( now_mode == HSTS.BATTLE )
+            type = 2;
+        else
+            type = 0;
 
         scrwin_clear();
         rewriteOff;
 
         for ( i = 0; i < 4; i++ )
             if ( ( mspl_know[ 0 ] & ( 0x80 >> i ) ) != 0 )
+            {
+                if( type == 1 && magic_data[ i + 1 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 1 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP,  magic_data[ i + 1 ].name );
+            }
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 1 ] & ( 0x80 >> i )) != 0)
-                mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 5 ].name );
+            {
+                if( type == 1 && magic_data[ i + 5 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 5 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
+                    mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 5 ].name );
+            }
         
         for ( i = 0; i < 2; i++ )
             if ((mspl_know[ 2 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 8 ].name );
+            {
+                if( type == 1 && magic_data[ i + 8 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 8 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
+                    mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 8 ].name );
+            }
 
         for ( i = 0; i < 4; i++ )
             if ((mspl_know[ 3 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 10 ].name );
+            {
+                if( type == 1 && magic_data[ i + 10 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 10 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
+                    mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 10 ].name );
+            }
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 4 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 14 ].name );
+            {
+                if( type == 1 && magic_data[ i + 14 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 14 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
+                    mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 14 ].name );
+            }
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 5 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 17 ].name );
+            {
+                if( type == 1 && magic_data[ i + 17 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 17 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
+                    mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 17 ].name );
+            }
 
         for ( i = 0; i < 3; i++ )
             if ((mspl_know[ 6 ] & (0x80 >> i)) != 0)
-                mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 20 ].name );
+            {
+                if( type == 1 && magic_data[ i + 20 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 20 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
+                    mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 20 ].name );
+            }
 
         setColor( CL.KIND );
         mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP + 10 , "[ mage spell ]" );
@@ -1425,41 +1491,106 @@ public:
 
     /*--------------------
        disp_pspell - 僧侶呪文表示
+        type: 1:camp , 2:battle
        --------------------*/
     void disp_pspell()
     {
         int i;
+        int type;
+
+        if( now_mode == HSTS.CAMP )
+            type = 1;
+        else if( now_mode == HSTS.BATTLE )
+            type = 2;
+        else
+            type = 0;
 
         scrwin_clear();
         rewriteOff;
 
         for ( i = 0; i < 5; i++ )
             if ((pspl_know[ 0 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 30 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 30 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP,  magic_data[ i + 30 ].name);
+            }
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 1 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 35 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 35 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 35 ].name);
+            }
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 2 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 39 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 39 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 39 ].name);
+            }
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 3 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 43 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 43 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 43 ].name);
+            }
 
         for ( i = 0; i < 5; i++ )
             if ((pspl_know[ 4 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 47 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 47 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 47 ].name);
+            }
 
         for ( i = 0; i < 4; i++ )
             if ((pspl_know[ 5 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 52 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 52 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 52 ].name);
+            }
 
         for ( i = 0; i < 3; i++ )
             if ((pspl_know[ 6 ] & (0x80 >> i)) != 0)
+            {
+                if( type == 1 && magic_data[ i + 56 ].camp == 0 )
+                    setColor( CL.CANT_SPELL );
+                else if( type == 2 && magic_data[ i + 56 ].batl == 0 )
+                    setColor( CL.CANT_SPELL );
+                else
+                    setColor( CL.NORMAL );
                 mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 56 ].name);
+            }
         
         setColor( CL.KIND );
         mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP + 10 , "[ priest spell ]" );

@@ -136,7 +136,9 @@ enum CL
     TREASURE    = 6,
     MONSTER     = 5,
     TRAP        = 5,
-    TRAP_FAIL   = 4
+    TRAP_FAIL   = 4,
+    CANT_SPELL  = 15
+
 }
 
 
@@ -431,6 +433,7 @@ enum HSTS
     SHOP     = 8,
     TRAINING = 9
 }
+HSTS now_mode;
 
 // encount treasure
 enum TRE
