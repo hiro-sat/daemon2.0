@@ -32,6 +32,7 @@ bool debugmodeOffFlg = false;
 MySDL    gsdl;
 Screen   scr;
 ReadLine readline;
+ReadLine readline_spell;
 
 bool rewrite_flg = true;
 void rewriteOff(){ rewrite_flg = false; }

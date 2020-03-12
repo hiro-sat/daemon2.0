@@ -919,13 +919,7 @@ public:
                 }
                 else if( c == 'c' )
                 {
-                    textout("  " ~ pl.name ~ " read mage spells\n");
-                    pl.disp_mspell();
-                    getChar();
-                    textout("  " ~ pl.name ~ " read priest spells\n");
-                    pl.disp_pspell();
-                    getChar();
-                    dungeon.disp();
+                    pl.dispSpellsInBattle();
 
                     setColor( CL.MONSTER );
                     textout( "****** encounter ****** - push any key -" );

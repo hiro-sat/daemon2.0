@@ -52,6 +52,7 @@ void main(string[] args)
     scr = gsdl.InitScreen;
     scr.cls;
     readline = new ReadLine( gsdl , scr );
+    readline_spell = new ReadLine( gsdl , scr );
 
 
     // メインルーチン
@@ -1222,6 +1223,30 @@ string tline_input( int size_max, int y, int x )
     
     return ret;
 }
+
+/*-------------------- 
+   tline_input_spell - 文字列入力
+   size_max : 入力文字列 全角2バイト換算
+   --------------------*/
+string tline_input_spell( Member mem , int size_max, int y, int x )
+{
+
+    bool quit;
+    if( now_mode == HSTS.CAMP )
+        readline_spell.setHotKey( "r" , true , false , &mem.dispSpellsInCamp );
+    else if( now_mode == HSTS.BATTLE )
+        readline_spell.setHotKey( "r" , true , false , &mem.dispSpellsInBattle );
+    else
+        readline_spell.setHotKey( "r" , true , false , null );
+
+    string ret = readline_spell.input( size_max , y , x , quit );
+
+    if( quit )
+        appExit;
+    
+    return ret;
+}
+
 
 
 /*-------------------- 

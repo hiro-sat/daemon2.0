@@ -2,7 +2,7 @@
 // Phobos Runtime Library
 import std.stdio;
 import std.array;
-/* import std.conv; */
+import std.conv;
 
 // derelict SDL
 import derelict.sdl2.sdl;
@@ -40,6 +40,17 @@ private:
     // シフトキー、コントルールキー押下状態
     bool shiftkey = false;
     bool ctrlkey = false;
+
+
+    // 特殊処理の登録
+    struct SPECIAL
+    {
+        string key;
+        bool ctrl;
+        bool shift;
+        void delegate() func;
+    }
+    SPECIAL[] hotkey;
 
 
     // バックスペース入力
@@ -338,6 +349,12 @@ private:
             }
         else if( e.type == SDL_KEYDOWN )
         {
+
+            // 特殊キーの確認
+            foreach( SPECIAL h ; hotkey )
+                if( checkHotKey( h , e ) )
+                    return 0;
+
             if( ctrlkey )
             {
                 switch( e.key.keysym.sym )
@@ -536,6 +553,93 @@ private:
         
     }
 
+
+    /*-------------------- 
+       checkHotKey - 特殊キーの確認
+        ret: true : 処理抜ける 
+       --------------------*/
+    bool checkHotKey( SPECIAL hotkey , SDL_Event e )
+    {
+
+        int x;
+        int y;
+        string ch;
+
+        switch( e.key.keysym.sym )
+        {
+            case SDLK_a: ch = "a" ; break;
+            case SDLK_b: ch = "b" ; break;
+            case SDLK_c: ch = "c" ; break;
+            case SDLK_d: ch = "d" ; break;
+            case SDLK_e: ch = "e" ; break;
+            case SDLK_f: ch = "f" ; break;
+            case SDLK_g: ch = "g" ; break;
+            case SDLK_h: ch = "h" ; break;
+            case SDLK_i: ch = "i" ; break;
+            case SDLK_j: ch = "j" ; break;
+            case SDLK_k: ch = "k" ; break;
+            case SDLK_l: ch = "l" ; break;
+            case SDLK_m: ch = "m" ; break;
+            case SDLK_n: ch = "n" ; break;
+            case SDLK_o: ch = "o" ; break;
+            case SDLK_p: ch = "p" ; break;
+            case SDLK_q: ch = "q" ; break;
+            case SDLK_r: ch = "r" ; break;
+            case SDLK_s: ch = "s" ; break;
+            case SDLK_t: ch = "t" ; break;
+            case SDLK_u: ch = "u" ; break;
+            case SDLK_v: ch = "v" ; break;
+            case SDLK_w: ch = "w" ; break;
+            case SDLK_x: ch = "x" ; break;
+            case SDLK_y: ch = "y" ; break;
+            case SDLK_z: ch = "z" ; break;
+            case SDLK_1: ch = "1" ; break;
+            case SDLK_2: ch = "2" ; break;
+            case SDLK_3: ch = "3" ; break;
+            case SDLK_4: ch = "4" ; break;
+            case SDLK_5: ch = "5" ; break;
+            case SDLK_6: ch = "6" ; break;
+            case SDLK_7: ch = "7" ; break;
+            case SDLK_8: ch = "8" ; break;
+            case SDLK_9: ch = "9" ; break;
+            case SDLK_0: ch = "0" ; break;
+            case SDLK_MINUS:        ch = "-" ; break;
+            case SDLK_EQUALS:       ch = "=" ; break;
+            case SDLK_COMMA:        ch = "," ; break;
+            case SDLK_PERIOD:       ch = "." ; break;
+            case SDLK_SEMICOLON:    ch = ";" ; break;
+            case SDLK_QUOTE:        ch = "'" ; break;
+            case SDLK_SLASH:        ch = "/" ; break;
+            case SDLK_LEFTBRACKET:  ch = "[" ; break;
+            case SDLK_RIGHTBRACKET: ch = "]" ; break;
+            case SDLK_BACKSLASH:    ch = "\\" ; break;
+            case SDLK_BACKQUOTE:    ch = "`" ; break;
+            case SDLK_BACKSPACE:    ch = KEY_BS; break;
+            case SDLK_SPACE:        ch = " "; break;
+            default:
+                 break;
+        }
+
+        if( hotkey.ctrl == ctrlkey 
+                && hotkey.shift == shiftkey 
+                &&  hotkey.key == ch )
+        {
+            if( hotkey.func !is null )
+            {
+                x = scr.getCurX;
+                y = scr.getCurY;
+                hotkey.func();
+                scr.locate( x , y );
+                ctrlkey = false;
+                shiftkey = false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+
+
 public:
     this( MySDL sd , Screen sc )
     {
@@ -548,6 +652,41 @@ public:
         return;
     }
 
+
+    /*-------------------- 
+       setHotKey - 特殊キーの設定。同じキーなら上書き
+       --------------------*/
+    void setHotKey( string k , bool ctrl , bool shift , void delegate() func )
+    {
+
+        int i = 0;
+        foreach( SPECIAL h ; hotkey )
+        {
+            if( h.ctrl == ctrl 
+                    && h.shift == shift 
+                    &&  h.key == k )
+            {
+                hotkey[ i ].func = func;
+                return;
+            }
+            i++;
+        }
+
+        hotkey.length ++;
+        i = to!int( hotkey.length - 1 );
+        hotkey[ i ].key = k;
+        hotkey[ i ].ctrl = ctrl;
+        hotkey[ i ].shift = shift;
+        hotkey[ i ].func = func;
+
+        return;
+    }
+
+    void clearHotkey()
+    {
+        hotkey.length = 0;
+        return;
+    }
 
     /*-------------------- 
        tline_input - 文字列入力
