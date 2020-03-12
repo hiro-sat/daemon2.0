@@ -242,6 +242,7 @@ bool dungeon_main()
                 {
                     case BATTLE_RESULT.WON:
                     case BATTLE_RESULT.RAN:
+                    case BATTLE_RESULT.LEAVE:
                         break;
                     case BATTLE_RESULT.LOST:
                         goto EXIT;
@@ -876,6 +877,7 @@ FAIL:
             switch ( party.dungeon.encounter( TRE.ALARM ) ) /* recursive call */
             {
                 case BATTLE_RESULT.WON : 
+                case BATTLE_RESULT.LEAVE :
                     goto SUCEED;
                 case BATTLE_RESULT.RAN :
                     goto EXIT;

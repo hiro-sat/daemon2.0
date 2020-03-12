@@ -103,7 +103,7 @@ BATTLE_RESULT battle_main()
 
         if ( c == 'z' )
         {
-            rtncode = BATTLE_RESULT.RAN;
+            rtncode = BATTLE_RESULT.LEAVE;
             goto EXIT;
         }
     }
