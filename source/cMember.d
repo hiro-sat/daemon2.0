@@ -2925,8 +2925,8 @@ public:
             return true;
         }
 
-        // spell
-        else if ( ( command == 's' || command == '6' ) && ! monParty.suprised )
+        // cast spell
+        else if ( ( command == 'c' || command == 's' || command == '6' ) && ! monParty.suprised )
         {
             dispCommand( "spell  ?                      " );
             /* spell_name = tline_input( 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 ); */

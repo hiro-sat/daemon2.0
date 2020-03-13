@@ -575,9 +575,9 @@ public:
                         && member[ i ].layer == party.layer )
                 {
 
-                    if( abs( party.x - member[ i ].x ) > 2 
-                     || abs( party.y - member[ i ].y ) > 2 ) 
-                        continue;
+                    /* if( abs( party.x - member[ i ].x ) > 2  */
+                    /*  || abs( party.y - member[ i ].y ) > 2 )  */
+                    /*     continue; */
 
                     if( ! checkViewOrgMap( party.x , party.y , member[ i ].x , member[ i ].y ) )
                         continue;

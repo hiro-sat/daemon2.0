@@ -456,7 +456,7 @@ int camp()
         textout( "******** camp ********\n" );
         textout( "d)rop(0)     e)quip\n" );
         textout( "i)dentify(8) z)leave(9)\n" );
-        textout( "r)ead spell  s)pell\n" );
+        textout( "r)ead spell  c)ast spell\n" );
         textout( "t)rade       u)se\n" );
         textout( "o)reorder    n)inspect\n" );
         textout( "#)see a character\n" );
@@ -475,14 +475,14 @@ int camp()
             }
             else if ( ch == 't' && ! mem.item[ 0 ].isNothing )
             {   // trade
-                textout( "t\n" );
+                textout( "trade\n" );
                 mem.tradeitem();
                 break;
             }
             else if ( ( ch == 'd' || ch == '0' ) 
                     && ( ! mem.item[ 0 ].isNothing ) )
             {   // drop
-                textout( "d\n" );
+                textout( "drop\n" );
                 mem.dropitem();
                 break;
             }
@@ -490,21 +490,21 @@ int camp()
                     && ( ! mem.item[ 0 ].isNothing )
                     && ( mem.status == STS.OK ) )
             {   // use
-                textout( "u\n" );
+                textout( "use\n" );
                 mem.useitem();
                 mem.inspect;
                 break;
             }
-            else if ( ch == 's' 
+            else if ( ( ch == 'c' || ch == 's' )
                     && ( mem.status == STS.OK ) )
             {   // spell
-                textout( "s\n" );
+                textout( "cast spell\n" );
                 mem.camp_spell();
                 break;
             }
             else if (ch == 'o')
             {   // reorder
-                textout( "o\n" );
+                textout( "reorder\n" );
                 party.reorder( mem );
                 break;
             }   // identify
@@ -513,18 +513,19 @@ int camp()
                     && ( mem.Class == CLS.BIS )
                     && ( mem.status == STS.OK ) )
             {   // inspect
-                textout("i\n");
+                textout("identify\n");
                 mem.identify();
                 break;
             }
             else if ( ch == 'r' )
             {   // read spell
+                textout("read spell\n");
                 mem.dispSpellsInCamp;
                 break;
             }
             else if ( ch == 'e' )
             {   // equip
-                textout( "e\n" );
+                textout( "equip\n" );
                 mem.equip;
                 break;
             }
