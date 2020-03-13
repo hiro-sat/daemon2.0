@@ -101,7 +101,7 @@ BATTLE_RESULT battle_main()
             }
         }
 
-        if ( c == 'z' )
+        if ( c == 'z' || c == '7' )
         {
             rtncode = BATTLE_RESULT.LEAVE;
             goto EXIT;
