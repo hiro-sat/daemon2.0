@@ -156,7 +156,7 @@ enum AC_UP_PARRY  = 2; // AC up when player parry
 enum S_LIGHT_COUNT  = 100;
 enum L_LIGHT_COUNT  = 999;
 enum S_SCOPE_COUNT  = 1;
-enum L_SCOPE_COUNT  = 20;
+enum L_SCOPE_COUNT  = 999;
 
 enum RATE_ENCOUNT       = 127;  // 1/128
 enum RATE_ENCOUNT_STOP  = 63;   //  1/64

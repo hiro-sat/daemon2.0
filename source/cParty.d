@@ -888,10 +888,10 @@ public:
                 {
                     setColor( CL.MENU );
                     textout( "*********** assigned keys ***********\n" );
-                    textout( "f/4:fight, p/5:parry, s/6:spell,\n" );
-                    textout( "r/7:run, u/8:use, t/9:take back, \n" );
+                    textout( "f/4:fight, p/5:parry, c/6:cast spell,\n" );
+                    textout( "e/7:run, u/8:use, t/9:take back, \n" );
                     textout( "d/0:dispell, i:monster info\n" );
-                    textout( "c/:read spells book\n" );
+                    textout( "r/:read spells book\n" );
                     textout( "------ short cut ------\n" );
                     textout( "j/1:fight1, h/2:fight2, n/3:fight3\n" );
                     textout( "k:parry, l:take back, ;:run\n" );
@@ -917,7 +917,7 @@ public:
                     setColor( CL.NORMAL );
                     textout( "input action...\n" );
                 }
-                else if( c == 'c' )
+                else if( c == 'r' ) // read spell
                 {
                     pl.dispSpellsInBattle();
 
@@ -938,7 +938,7 @@ public:
                         mvprintw( CHRW_Y_TOP + j + 1, CHRW_X_TOP + 48, "?????? ???????????????????????" );
                     goto AGAIN;
                 }
-                else if (c == 'r'   // run
+                else if (c == 'e'   // escape
                         || c == ';' 
                         || c == '7')
                 {
