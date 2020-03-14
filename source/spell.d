@@ -303,7 +303,14 @@ void camp_spell_sub( int mag )
 
             party.x     = to!byte( xpos );
             party.y     = to!byte( ypos );
-            party.layer = to!byte( layer );
+
+            if( party.layer != layer )
+            {
+                party.layer = to!byte( layer );
+                party.setDungeon;
+                /* party.dungeon.setEndPos; */
+                party.dungeon.initDisp;
+            }
 
             textout( "done.\n" );
             header_disp( HSTS.CAMP );

@@ -583,8 +583,8 @@ private void initCharactor()
     i = 14;
   
     member[i].name    = "zucchini";
-    /* member[i].gold    = 27; */
-    member[i].gold    = 2700000;
+    member[i].gold    = 27;
+    /* member[i].gold    = 2700000; */
     member[i].hp      = 6;
     member[i].maxhp   = 6;
     member[i].age     = 16;
@@ -666,7 +666,7 @@ private void initCharactor()
     member[i].luk[0] = 18;
     member[i].cha[0] = 15;
 
-    member[i].exp = 1000000;
+    /* member[i].exp = 1000000; */
 
     i++;
   
