@@ -894,10 +894,7 @@ public:
         mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2, SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 , '@' );
         setColor( CL.NORMAL );
 
-        if( now_mode == HSTS.DUNGEON )
-            header_disp( HSTS.DUNGEON );
-        else if( now_mode == HSTS.BATTLE )
-            header_disp( HSTS.BATTLE );
+        header_disp( now_mode );
 
         rewriteOn;
 
