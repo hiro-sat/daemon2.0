@@ -8,6 +8,7 @@ import std.conv;
 import std.random;
 import std.datetime.systime : SysTime, Clock;
 import core.stdc.stdlib : exit;
+import core.stdc.stdarg;    // ... : 可変個引数関数
 
 // derelict SDL
 import derelict.sdl2.sdl;
@@ -1257,5 +1258,21 @@ bool isHankaku( char c )
     return ( ( c & 0x80 ) == 0 );
 }
 
-
+/*-------------------- 
+   formatText - 出力文字列を整形
+   ... : 可変引数 ※stringのみ
+   usage : formatText( "%1 is the ultimate %2." , to!string( 42 ) , "answer" ) );
+           ret : 42 is the ultimate answer.
+           formatText( "This is %1%%" , to!string( 42 ) );
+           ret : This is 42%
+   --------------------*/
+string formatText( string fmt , ... )
+{
+    foreach( i, type; _arguments)
+    {
+        assert( type == typeid( string ) );
+        fmt = fmt.replace( "%" ~ to!string( i + 1 ) , va_arg!string(_argptr) );
+    }
+    return fmt.replace( "%%" , "%" );
+}
 
