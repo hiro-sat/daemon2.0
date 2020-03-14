@@ -2,7 +2,7 @@
 
 // Phobos Runtime Library
 import std.stdio;
-import std.string : format , split , chop ;
+import std.string;
 import std.file;
 import std.conv;
 import std.random;
@@ -17,6 +17,7 @@ import derelict.sdl2.sdl;
 import lib_sdl;
 import lib_screen;
 import lib_readline;
+import lib_json;
 import def;
 import spell;
 
@@ -38,7 +39,11 @@ import cMonsterDef;
 void main(string[] args)
 {
 
-    setFontSize( args );
+    // json 確認
+    Json json = new Json( JSONFILE );
+
+    // 画面サイズ設定
+    setFontSize( json[ "size" ].integer );
 
     /* debugmode = true; */
     debugmodeOffFlg = true;
@@ -144,23 +149,10 @@ void ending()
 
 /*--------------------
    setFontSize - フォントサイズ設定
+    para : 1 : small , 2 : big
    --------------------*/
-void setFontSize( string[] args )
+void setFontSize( long para )
 {
-    int para;
-    para = 0;
-    if( args.length > 1 )
-        switch( args[ 1 ] )
-        {
-            case "1":
-                para = 1;
-                break;
-            case "2":
-                para = 2;
-                break;
-            default:
-                para = 0;
-        }
 
     if( para == 1 )
     {
@@ -1260,18 +1252,34 @@ bool isHankaku( char c )
 
 /*-------------------- 
    formatText - 出力文字列を整形
-   ... : 可変引数 ※stringのみ
-   usage : formatText( "%1 is the ultimate %2." , to!string( 42 ) , "answer" ) );
+   ... : 可変引数 ※string , int , char , long , byte
+   usage : formatText( "%1 is the ultimate %2." , 42 , "answer" ) );
            ret : 42 is the ultimate answer.
-           formatText( "This is %1%%" , to!string( 42 ) );
+           formatText( "This is %1%%" , 42 );
            ret : This is 42%
    --------------------*/
 string formatText( string fmt , ... )
 {
+
+    string keyword;
+
     foreach( i, type; _arguments)
     {
-        assert( type == typeid( string ) );
-        fmt = fmt.replace( "%" ~ to!string( i + 1 ) , va_arg!string(_argptr) );
+
+        if(type == typeid(int))
+            keyword = to!string( va_arg!int(_argptr));
+        else if(type == typeid(long))
+            keyword = to!string( va_arg!long(_argptr));
+        else if(type == typeid(byte))
+            keyword = to!string( va_arg!byte(_argptr));
+        else if(type == typeid(char))
+            keyword = to!string( va_arg!char(_argptr) );
+        else if(type == typeid(string))
+            keyword = va_arg!string(_argptr);
+        else
+            assert( 0 );
+
+        fmt = fmt.replace( "%" ~ to!string( i + 1 ) , keyword );
     }
     return fmt.replace( "%%" , "%" );
 }

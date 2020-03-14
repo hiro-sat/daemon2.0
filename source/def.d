@@ -22,6 +22,8 @@ import cMonster;
 import cMonsterDef;
 import cBattleTurn;
 
+// json設定ファイル
+string JSONFILE = "resources/daemon.json";
 
 // debug
 bool debugmode = false;
