@@ -578,6 +578,9 @@ int camp()
         }
     }
 EXIT:
+    if( party.layer == 0 )
+        return rtnval;  // return castle or leave game;
+
     party.dungeon.disp;
     header_disp( HSTS.DUNGEON );
     // in rock check
