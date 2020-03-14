@@ -2631,7 +2631,7 @@ public:
               return;
             }
             else if ( ch >= '1' && ch <= '8' 
-                    && item[ ch - '1' ].isNothing 
+                    && ! item[ ch - '1' ].isNothing 
                     && item[ ch - '1' ].undefined )
                 break;
         }
