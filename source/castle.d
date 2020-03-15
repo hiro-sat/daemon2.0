@@ -88,15 +88,15 @@ bool castle_main()
     {
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "******** castle ********\n" );
-        textout( "g)inger's forest bar\n" );
-        textout( "s)helton yankee flipper\n" );
-        textout( "t)emple of dice\n" );
-        textout( "a)lbertsan's mart\n" );
-        textout( "e)dge of town\n" );
-        textout( "************************\n" );
+        textout( _( "******** castle ********\n"  ));
+        textout( _( "g)inger's forest bar\n"  ));
+        textout( _( "s)helton yankee flipper\n"  ));
+        textout( _( "t)emple of dice\n"  ));
+        textout( _( "a)lbertsan's mart\n"  ));
+        textout( _( "e)dge of town\n"  ));
+        textout( _( "************************\n"  ));
         setColor( CL.NORMAL );
-        textout( "option? " );
+        textout( _( "option? "  ));
 
 
         char keycode;
@@ -113,27 +113,27 @@ bool castle_main()
             case 's': // shelton hotel
                 if ( party.num == 0 )
                     continue;
-                textout( "shelton hotel\n" );
+                textout( _( "shelton hotel\n"  ));
                 inn();
                 break;
             case 'a': // albertsan's
                 if ( party.num == 0 )
                     continue;
-                textout( "albertsan's mart\n" );
+                textout( _( "albertsan's mart\n"  ));
                 boltac();
                 break;
             case 'g': // ginger's bar
-                textout( "ginger's forest bar\n" );
+                textout( _( "ginger's forest bar\n"  ));
                 gilgamesh();
                 break;
             case 't': /* temple of dice */ 
                 if ( party.num == 0 )
                     continue;
-                textout( "temple of dice\n" );
+                textout( _( "temple of dice\n"  ));
                 temple();
                 break;
             case 'e': /* edge of town */ 
-                textout( "edge of tonw\n" );
+                textout( _( "edge of tonw\n"  ));
                 rtncode = eoftown();
                 if ( rtncode==1 )
                 {
@@ -170,7 +170,7 @@ void seeMonsterMarks()
     setColor( CL.MENU );
     textout( "\n" );
     textout( "****** monster marks! ******\n" );
-    textout( "n)ext(6) z)leave(9)\n" );
+    textout( _( "n)ext(6) z)leave(9)\n"  ));
     setColor( CL.NORMAL );
     textout( "option?\n" );
     top = 0;
@@ -237,9 +237,9 @@ void inn()
     {
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "****** shelton yankee flipper hotel ******\n" );
+        textout( _( "****** shelton yankee flipper hotel ******\n" ));
         setColor( CL.NORMAL );
-        textout( "who will stay(z:leave(9))? " );
+        textout( _( "who will stay(z:leave(9))? "  ));
         while ( true )
         {
             ch = getChar();
@@ -258,110 +258,37 @@ void inn()
   
         if( mem.status >= STS.PARALY )
         {
-            textout( "\n  ...You must be joking!\n\n" );
+            textout( _( "\n  ...You must be joking!\n\n"  ));
             continue;
         }
 
         mem.char_disp;
 
-        /+
-        setColor( CL.MENU );
-        textout( "*** welcome, " );
-        textout( mem.name );
-        textout( ".  we have: ***\n" );
-        textout( "a) the stables(free)\n" );
-        textout( "b) a cot.            10 gp\n" );
-        textout( "c) economy rooms.    50 gp\n" );
-        textout( "d) merchant suites. 200 gp\n" );
-        textout( "e) the royal suite. 500 gp\n" );
-        if ( debugmode == 1 )
-            textout( "f) healer             1 gp/hp\n" );
-        textout( "*****************************\n" );
-        setColor( CL.NORMAL );
-        textout( "option(z:leave(9))? " );
-        while ( true )
+        // どうせみんな馬小屋にしか泊まらないんでしょ？
+        // だからHP全回復にした。
+        textout( _( "sleeping ...\n" ) );
+        if( mem.hp < mem.maxhp )
         {
-            ch = getChar();
-            if ( debugmode == 0 && (ch == 'z' || ch == '9' || (ch >= 'a' && ch <= 'e')) )
-                break;
-            if ( debugmode == 1 && (ch == 'z' || ch == '9' || (ch >= 'a' && ch <= 'f')) )
-                break;
+            mem.hp = mem.maxhp;
+            textout( _( "%1 have been healed.\n" ) , mem.name );
         }
-        textout( to!string( ch ) ~ "\n" );
 
-        if ( ch == 'z' || ch == '9' ) 
-            continue;
-
-        switch ( ch )
+        mem.levelup_chk();
+        for ( i = 0; i < 7; i++ )
         {
-            case 'a':
-        +/
-
-            // どうせみんな馬小屋にしか泊まらないんでしょ？
-            // だからHP全回復にした。
-                textout( "sleeping ...\n" );
-                if( mem.hp < mem.maxhp )
-                {
-                    mem.hp = mem.maxhp;
-                    textout( mem.name ~ " have been healed.\n" );
-                }
-
-                mem.levelup_chk();
-                for ( i = 0; i < 7; i++ )
-                {
-                    mem.mspl_pt[ i ] = mem.mspl_max[ i ];
-                    mem.pspl_pt[ i ] = mem.pspl_max[ i ];
-                }
-                mem.day++; // modified to: one night stay(not one week)
-                if ( mem.day > 365 )
-                {
-                    mem.age++;
-                    mem.day = 0;
-                    party.win_disp();
-                    textout( "*** happy birthday to you! ***\n" );
-                    getChar();
-                }
-                party.win_disp();
-
-        /+
-                break;
-            case 'b':
-                inn_sub( mem, 10, 1 );
-                break;
-            case 'c':
-                inn_sub( mem, 50, 5 );
-                break;
-            case 'd':
-                inn_sub( mem, 200, 10 );
-                break;
-            case 'e':
-                inn_sub( mem, 500, 20 );
-                break;
-            case 'f':
-                if ( debugmode == 0 )
-                    break;
-                if ( mem.gold < ( mem.maxhp - mem.hp ) )
-                {
-                    textout( "you cannot afford it.\n" );
-                    break;
-                }
-                mem.gold -= ( mem.maxhp - mem.hp );
-                mem.hp = mem.maxhp;
-                textout( "you are healed.\n" );
-                mem.nlevelup( 20000 );
-                for ( i = 0; i < 7; i++ )
-                {
-                    mem.msplcnt[ i ] &= 0xf0;
-                    mem.msplcnt[ i ] |= mem.msplcnt[ i ] >> 4;
-                    mem.psplcnt[ i ] &= 0xf0;
-                    mem.psplcnt[ i ] |= mem.psplcnt[ i ] >> 4;
-                }
-                party.win_disp();
-                break;
-            default:
-                assert( 0 );
+            mem.mspl_pt[ i ] = mem.mspl_max[ i ];
+            mem.pspl_pt[ i ] = mem.pspl_max[ i ];
         }
-        +/
+        mem.day++; // modified to: one night stay(not one week)
+        if ( mem.day > 365 )
+        {
+            mem.age++;
+            mem.day = 0;
+            party.win_disp();
+            textout( "*** happy birthday to you! ***\n" );
+            getChar();
+        }
+        party.win_disp();
 
         mem.char_disp;
         getChar;
@@ -371,43 +298,6 @@ void inn()
 
     return;
 }
-
-/**
-  inn_sub - 
- */
-void inn_sub( Member mem, long money, int plus )
-{
-    int i;
-    if ( mem.gold < money )
-    {
-        textout("you cannot afford it.\n");
-        return;
-    }
-    mem.gold -= money;
-    mem.hp += plus;
-    if ( mem.hp > mem.maxhp )
-        mem.hp = mem.maxhp;
-    textout( "you have been healed.\n" );
-    mem.levelup_chk();
-    for ( i = 0; i < 7; i++ )
-    {
-        mem.mspl_pt[ i ] = mem.mspl_max[ i ];
-        mem.pspl_pt[ i ] = mem.pspl_max[ i ];
-    }
-    mem.day++; // modified to: one night stay(not one week)
-    if ( mem.day > 365 )
-    {
-        mem.age++;
-        mem.day = 0;
-        party.win_disp();
-        textout( "*** happy birthday to you! ***\n" );
-        getChar();
-    }
-    party.win_disp();
-
-    return;
-}
-
 
 
 
@@ -427,12 +317,12 @@ void gilgamesh()
     {
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "*** ginger's forest bar ***\n" );
-        textout( "a)dd  r)emove  n)inspect\n" );
-        textout( "d)ivvy gold  z)leave(9)\n" );
-        textout( "e)quip #)see character\n" );
-        textout( "s)ee monster marks\n" );
-        textout( "***************************\n" );
+        textout( _( "*** ginger's forest bar ***\n"  ));
+        textout( _( "a)dd  r)emove  n)inspect\n"  ));
+        textout( _( "d)ivvy gold  z)leave(9)\n"  ));
+        textout( _( "e)quip #)see character\n"  ));
+        textout( _( "s)ee monster marks\n"  ));
+        textout( _( "***************************\n"  ));
         setColor( CL.NORMAL );
         /* textout( "option? \n" ); */
         textout( "option? " );
@@ -461,14 +351,14 @@ void gilgamesh()
         switch( keycode )
         {
             case 's':   // see monster marks 
-                textout( "see monster marks\n" );
+                textout( _( "see monster marks\n"  ));
                 seeMonsterMarks;
                 scrwin_clear();
                 dispGilgameshMenu;
                 break;
 
             case 'e':   // equip
-                textout( "equip\n" );
+                textout( _( "equip\n"  ));
                 if( party.num < 1 )
                     break;
                 party.equip;
@@ -479,7 +369,7 @@ void gilgamesh()
             case 'n':   // n) inspect
                 if( party.num < 1 )
                     break;
-                textout( "inspect\n" );
+                textout( _( "inspect\n"  ));
                 party.inspect();
                 scrwin_clear();
                 dispGilgameshMenu;
@@ -488,14 +378,14 @@ void gilgamesh()
             case 'd':   // divvy
                 if( party.num < 1 )
                     break;
-                textout( "divvy gold\n" );
+                textout( _( "divvy gold\n"  ));
                 party.divvy;
                 party.mem[ current ].char_disp;
                 break;
 
             case 'z': 
             case '9':   // z)leave(9)
-                textout( "leave\n" );
+                textout( _( "leave\n"  ));
                 for( i = 0 ; i < 6 ; i++ )
                     party.memsv[ i ] = party.mem[ i ];
                 header_disp( HSTS.CASTLE );
@@ -504,7 +394,7 @@ void gilgamesh()
             case 'a': /* add */
                 if( party.num == 6 )
                     break;
-                textout( "add\n" );
+                textout( _( "add\n"  ));
                 party.add();
                 scrwin_clear();
                 dispGilgameshMenu;
@@ -513,7 +403,7 @@ void gilgamesh()
             case 'r': /* remove */
                 if( party.num < 1 )
                     break;
-                textout( "remove\n" );
+                textout( _( "remove\n"  ));
                 party.remove();
                 scrwin_clear();
                 dispGilgameshMenu;
@@ -544,10 +434,10 @@ void boltac()
         scrwin_clear();
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "****** albertsan's mart ******\n" );
-        textout( "b)uy s)ell u)ncurse i)dentify\n" );
-        textout( "p)ool gold z)leave(9)\n" );
-        textout( "******************************\n" );
+        textout( _( "****** albertsan's mart ******\n"  ));
+        textout( _( "b)uy s)ell u)ncurse i)dentify\n"  ));
+        textout( _( "p)ool gold z)leave(9)\n"  ));
+        textout( _( "******************************\n"  ));
         setColor( CL.NORMAL );
         textout( "option? " );
 
@@ -561,8 +451,8 @@ void boltac()
         switch ( c )
         {
             case 'p': /* pool gold */
-                textout( "pool gold\n" );
-                textout( "pool gold to whom(z:leave(9))? " );
+                textout( _( "pool gold\n"  ));
+                textout( _( "pool gold to whom(z:leave(9))? "  ));
                 while ( true )
                 {
                   c = getChar();
@@ -578,26 +468,26 @@ void boltac()
                 break;
             case 'z': /* leave */
             case '9': /* leave */
-                textout( "leave\n" );
+                textout( _( "leave\n"  ));
                 header_disp( HSTS.CASTLE );
                 return;
             case 'b': /* buy */
-                textout( "buy\n" );
+                textout( _( "buy\n"  ));
                 header_disp( HSTS.CASTLE );
                 boltac_buy();
                 break;
             case 's': /* sell */
-                textout( "sell\n" );
+                textout( _( "sell\n"  ));
                 boltac_sell();
                 break;
             case 'u': // uncurse
-                textout( "uncurse\n" );
+                textout( _( "uncurse\n"  ));
                 uncurse();
                 party.calcAtkAC;
                 party.win_disp();
                 break;
             case 'i': // identify
-                textout( "identify\n" );
+                textout( _( "identify\n"  ));
                 boltac_identify();
                 break;
             default:
@@ -625,13 +515,13 @@ void boltac_buy()
     {
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "********* buy *********\n" );
-        textout( "p)urchase z)leave(9)\n" );
-        textout( "n)ext page(6)\n" );
-        textout( "------\n" );
-        textout( "w)eapon a)rmor s)hield\n" );
-        textout( "h)elm g)loves i)tem\n" );
-        textout( "***********************\n" );
+        textout( _( "********* buy *********\n"  ));
+        textout( _( "p)urchase z)leave(9)\n"  ));
+        textout( _( "n)ext page(6)\n"  ));
+        textout( _( "------\n"  ));
+        textout( _( "w)eapon a)rmor s)hield\n"  ));
+        textout( _( "h)elm g)loves i)tem\n"  ));
+        textout( _( "***********************\n"  ));
         setColor( CL.NORMAL );
         textout( "option? " );
         return;
@@ -655,7 +545,7 @@ void boltac_buy()
         {
             case 'z':
             case '9':
-                textout( "leave\n" );
+                textout( _( "leave\n"  ));
                 scrwin_clear();
                 return;
             case 'w':
@@ -692,10 +582,10 @@ void boltac_buy()
                 top = last + 1;
                 break;
             case 'p':
-                textout( "purchase\n" );
+                textout( _( "purchase\n"  ));
                 while ( true )
                 {
-                    textout( "purchase(a,b,...,z:quit(9))? " );
+                    textout( _( "purchase(a,b,...,z:quit(9))? "  ));
                     while ( true )
                     {
                       c = getChar();
@@ -714,14 +604,14 @@ void boltac_buy()
                         i = item[ c - 'a' ];
                         if ( i >= MAXITEM || boltacitem[ i ] == 0 )
                         {
-                            textout( "out of stock.\n" );
+                            textout( _( "out of stock.\n"  ));
                             break;
                         }
                         textout( '>' );
                         textout( item_data[ i ].name );
                         textout( '\n' );
 
-                        textout("  classes :  ");
+                        textout(_( "  classes :  " ));
                         if ( item_data[ i ].canBeEquipped( CLS.FIG ) ) textout( 'f' );
                         if ( item_data[ i ].canBeEquipped( CLS.THI ) ) textout( 't' );
                         if ( item_data[ i ].canBeEquipped( CLS.PRI ) ) textout( 'p' );
@@ -733,7 +623,7 @@ void boltac_buy()
                         textout(" \n");
 
                     ANOTHER_PUR:
-                        textout( "who takes it(z:leave(9))? " );
+                        textout( _( "who takes it(z:leave(9))? "  ));
                         while (true)
                         {
                             c = getChar();
@@ -753,8 +643,8 @@ void boltac_buy()
 
                         if ( ! mem.canCarry )
                         {
-                            textout( "you cannot carry anything more.\n" );
-                            textout( "anyone else takes it(y/n)?" );
+                            textout( _( "you cannot carry anything more.\n"  ));
+                            textout( _( "anyone else takes it(y/n)?"  ));
 
                             if ( answerYN == 'y')
                                 goto ANOTHER_PUR;
@@ -764,8 +654,8 @@ void boltac_buy()
 
                         if ( mem.gold < item_data[ i ].gold )
                         {
-                            textout( "sorry, you cannot afford it.\n" );
-                            textout( "pool gold(y/n)? " );
+                            textout( _( "sorry, you cannot afford it.\n"  ));
+                            textout( _( "pool gold(y/n)? "  ));
 
                             if ( answerYN == 'n' )
                                 goto ANOTHER_PUR;
@@ -773,7 +663,7 @@ void boltac_buy()
                             party.poolGold( mem );
                             if ( mem.gold < item_data[ i ].gold )
                             {
-                                textout( "sorry, you cannot afford it.\n" );
+                                textout( _( "sorry, you cannot afford it.\n"  ));
                                 dispBoltacBuyMenu;
                                 continue;
                             }
@@ -785,7 +675,7 @@ void boltac_buy()
                         boltacitem[ i ]--;
                         last = boltac_list( top, kind, disp_lines , item );
                         party.win_disp();
-                        textout( "\njust what you needed.\n" );
+                        textout( _( "\njust what you needed.\n"  ));
                         break;
                     }
                 }
@@ -897,7 +787,7 @@ void boltac_sell()
 
     while ( true )
     {
-        textout( "whose item(z:leave(9))? " );
+        textout( _( "whose item(z:leave(9))? "  ));
 
         while ( true )
         {
@@ -920,7 +810,7 @@ void boltac_sell()
 
         while ( true )
         {
-            textout( "  which item(z:leave(9))? " );
+            textout( _( "  which item(z:leave(9))? "  ));
 
             while ( true )
             {
@@ -941,14 +831,12 @@ void boltac_sell()
                 textout( "(" ~ itm.getDispNameA ~ ")\n" );
                 if ( itm.equipped )
                 {
-                    textout( "    equipped item.\n" );
+                    textout( _( "    equipped item.\n"  ));
                     continue;
                 }
                 if ( itm.gold != 0 )
                 {
-                    textout( "    It will be " );
-                    textout( itm.gold / 2 );
-                    textout(" gp(y/n)? ");
+                    textout( _( "    It will be %1 gp(y/n)"  ), itm.gold / 2 );
                     if ( answerYN == 'n' )
                         continue;
                     mem.gold += itm.gold / 2;
@@ -960,11 +848,11 @@ void boltac_sell()
 
                     mem.releaseItem( itm );
                     party.win_disp();
-                    textout( "    Anything else, noble sir?\n" );
+                    textout( _( "    Anything else, noble sir?\n"  ));
                 }
                 else
                 {
-                    textout( "    Not interested.\n" );
+                    textout( _( "    Not interested.\n"  ));
                 }
                 mem.inspect;
             }
@@ -985,7 +873,7 @@ void uncurse()
 
     while ( true )
     {
-        textout( "whose item(z:leave(9))? " );
+        textout( _( "whose item(z:leave(9))? "  ));
         while ( true )
         {
           c = getChar();
@@ -1015,7 +903,7 @@ void uncurse()
 
         while ( true )
         {
-            textout( "which item(z:leave(9))?  " );
+            textout( _( "which item(z:leave(9))?  "  ));
             while ( true )
             {
                 c = getChar();
@@ -1034,26 +922,25 @@ void uncurse()
                 break;
             }
             textout( "(" ~ itm.getDispNameA ~ ")\n" );
-            textout( "That will be " );
-            textout( itm.gold / 2 );
-            textout(" gp(y/n)? ");
+
+            textout( _( "That will be %1 gp(y/n)"  ), itm.gold / 2 );
             if ( answerYN == 'n' )
                 break;
             if ( mem.gold < itm.gold / 2)
             {
-                textout( "you can't afford it, pool gold(y/n)? " );
+                textout( _( "you can't afford it, pool gold(y/n)? " ) );
                 if ( answerYN == 'n' )
                     return;
                 party.poolGold( mem );
                 if ( mem.gold < itm.gold / 2)
                 {
-                    textout( "  still, you can't afford it\n" );
+                    textout( _( "  still, you can't afford it\n" ) );
                     return;
                 }
             }
             mem.gold -= itm.gold / 2;
             mem.releaseItem( itm );
-            textout( "uncursed.\n" );
+            textout( _( "uncursed.\n" ) );
             getChar();
             return;
         }
@@ -1067,13 +954,14 @@ void uncurse()
 void boltac_identify()
 {
     char c;
+    string ef;
     Member mem;
     Item itm;
 
     TOP:
 
     scrwin_clear();
-    textout( "whose item(z:leave(9))? " );
+    textout( _( "whose item(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -1095,7 +983,7 @@ void boltac_identify()
 
     while ( true )
     {
-        textout( "which item(z:leave(9))? " );
+        textout( _( "which item(z:leave(9))? " ) );
         while ( true )
         {
             c = getChar();
@@ -1117,20 +1005,18 @@ void boltac_identify()
         textout( "(" ~ itm.getDispNameA ~ ")\n" );
         if ( itm.undefined )
         {
-            textout( "That will be " );
-            textout( itm.gold / 2 );
-            textout( " gp(y/n)? " );
+            textout( _( "That will be %1 gp(y/n)"  ), itm.gold / 2 );
             if ( answerYN == 'n' )
                 break;
             if ( mem.gold < itm.gold / 2 )
             {
-                textout( "you can't afford it, pool gold(y/n)? " );
+                textout( _( "you can't afford it, pool gold(y/n)? " ) );
                 if ( answerYN == 'n')
                     return;
                 party.poolGold( mem );
                 if ( mem.gold < itm.gold / 2 )
                 {
-                    textout( "  still, you can't afford it\n" );
+                    textout( _( "  still, you can't afford it\n" ) );
                     return;
                 }
             }
@@ -1144,36 +1030,28 @@ void boltac_identify()
         {
             case ITM_KIND.WEAPON:
                 if ( itm.range == RANGE.SHORT )
-                  textout( " ***\n it is a short range weapon.\n" );
+                  textout( _( " ***\n it is a short range weapon.\n" ) );
                 else
-                  textout( " ***\n it is a long range weapon.\n" );
+                  textout( _( " ***\n it is a long range weapon.\n" ) );
                 break;
             case ITM_KIND.ARMOR:
-                textout( " is an armor.\n" );
-                textout( " it affects your AC by " );
-                textout( itm.ac );
-                textout( " points.\n" );
+                textout( _( " is an armor.\n" ) );
+                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
                 break;
             case ITM_KIND.SHIELD:
-                textout( " is a shield.\n" );
-                textout( " it affects your AC by " );
-                textout( itm.ac );
-                textout( " points.\n" );
+                textout( _( " is a shield.\n" ) );
+                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
                 break;
             case ITM_KIND.HELM:
                 textout( " is a helm.\n" );
-                textout( " it affects your AC by " );
-                textout( itm.ac );
-                textout( " points.\n" );
+                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
                 break;
             case ITM_KIND.GLOVES:
                 textout( " are gloves.\n" );
-                textout( " it affects your AC by " );
-                textout( itm.ac );
-                textout( " points.\n" );
+                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
                 break;
             case ITM_KIND.ITEM:
-                textout( " is an item.\n" );
+                textout( _( " is an item.\n" ) );
                 break;
             default:
                 assert( 0 );
@@ -1183,76 +1061,76 @@ void boltac_identify()
         {
             textout(" ");
 
-            if ( itm.canBeEquipped( CLS.FIG ) ) textout( 'F' );
-            if ( itm.canBeEquipped( CLS.THI ) ) textout( 'T' );
-            if ( itm.canBeEquipped( CLS.PRI ) ) textout( 'P' );
-            if ( itm.canBeEquipped( CLS.MAG ) ) textout( 'M' );
-            if ( itm.canBeEquipped( CLS.BIS ) ) textout( 'B' );
-            if ( itm.canBeEquipped( CLS.SAM ) ) textout( 'S' );
-            if ( itm.canBeEquipped( CLS.LOR ) ) textout( 'L' );
-            if ( itm.canBeEquipped( CLS.NIN ) ) textout( 'N' );
-            textout(" can equip it. \n");
+            ef = "";
+            if ( itm.canBeEquipped( CLS.FIG ) ) ef ~= 'F' ;
+            if ( itm.canBeEquipped( CLS.THI ) ) ef ~= 'T' ;
+            if ( itm.canBeEquipped( CLS.PRI ) ) ef ~= 'P' ;
+            if ( itm.canBeEquipped( CLS.MAG ) ) ef ~= 'M' ;
+            if ( itm.canBeEquipped( CLS.BIS ) ) ef ~= 'B' ;
+            if ( itm.canBeEquipped( CLS.SAM ) ) ef ~= 'S' ;
+            if ( itm.canBeEquipped( CLS.LOR ) ) ef ~= 'L' ;
+            if ( itm.canBeEquipped( CLS.NIN ) ) ef ~= 'N' ;
+            textout( _( " %1 can equip it. \n" ) , ef );
         }
         if ( ( itm.atkef & 
                 ( ITM_ATKEF.CRITICAL | ITM_ATKEF.STONE | ITM_ATKEF.SLEEP ) ) != 0 )
         {
-            textout( " it has a" );
-            if ( itm.checkAtkEf( ITM_ATKEF.CRITICAL ) ) textout( " critical" );
-            if ( itm.checkAtkEf( ITM_ATKEF.STONE ) )    textout( " stone" );
-            if ( itm.checkAtkEf( ITM_ATKEF.SLEEP ) )    textout( " sleep" );
-            textout( " effect.\n" );
+            ef = "";
+            if ( itm.checkAtkEf( ITM_ATKEF.CRITICAL ) ) ef ~= " critical" ;
+            if ( itm.checkAtkEf( ITM_ATKEF.STONE ) )    ef ~= " stone" ;
+            if ( itm.checkAtkEf( ITM_ATKEF.SLEEP ) )    ef ~= " sleep" ;
+            textout( _( " it has a %1 effect.\n" ) , ef );
         }
   
         if ( ( itm.atkef & 
                 ( ITM_ATKEF.HUMAN | ITM_ATKEF.ANIMAL| ITM_ATKEF.DRAGON 
                   | ITM_ATKEF.DEMON | ITM_ATKEF.INSECT ) ) != 0 )
         {
-            textout(" damages will be doubled to\n ");
-            if( itm.checkAtkEf( ITM_ATKEF.HUMAN ) )  textout(" human");
-            if( itm.checkAtkEf( ITM_ATKEF.ANIMAL ) ) textout(" animal");
-            if( itm.checkAtkEf( ITM_ATKEF.DRAGON ) ) textout(" dragon");
-            if( itm.checkAtkEf( ITM_ATKEF.DEMON ) )  textout(" demon");
-            if( itm.checkAtkEf( ITM_ATKEF.INSECT ) ) textout(" insect");
-            textout(" type monsters.\n");
+            ef = "";
+            if( itm.checkAtkEf( ITM_ATKEF.HUMAN ) )  ef ~= " human";
+            if( itm.checkAtkEf( ITM_ATKEF.ANIMAL ) ) ef ~= " animal";
+            if( itm.checkAtkEf( ITM_ATKEF.DRAGON ) ) ef ~= " dragon";
+            if( itm.checkAtkEf( ITM_ATKEF.DEMON ) )  ef ~= " demon";
+            if( itm.checkAtkEf( ITM_ATKEF.INSECT ) ) ef ~= " insect";
+            textout(_( " damages will be doubled to\n %1 type monsters.\n" ) , ef );
         }
   
         if ( itm.defef != 0 )
         {
-          textout(" it is resistive to");
-          if ( itm.checkDefEf( ITM_DEFEF.CRITICAL ) ) textout(" critical");
-          if ( itm.checkDefEf( ITM_DEFEF.STONE    ) ) textout(" stone");
-          if ( itm.checkDefEf( ITM_DEFEF.PARALIZE ) ) textout(" paralize");
-          if ( itm.checkDefEf( ITM_DEFEF.SLEEP    ) ) textout(" sleep");
-          if ( itm.checkDefEf( ITM_DEFEF.POISON   ) ) textout(" poison");
-          if ( itm.checkDefEf( ITM_DEFEF.FIRE     ) ) textout(" fire");
-          if ( itm.checkDefEf( ITM_DEFEF.ICE      ) ) textout(" ice");
-          if ( itm.checkDefEf( ITM_DEFEF.DRAIN    ) ) textout(" drain");
-          textout(" attacks.\n");
+            ef = "";
+            if ( itm.checkDefEf( ITM_DEFEF.CRITICAL ) ) ef ~= " critical";
+            if ( itm.checkDefEf( ITM_DEFEF.STONE    ) ) ef ~= " stone";
+            if ( itm.checkDefEf( ITM_DEFEF.PARALIZE ) ) ef ~= " paralize";
+            if ( itm.checkDefEf( ITM_DEFEF.SLEEP    ) ) ef ~= " sleep";
+            if ( itm.checkDefEf( ITM_DEFEF.POISON   ) ) ef ~= " poison";
+            if ( itm.checkDefEf( ITM_DEFEF.FIRE     ) ) ef ~= " fire";
+            if ( itm.checkDefEf( ITM_DEFEF.ICE      ) ) ef ~= " ice";
+            if ( itm.checkDefEf( ITM_DEFEF.DRAIN    ) ) ef ~= " drain";
+            textout( _( " it is resistive to %1 attacks.\n" ) , ef ) ;
         }
   
         if ( itm.magdef != 0 )
-          textout( " it is resistive to spells.\n" );
+          textout( _( " it is resistive to spells.\n" ) );
 
         if ( itm.hpplus > 0 )
-          textout( " it is a healing item.\n" );
+          textout( _( " it is a healing item.\n" ) );
 
         if ( itm.hpplus < 0 )
-          textout( " it is a cursed item and\n"
-                 ~ "  just having it will hurt you badly.\n" );
+          textout( _( " it is a cursed item and\n" )
+                 ~ _( "  just having it will hurt you badly.\n" ) );
   
         if ( itm.effect[ 0 ] != 0 )
         {
             if ( ( itm.effect[ 0 ] & 0x80 ) != 0 )
             {
-                textout( " you can cast a " );
-                textout( magic_data[ itm.effect[ 0 ] & 0x7f ].name );
-                textout( " by using it\n"
-                       ~ "                 while you are in camp.\n" );
+                ef = magic_data[ itm.effect[ 0 ] & 0x7f ].name ;
+                textout( _( " you can cast a %1 by using it\n" )
+                       ~ _( "                 while you are in camp.\n" ) , ef );
             }
             else
             {
-                textout( " using it while you are in camp\n"
-                       ~ "               will cause something.\n" );
+                textout( _( " using it while you are in camp\n" )
+                       ~ _( "               will cause something.\n" ) );
             }
         }
 
@@ -1260,57 +1138,54 @@ void boltac_identify()
         {
             if ( ( itm.effect[ 1 ] & 0x80 ) != 0 )
             {
-                textout( " you can cast a " );
-                textout( magic_data[ itm.effect[ 1 ] & 0x7f ].name );
-                textout( " during battle.\n" );
+                ef = magic_data[ itm.effect[ 1 ] & 0x7f ].name ;
+                textout( _( " you can cast a %1 during battle.\n" ) );
             }
             else
             {
-                textout( " using it while you are in battle\n"
-                       ~ "               will cause something.\n" );
+                textout( _( " using it while you are in battle\n" )
+                       ~ _( "               will cause something.\n" ) );
             }
         }
 
         if ( itm.effect[ 2 ] != 0 )
-          textout( " using it during equip\n"
-                 ~ "           will cause something.\n" );
+          textout( _( " using it during equip\n" )
+                 ~ _( "           will cause something.\n" ) );
   
         // 個別に
         if (itm.itemNo == 170) // vorpat_tooth
-            textout( " you got it from the vorpal_bunnies\n"
-                   ~ "   on B2 layer, right?\n" );
+            textout( _( " you got it from the vorpal_bunnies\n" )
+                   ~ _( "   on B2 layer, right?\n" ) );
         if (itm.itemNo == 149) // The_Muramasa_Blade!
-            textout( " oh...finally, I got to see\n"
-                   ~ "    *** THE TRUE MURAMASA BLADE!! ***\n" );
+            textout( _( " oh...finally, I got to see\n" )
+                   ~ _( "    *** THE TRUE MURAMASA BLADE!! ***\n" ) );
         if (itm.itemNo == 148) // muramasa_katana
-            textout( " I've heard a rumor that there's a more\n"
-                   ~ " powerful weapon than this. can it be true!\n" );
+            textout( _( " I've heard a rumor that there's a more\n" )
+                   ~ _( " powerful weapon than this. can it be true!\n" ) );
         if (itm.itemNo == 147) // 皆伝の書
-            textout( " God!  written in this is\n"
-                   ~ "         the secret of ninja.\n" );
+            textout( _( " God!  written in this is\n" )
+                   ~ _( "         the secret of ninja.\n" ) );
         if (itm.itemNo == 146) // garb_of_lords
-            textout( " one of the top three items, you know.\n" );
+            textout( _( " one of the top three items, you know.\n" ) );
         if (itm.itemNo == 143) // shurikens
-            textout( " one of the top three items, you know.\n" );
+            textout( _( " one of the top three items, you know.\n" ) );
         if (itm.itemNo == 137) // vorpal_weapon
-            textout( " it is the most powerful sword for F&L.\n" );
+            textout( _( " it is the most powerful sword for F&L.\n" ) );
         if (itm.itemNo == 135) // fox_gon's_mittens
-            textout( " have you heard a sad story of the fox?\n" );
+            textout( _( " have you heard a sad story of the fox?\n" ) );
         if (itm.itemNo == 131) // vampire_killer
-            textout( " Mmm...what happened to the hunter?\n" );
+            textout( _( " Mmm...what happened to the hunter?\n" ) );
         if (itm.itemNo == 99) // gradius
-            textout( " Mmm...it is a really good sword, you know.\n" );
+            textout( _( " Mmm...it is a really good sword, you know.\n" ) );
         if (itm.itemNo == 43) // garcon_jacket(e)
-            textout( " Mmm...very stylish, very...\n" );
+            textout( _( " Mmm...very stylish, very...\n" ) );
         if (itm.itemNo == 42) // antwerp_sweater
-            textout( " look at this!  what a beautiful color!\n");
+            textout( _( " look at this!  what a beautiful color!\n" ));
   
-        textout( " I would buy it for " );
-        textout( itm.gold / 2 );
-        textout( " gp.\n" );
+        textout( _( " I would buy it for %1 gp.\n" ) , itm.gold / 2 );
 
         if ( ( itm.Align & 0x7 ) == 7 )
-            textout( " Be aware! it is cursed.\n" );
+            textout( _( " Be aware! it is cursed.\n" ) );
     }
     goto TOP;
 }
@@ -1338,7 +1213,7 @@ void temple()
 
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "*** temple of dice, we have: ***\n" );
+        textout( _( "*** temple of dice, we have: ***\n" ) );
         setColor( CL.NORMAL );
 
         for ( i = 0; i < MAXMEMBER ; i++ )
@@ -1369,7 +1244,7 @@ void temple()
                 }
             }
         }
-        textout( "  who needs help(z:leave(9))? " );
+        textout( _( "  who needs help(z:leave(9))? " ) );
         while ( true )
         {
             c = getChar();
@@ -1410,10 +1285,8 @@ void temple()
                 break;
         }
         donation *= mem.level;
-        textout( "the donation is " );
-        textout( donation );
-        textout( "g.p.\n" );
-        textout( "  who will pay(z:leave(9))? " );
+        textout( _( "the donation is %1 g.p.\n" ) , donation );
+        textout( _( "  who will pay(z:leave(9))? " ) );
 
         while ( true )
         {
@@ -1435,14 +1308,14 @@ void temple()
         textout( "(" ~ p.name ~ ")\n" );
         if ( p.gold < donation )
         {
-            textout( "you don't have enough money.\n" );
-            textout( "  pool gold(y/n)? " );
+            textout( _( "you don't have enough money.\n" ) );
+            textout( _( "  pool gold(y/n)? " ) );
             if (answerYN == 'n')
                 goto EXIT;
             party.poolGold( p );
             if ( p.gold < donation )
             {
-              textout( "  still not enough...\n" );
+              textout( _( "  still not enough...\n" ) );
               getChar();
               goto EXIT;
             }
@@ -1483,13 +1356,12 @@ void temple()
         }
         else if( mem.status == STS.DEAD )
         {
-            textout( mem.name );
-            textout( " needs voxolorto now!\n" );
+            textout( _( " %1 needs Bless now!\n" ) , mem.name );
             mem.status = STS.ASHED;
         }
         else
         {
-            textout( mem.name ~ " is buried...\n" );
+            textout( _( " %1 is buried...\n" ) , mem.name );
             mem.status = STS.LOST;
             mem.name = "";
         }

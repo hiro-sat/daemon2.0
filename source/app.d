@@ -10,8 +10,9 @@ import std.datetime.systime : SysTime, Clock;
 import core.stdc.stdlib : exit;
 import core.stdc.stdarg;    // ... : 可変個引数関数
 
-// derelict SDL
+// dub
 import derelict.sdl2.sdl;
+import mofile;
 
 // mysource 
 import lib_sdl;
@@ -39,11 +40,6 @@ import cMonsterDef;
 void main(string[] args)
 {
 
-    // json 確認
-    Json json = new Json( JSONFILE );
-
-    // 画面サイズ設定
-    setFontSize( json[ "size" ].integer );
 
     /* debugmode = true; */
     debugmodeOffFlg = true;
@@ -202,6 +198,23 @@ void setFontSize( long para )
 private bool initialize()
 {
 
+    // json 確認
+    Json json = new Json( JSONFILE );
+
+    // 画面サイズ設定
+    setFontSize( json[ "size" ].integer );
+
+    // 言語ファイル
+    // ※ MoFile を設定しない場合は文字列がそのまま出力される。
+    string locale;
+    locale = json[ "language" ].str;
+
+    writeln(  formatText( LANGUAGEFILE , locale ) );
+
+    if( locale != "" )
+        moFile = MoFile( formatText( LANGUAGEFILE , locale ) );
+
+    
     setRndSeed;
 
     // データ保存フォルダ確認
@@ -258,16 +271,16 @@ private bool initialize()
         turn[ i ] = new BattleTurn;
 
 
-    TRAP_NAME[ TRAP.NO         ] = "no trap";
-    TRAP_NAME[ TRAP.POISON     ] = "poison needle";
-    TRAP_NAME[ TRAP.GASBOMB    ] = "gas bomb";
-    TRAP_NAME[ TRAP.CROSSBOW   ] = "crossbow bolt";
-    TRAP_NAME[ TRAP.EXPLODING  ] = "exploding box";
-    TRAP_NAME[ TRAP.STUNNER    ] = "stunner";
-    TRAP_NAME[ TRAP.TELEPORT   ] = "teleporter";
-    TRAP_NAME[ TRAP.MAGBLASTER ] = "mage blaster";
-    TRAP_NAME[ TRAP.PRIBLASTER ] = "priest blaster";
-    TRAP_NAME[ TRAP.ALARM      ] = "alarm";
+    TRAP_NAME[ TRAP.NO         ] = _( "no trap" );
+    TRAP_NAME[ TRAP.POISON     ] = _( "poison needle" );
+    TRAP_NAME[ TRAP.GASBOMB    ] = _( "gas bomb" );
+    TRAP_NAME[ TRAP.CROSSBOW   ] = _( "crossbow bolt" );
+    TRAP_NAME[ TRAP.EXPLODING  ] = _( "exploding box" );
+    TRAP_NAME[ TRAP.STUNNER    ] = _( "stunner" );
+    TRAP_NAME[ TRAP.TELEPORT   ] = _( "teleporter" );
+    TRAP_NAME[ TRAP.MAGBLASTER ] = _( "mage blaster" );
+    TRAP_NAME[ TRAP.PRIBLASTER ] = _( "priest blaster" );
+    TRAP_NAME[ TRAP.ALARM      ] = _( "alarm" );
 
     return true;
 }
@@ -847,6 +860,31 @@ void textout( int i ){ textout( to!string( i ) ); }
 void textout( long l ){ textout( to!string( l ) ); }
 /** テキストエリア表示(char) */
 void textout( char c ){ textout( to!string( c ) ); }
+/** テキストエリア表示(変換あり) */
+void textout( string fmt , ... )
+{
+    string keyword;
+    foreach( i, type; _arguments)
+    {
+        if(type == typeid(int))
+            keyword = to!string( va_arg!int(_argptr));
+        else if(type == typeid(long))
+            keyword = to!string( va_arg!long(_argptr));
+        else if(type == typeid(byte))
+            keyword = to!string( va_arg!byte(_argptr));
+        else if(type == typeid(char))
+            keyword = to!string( va_arg!char(_argptr) );
+        else if(type == typeid(string))
+            keyword = va_arg!string(_argptr);
+        else
+            assert( 0 );
+        fmt = fmt.replace( "%" ~ to!string( i + 1 ) , keyword );
+    }
+    fmt = fmt.replace( "%%" , "%" );
+    textout( fmt );
+    return;
+}
+
 /** テキストエリア表示(string) */
 void textout( string text )
 {

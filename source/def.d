@@ -6,6 +6,9 @@ import std.file;
 import std.random;
 import std.datetime;
 
+// dub
+import mofile;
+
 // my source
 import lib_sdl;
 import lib_screen;
@@ -24,6 +27,15 @@ import cBattleTurn;
 
 // json設定ファイル
 string JSONFILE = "resources/daemon.json";
+
+// 言語ファイル
+string LANGUAGEFILE = "resources/%1.mo";
+
+// gettext
+alias gettext _;
+MoFile moFile;
+string gettext( string s  ) { return moFile.gettext( s ); }
+
 
 // debug
 bool debugmode = false;
