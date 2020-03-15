@@ -1139,7 +1139,7 @@ void boltac_identify()
             if ( ( itm.effect[ 1 ] & 0x80 ) != 0 )
             {
                 ef = magic_data[ itm.effect[ 1 ] & 0x7f ].name ;
-                textout( _( " you can cast a %1 during battle.\n" ) );
+                textout( _( " you can cast a %1 during battle.\n" ) , ef );
             }
             else
             {
