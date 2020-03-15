@@ -734,12 +734,14 @@ void setRndSeed()
         if( c >= '0' && c <= '9' )
             seed ~= c;
 
-    uint seed1 , seed2;
+    ulong seed1 , seed2;
     seed1 = to!uint( seed[ 0 .. seed.length / 2 ] );
     seed2 = to!uint( seed[ seed.length / 2 .. seed.length ] );
 
+    uint  seed0;
+    seed0 = to!uint( seed1 + seed2 );
 
-    rnd = Random( seed1 + seed2 );
+    rnd = Random( seed0 );
 
     return;
 }
@@ -854,40 +856,20 @@ void header_disp( HSTS sts , bool rewrite = true )
 
 
 /*====== text window ===========================================*/
-/** テキストエリア表示(int) */
-void textout( int i ){ textout( to!string( i ) ); }
-/** テキストエリア表示(long) */
-void textout( long l ){ textout( to!string( l ) ); }
-/** テキストエリア表示(char) */
-void textout( char c ){ textout( to!string( c ) ); }
+
 /** テキストエリア表示(変換あり) */
-void textout( string fmt , ... )
+void textout( T... )( string fmt , T args )
 {
-    string keyword;
-    foreach( i, type; _arguments)
-    {
-        if(type == typeid(int))
-            keyword = to!string( va_arg!int(_argptr));
-        else if(type == typeid(long))
-            keyword = to!string( va_arg!long(_argptr));
-        else if(type == typeid(byte))
-            keyword = to!string( va_arg!byte(_argptr));
-        else if(type == typeid(char))
-            keyword = to!string( va_arg!char(_argptr) );
-        else if(type == typeid(string))
-            keyword = va_arg!string(_argptr);
-        else
-            assert( 0 );
-        fmt = fmt.replace( "%" ~ to!string( i + 1 ) , keyword );
-    }
-    fmt = fmt.replace( "%%" , "%" );
-    textout( fmt );
+    textout( formatText( fmt , args ) );
     return;
 }
 
-/** テキストエリア表示(string) */
-void textout( string text )
+/** テキストエリア表示 */
+void textout( T )( T value )
 {
+
+    string text;
+    text = to!string( value );
 
     /*-------------------- 
     line_disp - 行表示
@@ -1296,27 +1278,13 @@ bool isHankaku( char c )
            formatText( "This is %1%%" , 42 );
            ret : This is 42%
    --------------------*/
-string formatText( string fmt , ... )
+/* string formatText( string fmt , ... ) */
+string formatText( T... )( string fmt , T args )
 {
-
     string keyword;
-
-    foreach( i, type; _arguments)
+    foreach( i, type ; args )
     {
-
-        if(type == typeid(int))
-            keyword = to!string( va_arg!int(_argptr));
-        else if(type == typeid(long))
-            keyword = to!string( va_arg!long(_argptr));
-        else if(type == typeid(byte))
-            keyword = to!string( va_arg!byte(_argptr));
-        else if(type == typeid(char))
-            keyword = to!string( va_arg!char(_argptr) );
-        else if(type == typeid(string))
-            keyword = va_arg!string(_argptr);
-        else
-            assert( 0 );
-
+        keyword = to!string( type );
         fmt = fmt.replace( "%" ~ to!string( i + 1 ) , keyword );
     }
     return fmt.replace( "%%" , "%" );
