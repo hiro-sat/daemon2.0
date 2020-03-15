@@ -4,3 +4,4 @@
 /dub.selections.json
 /source/*.swp
 /resources/*.swp
+.DS_Store

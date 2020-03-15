@@ -42,11 +42,11 @@ int eoftown()
     {
         setColor( CL.MENU );
         textout( "\n" );
-        textout( "*** edge of town ***\n" );
-        textout( "c)astle q)uit game\n" );
-        textout( "t)raining d)ungeon\n" );
-        textout( "r)estart an out party\n" );
-        textout( "********************\n" );
+        textout( _( "*** edge of town ***\n" ) );
+        textout( _( "c)astle q)uit game\n" ) );
+        textout( _( "t)raining d)ungeon\n" ) );
+        textout( _( "r)estart an out party\n" ) );
+        textout( _( "********************\n" ) );
         setColor( CL.NORMAL );
         textout( "option? " );
     KEYIN:
@@ -54,11 +54,11 @@ int eoftown()
         switch (ch)
         {
             case 't': /* training */
-                textout( "training\n" );
+                textout( _( "training\n" ) );
                 training();
                 break;
             case 'q': /* leave game */
-                textout( "quit game\n" );
+                textout( _( "quit game\n" ) );
                 for (i = 0; i < 20; i++)
                 {
                     if (member[ i ].outflag == OUT_F.CASTLE)
@@ -67,7 +67,7 @@ int eoftown()
 
                 appSave;
 
-                textout( "quit playing daemon(y/n)? " );
+                textout( _( "quit playing daemon(y/n)? " ) );
                 if ( answerYN == 'y' )
                 {
                     textout( "bye !\n" );
@@ -78,21 +78,21 @@ int eoftown()
             case 'd': /* dungeon */
                 if (party.num >= 1)
                 {
-                    textout( "dungeon...\n" );
+                    textout( _( "dungeon...\n" ) );
                     party.olayer = 1;
                     party.layer = 1;
                     return 1;   // -> dungeon
                 }
                 goto KEYIN;
             case 'r': // restart an out party
-                textout( "restart an out party\n" );
+                textout( _( "restart an out party\n" ) );
                 for ( i = 0; i < 20; i++ )
                     if ( member[ i ].outflag == OUT_F.CASTLE )
                         member[ i ].outflag = OUT_F.BAR ;
                 party.num = 0;
                 party.win_disp();
                 outmem_disp( null );
-                textout( "choose the first party member(z:leave(9))? " );
+                textout( _( "choose the first party member(z:leave(9))? " ) );
                 while ( true )
                 {
                     c = getChar();
@@ -107,7 +107,7 @@ int eoftown()
                             && member[ c - 'a' ].status >= STS.PARALY )
                     {
                         textout( c );
-                        textout( "\n  choose an alive member(z:leave(9))? " );
+                        textout( _( "\n  choose an alive member(z:leave(9))? " ) );
                     }
                 }
                 textout( c );
@@ -135,7 +135,7 @@ int eoftown()
                 while ( party.num < 6 )
                 {
                     outmem_disp( mem );
-                    textout( "  add a member(z:leave(9))? " );
+                    textout( _( "  add a member(z:leave(9))? " ) );
                     while ( true )
                     {
                         c = getChar();
@@ -158,7 +158,7 @@ int eoftown()
                 party.win_disp();
                 return 1; // maze
             case 'c': /* castle */
-                textout( "castle\n" );
+                textout( _( "castle\n" ) );
                 return 0;
             default:
                 goto KEYIN;
@@ -194,15 +194,15 @@ private void training()
     while ( true )
     {
         setColor( CL.MENU );
-        textout( "\n*** training ground ***\n" );
-        textout( "c)reate a character\n" );
-        textout( "d)elete a character\n" );
-        textout( "h)change a character's class\n" );
-        textout( "i)nspect a character\n" );
-        textout( "n)change a character's name\n" );
-        textout( "s)wap characters (reorder)\n" );
-        textout( "z)leave(9)\n" );
-        textout( "***********************\n" );
+        textout( _( "\n*** training ground ***\n" ) );
+        textout( _( "c)reate a character\n" ) );
+        textout( _( "d)elete a character\n" ) );
+        textout( _( "h)change a character's class\n" ) );
+        textout( _( "i)nspect a character\n" ) );
+        textout( _( "n)change a character's name\n" ) );
+        textout( _( "s)wap characters (reorder)\n" ) );
+        textout( _( "z)leave(9)\n" ) );
+        textout( _( "***********************\n" ) );
         setColor( CL.NORMAL );
         textout( "option? " );
         while ( true )
@@ -219,37 +219,37 @@ private void training()
         switch ( keycode )
         {
             case 'c': /* create */
-                textout( "create a character\n\n" );
+                textout( _( "create a character\n\n" ) );
                 create_chr();
                 scrwin_clear();
                 break;
             case 'd': // delete
-                textout( "delete a character\n\n" );
+                textout( _( "delete a character\n\n" ) );
                 delete_chr();
                 scrwin_clear();
                 break;
             case 'h': // change class
-                textout( "change a character's class\n\n" );
+                textout( _( "change a character's class\n\n" ) );
                 chg_class();
                 scrwin_clear();
                 break;
             case 'i': // inspect
-                textout( "inspect a character\n\n" );
+                textout( _( "inspect a character\n\n" ) );
                 inspect_chr();
                 scrwin_clear();
                 break;
             case 'z': /* leave */
             case '9': /* leave */
-                textout( "leave\n" );
+                textout( _( "leave\n" ) );
                 header_disp( HSTS.EOT );
                 return;
             case 'n': // change name
-                textout( "change a character's name\n\n" );
+                textout( _( "change a character's name\n\n" ) );
                 chg_name();
                 scrwin_clear();
                 break;
             case 's': // swap characters
-                textout( "swap a character (reorder)\n\n" );
+                textout( _( "swap a character (reorder)\n\n" ) );
                 swap_chr();
                 scrwin_clear();
                 break;
@@ -335,7 +335,7 @@ void chg_class()
   
     mem_disp();
 
-    textout( "whose class will you change(z:leave(9))? " );
+    textout( _( "whose class will you change(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -352,7 +352,7 @@ void chg_class()
     mem = member[ c - 'a' ];
   
     mem.char_disp;
-    textout( "possible classes are:\n" );
+    textout( _( "possible classes are:\n" ) );
 
     if (mem.str[ 0 ] >= 11 
             && mem.Class != CLS.FIG)
@@ -407,7 +407,7 @@ void chg_class()
         && mem.Class != CLS.NIN)
         textout("  n)inja\n");
 
-    textout( "select the Class(z:leave(9))? " );
+    textout( _( "select the Class(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -558,7 +558,7 @@ void chg_name()
     Member mem;
     
     mem_disp();
-    textout( "whose name will you change(z:leave(9))? " );
+    textout( _( "whose name will you change(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -573,22 +573,21 @@ void chg_name()
     if ( c == 'z' || c == '9' )
         return;
     mem = member[ c - 'a' ];
-    textout( mem.name );
-    textout( " will be:\n" );
+    textout( _( " %1 will be:\n" ) , mem.name );
     name = tline_input( MAX_MEMBER_NAME, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
     textout( ">" );
     textout( name );
     textout( "\n" );
     if ( strip( name ) == "" )
     {
-        textout( "what?\n" );
+        textout( _( "what?\n" ) );
         getChar;
         return;
     }
     else
     {
         mem.name = name ;
-        textout( "changed.\n" );
+        textout( _( "changed.\n" ) );
     }
     mem_disp();
     textout( "  push any key.\n" );
@@ -604,9 +603,10 @@ void inspect_chr()
 {
     char c;
     
+TOP:
     mem_disp();
 
-    textout( "who do you want to inspect(z:leave(9))? " );
+    textout( _( "who do you want to inspect(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -623,7 +623,7 @@ void inspect_chr()
 
 
     member[ c - 'a' ].inspect_chr( 0 );
-    return;
+    goto TOP;
 
 }
 
@@ -636,7 +636,7 @@ void delete_chr()
     int num;
     
     mem_disp();
-    textout( "who do you want to delete(z:leave(9))? " );
+    textout( _( "who do you want to delete(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -652,14 +652,13 @@ void delete_chr()
         return;
 
     num = c - 'a';
-    textout( member[ num ].name );
-    textout( " will be deleted(y/n)? " );
+    textout( _( " %1 will be deleted(y/n)? " ) , member[ num ].name );
 
     if ( answerYN == 'n' )
         return;
 
     member[ num ].name = "";
-    textout( "  deleted...\n" );
+    textout( _( "  deleted...\n" ) );
     mem_disp();
     textout( "\n      push any key\n" );
     getChar();
@@ -697,10 +696,11 @@ void swap_chr()
     char c;
     int a, b;
     Member mem;
-  
+
+TOP:
     swap_disp();
     
-    textout( "choose first character(z:leave(9))? " );
+    textout( _( "choose first character(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -719,7 +719,7 @@ void swap_chr()
     textout( member[ a ].name );
     textout('\n');
     
-    textout( "choose second character(z:leave(9))? " );
+    textout( _( "choose second character(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -743,11 +743,11 @@ void swap_chr()
     member[ b ] = mem;
     swap_disp();
     
-    textout( "done.\n" );
+    textout( _( "done.\n" ) );
     textout( "  push any key.\n" );
     getChar();
   
-    return;
+    goto TOP;
 }
 
 
@@ -797,14 +797,14 @@ void create_chr()
             break;
     if ( fellow == 20 )
     {
-        textout( "too many characters\n" );
+        textout( _( "too many characters\n" ) );
         return;
     }
 
     mem = new Member;
   
     setColor( CL.MENU );
-    textout( "*** enter a name for your character\n" );
+    textout( _( "*** enter a name for your character\n" ) );
     setColor( CL.NORMAL );
     mem.name = tline_input( MAX_MEMBER_NAME, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
 
@@ -818,16 +818,17 @@ void create_chr()
     for ( i = 0; i < MAXMEMBER; i++ )
         if ( member[ i ].name != "" && member[ i ].name == mem.name )
         {
-            textout( "already exists\n" );
+            textout( _( "already exists\n" ) );
+            getChar;
             return;
         }
   
     setColor( CL.MENU );
-    textout( "*** choose race ***\n" );
-    textout( "h:human, e:elf\n" );
-    textout( "d:dwarf, g:gnome\n" );
-    textout( "o:hobbit\n" );
-    textout( "*******************\n" );
+    textout( _( "*** choose race ***\n" ) );
+    textout( _( "h:human, e:elf\n" ) );
+    textout( _( "d:dwarf, g:gnome\n" ) );
+    textout( _( "o:hobbit\n" ) );
+    textout( _( "*******************\n" ) );
     setColor( CL.NORMAL );
     textout( "option?" );
 
@@ -906,11 +907,11 @@ void create_chr()
     }
   
     setColor( CL.MENU );
-    textout( "*** choose alignment ***\n" );
-    textout( "g:good\n" );
-    textout( "n:neutral\n" );
-    textout( "e:vil\n" );
-    textout( "************************\n" );
+    textout( _( "*** choose alignment ***\n" ) );
+    textout( _( "g:good\n" ) );
+    textout( _( "n:neutral\n" ) );
+    textout( _( "e:vil\n" ) );
+    textout( _( "************************\n" ) );
     setColor( CL.NORMAL );
     textout( "option?" );
     mem.Align = 99;
@@ -950,13 +951,13 @@ void create_chr()
 
 
     setColor( CL.MENU );
-    textout( "\n*** distribute bonus points ***\n" );
-    textout( "h(4):minus\n" );
-    textout( "j(2):lower pointer\n" );
-    textout( "k(8):upper pointer\n" );
-    textout( "l(6):plus\n" );
-    textout( "z(5):accept\n" );
-    textout( "*******************************\n" );
+    textout( _( "\n*** distribute bonus points ***\n" ) );
+    textout( _( "h(4):minus\n" ) );
+    textout( _( "j(2):lower pointer\n" ) );
+    textout( _( "k(8):upper pointer\n" ) );
+    textout( _( "l(6):plus\n" ) );
+    textout( _( "z(5):accept\n" ) );
+    textout( _( "*******************************\n" ) );
     setColor( CL.NORMAL );
     textout( "option?\n" );
 
@@ -1017,7 +1018,7 @@ void create_chr()
   
     mem.Class = 99;
     setColor( CL.MENU );
-    textout( "*** select class ***\n" );
+    textout( _( "*** select class ***\n" ) );
     setColor( CL.NORMAL );
     textout( "class?\n" );
     
@@ -1160,7 +1161,7 @@ void create_chr()
     mem.char_disp;
   
     setColor( CL.MENU );
-    textout("keep this character(y/n)?\n");
+    textout(_( "keep this character(y/n)?\n" ));
     setColor( CL.NORMAL );
 
     if ( answerYN == 'y' )

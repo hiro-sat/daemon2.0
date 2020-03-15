@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-15 14:21+0900\n"
+"PO-Revision-Date: 2020-03-15 14:40+0900\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ja\n"
+
+#: ../source/app.d:261
+msgid "no trap"
+msgstr "トラップなし"
+
+#: ../source/app.d:262
+msgid "poison needle"
+msgstr "毒針"
+
+#: ../source/app.d:263
+msgid "gas bomb"
+msgstr "ガス爆弾"
+
+#: ../source/app.d:264
+msgid "crossbow bolt"
+msgstr "クロスボウ"
+
+#: ../source/app.d:265
+msgid "exploding box"
+msgstr "爆弾"
+
+#: ../source/app.d:266
+msgid "stunner"
+msgstr "痺れバリ"
+
+#: ../source/app.d:267
+msgid "teleporter"
+msgstr "テレポーター"
+
+#: ../source/app.d:268
+msgid "mage blaster"
+msgstr "メイジブラスター"
+
+#: ../source/app.d:269
+msgid "priest blaster"
+msgstr "プリーストブラスター"
+
+#: ../source/app.d:270
+msgid "alarm"
+msgstr "アラーム"
+
+#: ../source/castle.d:91
+msgid "******** castle ********\n"
+msgstr "******** castle ********\n"
+
+#: ../source/castle.d:92
+msgid "g)inger's forest bar\n"
+msgstr "g)ジンジャーフォレスト亭\n"
+
+#: ../source/castle.d:93
+msgid "s)helton yankee flipper\n"
+msgstr "s)シェルトンヤンキーホテル\n"
+
+#: ../source/castle.d:94
+msgid "t)emple of dice\n"
+msgstr "t)ダイス寺院\n"
+
+#: ../source/castle.d:95
+msgid "a)lbertsan's mart\n"
+msgstr "a)アルバートサン商店\n"
+
+#: ../source/castle.d:96
+msgid "e)dge of town\n"
+msgstr "e)町外れ\n"
+
+#: ../source/castle.d:97
+msgid "************************\n"
+msgstr ""
+
+#: ../source/castle.d:99
+msgid "option? "
+msgstr ""
