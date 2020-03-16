@@ -381,6 +381,7 @@ void gilgamesh()
                 textout( _( "divvy gold\n"  ));
                 party.divvy;
                 party.mem[ current ].char_disp;
+                dispGilgameshMenu;
                 break;
 
             case 'z': 
@@ -1124,13 +1125,11 @@ void boltac_identify()
             if ( ( itm.effect[ 0 ] & 0x80 ) != 0 )
             {
                 ef = magic_data[ itm.effect[ 0 ] & 0x7f ].name ;
-                textout( _( " you can cast a %1 by using it\n" )
-                       ~ _( "                 while you are in camp.\n" ) , ef );
+                textout( _( " you can cast a %1 by using it\n                 while you are in camp.\n" ) , ef );
             }
             else
             {
-                textout( _( " using it while you are in camp\n" )
-                       ~ _( "               will cause something.\n" ) );
+                textout( _( " using it while you are in camp\n               will cause something.\n" ) );
             }
         }
 
@@ -1143,14 +1142,12 @@ void boltac_identify()
             }
             else
             {
-                textout( _( " using it while you are in battle\n" )
-                       ~ _( "               will cause something.\n" ) );
+                textout( _( " using it while you are in battle\n               will cause something.\n" ) );
             }
         }
 
         if ( itm.effect[ 2 ] != 0 )
-          textout( _( " using it during equip\n" )
-                 ~ _( "           will cause something.\n" ) );
+          textout( _( " using it during equip\n           will cause something.\n" ) );
   
         // 個別に
         if (itm.itemNo == 170) // vorpat_tooth

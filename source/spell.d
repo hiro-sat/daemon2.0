@@ -182,6 +182,7 @@ void camp_spell_sub( int mag )
         case MAG_TYPE.HEALALL:
             for ( target = 0; target < party.num; target++ )
             {
+                mem = party.mem[ target ];
                 if ( mem.status < STS.DEAD)
                 {
                     nPoints = magic_data[ mag ].min + get_rand( magic_data[ mag ].add );
