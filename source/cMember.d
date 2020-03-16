@@ -53,7 +53,7 @@ private:
 
         if ( curseflag != 0 )
         {
-            textout( "you are cursed...\n" );
+            textout( _( "you are cursed...\n" ) );
         }
         else if ( ( ch <= '8' && ch >= '1' ) && ( ! item[ ch-'1' ].isNothing ) )
         {
@@ -64,7 +64,7 @@ private:
                 {
                     itm.equipped = true;
                     itm.cursed = true;
-                    textout( "*** oops! you got cursed ...\n" );
+                    textout( _( "*** oops! you got cursed ...\n" ) );
                 }
                 else
                 {
@@ -73,7 +73,7 @@ private:
             }
             else if ( ! itm.isNothing )
             {
-                textout( "you cannot equip it.\n" );
+                textout( _( "you cannot equip it.\n" ) );
             }
         }
 
@@ -89,9 +89,7 @@ private:
             if ( itm.effect[ 2 ] == 0 )
                 continue;
 
-            textout( "do you want to use the special power\n  of " );
-            textout( itm.getDispName );
-            textout( "(y/n)? " );
+            textout( _( "do you want to use the special power\n  of %1 (y/n)?" ) , itm.getDispName );
 
             while ( true )
             {
@@ -912,19 +910,19 @@ public:
 
         char_disp;
 
-        textout("  push any key to see items\n");
+        textout( _( "  push any key to see items\n" ) );
         getChar();
         item_disp;
 
-        textout("  push any key to read mage spells\n");
+        textout( _( "  push any key to read mage spells\n" ) );
         getChar();
         disp_mspell();
 
-        textout("  push any key to read priest spells\n");
+        textout( _( "  push any key to read priest spells\n" ) );
         getChar();
         disp_pspell();
 
-        textout("  push any key to return\n");
+        textout( _( "  push any key to return\n" ) );
         getChar();
 
         return;
@@ -1364,10 +1362,10 @@ public:
        --------------------*/
     void dispSpellsInBattle()
     {
-        textout("  " ~ name ~ " read mage spells\n");
+        textout( _( "  %1 read mage spells\n" ) , name  );
         disp_mspell();
         getChar();
-        textout("  " ~ name ~ " read priest spells\n");
+        textout( _( "  %1 read priest spells\n" ) , name  );
         disp_pspell();
         getChar();
         party.dungeon.disp();
@@ -1666,17 +1664,17 @@ public:
     {
         int i;
 
-        textout( "which weapon(1,2,...,l:leave)?\n" );
+        textout( _( "which weapon(1,2,...,l:leave)?\n" ) );
         equip_sub( ITM_KIND.WEAPON );
-        textout( "which armor(1,2,...,l:leave)?\n" );
+        textout( _( "which armor(1,2,...,l:leave)?\n" ) );
         equip_sub( ITM_KIND.ARMOR );
-        textout( "which shield(1,2,...,l:leave)?\n" );
+        textout( _( "which shield(1,2,...,l:leave)?\n" ) );
         equip_sub( ITM_KIND.SHIELD );
-        textout( "which helm(1,2,...,l:leave)?\n" );
+        textout( _( "which helm(1,2,...,l:leave)?\n" ) );
         equip_sub( ITM_KIND.HELM );
-        textout( "which gloves(1,2,...,l:leave)?\n" );
+        textout( _( "which gloves(1,2,...,l:leave)?\n" ) );
         equip_sub( ITM_KIND.GLOVES );
-        textout( "which item(1,2,...,l:leave)?\n" );
+        textout( _( "which item(1,2,...,l:leave)?\n" ) );
         equip_sub( ITM_KIND.ITEM );
 
         range    = 1;
@@ -1734,13 +1732,13 @@ public:
         Member toMem;
 
 
-        textout( "to whom(z:leave(9))? " );
+        textout( _( "to whom(z:leave(9))? " ) );
         while ( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-                textout( "leave\n" );
+                textout( _( "leave\n" ) );
                 return;
             }
             else if ( ch >= '1' 
@@ -1759,11 +1757,11 @@ public:
         {
             if ( ! toMem.item[ 7 ].isNothing )
             {
-                textout( "full...\n" );
+                textout( _( "full...\n" ) );
                 return;
             }
 
-            textout( "which item(z:leave(9))? " );
+            textout( _( "which item(z:leave(9))? " ) );
             while ( true )
             {
                 ch = getChar();
@@ -1784,11 +1782,11 @@ public:
 
             if ( item[ ch ].cursed )
             {
-                textout( "\ncursed ...\n" );
+                textout( _( "\ncursed ...\n" ) );
             }
             else if ( item[ ch ].equipped )
             {
-                textout("\nequipped ...\n");
+                textout( _( "\nequipped ...\n" ) );
             }
             else
             {
@@ -1800,7 +1798,7 @@ public:
 
                 inspect();
                 party.win_disp();
-                textout( "\ndone.\n" );
+                textout( _( "\ndone.\n" ) );
             }
         }
     }
@@ -1813,13 +1811,13 @@ public:
         char ch;
         Item itm;
 
-        textout( "which item will you drop(z:leave(9))? " );
+        textout( _( "which item will you drop(z:leave(9))? " ) );
         while ( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-                textout( "leave\n" );
+                textout( _( "leave\n" ) );
                 return;
             }
             else if ( ch >= '1' && ch <= '8' )
@@ -1835,18 +1833,18 @@ public:
 
         if ( itm.cursed )
         {
-            textout( "cursed item ...\n" );
+            textout( _( "cursed item ...\n" ) );
             return;
         }
         else if ( itm.equipped )
         {
-            textout( "equipped ...\n" );
+            textout( _( "equipped ...\n" ) );
             return;
         }
         else
         {
             itm.release;
-            textout( "dropped.\n" );
+            textout( _( "dropped.\n" ) );
         }
 
         inspect();
@@ -1866,13 +1864,13 @@ public:
         int i, mag;
 
       
-        textout( "which item do you use(z:leave(9))? " );
+        textout( _( "which item do you use(z:leave(9))? " ) );
         while ( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-                textout( "leave\n" );
+                textout( _( "leave\n" ) );
                 return;
             }
             else if ( ch >= '1' && ch <= '8' )
@@ -1952,32 +1950,32 @@ public:
         if ( exp > nextexp )
         {
             level++;
-            textout( "you made the next level!\n" );
+            textout( _( "you made the next level!\n" ) );
             getChar();
   
             nexthp = calcHp;
-            textout( "  you gained " );
+            int hpp;
+
             if ( nexthp <= maxhp )
             {
-                textout( "1" );
+                hpp = 1;
                 maxhp++;
             }
             else
             {
-                textout( to!string( nexthp - maxhp ) );
+                hpp = nexthp - maxhp;
                 maxhp = nexthp;
             }
             hp = maxhp;
-            textout( " h.p.\n" );
+
+            textout( _( "  you gained %1 h.p.\n" ) , hpp );
             change_property( true );
             learn_spell();
         }
         else
         {
-            textout( "you need " );
-            textout( to!string( nextexp - exp) );
-            textout(" more\n");
-            textout("  e.p. to make the next level.\n");
+            long more = nextexp - exp;
+            textout( _( "you need %1 more\n  e.p. to make the next level.\n" ) , more );
         }
         return;
     }
@@ -2079,10 +2077,10 @@ public:
             }
             else
             {
-                textout( "\nyou need " );
-                textout( to!string( nextexp - exp ) );
-                textout( " more\n" );
-                textout( "  e.p. to make the next level.\n" );
+
+                long more = nextexp - exp;
+                textout( "\n" );
+                textout( _( "you need %1 more\n  e.p. to make the next level.\n" ) , more );
                 return;
             }
         }
@@ -2110,7 +2108,7 @@ public:
                     {
                         para --;
                         if ( message )
-                            textout("  you lost " ~ para_name ~ "\n");
+                            textout( _( "  you lost %1 \n" ) , para_name );
                     }
                 }
                 else
@@ -2119,7 +2117,7 @@ public:
                     {
                         para ++;
                         if ( message )
-                            textout("  you gained " ~ para_name ~ "\n");
+                            textout( _( "  you gained %1 \n" ) , para_name );
                     }
                 }
             }
@@ -2135,7 +2133,7 @@ public:
         
         if ( vit[ 0 ] <= 2 )
         {
-            textout( "The character died of age...\n" );
+            textout( _( "The character died of age...\n" ) );
             getChar();
             status = STS.LOST;
             return 1;
@@ -2296,7 +2294,7 @@ public:
         {
             if ( oldknow[ i ] != mspl_know[ i ] )
             {
-                textout("  you've learned new mage spells!\n");
+                textout( _( "  you've learned new mage spells!\n" ) );
                 return;
             }
         }
@@ -2342,7 +2340,7 @@ public:
         {
             if ( oldknow[ i ] != pspl_know[ i ] )
             {
-                textout( "  you've learned new priest spells!\n" );
+                textout( _( "  you've learned new priest spells!\n" ) );
                 return;
             }
         }
@@ -2571,7 +2569,7 @@ public:
         int mag;
         string spell_name;
 
-        textout( "what spell?\n" );
+        textout( _( "what spell?\n" ) );
         /* spell_name = tline_input( 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP ); */
         spell_name = tline_input_spell( this , 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
         textout( '>' );
@@ -2587,17 +2585,17 @@ public:
                 || spell_know( mag ) !=0 )  // 0 : know  , 1 : don't know , 3 : no such spell 
         {
             if ( mag == MAXMAGIC )
-                textout( "no such spell\n" );
+                textout( _( "no such spell\n" ) );
             else if ( magic_data[ mag ].camp == 0 )
-                textout( "cannot cast now\n" );
+                textout( _( "cannot cast now\n" ) );
             else
-                textout( "don't know the spell\n" );
+                textout( _( "don't know the spell\n" ) );
             getChar();
             return;
         }
         if ( consume_spell( mag ) == 2 )    // 2 : have used up 
         {
-            textout( "you've used that up\n" );
+            textout( _( "you've used that up\n" ) );
             getChar();
             return;
         }
@@ -2621,13 +2619,13 @@ public:
         if ( status != STS.OK )
             return;
 
-        textout( "which item will you identify(z:leave(9))? " );
+        textout( _( "which item will you identify(z:leave(9))? " ) );
         while( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-              textout( "leave\n" );
+              textout( _( "leave\n" ) );
               return;
             }
             else if ( ch >= '1' && ch <= '8' 
@@ -2648,7 +2646,7 @@ public:
                     n = false;
             if ( n )
             {
-                textout( "\n * oops! *\n" );
+                textout( _( "\n * oops! *\n" ) );
                 n = false;
                 switch ( Align )
                 {
@@ -2681,7 +2679,7 @@ public:
             }
             else
             {
-                textout("\nno clue ...\n");
+                textout( _( "\nno clue ...\n" ) );
             }
         }
         else
@@ -2865,7 +2863,7 @@ public:
         else if ( command == 'u'  
                 || command == '8' )
         {
-            textout( "you have:\n" );
+            textout( _( "you have:\n" ) );
             for ( i = 0; i < 8; i++ )
             {
                 if ( ! item[ i ].isNothing )
@@ -2875,7 +2873,7 @@ public:
                     textout( item[ i ].getDispNameA ~ "\n" );
                 }
             }
-            textout( "which item(z:leave(9))? " );
+            textout( _( "which item(z:leave(9))? " ) );
 
             while ( true )
             {
@@ -2895,7 +2893,7 @@ public:
             if ( ( magic & 0x80 ) == 0 
                     || magic_data[ magic & 0x7f ].batl == 0 )
             {
-                textout( "you can't use it now\noption? \n" );
+                textout( _( "you can't use it now\noption? \n" ) );
                 return false;
             }
 
@@ -2941,11 +2939,11 @@ public:
                     || spell_know( mag ) !=0  )
             {
                 if ( mag == MAXMAGIC )
-                    dispTarget( " no such spell" );
+                    dispTarget( _( " no such spell" ) );
                 else if ( magic_data[ mag ].batl == 0 )
-                    dispTarget( " cannot cast now" );
+                    dispTarget( _( " cannot cast now" ) );
                 else
-                    dispTarget( " don't know the spell" );
+                    dispTarget( _( " don't know the spell" ) );
 
                 getChar();
                 dispCommand( "what?  ???????????????????????" );
@@ -2954,7 +2952,7 @@ public:
 
             if ( consume_spell( mag ) == 2 )
             {
-                dispTarget( " you've used that up" );
+                dispTarget( _( " you've used that up" ) );
                 getChar();
                 dispCommand( "what?  ???????????????????????" );
                 return false;
@@ -3025,9 +3023,7 @@ public:
                 actSpellInBattle();
                 if ( item[ actitem ].broken >= get_rand( 99 ) + 1 )
                 { 
-                    textout( "The " );
-                    textout( item[ actitem ].getDispName );
-                    textout( " gets broken!\n" );
+                    textout( _( "The %1 gets broken!\n" ) , item[ actitem ].getDispName );
     
                     item[ actitem ].setItem( 0 ); // broken
                 }
@@ -3069,34 +3065,31 @@ public:
         int hit_rate;
         int hit_times;
         
-        textout( name );
         switch ( get_rand( 7 ) )
         {
             case 0:
-                textout( " thrusts hard at a " );
+                textout( _( "%1 thrusts hard at a %2\n" ) , name , m.getDispNameA );
                 break;
             case 1:
-                textout( " tries to slice a " );
+                textout( _( "%1 tries to slice a %2\n" ) , name , m.getDispNameA ) ;
                 break;
             case 2:
-                textout( " swings at a " );
+                textout( _( "%1 swings at a %2\n" ), name , m.getDispNameA  );
                 break;
             case 3:
-                textout( " chops savagely at a " );
+                textout( _( "%1 chops savagely at a %2\n" ), name , m.getDispNameA  );
                 break;
             case 4:
-                textout( " tries to bash a " );
+                textout( _( "%1 tries to bash a %2\n" ), name , m.getDispNameA  );
                 break;
             case 5:
-                textout( " attempts to stab a " );
+                textout( _( "%1 attempts to stab a %2\n" ), name , m.getDispNameA  );
                 break;
             case 7:
             default:
-                textout( " lunges at a " );
+                textout( _( "%1 lunges at a %2\n" ) , name , m.getDispNameA );
                 break;
         }
-        textout( m.getDispNameA );
-        textout( "\n" );
       
         if ( Class == CLS.FIG 
                 || Class == CLS.PRI 
@@ -3194,19 +3187,9 @@ public:
 
         if ( hit_times > 0 )
         {
-            if ( hit_times == 1 )
-            {
-                textout( "  and hits once for " );
-            }
-            else
-            {
-                textout( "  and hits " );
-                textout( hit_times );
-                textout( " times for " );
-            }
-            textout( damage );
-            textout( " damage!\n" );
-
+            textout( N_( "  and hits once for %1 damage!\n" 
+                       , "  and hits %2 times for %1 damage!\n" , hit_times )
+                   , damage , hit_times );
             m.hp -= damage;
             
             if ( ( ( atkef & ITM_ATKEF.CRITICAL ) != 0 || Class == CLS.NIN ) 
@@ -3226,10 +3209,7 @@ public:
 
                 if ( get_rand( 99 ) + 1 <= ratio )
                 {
-                    textout( "  The " );
-                    textout( m.getDispNameA );
-                    textout( " gets the head cut off!\n" );
-
+                    textout( _( "  The %1 gets the head cut off!\n" ) , m.getDispNameA );
                     get_exp += m.exp;
                     m.marksUp;
                     marks ++;
@@ -3239,10 +3219,7 @@ public:
                 }
                 else if ( m.hp <= 0 )
                 {
-                    textout( "  The " );
-                    textout( m.getDispNameA );
-                    textout( " is killed!\n" );
-
+                    textout( _( "    The %1 is killed!\n" ) , m.getDispNameA );
                     get_exp += m.exp;
                     m.marksUp;
                     marks ++;
@@ -3253,10 +3230,7 @@ public:
             }
             else if ( m.hp <= 0 )
             {
-                textout( "  The " );
-                textout( m.getDispNameA );
-                textout( " is killed!\n" );
-
+                textout( _( "    The %1 is killed!\n" ) , m.getDispNameA );
                 get_exp += m.exp;
                 m.marksUp;
                 marks ++;
@@ -3272,9 +3246,7 @@ public:
                     // sleep
                     if ( get_rand( 99 ) + 1 <= 25 )
                     { // 25%
-                        textout( "  The " );
-                        textout( m.getDispNameA );
-                        textout(" is slept!\n");
+                        textout( _( "  The %1 is slept!\n" ) , m.getDispNameA );
                         m.status = STS.SLEEP;
                         getChar();
                     }
@@ -3283,7 +3255,7 @@ public:
         }
         else
         {
-            textout( "   ... and misses\n" );
+            textout( _( "   ... and misses\n" ) );
         }
         getChar();
 
@@ -3325,17 +3297,14 @@ public:
       
         if ( succeed > 0 )
         {
-            textout( name ~ " dispels " );
-            textout( succeed );
-            textout( " monster" );
-            if ( succeed > 1 )
-                textout( "s" );
-            textout( ".\n" );
+            textout( N_( "%1 dispels %2 monster\n" 
+                       , "%1 dispels %2 monsters\n" , succeed )
+                        , name , succeed );
         }
         else
         { // failed
     FAIL:
-            textout( name ~ " attempts to dispel\n   and fails.\n" );
+            textout( _( "%1 attempts to dispel\n   and fails.\n" ) , name );
         }
         getChar();
       
@@ -3356,16 +3325,11 @@ public:
         mag = action & 0x7f;
 
       
-        textout( name );
-        textout( " casts a " );
-        textout( magic_data[ mag ].name );
-        textout( ".\n" );
+        textout( _( "%1 casts a %2.\n" ) , name , magic_data[ mag ].name );
       
         if ( silenced == true)
         {
-            textout( "  but, " );
-            textout( name );
-            textout( " is silenced!\n" );
+            textout( _( "  but, %1 is silenced!\n" ) , name );
             getChar();
             return 0;
         }
@@ -3409,11 +3373,9 @@ public:
                 break;
             case MAG_TYPE.ACGRP: /* ac+(gr) */
                 spell_acDownGrp( getTargetMonsterTeam , magic_data[ mag ].min );
-                textout( "  done.\n" );
                 break;
             case MAG_TYPE.ACALL: /* ac+(all) */
                 spell_acDownAll( magic_data[ mag ].min );
-                textout("  done.\n");
                 break;
             case MAG_TYPE.ACPONE: /* ac+(party:1) */
                 spell_acPlusPlayer( mag );
@@ -3493,9 +3455,7 @@ public:
 
         if ( m.def.magdef >= get_rand( 99 ) + 1 )
         {
-            textout( "  " );
-            textout( m.getDispNameA );
-            textout( " resisted the spell.\n" );
+            textout( _( "  %1 resisted the spell.\n" ) , m.getDispNameA );
             getChar();
             return;
         }
@@ -3523,17 +3483,11 @@ public:
 
         if (damage != 0)
         {
-            textout("  ");
-            textout( m.getDispNameA );
-            textout(" takes ");
-            textout( damage );
-            textout( " damage.\n" );
+            textout( _( "  %1 takes %2 damage.\n" ) , m.getDispNameA , damage );
             m.hp -= damage;
             if ( m.hp <= 0 )
             {
-                textout( "  " );
-                textout( m.getDispNameA );
-                textout(" is dead!\n");
+                textout( _( "    %1 is dead!\n" ) , m.getDispNameA );
                 
                 get_exp += m.exp;
                 m.marksUp;
@@ -3590,12 +3544,9 @@ public:
         m = mt.top;
         while( m !is null )
         {
-            textout( "  " );
-            textout( m.getDispNameA );
-
             if ( m.def.level < 8 )
             {
-                textout( " is vanished!\n" );
+                textout( _( "  %1 is vanished!\n" ) , m.getDispNameA );
 
                 get_exp += m.exp;
                 m.marksUp;
@@ -3606,7 +3557,7 @@ public:
             }
             else
             {
-                textout(" is alive.\n");
+                textout( _( "  %1 is alive.\n" ) , m.getDispNameA );
             }
             getChar();
             m = m.next;
@@ -3648,16 +3599,12 @@ public:
         if ( mem.hp + nPoints >= mem.maxhp )
         {
             mem.hp = mem.maxhp;
-            textout( mem.name );
-            textout( " is completely healed.\n" );
+            textout( _( "%1 is completely healed.\n" ) , mem.name );
         }
         else
         {
             mem.hp += nPoints;
-            textout( nPoints );
-            textout( " hit points are restored\n  to " );
-            textout( mem.name );
-            textout( ".\n" );
+            textout( _( "%1 hit points are restored\n  to %2.\n" ) , nPoints , mem.name );
         }
         party.win_disp_noreorder();
         getChar();
@@ -3684,13 +3631,11 @@ public:
         if( mem.poisoned )
         {
             mem.poisoned = false;
-            textout("  ");
-            textout( mem.name);
-            textout(" is cured.\n");
+            textout( _( "  %1 is cured.\n" ) , mem.name );
         }
         else
         {
-            textout("  * done *\n");
+            textout( _( "  * done *\n" ) );
         }
         party.win_disp_noreorder();
         getChar();
@@ -3707,13 +3652,11 @@ public:
         if( mem.status <= STS.PARALY )
         {
             mem.status = STS.OK;
-            textout("  ");
-            textout( mem.name);
-            textout(" is cured.\n");
+            textout( _( "  %1 is cured.\n" ) , mem.name );
         }
         else
         {
-            textout("  * done *\n");
+            textout( _( "  * done *\n" ) );
         }
         party.win_disp_noreorder();
         getChar();
@@ -3735,6 +3678,10 @@ public:
             m.acplus += acplus;
             m = m.next;
         }
+
+        textout( N_( "  %1's AC +%2.\n" 
+                   , "  %1' AC +%2.\n", mt.num )
+                        , mt.getDispNameS , acplus );
         return;
 
     }
@@ -3793,7 +3740,7 @@ public:
 
         if ( party.mem[ target ].status >= STS.DEAD )
         {
-            textout( "  * done *\n" );
+            textout( _( "  * done *\n" ) );
         }
         else
         {
@@ -3801,8 +3748,7 @@ public:
 
             textout( "  " );
             party.mem[ target ].hp = party.mem[ target ].maxhp;
-            textout( party.mem[ target ].name );
-            textout( " is completely healed.\n" );
+            textout( _( "%1 is completely healed.\n" ) , party.mem[ target ].name );
             party.win_disp_noreorder;
         }
         getChar();
@@ -3823,22 +3769,20 @@ public:
 
         while( m !is null )
         {
-            textout("  ");
-            textout( m.getDispNameA );
             if ( m.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( " resisted the spell.\n" );
+                textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
             }
             else if ( ! m.silenced )
             {
                 if ( get_rand( 1 ) == 0 )
                 {
                     m.silenced = true;
-                    textout( " is silenced!\n" );
+                    textout( _( "  %1 is silenced!\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( " is not silenced.\n" );
+                    textout( _( "  %1 is not silenced.\n" ) , m.getDispNameA );
                 }
             }
             getChar();
@@ -3861,22 +3805,20 @@ public:
 
         while( m !is null )
         {
-            textout("  ");
-            textout( m.getDispNameA );
             if ( m.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( " resisted the spell.\n" );
+                textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
             }
             else if  ( m.def.isDefefSlpEzy )
             { // sleep easily
                 if ( get_rand( 5 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP ; // sleep
-                    textout( " is slept.\n" );
+                    textout( _( "  %1 is slept.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( " is not slept.\n" );
+                    textout( _( "  %1 is not slept.\n" ) , m.getDispNameA );
                 }
             }
             else
@@ -3884,11 +3826,11 @@ public:
                 if ( get_rand( 1 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP  ; // sleep
-                    textout( " is slept.\n" );
+                    textout( _( "  %1 is slept.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( " is not slept.\n" );
+                    textout( _( "  %1 is not slept.\n" ) , m.getDispNameA );
                 }
             }
 
@@ -3913,22 +3855,20 @@ public:
 
         while( m !is null )
         {
-            textout("  ");
-            textout( m.getDispNameA );
             if ( m.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( " resisted the spell.\n" );
+                textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
             }
             else if ( m.def.isDefefSlpEzy ) // sleep easily
             { // sleep easily
                 if ( get_rand( 5 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP ; // sleep
-                    textout( " is held.\n" );
+                    textout( _( "  %1 is held.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( " is not held.\n" );
+                    textout( _( "  %1 is not held.\n" ) , m.getDispNameA );
                 }
             }
             else
@@ -3936,11 +3876,11 @@ public:
                 if ( get_rand( 1 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP ; // sleep
-                    textout( " is held.\n" );
+                    textout( _( "  %1 is held.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( " is not held.\n" );
+                    textout( _( "  %1 is not held.\n" ) , m.getDispNameA );
                 }
             }
             getChar();
@@ -3954,16 +3894,13 @@ public:
        --------------------*/
     void spell_nokessn( Monster m )
     {
-        textout("  ");
-        textout( m.getDispNameA );
-
         if ( m.magdef >= get_rand( 99 ) + 1 )
         {
-            textout( " resisted the spell.\n" );
+            textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
         }
         else if ( ! m.def.isDefefUndead && get_rand( 3 ) == 0 )
         { // possibility is 1/4
-            textout( " is dead!\n" );
+            textout( _( "  %1 is dead!\n" ) , m.getDispNameA );
 
             get_exp += m.exp;
             m.marksUp;
@@ -3974,7 +3911,7 @@ public:
         }
         else
         {
-          textout( " is alive!\n" );
+            textout( _( "  %1 is alive!\n" ) , m.getDispNameA );
         }
         getChar();
         return;
@@ -3988,20 +3925,17 @@ public:
 
         int mon_hp;
 
-        textout("  ");
-        textout( m.getDispNameA );
         if ( m.magdef >= get_rand( 99 ) + 1 )
         {
-            textout( " resisted the spell.\n" );
+            textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
         }
         else
         {
             mon_hp = get_rand( 7 ) + 1;
             if ( mon_hp > m.hp )
                 mon_hp = m.hp;
-            textout( " gets " );
-            textout( m.hp - mon_hp );
-            textout( " damage!\n" );
+            int damage = m.hp - mon_hp;
+            textout( _( "  %1 gets %2 damage!\n" ) , m.getDispNameA , damage );
             m.hp = mon_hp;
         }
         getChar();

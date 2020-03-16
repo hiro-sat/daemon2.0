@@ -33,8 +33,11 @@ string LANGUAGEFILE = "resources/%1.mo";
 
 // gettext
 alias gettext _;
+alias ngettext N_;
 MoFile moFile;
 string gettext( string s  ) { return moFile.gettext( s ); }
+string ngettext( string s1 , string s2 , int i ) 
+                        { return moFile.ngettext( s1 , s2 , i ); }
 
 
 // debug
