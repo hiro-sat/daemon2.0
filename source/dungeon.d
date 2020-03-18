@@ -72,7 +72,7 @@ bool dungeon_main()
         // in rock check
         if ( party.dungeon.checkInRock )
         {
-            textout( "\n*** in rock! ***\n" );
+            textout( _( "\n*** in rock! ***\n" ) );
             for ( i = 0; i < party.num; i++ )
                 party.mem[ i ].status = STS.LOST;
             party.win_disp();
@@ -93,24 +93,24 @@ bool dungeon_main()
         {
             case '?':
                 setColor( CL.MENU );
-                textout( "************* dungeon help *************\n" );
-                textout( "--- assigned keys ---\n" );
-                textout( "h/4:west, j/2:south, k/8:north, l/6:east\n" );
-                textout( "c/9:camp, o/5:open door, u:unlock door\n" );
-                textout( "./3:look for monsters, S:protect all\n" );
-                textout( "s:search hidden doors, Q:heal all\n" );
-                textout( "--- map info ---\n" );
-                textout( "|/-/X:wall, +:door, =:locked door\n" );
-                textout( "$:darkzone, </>:stairs, ' ':floor\n" );
-                textout( "@:your party, ^:unknown\n" );
-                textout( "*****************************************\n" );
+                textout( _( "************* dungeon help *************\n" ) );
+                textout( _( "--- assigned keys ---\n" ) );
+                textout( _( "h/4:west, j/2:south, k/8:north, l/6:east\n" ) );
+                textout( _( "c/9:camp, o/5:open door, u:unlock door\n" ) );
+                textout( _( "./3:look for monsters, S:protect all\n" ) );
+                textout( _( "s:search hidden doors, Q:heal all\n" ) );
+                textout( _( "--- map info ---\n" ) );
+                textout( _( "|/-/X:wall, +:door, =:locked door\n" ) );
+                textout( _( "$:darkzone, </>:stairs, ' ':floor\n" ) );
+                textout( _( "@:your party, ^:unknown\n" ) );
+                textout( _( "*****************************************\n" ) );
                 setColor( CL.NORMAL );
                 break;
             case 'Q':
                 if ( party.layer > 0 )
                 {
                     party.heal_all();
-                    textout( "heal all done.\n" );
+                    textout( _( "heal all done.\n" ) );
                     header_disp( HSTS.DUNGEON );
                     party.win_disp();
                 }
@@ -119,7 +119,7 @@ bool dungeon_main()
                 if ( party.layer > 0 )
                 {
                     party.protect_all();
-                    textout( "protect all done.\n" );
+                    textout( _( "protect all done.\n" ) );
                     header_disp( HSTS.DUNGEON );
                     party.win_disp();
                 }
@@ -129,7 +129,7 @@ bool dungeon_main()
                 if( ! doorflg )
                 {
                     doorflg = true;
-                    textout( "which door? " );
+                    textout( _( "which door? " ) );
                 }
                 break;
             case 'h':
@@ -158,18 +158,18 @@ bool dungeon_main()
                 break;
             case 'u': // unlock a door
                 if ( ! party.dungeon.unlockDoor )
-                    textout( "failed.\n" );
+                    textout( _( "failed.\n" ) );
                 else
-                    textout( "click!\n" );
+                    textout( _( "click!\n" ) );
                 break;
             case 's': // search a hidden door (and members in maze)
-                textout( "searching" );
+                textout( _( "searching" ) );
                 for ( i = 0; i < get_rand( 7 ) + 3; i++ )
                 {
                     textout( '.' );
                     getChar();
                 }
-                textout( "done\n" );
+                textout( _( "done\n" ) );
 
                 party.dungeon.searchMember;
                 party.dungeon.searchHiddenDoor;
@@ -191,25 +191,25 @@ bool dungeon_main()
         }
 
 
-        if ( dx != 0 || dy != 0 )
+        if ( dx != 0 || dy != 0 || keycode == '.' || keycode == '3' )
         {
 
             step_proc();
             if( ! doorflg )
                 setColor( CL.NORMAL_DARK );
             if (dx > 0)
-                textout( "east\n" );
+                textout( _( "east\n" ) );
             else if (dx < 0)
-                textout( "west\n" );
+                textout( _( "west\n" ) );
             else if (dy < 0)
-                textout( "north\n" );
+                textout( _( "north\n" ) );
             else if (dy > 0)
-                textout( "south\n" );
+                textout( _( "south\n" ) );
             setColor( CL.NORMAL);
 
             if( ! party.dungeon.isPassable( party.y + dy , party.x + dx , doorflg  ) )
             {
-                textout( "      ... ouch!\n" );
+                textout( _( "      ... ouch!\n" ) );
             }
             else
             {
@@ -453,15 +453,15 @@ int camp()
     while ( true )
     {
         setColor( CL.MENU );
-        textout( "******** camp ********\n" );
-        textout( "d)rop(0)     e)quip\n" );
-        textout( "i)dentify(8) z)leave(9)\n" );
-        textout( "r)ead spell  c)ast spell\n" );
-        textout( "t)rade       u)se\n" );
-        textout( "o)reorder    n)inspect\n" );
-        textout( "#)see a character\n" );
-        textout( "q)uit playing daemon(7)\n" );
-        textout( "**********************\n" );
+        textout( _( "******** camp ********\n" ) );
+        textout( _( "d)rop(0)     e)quip\n" ) );
+        textout( _( "i)dentify(8) z)leave(9)\n" ) );
+        textout( _( "r)ead spell  c)ast spell\n" ) );
+        textout( _( "t)rade       u)se\n" ) );
+        textout( _( "o)reorder    n)inspect\n" ) );
+        textout( _( "#)see a character\n" ) );
+        textout( _( "q)uit playing daemon(7)\n" ) );
+        textout( _( "**********************\n" ) );
         setColor( CL.NORMAL );
         textout( "option? " );
         while ( true )
@@ -475,14 +475,14 @@ int camp()
             }
             else if ( ch == 't' && ! mem.item[ 0 ].isNothing )
             {   // trade
-                textout( "trade\n" );
+                textout( _( "trade\n" ) );
                 mem.tradeitem();
                 break;
             }
             else if ( ( ch == 'd' || ch == '0' ) 
                     && ( ! mem.item[ 0 ].isNothing ) )
             {   // drop
-                textout( "drop\n" );
+                textout( _( "drop\n" ) );
                 mem.dropitem();
                 break;
             }
@@ -490,7 +490,7 @@ int camp()
                     && ( ! mem.item[ 0 ].isNothing )
                     && ( mem.status == STS.OK ) )
             {   // use
-                textout( "use\n" );
+                textout( _( "use\n" ) );
                 mem.useitem();
                 mem.inspect;
                 break;
@@ -498,13 +498,13 @@ int camp()
             else if ( ( ch == 'c' || ch == 's' )
                     && ( mem.status == STS.OK ) )
             {   // spell
-                textout( "cast spell\n" );
+                textout( _( "cast spell\n" ) );
                 mem.camp_spell();
                 break;
             }
             else if (ch == 'o')
             {   // reorder
-                textout( "reorder\n" );
+                textout( _( "reorder\n" ) );
                 party.reorder( mem );
                 break;
             }   // identify
@@ -513,32 +513,32 @@ int camp()
                     && ( mem.Class == CLS.BIS )
                     && ( mem.status == STS.OK ) )
             {   // inspect
-                textout("identify\n");
+                textout( _( "identify\n" ) );
                 mem.identify();
                 break;
             }
             else if ( ch == 'r' )
             {   // read spell
-                textout("read spell\n");
+                textout( _( "read spell\n" ) );
                 mem.dispSpellsInCamp;
                 break;
             }
             else if ( ch == 'e' )
             {   // equip
-                textout( "equip\n" );
+                textout( _( "equip\n" ) );
                 mem.equip;
                 break;
             }
             else if ( ch == 'z' || ch == '9' )
             {   // leave camp
                 textout( ch );
-                textout( "\nleave camp ...\n" );
+                textout( _( "\nleave camp ...\n" ) );
                 goto EXIT;
             }
             else if (ch == 'q' || ch == '7')
             {   // quit game
                 textout( ch );
-                textout( "\nquit game ...\n" );
+                textout( _( "\nquit game ...\n" ) );
                 for ( i = 0; i < party.num; i++ )
                 {
                     party.mem[ i ].x = party.x;
@@ -549,7 +549,7 @@ int camp()
 
                 appSave;
 
-                textout( "  leave game(y(1)/n(2))? \n" );
+                textout( _( "  leave game(y(1)/n(2))? \n" ) );
                 while ( true )
                 {
                     c = getChar();
@@ -586,7 +586,7 @@ EXIT:
     // in rock check
     if ( party.dungeon.checkInRock )
     {
-        textout("\n*** in rock! ***\n");
+        textout( _( "\n*** in rock! ***\n" ) );
         for ( i = 0; i < party.num; i++ )
             party.mem[i].status = STS.LOST;
         party.win_disp();
@@ -660,12 +660,12 @@ bool treasure_main( int monnum )
     while ( true )
     {
         setColor( CL.TREASURE );
-        textout( "\n*** a chest! you may: ***\n" );
+        textout( _( "\n*** a chest! you may: ***\n" ) );
         setColor( CL.MENU );
 
-        textout( "o)pen i)nspect&disarm(4)\n" );
-        textout( "c)ast inspct(6) z)leave alone(9)\n" );
-        textout( "*************************\n" );
+        textout( _( "o)pen i)nspect&disarm(4)\n" ) );
+        textout( _( "c)ast inspct(6) z)leave alone(9)\n" ) );
+        textout( _( "*************************\n" ) );
         setColor( CL.NORMAL );
         textout( "option? " );
 
@@ -696,7 +696,7 @@ bool treasure_main( int monnum )
         {
             case 'i':   // inspect
             case '4':
-                mem = party.selectActiveMember( "who inspects the chest(z:leave(9))? " );
+                mem = party.selectActiveMember( _( "who inspects the chest(z:leave(9))? " ) );
                 if( mem is null )
                     continue;
 
@@ -713,7 +713,7 @@ bool treasure_main( int monnum )
                 textout( "\n=== " ~ TRAP_NAME[ inspected ] ~ "? ===\n" );
                 setColor( CL.NORMAL );
 
-                textout( mem.name ~ " disarm?(y/n)\n" );
+                textout( _( "%1 disarm?(y/n)\n" ) , mem.name );
                 if( answerYN == 'n' )
                     continue;
 
@@ -730,7 +730,7 @@ bool treasure_main( int monnum )
 
                     if ( trap == TRAP.NO )
                     {
-                        textout( "no trap ...\n" );
+                        textout( _( "no trap ...\n" ) );
                         goto SUCEED;
                     }
 
@@ -742,18 +742,18 @@ bool treasure_main( int monnum )
 
                     if ( ratio > get_rand( 70 ) )
                     {
-                        textout( "  you disarmed the trap.\n" );
+                        textout( _( "  you disarmed the trap.\n" ) );
                         goto SUCEED;
                     }
 
                     if ( ratio < get_rand( 20 ) )
                         goto FAIL;
-                    textout( "  you could not disarm it.\n" );
+                    textout( _( "  you could not disarm it.\n" ) );
                 }
                 break;
 
             case 'o':   // open
-                mem = party.selectActiveMember( "who opens the chest(z:leave(9))? " );
+                mem = party.selectActiveMember( _( "who opens the chest(z:leave(9))? " ) );
                 if( mem is null )
                     continue;
 
@@ -764,12 +764,12 @@ bool treasure_main( int monnum )
 
             case 'z':   // leave alone
             case '9':
-              textout( "leave alone ...\n" );
+              textout( _( "leave alone ...\n" ) );
               goto EXIT;
 
             case 'c':   // spell
             case '6':
-                mem = party.selectActiveMember("who casts a inspct(z:leave(9))? ");
+                mem = party.selectActiveMember( _( "who casts a inspct(z:leave(9))? " ) );
                 if( mem is null )
                     continue;
 
@@ -778,12 +778,12 @@ bool treasure_main( int monnum )
                 rtn = mem.consume_spell( 0x24 ); // calfo
                 if ( rtn == 1 )
                 {
-                    textout( "  you don't know the spell.\n" );
+                    textout( _( "  you don't know the spell.\n" ) );
                     break;
                 }
                 else if ( rtn == 2 )  
                 {
-                    textout( "  you've used that spell up.\n" );
+                    textout( _( "  you've used that spell up.\n" ) );
                     break;
                 }
 
@@ -802,14 +802,12 @@ bool treasure_main( int monnum )
 FAIL:
     if ( trap == TRAP.NO )
     {
-        textout( "no trap ...\n" );
+        textout( _( "no trap ...\n" ) );
         goto SUCEED;
     }
 
     setColor( CL.TRAP_FAIL );
-    textout( "oops! " );
-    textout( TRAP_NAME[ trap ] );
-    textout( "\n" );
+    textout( _( "oops! %1\n" ) , TRAP_NAME[ trap ] );
     setColor( CL.NORMAL );
     switch ( trap )
     {
@@ -906,7 +904,7 @@ FAIL:
         party.win_disp();
         party.num = 0;
         party.layer = 0;
-        textout( "\n*** your party is lost...<push space bar>\n" );
+        textout( _( "\n*** your party is lost...<push space bar>\n" ) );
         while ( true )
         {
             c = getChar();
@@ -920,9 +918,7 @@ SUCEED:
     get_treasure( monnum );
     getgold = monster_data[ monnum ].mingp + get_rand( monster_data[ monnum ].addgp );
     getgold /= party.num;
-    textout( "  each survivor gets " );
-    textout( getgold );
-    textout(" gold.\n");
+    textout( _( "  each survivor gets %1 gold.\n" ) , getgold );
     for ( i = 0; i < party.num; i++ )
     {
         if ( party.mem[ i ].status == 0 )
@@ -967,16 +963,12 @@ void get_treasure( int mon )
                 itm = party.mem[ j ].getItem( itemno );
                 itm.undefined = true;
 
-                textout("  ");
-                textout( party.mem[ j ].name );
-                textout( " discovered a " );
-                textout( itm.getDispName );
-                textout( ".\n" );
+                textout( _( "  %1 discovered a %2.\n" ) , party.mem[ j ].name , itm.getDispName );
                 getChar();
                 return;
             }
         }
-        textout( "you cannot carry anything more.\n" );
+        textout( _( "you cannot carry anything more.\n" ) );
         return;
     }
 

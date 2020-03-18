@@ -240,24 +240,24 @@ class MonsterParty
                 textout( "\n" );
                 if ( mondef.atkef != 0 )
                 {
-                    textout( "  special attacks:" );
+                    textout( _( "  special attacks:" ) );
                     if ( mondef.isAtkPoison )
-                        textout( "poison " );
+                        textout( _( "poison " ) );
                     if ( mondef.isAtkStone )
-                        textout( "stone " );
+                        textout( _( "stone " ) );
                     if ( mondef.isAtkParalize )
-                        textout( "paralize " );
+                        textout( _( "paralize " ) );
                     if ( mondef.isAtkSleep )
-                        textout( "sleep " );
+                        textout( _( "sleep " ) );
                     if ( mondef.isAtkCritical )
-                        textout( "critical " );
+                        textout( _( "critical " ) );
                     if ( mondef.getAtkDrainLv > 0 )
-                        textout( "drain" );
+                        textout( _( "drain" ) );
                     textout( "\n" );
                 }
                 if ( mondef.magdef !=0 )
                 {
-                    textout( "  resistance to spells:" );
+                    textout( _( "  resistance to spells:" ) );
                     textout( to!int( mondef.magdef ) )  ;
                     textout( "%\n" );
                 }
@@ -265,7 +265,7 @@ class MonsterParty
             else
             { // unidentified
               textout( monteam.top.def.unname );
-              textout( ":\n  unidentified\n" );
+              textout( _( ":\n  unidentified\n" ) );
             }
             monteam = monteam.next;
         }
@@ -292,7 +292,7 @@ class MonsterParty
             return 0;
         }
         
-        mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55, "which group?           " );
+        mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55, _( "which group?           " ) );
         while ( true )
         {
             c = getChar();

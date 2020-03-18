@@ -174,7 +174,7 @@ public:
 
         addMem_disp();
 
-        textout( "select members(a,b,... ,z:leave(9))\n" );
+        textout( _( "select members(a,b,... ,z:leave(9))\n" ) );
         while ( true )
         {
             keycode = getChar();
@@ -215,7 +215,7 @@ public:
             return;
 
         addMem_disp();
-        textout( "remove who(z:leave(9))?\n" );
+        textout( _( "remove who(z:leave(9))?\n" ) );
 
         while( true )
         {
@@ -296,9 +296,7 @@ public:
             mem[ i ].gold = 0;
         }
         m.gold = poolgold;
-        textout( m.name ~ " has " );
-        textout( poolgold );
-        textout(" g.p.\n");
+        textout( _( "%1 has %2 gp.\n" ) , m.name , poolgold );
 
         return;
     }
@@ -308,19 +306,7 @@ public:
        --------------------*/
     void poolGold( int no )
     {
-        int i;
-        long poolgold = 0;
-
-        for ( i = 0; i < num; i++ )
-        {
-            poolgold += mem[ i ].gold;
-            mem[ i ].gold = 0;
-        }
-        mem[ no ].gold = poolgold;
-        textout( mem[ no ].name ~ " has " );
-        textout( poolgold );
-        textout(" g.p.\n");
-
+        poolGold( mem[ no ] );
         return;
     }
 
@@ -520,7 +506,7 @@ public:
 
         bool reorder_sub( string step )
         {
-            textout("who comes " ~ step ~ "(z:leave(9))? ");
+            textout( _( "who comes %1(z:leave(9))? " ) , step  );
             while ( true )
             {
                 ch = getChar();
@@ -546,32 +532,32 @@ public:
 
 
 
-        if( ! reorder_sub( "first" ) )
+        if( ! reorder_sub( _( "first" ) ) )
             return;
         if ( party.num <= 1 )
             goto EXIT;
 
-        if( ! reorder_sub( "second" ) )
+        if( ! reorder_sub( _( "second" ) ) )
             return;
         if ( party.num <= 2 )
             goto EXIT;
 
-        if( ! reorder_sub( "third" ) )
+        if( ! reorder_sub( _( "third" ) ) )
             return;
         if ( party.num <= 3 )
             goto EXIT;
 
-        if( ! reorder_sub( "fourth" ) )
+        if( ! reorder_sub( _( "fourth" ) ) )
             return;
         if ( party.num <= 4 )
             goto EXIT;
 
-        if( ! reorder_sub( "fifth" ) )
+        if( ! reorder_sub( _( "fifth" ) ) )
             return;
         if ( party.num <= 5 )
             goto EXIT;
 
-        if( ! reorder_sub( "sixth" ) )
+        if( ! reorder_sub( _( "sixth" ) ) )
             return;
 
     EXIT:
@@ -638,16 +624,12 @@ public:
                 itm = mem[ j ].getItem( itemno );
                 itm.undefined = true;
 
-                textout("  ");
-                textout( mem[ j ].name );
-                textout( " got a " );
-                textout( itm.getDispName );
-                textout( ".\n" );
+                textout( _( "  %1 got a %2.\n" ) , mem[ j ].name , itm.getDispName );
                 getChar();
                 return true;
             }
         }
-        textout( "you cannot carry anything more.\n" );
+        textout( _( "you cannot carry anything more.\n" ) );
         return false;
     }
 
@@ -677,7 +659,7 @@ public:
         if( num < 1 )
             return;
 
-        textout( "who(z:leave(9))? " );
+        textout( _( "who(z:leave(9))? " ) );
         while( true )
         {
             c = getChar();
@@ -707,7 +689,7 @@ public:
     {
         char c;
         
-        textout( "who do you want to inspect(z:leave(9))? " );
+        textout( _( "who do you want to inspect(z:leave(9))? " ) );
         while ( true )
         {
             c = getChar();
@@ -767,7 +749,7 @@ public:
             if ( mem[ i ].consume_spell( 0x28 ) == 0 )
             {
               setIdentify;
-              textout("  rcgnize...done.\n");
+              textout( _( "  rcgnize...done.\n" ) );
               break;
             }
         }
@@ -778,7 +760,7 @@ public:
             if ( mem[ i ].consume_spell( 0xb ) == 0)
             {
                 setFloat;
-                textout("  floatn...done.\n");
+                textout( _( "  floatn...done.\n" ) );
                 break;
             }
         }
@@ -791,7 +773,7 @@ public:
                 party.lightCount += L_LIGHT_COUNT;
                 party.setScope;
                 party.scopeCount += L_SCOPE_COUNT;
-              textout("  shine...done.\n");
+              textout( _( "  shine...done.\n" ) );
               break;
             }
         }
@@ -802,7 +784,7 @@ public:
               if ( mem[ i ].consume_spell( 0x3 ) == 0 )
               {
                   setMapper;
-                  textout( "  mapper...done.\n" );
+                  textout( _( "  mapper...done.\n" ) );
                   break;
               }
         }
@@ -813,7 +795,7 @@ public:
             if ( mem[ i ].consume_spell( 0x2e ) == 0 )
             {
               ac = -2;
-              textout( "  guard...done.\n" );
+              textout( _( "  guard...done.\n" ) );
               break;
             }
         }
@@ -835,7 +817,7 @@ public:
 
 
         header_disp( HSTS.BATTLE );
-        textout( "input action...\n" );
+        textout( _( "input action...\n" ) );
 
     AGAIN:
         for ( j = 0; j < num; j++ )
@@ -887,15 +869,15 @@ public:
                 if ( c == '?' )
                 {
                     setColor( CL.MENU );
-                    textout( "*********** assigned keys ***********\n" );
-                    textout( "f/4:fight, p/5:parry, c/6:cast spell,\n" );
-                    textout( "e/7:run, u/8:use, t/9:take back, \n" );
-                    textout( "d/0:dispell, i:monster info\n" );
-                    textout( "r/:read spells book\n" );
-                    textout( "------ short cut ------\n" );
-                    textout( "j/1:fight1, h/2:fight2, n/3:fight3\n" );
-                    textout( "k:parry, l:take back, ;:run\n" );
-                    textout( "*************************************" );
+                    textout( _( "************ assigned keys ************\n" ) );
+                    textout( _( "f/4:fight, p/5:parry, s/c/6:cast spell,\n" ) );
+                    textout( _( "e/7:run, u/8:use, t/9:take back, \n" ) );
+                    textout( _( "d/0:dispell, i:monster info\n" ) );
+                    textout( _( "r/:read spells book\n" ) );
+                    textout( _( "------ short cut ------\n" ) );
+                    textout( _( "j/1:fight1, h/2:fight2, n/3:fight3\n" ) );
+                    textout( _( "k:parry, l:take back, ;:run\n" ) );
+                    textout( _( "***************************************" ) );
                     setColor( CL.MONSTER );
                     textout( "\n****** encounter ****** - push any key -" );
                     getChar();
@@ -903,7 +885,7 @@ public:
                     monParty.disp;
                     textout( "***********************\n" );
                     setColor( CL.NORMAL );
-                    textout( "input action...\n" );
+                    textout( _( "input action...\n" ) );
                 }
                 else if ( c == 'i' )
                 {
@@ -915,7 +897,7 @@ public:
                     monParty.disp();
                     textout( "***********************\n" );
                     setColor( CL.NORMAL );
-                    textout( "input action...\n" );
+                    textout( _( "input action...\n" ) );
                 }
                 else if( c == 'r' ) // read spell
                 {
@@ -928,7 +910,7 @@ public:
                     monParty.disp();
                     textout( "***********************\n" );
                     setColor( CL.NORMAL );
-                    textout( "input action...\n" );
+                    textout( _( "input action...\n" ) );
                 }
                 else if ( c == 't'  // take back
                         || c == 'l' 
@@ -956,11 +938,11 @@ public:
                 }
             }
         }
-        textout( " ok?(t:take back)" );
+        textout( _( " ok?(t:take back)" ) );
         c = getChar();
         if ( c == 't' || c == ';' || c == '9' )
         {
-            textout( "\ninput again ..." );
+            textout( _( "\ninput again ..." ) );
             goto AGAIN;
         }
     EXIT:
@@ -1010,7 +992,7 @@ public:
     {
         char c;
 
-        mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 54, " who?                   " );
+        mvprintw( CHRW_Y_TOP + row + 1, CHRW_X_TOP + 54, _( " who?                   " ) );
         while ( true )
         {
             c = getChar();
