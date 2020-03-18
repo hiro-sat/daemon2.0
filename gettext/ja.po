@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-17 01:03+0900\n"
-"PO-Revision-Date: 2020-03-17 01:06+0900\n"
+"PO-Revision-Date: 2020-03-17 12:30+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -1158,11 +1158,11 @@ msgstr "    %1 を倒した！\n"
 
 #: ../source/cMember.d:3549
 msgid "  %1 is vanished!\n"
-msgstr " %1 は消滅した！\n"
+msgstr "  %1 は消滅した！\n"
 
 #: ../source/cMember.d:3560
 msgid "  %1 is alive.\n"
-msgstr " %1 は生き延びた。\n"
+msgstr "  %1 は生き延びた。\n"
 
 #: ../source/cMember.d:3602 ../source/cMember.d:3751
 msgid "%1 is completely healed.\n"
@@ -1189,7 +1189,7 @@ msgstr[0] "  %1 の AC を %2 上げた。\n"
 
 #: ../source/cMember.d:3781
 msgid "  %1 is silenced!\n"
-msgstr " %1 は沈黙した！\n"
+msgstr "  %1 は沈黙した！\n"
 
 #: ../source/cMember.d:3785
 msgid "  %1 is not silenced.\n"
@@ -1217,7 +1217,7 @@ msgstr "    %1 を倒した！\n"
 
 #: ../source/cMember.d:3914
 msgid "  %1 is alive!\n"
-msgstr " %1 は生きている！\n"
+msgstr "  %1 は生きている！\n"
 
 #: ../source/cMember.d:3938
 msgid "  %1 gets %2 damage!\n"

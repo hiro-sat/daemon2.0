@@ -735,8 +735,10 @@ void setRndSeed()
             seed ~= c;
 
     ulong seed1 , seed2;
-    seed1 = to!uint( seed[ 0 .. seed.length / 2 ] );
-    seed2 = to!uint( seed[ seed.length / 2 .. seed.length ] );
+    seed1 = to!uint( seed[ 0 .. seed.length / 2 ] / 10 );
+    seed2 = to!uint( seed[ seed.length / 2 .. seed.length ] / 10 );
+
+    assert( seed1 + seed2 < int.max , "setRndSeed Error." );
 
     uint  seed0;
     seed0 = to!uint( seed1 + seed2 );
