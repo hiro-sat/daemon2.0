@@ -837,7 +837,7 @@ void boltac_sell()
                 }
                 if ( itm.gold != 0 )
                 {
-                    textout( _( "    It will be %1 gp(y/n)"  ), itm.gold / 2 );
+                    textout( _( "    It will be %1 gp.(y/n)"  ), itm.gold / 2 );
                     if ( answerYN == 'n' )
                         continue;
                     mem.gold += itm.gold / 2;
@@ -924,7 +924,7 @@ void uncurse()
             }
             textout( "(" ~ itm.getDispNameA ~ ")\n" );
 
-            textout( _( "That will be %1 gp(y/n)"  ), itm.gold / 2 );
+            textout( _( "That will be %1 gp.(y/n)"  ), itm.gold / 2 );
             if ( answerYN == 'n' )
                 break;
             if ( mem.gold < itm.gold / 2)
@@ -1006,7 +1006,7 @@ void boltac_identify()
         textout( "(" ~ itm.getDispNameA ~ ")\n" );
         if ( itm.undefined )
         {
-            textout( _( "That will be %1 gp(y/n)"  ), itm.gold / 2 );
+            textout( _( "That will be %1 gp.(y/n)"  ), itm.gold / 2 );
             if ( answerYN == 'n' )
                 break;
             if ( mem.gold < itm.gold / 2 )
@@ -1282,7 +1282,7 @@ void temple()
                 break;
         }
         donation *= mem.level;
-        textout( _( "the donation is %1 g.p.\n" ) , donation );
+        textout( _( "the donation is %1 gp.\n" ) , donation );
         textout( _( "  who will pay(z:leave(9))? " ) );
 
         while ( true )

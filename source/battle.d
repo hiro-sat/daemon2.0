@@ -72,9 +72,8 @@ BATTLE_RESULT battle_main()
     if ( get_rand( 99 ) + 1 < ratio && party.layer <= 7 )
     { // friendly
         monParty.ident = true;
-        textout( "*** a friendly group of \n            " );
-        textout( monParty.getDispNameS );
-        textout( " ***\nf)ight(5) or z)leave(7)? " );
+        textout( _( "*** a friendly group of \n            %1 ***\n" ) , monParty.getDispNameS );
+        textout( _( "f)ight(5) or z)leave(7)? " ) );
         while ( true )
         {
             c = getChar();
@@ -140,13 +139,13 @@ BATTLE_RESULT battle_main()
     if ( monParty.suprised )
     {
         setColor( CL.MENU );
-        textout( "\n *** you surprised the monsters ***\n\n" );
+        textout( _( "\n *** you surprised the monsters ***\n\n" ) );
         setColor( CL.NORMAL );
     }
     if ( party.suprised )
     {
         setColor( CL.ENCOUNT );
-        textout( "\n *** the monsters surprised you ***\n\n" );
+        textout( _( "\n *** the monsters surprised you ***\n\n" ) );
         setColor( CL.NORMAL );
         getChar();
     }
@@ -211,7 +210,7 @@ BATTLE_RESULT battle_main()
             party.win_disp();
             party.num = 0;
             party.layer = 0;
-            textout( "\n*** your party is lost...<push space bar)>\n" );
+            textout( _( "\n*** your party is lost...<push space bar>\n" ) );
             while ( true )
             {
                 c = getChar();
@@ -271,9 +270,7 @@ BATTLE_LOOP_EXIT:
     if ( monParty.num == 0 )
     {
       rtncode = BATTLE_RESULT.WON ; /* win!! */
-      textout( "\n  each survivor gets " );
-      textout( get_exp / party.actnum );
-      textout( " E.P.\n" );
+      textout( "\n  each survivor gets %1 ep.\n" , get_exp / party.actnum );
       for ( i = 0; i < party.num; i++ )
       {
           if ( party.mem[ i ].status <= STS.AFRAID )

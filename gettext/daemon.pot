@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 01:03+0900\n"
+"POT-Creation-Date: 2020-03-19 00:35+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,7 +165,7 @@ msgstr ""
 msgid "see monster marks\n"
 msgstr ""
 
-#: ../source/castle.d:361
+#: ../source/castle.d:361 ../source/dungeon.d:528
 msgid "equip\n"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgstr ""
 msgid "uncurse\n"
 msgstr ""
 
-#: ../source/castle.d:491
+#: ../source/castle.d:491 ../source/dungeon.d:516
 msgid "identify\n"
 msgstr ""
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "who takes it(z:leave(9))? "
 msgstr ""
 
-#: ../source/castle.d:647
+#: ../source/castle.d:647 ../source/dungeon.d:971 ../source/cParty.d:632
 msgid "you cannot carry anything more.\n"
 msgstr ""
 
@@ -314,7 +314,7 @@ msgid "    equipped item.\n"
 msgstr ""
 
 #: ../source/castle.d:840
-msgid "    It will be %1 gp(y/n)"
+msgid "    It will be %1 gp.(y/n)"
 msgstr ""
 
 #: ../source/castle.d:852
@@ -330,7 +330,7 @@ msgid "which item(z:leave(9))?  "
 msgstr ""
 
 #: ../source/castle.d:927 ../source/castle.d:1009
-msgid "That will be %1 gp(y/n)"
+msgid "That will be %1 gp.(y/n)"
 msgstr ""
 
 #: ../source/castle.d:932 ../source/castle.d:1014
@@ -517,7 +517,7 @@ msgid "  who needs help(z:leave(9))? "
 msgstr ""
 
 #: ../source/castle.d:1285
-msgid "the donation is %1 g.p.\n"
+msgid "the donation is %1 gp.\n"
 msgstr ""
 
 #: ../source/castle.d:1286
@@ -700,7 +700,7 @@ msgstr ""
 msgid "changed.\n"
 msgstr ""
 
-#: ../source/edgeoftown.d:609
+#: ../source/edgeoftown.d:609 ../source/cParty.d:692
 msgid "who do you want to inspect(z:leave(9))? "
 msgstr ""
 
@@ -812,6 +812,280 @@ msgstr ""
 
 #: ../source/edgeoftown.d:1164
 msgid "keep this character(y/n)?\n"
+msgstr ""
+
+#: ../source/dungeon.d:75 ../source/dungeon.d:589
+msgid ""
+"\n"
+"*** in rock! ***\n"
+msgstr ""
+
+#: ../source/dungeon.d:96
+msgid "************* dungeon help *************\n"
+msgstr ""
+
+#: ../source/dungeon.d:97
+msgid "--- assigned keys ---\n"
+msgstr ""
+
+#: ../source/dungeon.d:98
+msgid "h/4:west, j/2:south, k/8:north, l/6:east\n"
+msgstr ""
+
+#: ../source/dungeon.d:99
+msgid "c/9:camp, o/5:open door, u:unlock door\n"
+msgstr ""
+
+#: ../source/dungeon.d:100
+msgid "./3:look for monsters, S:protect all\n"
+msgstr ""
+
+#: ../source/dungeon.d:101
+msgid "s:search hidden doors, Q:heal all\n"
+msgstr ""
+
+#: ../source/dungeon.d:102
+msgid "--- map info ---\n"
+msgstr ""
+
+#: ../source/dungeon.d:103
+msgid "|/-/X:wall, +:door, =:locked door\n"
+msgstr ""
+
+#: ../source/dungeon.d:104
+msgid "$:darkzone, </>:stairs, ' ':floor\n"
+msgstr ""
+
+#: ../source/dungeon.d:105
+msgid "@:your party, ^:unknown\n"
+msgstr ""
+
+#: ../source/dungeon.d:106
+msgid "*****************************************\n"
+msgstr ""
+
+#: ../source/dungeon.d:113
+msgid "heal all done.\n"
+msgstr ""
+
+#: ../source/dungeon.d:122
+msgid "protect all done.\n"
+msgstr ""
+
+#: ../source/dungeon.d:132
+msgid "which door? "
+msgstr ""
+
+#: ../source/dungeon.d:161
+msgid "failed.\n"
+msgstr ""
+
+#: ../source/dungeon.d:163
+msgid "click!\n"
+msgstr ""
+
+#: ../source/dungeon.d:166
+msgid "searching"
+msgstr ""
+
+#: ../source/dungeon.d:172
+msgid "done\n"
+msgstr ""
+
+#: ../source/dungeon.d:201
+msgid "east\n"
+msgstr ""
+
+#: ../source/dungeon.d:203
+msgid "west\n"
+msgstr ""
+
+#: ../source/dungeon.d:205
+msgid "north\n"
+msgstr ""
+
+#: ../source/dungeon.d:207
+msgid "south\n"
+msgstr ""
+
+#: ../source/dungeon.d:212
+msgid "      ... ouch!\n"
+msgstr ""
+
+#: ../source/dungeon.d:456
+msgid "******** camp ********\n"
+msgstr ""
+
+#: ../source/dungeon.d:457
+msgid "d)rop(0)     e)quip\n"
+msgstr ""
+
+#: ../source/dungeon.d:458
+msgid "i)dentify(8) z)leave(9)\n"
+msgstr ""
+
+#: ../source/dungeon.d:459
+msgid "r)ead spell  c)ast spell\n"
+msgstr ""
+
+#: ../source/dungeon.d:460
+msgid "t)rade       u)se\n"
+msgstr ""
+
+#: ../source/dungeon.d:461
+msgid "o)reorder    n)inspect\n"
+msgstr ""
+
+#: ../source/dungeon.d:462
+msgid "#)see a character\n"
+msgstr ""
+
+#: ../source/dungeon.d:463
+msgid "q)uit playing daemon(7)\n"
+msgstr ""
+
+#: ../source/dungeon.d:464
+msgid "**********************\n"
+msgstr ""
+
+#: ../source/dungeon.d:478
+msgid "trade\n"
+msgstr ""
+
+#: ../source/dungeon.d:485
+msgid "drop\n"
+msgstr ""
+
+#: ../source/dungeon.d:493
+msgid "use\n"
+msgstr ""
+
+#: ../source/dungeon.d:501
+msgid "cast spell\n"
+msgstr ""
+
+#: ../source/dungeon.d:507
+msgid "reorder\n"
+msgstr ""
+
+#: ../source/dungeon.d:522
+msgid "read spell\n"
+msgstr ""
+
+#: ../source/dungeon.d:535
+msgid ""
+"\n"
+"leave camp ...\n"
+msgstr ""
+
+#: ../source/dungeon.d:541
+msgid ""
+"\n"
+"quit game ...\n"
+msgstr ""
+
+#: ../source/dungeon.d:552
+msgid "  leave game(y(1)/n(2))? \n"
+msgstr ""
+
+#: ../source/dungeon.d:663
+msgid ""
+"\n"
+"*** a chest! you may: ***\n"
+msgstr ""
+
+#: ../source/dungeon.d:666
+msgid "o)pen i)nspect&disarm(4)\n"
+msgstr ""
+
+#: ../source/dungeon.d:667
+msgid "c)ast inspct(6) z)leave alone(9)\n"
+msgstr ""
+
+#: ../source/dungeon.d:668
+msgid "*************************\n"
+msgstr ""
+
+#: ../source/dungeon.d:699
+msgid "who inspects the chest(z:leave(9))? "
+msgstr ""
+
+#: ../source/dungeon.d:716
+msgid "%1 disarm?(y/n)\n"
+msgstr ""
+
+#: ../source/dungeon.d:733 ../source/dungeon.d:805
+msgid "no trap ...\n"
+msgstr ""
+
+#: ../source/dungeon.d:745
+msgid "  you disarmed the trap.\n"
+msgstr ""
+
+#: ../source/dungeon.d:751
+msgid "  you could not disarm it.\n"
+msgstr ""
+
+#: ../source/dungeon.d:756
+msgid "who opens the chest(z:leave(9))? "
+msgstr ""
+
+#: ../source/dungeon.d:767
+msgid "leave alone ...\n"
+msgstr ""
+
+#: ../source/dungeon.d:772
+msgid "who casts a inspct(z:leave(9))? "
+msgstr ""
+
+#: ../source/dungeon.d:781
+msgid "  you don't know the spell.\n"
+msgstr ""
+
+#: ../source/dungeon.d:786
+msgid "  you've used that spell up.\n"
+msgstr ""
+
+#: ../source/dungeon.d:810
+msgid "oops! %1\n"
+msgstr ""
+
+#: ../source/dungeon.d:907 ../source/battle.d:213
+msgid ""
+"\n"
+"*** your party is lost...<push space bar>\n"
+msgstr ""
+
+#: ../source/dungeon.d:921
+msgid "  each survivor gets %1 gold.\n"
+msgstr ""
+
+#: ../source/dungeon.d:966
+msgid "  %1 discovered a %2.\n"
+msgstr ""
+
+#: ../source/battle.d:75
+msgid ""
+"*** a friendly group of \n"
+"            %1 ***\n"
+msgstr ""
+
+#: ../source/battle.d:76
+msgid "f)ight(5) or z)leave(7)? "
+msgstr ""
+
+#: ../source/battle.d:142
+msgid ""
+"\n"
+" *** you surprised the monsters ***\n"
+"\n"
+msgstr ""
+
+#: ../source/battle.d:148
+msgid ""
+"\n"
+" *** the monsters surprised you ***\n"
+"\n"
 msgstr ""
 
 #: ../source/cMember.d:56
@@ -937,7 +1211,7 @@ msgstr ""
 #: ../source/cMember.d:1978 ../source/cMember.d:2083
 msgid ""
 "you need %1 more\n"
-"  e.p. to make the next level.\n"
+"  ep to make the next level.\n"
 msgstr ""
 
 #: ../source/cMember.d:2111
@@ -1054,7 +1328,7 @@ msgstr ""
 msgid "%1 lunges at a %2\n"
 msgstr ""
 
-#: ../source/cMember.d:3190
+#: ../source/cMember.d:3190 ../source/cMonster.d:463
 msgid "  and hits once for %1 damage!\n"
 msgid_plural "  and hits %2 times for %1 damage!\n"
 msgstr[0] ""
@@ -1072,7 +1346,7 @@ msgstr ""
 msgid "  The %1 is slept!\n"
 msgstr ""
 
-#: ../source/cMember.d:3258
+#: ../source/cMember.d:3258 ../source/cMonster.d:457
 msgid "   ... and misses\n"
 msgstr ""
 
@@ -1092,12 +1366,14 @@ msgstr ""
 msgid "%1 casts a %2.\n"
 msgstr ""
 
-#: ../source/cMember.d:3332
+#: ../source/cMember.d:3332 ../source/cMonster.d:211
 msgid "  but, %1 is silenced!\n"
 msgstr ""
 
 #: ../source/cMember.d:3458 ../source/cMember.d:3774 ../source/cMember.d:3810
 #: ../source/cMember.d:3860 ../source/cMember.d:3899 ../source/cMember.d:3930
+#: ../source/cMonster.d:645 ../source/cMonster.d:664 ../source/cMonster.d:683
+#: ../source/cMonster.d:722 ../source/cMonster.d:745 ../source/cMonster.d:835
 msgid "  %1 resisted the spell.\n"
 msgstr ""
 
@@ -1113,7 +1389,7 @@ msgstr ""
 msgid "  %1 is vanished!\n"
 msgstr ""
 
-#: ../source/cMember.d:3560
+#: ../source/cMember.d:3560 ../source/cMonster.d:695 ../source/cMonster.d:778
 msgid "  %1 is alive.\n"
 msgstr ""
 
@@ -1141,31 +1417,31 @@ msgid_plural "  %1' AC +%2.\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../source/cMember.d:3781
+#: ../source/cMember.d:3781 ../source/cMonster.d:650
 msgid "  %1 is silenced!\n"
 msgstr ""
 
-#: ../source/cMember.d:3785
+#: ../source/cMember.d:3785 ../source/cMonster.d:654
 msgid "  %1 is not silenced.\n"
 msgstr ""
 
-#: ../source/cMember.d:3817 ../source/cMember.d:3829
+#: ../source/cMember.d:3817 ../source/cMember.d:3829 ../source/cMonster.d:726
 msgid "  %1 is slept.\n"
 msgstr ""
 
-#: ../source/cMember.d:3821 ../source/cMember.d:3833
+#: ../source/cMember.d:3821 ../source/cMember.d:3833 ../source/cMonster.d:731
 msgid "  %1 is not slept.\n"
 msgstr ""
 
-#: ../source/cMember.d:3867 ../source/cMember.d:3879
+#: ../source/cMember.d:3867 ../source/cMember.d:3879 ../source/cMonster.d:749
 msgid "  %1 is held.\n"
 msgstr ""
 
-#: ../source/cMember.d:3871 ../source/cMember.d:3883
+#: ../source/cMember.d:3871 ../source/cMember.d:3883 ../source/cMonster.d:754
 msgid "  %1 is not held.\n"
 msgstr ""
 
-#: ../source/cMember.d:3903
+#: ../source/cMember.d:3903 ../source/cMonster.d:690
 msgid "  %1 is dead!\n"
 msgstr ""
 
@@ -1173,6 +1449,339 @@ msgstr ""
 msgid "  %1 is alive!\n"
 msgstr ""
 
-#: ../source/cMember.d:3938
+#: ../source/cMember.d:3938 ../source/cMonster.d:671 ../source/cMonster.d:839
 msgid "  %1 gets %2 damage!\n"
+msgstr ""
+
+#: ../source/cParty.d:177
+msgid "select members(a,b,... ,z:leave(9))\n"
+msgstr ""
+
+#: ../source/cParty.d:218
+msgid "remove who(z:leave(9))?\n"
+msgstr ""
+
+#: ../source/cParty.d:299
+msgid "%1 has %2 gp.\n"
+msgstr ""
+
+#: ../source/cParty.d:509
+msgid "who comes %1(z:leave(9))? "
+msgstr ""
+
+#: ../source/cParty.d:535
+msgid "first"
+msgstr ""
+
+#: ../source/cParty.d:540
+msgid "second"
+msgstr ""
+
+#: ../source/cParty.d:545
+msgid "third"
+msgstr ""
+
+#: ../source/cParty.d:550
+msgid "fourth"
+msgstr ""
+
+#: ../source/cParty.d:555
+msgid "fifth"
+msgstr ""
+
+#: ../source/cParty.d:560
+msgid "sixth"
+msgstr ""
+
+#: ../source/cParty.d:627
+msgid "  %1 got a %2.\n"
+msgstr ""
+
+#: ../source/cParty.d:662
+msgid "who(z:leave(9))? "
+msgstr ""
+
+#: ../source/cParty.d:752
+msgid "  rcgnize...done.\n"
+msgstr ""
+
+#: ../source/cParty.d:763
+msgid "  floatn...done.\n"
+msgstr ""
+
+#: ../source/cParty.d:776
+msgid "  shine...done.\n"
+msgstr ""
+
+#: ../source/cParty.d:787
+msgid "  mapper...done.\n"
+msgstr ""
+
+#: ../source/cParty.d:798
+msgid "  guard...done.\n"
+msgstr ""
+
+#: ../source/cParty.d:820 ../source/cParty.d:888 ../source/cParty.d:900
+#: ../source/cParty.d:913
+msgid "input action...\n"
+msgstr ""
+
+#: ../source/cParty.d:872
+msgid "************ assigned keys ************\n"
+msgstr ""
+
+#: ../source/cParty.d:873
+msgid "f/4:fight, p/5:parry, s/c/6:cast spell,\n"
+msgstr ""
+
+#: ../source/cParty.d:874
+msgid "e/7:run, u/8:use, t/9:take back, \n"
+msgstr ""
+
+#: ../source/cParty.d:875
+msgid "d/0:dispell, i:monster info\n"
+msgstr ""
+
+#: ../source/cParty.d:876
+msgid "r/:read spells book\n"
+msgstr ""
+
+#: ../source/cParty.d:877
+msgid "------ short cut ------\n"
+msgstr ""
+
+#: ../source/cParty.d:878
+msgid "j/1:fight1, h/2:fight2, n/3:fight3\n"
+msgstr ""
+
+#: ../source/cParty.d:879
+msgid "k:parry, l:take back, ;:run\n"
+msgstr ""
+
+#: ../source/cParty.d:880
+msgid "***************************************"
+msgstr ""
+
+#: ../source/cParty.d:941
+msgid " ok?(t:take back)"
+msgstr ""
+
+#: ../source/cParty.d:945
+msgid ""
+"\n"
+"input again ..."
+msgstr ""
+
+#: ../source/cParty.d:995
+msgid " who?                   "
+msgstr ""
+
+#: ../source/cMonster.d:164
+msgid "A %1 runs away.\n"
+msgstr ""
+
+#: ../source/cMonster.d:173
+msgid "A %1 calls for help.\n"
+msgstr ""
+
+#: ../source/cMonster.d:178
+msgid "  A %1 appeared.\n"
+msgstr ""
+
+#: ../source/cMonster.d:182 ../source/cMonster.d:187
+msgid "  but, no one responded.\n"
+msgstr ""
+
+#: ../source/cMonster.d:207
+msgid "A %1 casts a %2.\n"
+msgstr ""
+
+#: ../source/cMonster.d:299
+msgid "A %1 exhales breathe.\n"
+msgstr ""
+
+#: ../source/cMonster.d:331
+msgid "  %1 takes %2 damage!\n"
+msgstr ""
+
+#: ../source/cMonster.d:338
+msgid "    %1 is killed!\n"
+msgstr ""
+
+#: ../source/cMonster.d:348
+msgid "    and is poisoned!\n"
+msgstr ""
+
+#: ../source/cMonster.d:356
+msgid "    and is asleep!\n"
+msgstr ""
+
+#: ../source/cMonster.d:364
+msgid "    and is paralized!\n"
+msgstr ""
+
+#: ../source/cMonster.d:372
+msgid "    and is petrified!\n"
+msgstr ""
+
+#: ../source/cMonster.d:382
+msgid "    and is killed instantly!\n"
+msgstr ""
+
+#: ../source/cMonster.d:422
+msgid "A %1 attacks at %2\n"
+msgstr ""
+
+#: ../source/cMonster.d:426
+msgid "A %1 tries to sting %2\n"
+msgstr ""
+
+#: ../source/cMonster.d:430
+msgid "A %1 tries to touch %2\n"
+msgstr ""
+
+#: ../source/cMonster.d:434
+msgid "A %1 tries to bite %2\n"
+msgstr ""
+
+#: ../source/cMonster.d:485
+msgid "  %1 is poisoned!\n"
+msgstr ""
+
+#: ../source/cMonster.d:501
+msgid "  %1 is asleep!\n"
+msgstr ""
+
+#: ../source/cMonster.d:516
+msgid "  %1 is paralized!\n"
+msgstr ""
+
+#: ../source/cMonster.d:531
+msgid "  %1 is petrified!\n"
+msgstr ""
+
+#: ../source/cMonster.d:548
+msgid "  %1 gets the head cut off!\n"
+msgstr ""
+
+#: ../source/cMonster.d:570 ../source/cMonster.d:590 ../source/cMonster.d:619
+msgid "  %1 is killed!\n"
+msgstr ""
+
+#: ../source/cMonster.d:585
+msgid "  %1 gets %2 level drained!\n"
+msgstr ""
+
+#: ../source/cMonster.d:770
+msgid "  %1 is suffocated.\n"
+msgstr ""
+
+#: ../source/cMonster.d:784
+msgid "  but, nothing happened...\n"
+msgstr ""
+
+#: ../source/cMonsterParty.d:243
+msgid "  special attacks:"
+msgstr ""
+
+#: ../source/cMonsterParty.d:245
+msgid "poison "
+msgstr ""
+
+#: ../source/cMonsterParty.d:247
+msgid "stone "
+msgstr ""
+
+#: ../source/cMonsterParty.d:249
+msgid "paralize "
+msgstr ""
+
+#: ../source/cMonsterParty.d:251
+msgid "sleep "
+msgstr ""
+
+#: ../source/cMonsterParty.d:253
+msgid "critical "
+msgstr ""
+
+#: ../source/cMonsterParty.d:255
+msgid "drain"
+msgstr ""
+
+#: ../source/cMonsterParty.d:260
+msgid "  resistance to spells:"
+msgstr ""
+
+#: ../source/cMonsterParty.d:268
+msgid ""
+":\n"
+"  unidentified\n"
+msgstr ""
+
+#: ../source/cMonsterParty.d:295
+msgid "which group?           "
+msgstr ""
+
+#: ../source/cMap.d:511
+msgid ""
+"unlock door.\n"
+"which side? "
+msgstr ""
+
+#: ../source/cMap.d:539
+msgid "what ?\n"
+msgstr ""
+
+#: ../source/cMap.d:545
+msgid "locks around here is too complicated!\n"
+msgstr ""
+
+#: ../source/cMap.d:611
+msgid "who do you want to pick(z:leave(9))? "
+msgstr ""
+
+#: ../source/cMap.d:648
+msgid "you found a hidden door!\n"
+msgstr ""
+
+#: ../source/cEvent.d:60
+msgid ""
+"\n"
+"*** up stairs ***\n"
+msgstr ""
+
+#: ../source/cEvent.d:61
+msgid "go up(y/n)? "
+msgstr ""
+
+#: ../source/cEvent.d:87
+msgid ""
+"\n"
+"*** down stairs ***\n"
+msgstr ""
+
+#: ../source/cEvent.d:88
+msgid "go down(y/n)? "
+msgstr ""
+
+#: ../source/cEvent.d:112
+msgid "a pit, but floating.\n"
+msgstr ""
+
+#: ../source/cEvent.d:117
+msgid ""
+"\n"
+"*** a pit! ***\n"
+"\n"
+msgstr ""
+
+#: ../source/cEvent.d:143
+msgid ""
+"\n"
+"*** your party is lost...\n"
+"<push space bar(5)>\n"
+msgstr ""
+
+#: ../source/cEvent.d:205
+msgid "  each survivor gets %1 gp.\n"
 msgstr ""

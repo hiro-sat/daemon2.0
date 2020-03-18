@@ -57,8 +57,8 @@ abstract class Event
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     int upStairs()
     {
-        textout( "\n*** up stairs ***\n" );
-        textout( "go up(y/n)? " );
+        textout( _( "\n*** up stairs ***\n" ) );
+        textout( _( "go up(y/n)? " ) );
 
         if ( answerYN == 'y')
         {
@@ -84,8 +84,8 @@ abstract class Event
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     int downStairs()
     {
-        textout( "\n*** down stairs ***\n" );
-        textout( "go down(y/n)? " );
+        textout( _( "\n*** down stairs ***\n" ) );
+        textout( _( "go down(y/n)? " ) );
 
         if ( answerYN == 'y')
         {
@@ -109,12 +109,12 @@ abstract class Event
         // pit! but floating.
         if ( party.isFloat )
         {
-            textout( "a pit, but floating.\n" );
+            textout( _( "a pit, but floating.\n" ) );
             return 0;
         }
 
         // pit!
-        textout( "\n*** a pit! ***\n\n" );
+        textout( _( "\n*** a pit! ***\n\n" ) );
         for ( i = 0; i < party.num; i++ )
         {
             if ( party.mem[ i ].status < STS.DEAD )
@@ -140,7 +140,7 @@ abstract class Event
 
         party.num = 0;
         party.layer = 0;
-        textout( "\n*** your party is lost...\n<push space bar(5)>\n" );
+        textout( _( "\n*** your party is lost...\n<push space bar(5)>\n" ) );
 
         while ( true )
         {
@@ -202,7 +202,7 @@ abstract class Event
                 getgold = monster_data[ mon[ 0 ] ].mingp 
                         + get_rand( monster_data[ mon[ 0 ] ].addgp );
                 getgold /= party.num;
-                textout( "  each survivor gets " ~ to!string( getgold ) ~ " gp.\n" );
+                textout( _( "  each survivor gets %1 gp.\n" ) , getgold );
                 for ( i = 0; i < party.num; i++ )
                 {
                     if ( party.mem[ i ].status  == STS.OK )

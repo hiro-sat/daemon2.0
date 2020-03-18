@@ -182,7 +182,7 @@ public:
         // read file
         if( ! readMap() )
         {
-            printf("\ncannot read map layer %d file\n" , layer );
+            printf( "\ncannot read map layer %d file\n" , layer  );
             return false;
         }
 
@@ -508,7 +508,7 @@ public:
         if (ratio < 0)
             ratio = 0;
 
-        textout( "unlock door.\nwhich side? " );
+        textout( _( "unlock door.\nwhich side? " ) );
         c = getChar();
         textout( c );
         textout( '\n' );
@@ -534,21 +534,21 @@ public:
             dy = 0;
         }
 
-        if( orgmap[ party.y + dy ][ party.x - dx ] != '=' )
+        if( orgmap[ party.y + dy ][ party.x + dx ] != '=' )
         {
-            textout( "what ?\n" );
+            textout( _( "what ?\n" ) );
             return false;
         }
 
         if ( ratio == 0 )
         {
-            textout( "locks around here is too complicated!\n" );
+            textout( _( "locks around here is too complicated!\n" ) );
             return false;
         }
 
         if( get_rand( 99 ) + 1 < ratio )
         {
-            map[ party.y + dy ][ party.x - dx ] = '+';
+            map[ party.y + dy ][ party.x + dx ] = '+';
             disp;
             return true;
         }
@@ -608,7 +608,7 @@ public:
 
         while ( party.num < 6 )
         {
-            textout( "who do you want to pick(z:leave(9))? " );
+            textout( _( "who do you want to pick(z:leave(9))? " ) );
             while ( true )
             {
                 c = getChar();
@@ -645,7 +645,7 @@ public:
         {
             if ( orgmap[ party.y + dy ][ party.x + dx ] == '*' )
             {
-                textout( "you found a hidden door!\n" );
+                textout( _( "you found a hidden door!\n" ) );
                 /* orgmap[ party.y + dy ][ party.x + dx ] = '+'; */
                 map[ party.y + dy ][ party.x + dx ] = '+';
             }

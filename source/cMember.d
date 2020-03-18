@@ -1975,7 +1975,7 @@ public:
         else
         {
             long more = nextexp - exp;
-            textout( _( "you need %1 more\n  e.p. to make the next level.\n" ) , more );
+            textout( _( "you need %1 more\n  ep to make the next level.\n" ) , more );
         }
         return;
     }
@@ -2080,7 +2080,7 @@ public:
 
                 long more = nextexp - exp;
                 textout( "\n" );
-                textout( _( "you need %1 more\n  e.p. to make the next level.\n" ) , more );
+                textout( _( "you need %1 more\n  ep to make the next level.\n" ) , more );
                 return;
             }
         }
