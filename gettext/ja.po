@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-19 00:35+0900\n"
-"PO-Revision-Date: 2020-03-19 01:04+0900\n"
+"POT-Creation-Date: 2020-03-19 23:19+0900\n"
+"PO-Revision-Date: 2020-03-19 23:21+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -18,45 +18,85 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../source/app.d:274
+#: ../source/app.d:334
 msgid "no trap"
 msgstr "トラップなし"
 
-#: ../source/app.d:275
+#: ../source/app.d:335
 msgid "poison needle"
 msgstr "毒針"
 
-#: ../source/app.d:276
+#: ../source/app.d:336
 msgid "gas bomb"
 msgstr "ガス爆弾"
 
-#: ../source/app.d:277
+#: ../source/app.d:337
 msgid "crossbow bolt"
 msgstr "クロスボウ"
 
-#: ../source/app.d:278
+#: ../source/app.d:338
 msgid "exploding box"
 msgstr "爆弾"
 
-#: ../source/app.d:279
+#: ../source/app.d:339
 msgid "stunner"
 msgstr "痺れ針"
 
-#: ../source/app.d:280
+#: ../source/app.d:340
 msgid "teleporter"
 msgstr "テレポーター"
 
-#: ../source/app.d:281
+#: ../source/app.d:341
 msgid "mage blaster"
 msgstr "メイジブラスター"
 
-#: ../source/app.d:282
+#: ../source/app.d:342
 msgid "priest blaster"
 msgstr "プリーストブラスター"
 
-#: ../source/app.d:283
+#: ../source/app.d:343
 msgid "alarm"
 msgstr "アラーム"
+
+#: ../source/app.d:877
+msgid "- dungeon -              [push '?' key for help]"
+msgstr "- ダンジョン -                        [?:ヘルプ]"
+
+#: ../source/app.d:880
+msgid "- battle -               [push '?' key for help]"
+msgstr "- 戦闘中！ -                          [?:ヘルプ]"
+
+#: ../source/app.d:883
+msgid "- camp mode -         [#:inspect,h:help,z:leave]"
+msgstr "- キャンプ -  [#:キャラクタ表示,h:ヘルプ,z:戻る]"
+
+#: ../source/app.d:886
+msgid "- castle -       [g:bar,s:hotel,t:temple,a:shop,e:leave]"
+msgstr "- 城下町 -      [g:酒場,s:ホテル,t:寺院,a:商店,e:町外れ]"
+
+#: ../source/app.d:889
+msgid "- edge of town -   [c:astle,t:raining,d:angeon,r:estart]"
+msgstr "- 町外れ -       [c:城下町,t:訓練場,d:ダンジョン,r:再開]"
+
+#: ../source/app.d:892
+msgid "- ginger's forest bar -      for your quality time      "
+msgstr "- ジンジャーフォレスト酒場 -     幸せの一杯をどうぞ！   "
+
+#: ../source/app.d:895
+msgid "- yankee flipper hotel -      satisfaction guaranteed!  "
+msgstr "- シェルトンホテル -        きっとご満足いただけます！  "
+
+#: ../source/app.d:898
+msgid "- temple of dice -       you can always count on us.    "
+msgstr "- ダイス寺院 -        いつでも貴方たちの力になります。  "
+
+#: ../source/app.d:901
+msgid "- albertsan's mart -      we love to see you smile.     "
+msgstr "- アルバートサン商店 -       あなたの笑顔のために。     "
+
+#: ../source/app.d:904
+msgid "- training ground -   wanna get a job? you'll find one! "
+msgstr "- 訓練場 -               仕事が欲しい？ここにあります！ "
 
 #: ../source/castle.d:91
 msgid "******** castle ********\n"
@@ -869,15 +909,15 @@ msgstr "h/4:西, j/2:南, k/8:北, l/6:東\n"
 
 #: ../source/dungeon.d:99
 msgid "c/9:camp, o/5:open door, u:unlock door\n"
-msgstr "c/9:キャンプ, o/5:ドアを開ける, u:鍵を開ける\n"
+msgstr "c/9:キャンプ, o/5:ドアを開ける\n"
 
 #: ../source/dungeon.d:100
 msgid "./3:look for monsters, S:protect all\n"
-msgstr "./3:モンスターを探す, S:魔法補助\n"
+msgstr "./3:モンスターを探す, u:鍵を開ける\n"
 
 #: ../source/dungeon.d:101
 msgid "s:search hidden doors, Q:heal all\n"
-msgstr "s:隠されたドア、仲間を探す, Q:全回復\n"
+msgstr "s:ドア、仲間を探す, Q:全回復, S:魔法補助\n"
 
 #: ../source/dungeon.d:102
 msgid "--- map info ---\n"
@@ -909,7 +949,7 @@ msgstr "魔法補助完了！\n"
 
 #: ../source/dungeon.d:132
 msgid "which door? "
-msgstr "どこの扉？ "
+msgstr "どの方角？ "
 
 #: ../source/dungeon.d:161
 msgid "failed.\n"
@@ -1140,6 +1180,14 @@ msgstr ""
 "\n"
 " *** モンスターが襲いかかってきた！ ***\n"
 "\n"
+
+#: ../source/battle.d:273
+msgid ""
+"\n"
+"  each survivor gets %1 ep.\n"
+msgstr ""
+"\n"
+"  生き残った者は %1 ep 手に入れた。\n"
 
 #: ../source/cMember.d:56
 msgid "you are cursed...\n"

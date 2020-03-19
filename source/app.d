@@ -269,7 +269,10 @@ private bool initialize()
     writeln(  formatText( LANGUAGEFILE , locale ) );
 
     if( locale != "" )
-        moFile = MoFile( formatText( LANGUAGEFILE , locale ) );
+    {
+        if( exists( formatText( LANGUAGEFILE , locale ) ) )
+            moFile = MoFile( formatText( LANGUAGEFILE , locale ) );
+    }
 
     
     setRndSeed;
@@ -820,7 +823,7 @@ void header_disp( HSTS sts , bool rewrite = true )
 
     mvprintw( 0, 0, "                                                       " );
     if( ! debugmode )
-        mvprintw( 0, 0, " - Daemon - " );
+        mvprintw( 0, 0, "[daemon2.0] " );
     else
         mvprintw( 0, 0, " ** DeBuG **" );
 
@@ -871,34 +874,34 @@ void header_disp( HSTS sts , bool rewrite = true )
     switch( sts )
     {
         case HSTS.DUNGEON:
-            mvprintw(0, 31, "- dungeon -              [push '?' key for help]");
+            mvprintw(0, 31, _( "- dungeon -              [push '?' key for help]" ));
             break;
         case HSTS.BATTLE:
-            mvprintw(0, 31, "- battle -               [push '?' key for help]");
+            mvprintw(0, 31, _( "- battle -               [push '?' key for help]" ));
             break;
         case HSTS.CAMP:
-            mvprintw(0, 31, "- camp mode -         [#:inspect,h:help,z:leave]");
+            mvprintw(0, 31, _( "- camp mode -         [#:inspect,h:help,z:leave]" ));
             break;
         case HSTS.CASTLE:
-            mvprintw(0, 23, "- castle -      [g:bar,s:hotel,t:temple,a:shop,e:leave]");
+            mvprintw(0, 23, _( "- castle -       [g:bar,s:hotel,t:temple,a:shop,e:leave]" ));
             break;
         case HSTS.EOT:
-            mvprintw(0, 23, "- eot -   [c:astle,q:uit game,t:raining,m:aze,r:estart]");
+            mvprintw(0, 23, _( "- edge of town -   [c:astle,t:raining,d:angeon,r:estart]" ));
             break;
         case HSTS.BAR:
-            mvprintw(0, 23, "- ginger's forest bar -     for your quality time      ");
+            mvprintw(0, 23, _( "- ginger's forest bar -      for your quality time      " ));
             break;
         case HSTS.INN:
-            mvprintw(0, 23, "- yankee flipper hotel -     satisfaction guaranteed!  ");
+            mvprintw(0, 23, _( "- yankee flipper hotel -      satisfaction guaranteed!  " ));
             break;
         case HSTS.TEMPLE:
-            mvprintw(0, 23, "- temple of dice -      you can always count on us.    ");
+            mvprintw(0, 23, _( "- temple of dice -       you can always count on us.    " ));
             break;
         case HSTS.SHOP:
-            mvprintw(0, 23, "- albertsan's mart -     we love to see you smile.     ");
+            mvprintw(0, 23, _( "- albertsan's mart -      we love to see you smile.     " ));
             break;
         case HSTS.TRAINING:
-            mvprintw(0, 23, "- training ground -  wanna get a job? you'll find one! ");
+            mvprintw(0, 23, _( "- training ground -   wanna get a job? you'll find one! " ));
             break;
         default:
             assert( 0 );

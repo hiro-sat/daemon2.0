@@ -270,7 +270,7 @@ BATTLE_LOOP_EXIT:
     if ( monParty.num == 0 )
     {
       rtncode = BATTLE_RESULT.WON ; /* win!! */
-      textout( "\n  each survivor gets %1 ep.\n" , get_exp / party.actnum );
+      textout( _( "\n  each survivor gets %1 ep.\n" ) , get_exp / party.actnum );
       for ( i = 0; i < party.num; i++ )
       {
           if ( party.mem[ i ].status <= STS.AFRAID )
