@@ -565,7 +565,7 @@ enum MAG_TYPE
     HEALALL = 10 ,   /* heal all */
     DETXIFY = 11 ,   /* latumofis */
     CURE    = 12 ,   /* dialko */
-    BRESS   = 13 ,   /* madi */
+    BLESS   = 13 ,   /* madi */
     GUARD   = 14 ,   /* maporfic */
     SLEEP   = 15 ,   /* katino(gr) */
     BIND    = 16 ,   /* manifo(gr) */
@@ -573,7 +573,7 @@ enum MAG_TYPE
     SUFCATN = 18 ,   // kanito(gr)
     VACUITY = 19 ,   // makanito(all)
     BREATHE = 20 ,   // di
-    Bress   = 21 ,   //katorto
+    Bless   = 21 ,   //katorto
     NOKESSN = 22 ,   // badi(one)
     DYNG    = 23 ,   // labadi(one)
     FLOATN  = 24 ,   // litofeit

@@ -2,7 +2,7 @@
 
 // Phobos Runtime Library
 import std.stdio;
-import std.string : format , split , chop;
+import std.string : format , split , chop , isNumeric;
 import std.conv;
 
 // mysource 
@@ -13,7 +13,6 @@ import cMonster;
 
 import def;
 import app;
-import spell;
 
 
 class Member
@@ -562,6 +561,13 @@ public:
         return;
     }
 
+    /*--------------------
+       getPartyNo - パーティ内の番号を取得
+       --------------------*/
+    int getPartyNo()
+    {
+        return party.getMemberNo( this );
+    }
 
     /*--------------------
        char_disp - ステータス表示 does not display items nor magics 
@@ -2607,6 +2613,84 @@ public:
 
 
     /*--------------------
+       camp_spell_sub - 呪文を唱える（キャンプ中）
+       --------------------*/
+    void camp_spell_sub( int mag )
+    {
+
+        Member mem;
+
+        if ( magic_data[ mag ].camp == 2 )
+        { // select member
+            mem = party.selectMember( _("to whom?: ") );
+            if( mem is null )
+                return;
+        }
+
+        switch ( magic_data[ mag ].type )
+        {
+            case MAG_TYPE.MAPPER :
+                spell_mapper;
+                break;
+            case MAG_TYPE.FLASH :       // flash
+                spell_flash;
+                break;
+            case MAG_TYPE.SHINE :     // shine
+                spell_shine;
+                break;
+            case MAG_TYPE.FLOATN :        // float
+                spell_floatn;
+                break;
+            case MAG_TYPE.RCGNIZE :      // identify
+                spell_recognize;
+                break;
+            case MAG_TYPE.Bless :       // resurrection
+                target = mem.getPartyNo;
+                spell_Bless(); 
+                break;
+            case MAG_TYPE.BREATHE :
+                target = mem.getPartyNo;
+                spell_breathe();
+                break;
+            case MAG_TYPE.HEALONE :
+                spell_healOne( mag , mem.getPartyNo );
+                break;
+            case MAG_TYPE.HEALALL:
+                spell_healAll( mag );
+                break;
+            case MAG_TYPE.GUARD :       // ac - 2
+                party.ac =  - 2;
+                party.win_disp();
+                header_disp( HSTS.CAMP );
+                break;
+            case MAG_TYPE.DETXIFY :     // cure poison
+                target = mem.getPartyNo;
+                spell_curePoison;
+                break;
+            case MAG_TYPE.CURE :     // cure paralyze
+                target = mem.getPartyNo;
+                spell_cureParalize;
+                break;
+            case MAG_TYPE.BLESS :        // cure stone
+                target = mem.getPartyNo;
+                spell_bless;
+                break;
+            case MAG_TYPE.RETURN :       // return castle
+                party.x = 1;
+                party.y = 2;
+                party.layer = 0;
+                textout( _( "teleport to the castle!\n" ) );
+                break;
+            case MAG_TYPE.TELEPT :       // teleport
+                spell_telept;
+                break;
+            default :
+                assert( 0 );
+        }
+        return;
+    }
+
+    /*--------------------
        identify - 識別する（キャンプ中）
        --------------------*/
     void identify()
@@ -3392,8 +3476,11 @@ public:
             case MAG_TYPE.CURE: /* dialko */
                 spell_cureParalize;
                 break;
-            case MAG_TYPE.BRESS: /* madi */
-                spell_bress();
+            case MAG_TYPE.BLESS: /* madi */
+                spell_bless();
+                break;
+            case MAG_TYPE.Bless: 
+                spell_Bless();
                 break;
             case MAG_TYPE.GUARD: /* maporfic */
                 party.ac = -2;
@@ -3606,8 +3693,16 @@ public:
             mem.hp += nPoints;
             textout( _( "%1 hit points are restored\n  to %2.\n" ) , nPoints , mem.name );
         }
-        party.win_disp_noreorder();
-        getChar();
+
+        if( now_mode == HSTS.BATTLE )
+        {
+            party.win_disp_noreorder();
+            getChar();
+        }
+        else
+        {
+            party.win_disp();
+        }
 
         return;
     }
@@ -3617,9 +3712,11 @@ public:
        --------------------*/
     void spell_healAll( int mag )
     {
-      for (int i = 0; i < party.num; i++)
-        spell_healOne( mag , i );
-      return;
+        for (int i = 0; i < party.num; i++)
+            spell_healOne( mag , i );
+        if( now_mode != HSTS.BATTLE )
+            getChar;
+        return;
     }
 
     /*--------------------
@@ -3637,7 +3734,10 @@ public:
         {
             textout( _( "  * done *\n" ) );
         }
-        party.win_disp_noreorder();
+        if( now_mode == HSTS.BATTLE )
+            party.win_disp_noreorder();
+        else
+            party.win_disp;
         getChar();
 
         return;
@@ -3658,7 +3758,11 @@ public:
         {
             textout( _( "  * done *\n" ) );
         }
-        party.win_disp_noreorder();
+        if( now_mode == HSTS.BATTLE )
+            party.win_disp_noreorder();
+        else
+            party.win_disp();
+
         getChar();
 
         return;
@@ -3733,9 +3837,9 @@ public:
 
 
     /*--------------------
-       spell_bress
+       spell_bless
        --------------------*/
-    void spell_bress()
+    void spell_bless()
     {
 
         if ( party.mem[ target ].status >= STS.DEAD )
@@ -3754,6 +3858,119 @@ public:
         getChar();
         return;
     }
+
+    /*--------------------
+       spell_Bless
+       --------------------*/
+    void spell_Bless()
+    {
+
+        int total;
+        int plus;
+
+        Member mem = party.mem[ target ];
+
+        if ( ! ( mem.status != STS.DEAD || mem.status != STS.ASHED ) )
+        {
+            textout( _( "  what?\n" ) );
+        }
+        else
+        {
+            total = mem.vit[ 0 ] + mem.vit[ 1 ]
+                  + mem.luk[ 0 ] + mem.luk[ 1 ];
+            total /= 2;
+            if ( total <= 3 )
+                plus =  - 2;
+            else if ( total <= 5 )
+                plus =  - 1;
+            else if ( total <= 15 )
+                plus = 0;
+            else if ( total <= 16 )
+                plus = 1;
+            else if ( total <= 17 )
+                plus = 2;
+            else
+                plus = 3;
+
+            if ( mem.status == STS.ASHED )
+            {
+                plus += 5; // possibility of resurrection is 1/3(ASHED) if plus=0
+            }
+            else
+            {
+                plus += 14; // possibility of resurrection is 14/19(DEAD) if plus=0
+            }
+
+            if ( get_rand( 18 ) <= plus )
+            {
+                textout( _( "  * ok *\n" ) );
+                mem.status = STS.OK;
+                mem.hp = mem.maxhp;
+            }
+            else
+            {
+                textout( _( "  oops!!\n" ) );
+                if ( mem.status == STS.ASHED )
+                    mem.status = STS.LOST;
+                else
+                    mem.status = STS.ASHED;
+            }
+            mem.vit[ 0 ]--;
+        }
+        party.win_disp();
+        return;
+    }
+
+    /*--------------------
+       spell_breathe
+       --------------------*/
+    void spell_breathe()
+    {
+
+        int total;
+        int plus;
+
+        Member mem = party.mem[ target ];
+
+        if ( mem.status != STS.DEAD )
+        {
+            textout( _( "  what?\n" ) );
+        }
+        else
+        {
+            total = mem.vit[ 0 ] + mem.vit[ 1 ]
+                  + mem.luk[ 0 ] + mem.luk[ 1 ];
+            total /= 2;
+            if ( total <= 3 )
+                plus =  - 2;
+            else if ( total <= 5 )
+                plus =  - 1;
+            else if ( total <= 15 )
+                plus = 0;
+            else if ( total <= 16 )
+                plus = 1;
+            else if ( total <= 17 )
+                plus = 2;
+            else
+                plus = 3;
+
+            if ( get_rand( 18 ) <= 11 + plus )
+            { // possibility of resurrection is 2/3 if plus=0
+                textout( "  * ok *\n" );
+                mem.status = STS.OK;
+                mem.hp = 1;
+            }
+            else
+            {
+                textout( _( "  oops!!\n" ) );
+                mem.status = STS.ASHED;
+            }
+            mem.vit[ 0 ]--;
+        }
+        party.win_disp();
+        return;
+    }
+
 
 
     /*--------------------
@@ -3939,6 +4156,168 @@ public:
             m.hp = mon_hp;
         }
         getChar();
+        return;
+    }
+
+    /*--------------------
+       spell_mapper
+       --------------------*/
+    void spell_mapper()
+    {
+        party.setMapper;
+        party.setScope;
+        party.scopeCount += 1;
+        textout( _( "done.\n" ) );
+        header_disp( HSTS.CAMP );
+        return;
+    }
+
+    /*--------------------
+       spell_flash
+       --------------------*/
+    void spell_flash()
+    {
+        party.setLight;
+        party.lightCount += S_LIGHT_COUNT;
+        party.setScope;
+        party.scopeCount += S_SCOPE_COUNT;
+        textout( _( "done.\n" ) );
+        header_disp( HSTS.CAMP );
+        return;
+    }
+
+    /*--------------------
+       spell_shine
+       --------------------*/
+    void spell_shine()
+    {
+        party.setLight;
+        party.lightCount += L_LIGHT_COUNT;
+        party.setScope;
+        party.scopeCount += L_SCOPE_COUNT;
+        textout( _( "done.\n" ) );
+        header_disp(HSTS.CAMP);
+        return;
+    }
+
+    /*--------------------
+       spell_floatn
+       --------------------*/
+    void spell_floatn()
+    {
+        party.setFloat;
+        textout( _( "done.\n" ) );
+        header_disp( HSTS.CAMP );
+        return;
+    }
+
+    /*--------------------
+       spell_recognize
+       --------------------*/
+    void spell_recognize()
+    {
+        party.setIdentify;
+        textout( _( "done.\n" ) );
+        header_disp( HSTS.CAMP );
+        return;
+    }
+
+    /*--------------------
+       spell_telept（キャンプ中`）
+       --------------------*/
+    void spell_telept()
+    {
+        int xpos, ypos, layer;
+        string numtext;
+
+
+        textout( _( "\n*** where do you want to teleport? ***\n" ) );
+
+    XPOS:
+        textout( _( "enter xpos(z:leave): \n" ) );
+        numtext = tline_input(  3 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
+        textout( ">%1\n" , numtext );
+
+        if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
+        {
+            textout( _( "quit.\n" ) );
+            return;
+        }
+
+        if( ! isNumeric( numtext ) )
+        {
+            textout( _( "what?\n" ) );
+            goto XPOS;
+        }
+
+        xpos = to!int( numtext );
+
+        if( xpos < 0 || xpos >= MAP_MAX_X )
+        {
+            textout( _( "what?\n" ) );
+            goto XPOS;
+        }
+
+    YPOS:
+        textout( _("enter ypos(z:enter xpos again): \n") );
+
+        numtext = tline_input(  3 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
+        textout( ">%1\n" , numtext );
+
+        if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
+            goto XPOS;
+
+        if( ! isNumeric( numtext ) )
+        {
+            textout( _( "what?\n" ) );
+            goto YPOS;
+        }
+
+        ypos = to!int( numtext );
+
+        if( ypos < 0 || ypos >= MAP_MAX_Y )
+        {
+            textout( _( "what?\n" ) );
+            goto YPOS;
+        }
+
+    LAYER:
+        textout( _( "enter layer(z:enter ypos again): \n" ) );
+        numtext = tline_input(  3 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
+        textout( ">%1\n" ,  numtext );
+
+        if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
+            goto YPOS;
+
+        if( ! isNumeric( numtext ) )
+        {
+            textout( _( "what?\n" ) );
+            goto LAYER;
+        }
+
+        layer = to!int( numtext );
+
+        if( layer < 0 || layer >= MAXLAYER )
+        {
+            textout( _( "what?\n" ) );
+            goto LAYER;
+        }
+
+
+        party.x     = to!byte( xpos );
+        party.y     = to!byte( ypos );
+
+        if( party.layer != layer )
+        {
+            party.layer = to!byte( layer );
+            party.setDungeon;
+            /* party.dungeon.setEndPos; */
+            party.dungeon.initDisp;
+        }
+
+        textout( _( "done.\n" ) );
+        header_disp( HSTS.CAMP );
+        party.win_disp();
         return;
     }
 }

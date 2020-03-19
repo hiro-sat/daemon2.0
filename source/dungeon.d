@@ -15,7 +15,6 @@ import lib_screen;
 import lib_readline;
 import app;
 import def;
-import spell;
 
 import cParty;
 import cMember;
@@ -450,6 +449,8 @@ int camp()
     mem = party.mem[ 0 ];
     mem.inspect;
 
+    bool first_disp = true;
+
     while ( true )
     {
         setColor( CL.MENU );
@@ -462,6 +463,20 @@ int camp()
         textout( _( "#)see a character\n" ) );
         textout( _( "q)uit playing daemon(7)\n" ) );
         textout( _( "**********************\n" ) );
+        /+
+        if( first_disp )
+        {
+            textout( _( "d)rop(0)     e)quip\n" ) );
+            textout( _( "i)dentify(8) z)leave(9)\n" ) );
+            textout( _( "r)ead spell  c)ast spell\n" ) );
+            textout( _( "t)rade       u)se\n" ) );
+            textout( _( "o)reorder    n)inspect\n" ) );
+            textout( _( "#)see a character\n" ) );
+            textout( _( "q)uit playing daemon(7)\n" ) );
+            textout( _( "**********************\n" ) );
+            first_disp = false;
+        }
+        +/
         setColor( CL.NORMAL );
         textout( "option? " );
         while ( true )
@@ -471,6 +486,23 @@ int camp()
             {
                 mem = party.mem[ ch - '1' ];
                 mem.inspect;
+                continue;
+            }
+            else if ( ch == '?'  )
+            {
+                setColor( CL.MENU );
+                textout(  "\n" );
+                textout( _( "******** camp ********\n" ) );
+                textout( _( "d)rop(0)     e)quip\n" ) );
+                textout( _( "i)dentify(8) z)leave(9)\n" ) );
+                textout( _( "r)ead spell  c)ast spell\n" ) );
+                textout( _( "t)rade       u)se\n" ) );
+                textout( _( "o)reorder    n)inspect\n" ) );
+                textout( _( "#)see a character\n" ) );
+                textout( _( "q)uit playing daemon(7)\n" ) );
+                textout( _( "**********************\n" ) );
+                setColor( CL.NORMAL );
+                textout( "option? " );
                 continue;
             }
             else if ( ch == 't' && ! mem.item[ 0 ].isNothing )

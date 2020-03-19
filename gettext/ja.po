@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-19 23:19+0900\n"
-"PO-Revision-Date: 2020-03-19 23:21+0900\n"
+"POT-Creation-Date: 2020-03-20 01:51+0900\n"
+"PO-Revision-Date: 2020-03-20 01:51+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -18,83 +18,83 @@ msgstr ""
 "X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../source/app.d:334
+#: ../source/app.d:333
 msgid "no trap"
 msgstr "トラップなし"
 
-#: ../source/app.d:335
+#: ../source/app.d:334
 msgid "poison needle"
 msgstr "毒針"
 
-#: ../source/app.d:336
+#: ../source/app.d:335
 msgid "gas bomb"
 msgstr "ガス爆弾"
 
-#: ../source/app.d:337
+#: ../source/app.d:336
 msgid "crossbow bolt"
 msgstr "クロスボウ"
 
-#: ../source/app.d:338
+#: ../source/app.d:337
 msgid "exploding box"
 msgstr "爆弾"
 
-#: ../source/app.d:339
+#: ../source/app.d:338
 msgid "stunner"
 msgstr "痺れ針"
 
-#: ../source/app.d:340
+#: ../source/app.d:339
 msgid "teleporter"
 msgstr "テレポーター"
 
-#: ../source/app.d:341
+#: ../source/app.d:340
 msgid "mage blaster"
 msgstr "メイジブラスター"
 
-#: ../source/app.d:342
+#: ../source/app.d:341
 msgid "priest blaster"
 msgstr "プリーストブラスター"
 
-#: ../source/app.d:343
+#: ../source/app.d:342
 msgid "alarm"
 msgstr "アラーム"
 
-#: ../source/app.d:877
+#: ../source/app.d:876
 msgid "- dungeon -              [push '?' key for help]"
 msgstr "- ダンジョン -                        [?:ヘルプ]"
 
-#: ../source/app.d:880
+#: ../source/app.d:879
 msgid "- battle -               [push '?' key for help]"
 msgstr "- 戦闘中！ -                          [?:ヘルプ]"
 
-#: ../source/app.d:883
-msgid "- camp mode -         [#:inspect,h:help,z:leave]"
-msgstr "- キャンプ -  [#:キャラクタ表示,h:ヘルプ,z:戻る]"
+#: ../source/app.d:882
+msgid "- camp mode -         [#:inspect,?:help,z:leave]"
+msgstr "- キャンプ -  [#:キャラクタ表示,?:ヘルプ,z:戻る]"
 
-#: ../source/app.d:886
+#: ../source/app.d:885
 msgid "- castle -       [g:bar,s:hotel,t:temple,a:shop,e:leave]"
 msgstr "- 城下町 -      [g:酒場,s:ホテル,t:寺院,a:商店,e:町外れ]"
 
-#: ../source/app.d:889
+#: ../source/app.d:888
 msgid "- edge of town -   [c:astle,t:raining,d:angeon,r:estart]"
 msgstr "- 町外れ -       [c:城下町,t:訓練場,d:ダンジョン,r:再開]"
 
-#: ../source/app.d:892
+#: ../source/app.d:891
 msgid "- ginger's forest bar -      for your quality time      "
 msgstr "- ジンジャーフォレスト酒場 -     幸せの一杯をどうぞ！   "
 
-#: ../source/app.d:895
+#: ../source/app.d:894
 msgid "- yankee flipper hotel -      satisfaction guaranteed!  "
 msgstr "- シェルトンホテル -        きっとご満足いただけます！  "
 
-#: ../source/app.d:898
+#: ../source/app.d:897
 msgid "- temple of dice -       you can always count on us.    "
 msgstr "- ダイス寺院 -        いつでも貴方たちの力になります。  "
 
-#: ../source/app.d:901
+#: ../source/app.d:900
 msgid "- albertsan's mart -      we love to see you smile.     "
 msgstr "- アルバートサン商店 -       あなたの笑顔のために。     "
 
-#: ../source/app.d:904
+#: ../source/app.d:903
 msgid "- training ground -   wanna get a job? you'll find one! "
 msgstr "- 訓練場 -               仕事が欲しい？ここにあります！ "
 
@@ -208,7 +208,7 @@ msgstr "**********************************\n"
 msgid "see monster marks\n"
 msgstr "s)モンスターを倒した数\n"
 
-#: ../source/castle.d:361 ../source/dungeon.d:528
+#: ../source/castle.d:361 ../source/dungeon.d:560
 msgid "equip\n"
 msgstr "e)装備\n"
 
@@ -221,8 +221,8 @@ msgid "divvy gold\n"
 msgstr "d)お金を山分け\n"
 
 #: ../source/castle.d:389 ../source/castle.d:472 ../source/castle.d:549
-#: ../source/edgeoftown.d:243 ../source/cMember.d:1741 ../source/cMember.d:1820
-#: ../source/cMember.d:1873 ../source/cMember.d:2628
+#: ../source/edgeoftown.d:243 ../source/cMember.d:1747 ../source/cMember.d:1826
+#: ../source/cMember.d:1879 ../source/cMember.d:2712
 msgid "leave\n"
 msgstr "z)酒場を出る\n"
 
@@ -270,7 +270,7 @@ msgstr "s)売る\n"
 msgid "uncurse\n"
 msgstr "u)呪いを解く\n"
 
-#: ../source/castle.d:491 ../source/dungeon.d:516
+#: ../source/castle.d:491 ../source/dungeon.d:548
 msgid "identify\n"
 msgstr "i)鑑定\n"
 
@@ -322,7 +322,7 @@ msgstr "  装備可能 :  "
 msgid "who takes it(z:leave(9))? "
 msgstr "誰が持ちますか？(z:戻る(9)) "
 
-#: ../source/castle.d:647 ../source/dungeon.d:971 ../source/cParty.d:632
+#: ../source/castle.d:647 ../source/dungeon.d:1003 ../source/cParty.d:632
 msgid "you cannot carry anything more.\n"
 msgstr "持ち物がいっぱいです。\n"
 
@@ -390,7 +390,7 @@ msgstr "  それでもまだ足りないよ。\n"
 msgid "uncursed.\n"
 msgstr "u)呪いを解く\n"
 
-#: ../source/castle.d:987 ../source/cMember.d:1764 ../source/cMember.d:2876
+#: ../source/castle.d:987 ../source/cMember.d:1770 ../source/cMember.d:2960
 msgid "which item(z:leave(9))? "
 msgstr "どれ？(z:戻る(9)) "
 
@@ -763,7 +763,9 @@ msgstr "誰が名前を変えますか？(z:戻る(9)) "
 msgid " %1 will be:\n"
 msgstr " %1 を？:\n"
 
-#: ../source/edgeoftown.d:583
+#: ../source/edgeoftown.d:583 ../source/cMember.d:4249 ../source/cMember.d:4257
+#: ../source/cMember.d:4272 ../source/cMember.d:4280 ../source/cMember.d:4294
+#: ../source/cMember.d:4302
 msgid "what?\n"
 msgstr "なんて？\n"
 
@@ -795,7 +797,9 @@ msgstr "誰を並べ替えますか？(z:戻る(9)) "
 msgid "choose second character(z:leave(9))? "
 msgstr "どこに並べ替えますか？(z:戻る(9)) "
 
-#: ../source/edgeoftown.d:746
+#: ../source/edgeoftown.d:746 ../source/cMember.d:4170 ../source/cMember.d:4184
+#: ../source/cMember.d:4198 ../source/cMember.d:4209 ../source/cMember.d:4220
+#: ../source/cMember.d:4318
 msgid "done.\n"
 msgstr "done.\n"
 
@@ -887,7 +891,7 @@ msgstr "*** クラスを選んでください ***\n"
 msgid "keep this character(y/n)?\n"
 msgstr "このキャラクターを保存しますか？(y/n)\n"
 
-#: ../source/dungeon.d:75 ../source/dungeon.d:589
+#: ../source/dungeon.d:74 ../source/dungeon.d:621
 msgid ""
 "\n"
 "*** in rock! ***\n"
@@ -895,163 +899,163 @@ msgstr ""
 "\n"
 "***  岩の中！ ***\n"
 
-#: ../source/dungeon.d:96
+#: ../source/dungeon.d:95
 msgid "************* dungeon help *************\n"
 msgstr "************* dungeon help *************\n"
 
-#: ../source/dungeon.d:97
+#: ../source/dungeon.d:96
 msgid "--- assigned keys ---\n"
 msgstr "--- 操作方法 ---\n"
 
-#: ../source/dungeon.d:98
+#: ../source/dungeon.d:97
 msgid "h/4:west, j/2:south, k/8:north, l/6:east\n"
 msgstr "h/4:西, j/2:南, k/8:北, l/6:東\n"
 
-#: ../source/dungeon.d:99
+#: ../source/dungeon.d:98
 msgid "c/9:camp, o/5:open door, u:unlock door\n"
 msgstr "c/9:キャンプ, o/5:ドアを開ける\n"
 
-#: ../source/dungeon.d:100
+#: ../source/dungeon.d:99
 msgid "./3:look for monsters, S:protect all\n"
 msgstr "./3:モンスターを探す, u:鍵を開ける\n"
 
-#: ../source/dungeon.d:101
+#: ../source/dungeon.d:100
 msgid "s:search hidden doors, Q:heal all\n"
 msgstr "s:ドア、仲間を探す, Q:全回復, S:魔法補助\n"
 
-#: ../source/dungeon.d:102
+#: ../source/dungeon.d:101
 msgid "--- map info ---\n"
 msgstr "--- マップ情報 ---\n"
 
-#: ../source/dungeon.d:103
+#: ../source/dungeon.d:102
 msgid "|/-/X:wall, +:door, =:locked door\n"
 msgstr "|,-,X:壁, +:扉, =:鍵のかかった扉\n"
 
-#: ../source/dungeon.d:104
+#: ../source/dungeon.d:103
 msgid "$:darkzone, </>:stairs, ' ':floor\n"
 msgstr "$:暗闇, </>:階段, ' ‘:フロア\n"
 
-#: ../source/dungeon.d:105
+#: ../source/dungeon.d:104
 msgid "@:your party, ^:unknown\n"
 msgstr "@:パーティー, ^:その他\n"
 
-#: ../source/dungeon.d:106
+#: ../source/dungeon.d:105
 msgid "*****************************************\n"
 msgstr "*****************************************\n"
 
-#: ../source/dungeon.d:113
+#: ../source/dungeon.d:112
 msgid "heal all done.\n"
 msgstr "全回復した。\n"
 
-#: ../source/dungeon.d:122
+#: ../source/dungeon.d:121
 msgid "protect all done.\n"
 msgstr "魔法補助完了！\n"
 
-#: ../source/dungeon.d:132
+#: ../source/dungeon.d:131
 msgid "which door? "
 msgstr "どの方角？ "
 
-#: ../source/dungeon.d:161
+#: ../source/dungeon.d:160
 msgid "failed.\n"
 msgstr "失敗した。\n"
 
-#: ../source/dungeon.d:163
+#: ../source/dungeon.d:162
 msgid "click!\n"
 msgstr "鍵を開けた！\n"
 
-#: ../source/dungeon.d:166
+#: ../source/dungeon.d:165
 msgid "searching"
 msgstr "探索中"
 
-#: ../source/dungeon.d:172
+#: ../source/dungeon.d:171
 msgid "done\n"
 msgstr "完了。\n"
 
-#: ../source/dungeon.d:201
+#: ../source/dungeon.d:200
 msgid "east\n"
 msgstr "西に進む\n"
 
-#: ../source/dungeon.d:203
+#: ../source/dungeon.d:202
 msgid "west\n"
 msgstr "東に進む\n"
 
-#: ../source/dungeon.d:205
+#: ../source/dungeon.d:204
 msgid "north\n"
 msgstr "北に進む\n"
 
-#: ../source/dungeon.d:207
+#: ../source/dungeon.d:206
 msgid "south\n"
 msgstr "南に進む\n"
 
-#: ../source/dungeon.d:212
+#: ../source/dungeon.d:211
 msgid "      ... ouch!\n"
 msgstr "      ... いて！\n"
 
-#: ../source/dungeon.d:456
+#: ../source/dungeon.d:457 ../source/dungeon.d:495
 msgid "******** camp ********\n"
 msgstr "********** キャンプ **********\n"
 
-#: ../source/dungeon.d:457
+#: ../source/dungeon.d:458 ../source/dungeon.d:469 ../source/dungeon.d:496
 msgid "d)rop(0)     e)quip\n"
 msgstr "d)捨てる(0)   e)装備\n"
 
-#: ../source/dungeon.d:458
+#: ../source/dungeon.d:459 ../source/dungeon.d:470 ../source/dungeon.d:497
 msgid "i)dentify(8) z)leave(9)\n"
 msgstr "i)識別する(8) z)戻る(9)\n"
 
-#: ../source/dungeon.d:459
+#: ../source/dungeon.d:460 ../source/dungeon.d:471 ../source/dungeon.d:498
 msgid "r)ead spell  c)ast spell\n"
 msgstr "r)呪文を確認  s,c)呪文を唱える\n"
 
-#: ../source/dungeon.d:460
+#: ../source/dungeon.d:461 ../source/dungeon.d:472 ../source/dungeon.d:499
 msgid "t)rade       u)se\n"
 msgstr "t)渡す        u)使う\n"
 
-#: ../source/dungeon.d:461
+#: ../source/dungeon.d:462 ../source/dungeon.d:473 ../source/dungeon.d:500
 msgid "o)reorder    n)inspect\n"
 msgstr "o)並び替え    n)キャラを調べる\n"
 
-#: ../source/dungeon.d:462
+#: ../source/dungeon.d:463 ../source/dungeon.d:474 ../source/dungeon.d:501
 msgid "#)see a character\n"
 msgstr "#)キャラクタ表示\n"
 
-#: ../source/dungeon.d:463
+#: ../source/dungeon.d:464 ../source/dungeon.d:475 ../source/dungeon.d:502
 msgid "q)uit playing daemon(7)\n"
 msgstr "q)ゲームを中断する(7)\n"
 
-#: ../source/dungeon.d:464
+#: ../source/dungeon.d:465 ../source/dungeon.d:476 ../source/dungeon.d:503
 msgid "**********************\n"
 msgstr "******************************\n"
 
-#: ../source/dungeon.d:478
+#: ../source/dungeon.d:510
 msgid "trade\n"
 msgstr ""
 "渡す\n"
 "\n"
 
-#: ../source/dungeon.d:485
+#: ../source/dungeon.d:517
 msgid "drop\n"
 msgstr ""
 "捨てる\n"
 "\n"
 
-#: ../source/dungeon.d:493
+#: ../source/dungeon.d:525
 msgid "use\n"
 msgstr "使う\n"
 
-#: ../source/dungeon.d:501
+#: ../source/dungeon.d:533
 msgid "cast spell\n"
 msgstr "呪文を唱える\n"
 
-#: ../source/dungeon.d:507
+#: ../source/dungeon.d:539
 msgid "reorder\n"
 msgstr "並び替え\n"
 
-#: ../source/dungeon.d:522
+#: ../source/dungeon.d:554
 msgid "read spell\n"
 msgstr "呪文を確認\n"
 
-#: ../source/dungeon.d:535
+#: ../source/dungeon.d:567
 msgid ""
 "\n"
 "leave camp ...\n"
@@ -1059,7 +1063,7 @@ msgstr ""
 "\n"
 "キャンプをやめる ...\n"
 
-#: ../source/dungeon.d:541
+#: ../source/dungeon.d:573
 msgid ""
 "\n"
 "quit game ...\n"
@@ -1067,11 +1071,11 @@ msgstr ""
 "\n"
 "ゲームを中断する ...\n"
 
-#: ../source/dungeon.d:552
+#: ../source/dungeon.d:584
 msgid "  leave game(y(1)/n(2))? \n"
 msgstr "  ゲームを中断する？(y(1)/n(2)) \n"
 
-#: ../source/dungeon.d:663
+#: ../source/dungeon.d:695
 msgid ""
 "\n"
 "*** a chest! you may: ***\n"
@@ -1079,63 +1083,63 @@ msgstr ""
 "\n"
 "***** 宝箱だ！ どうする？ *****\n"
 
-#: ../source/dungeon.d:666
+#: ../source/dungeon.d:698
 msgid "o)pen i)nspect&disarm(4)\n"
 msgstr "o)開ける i)罠をはずす(4)\n"
 
-#: ../source/dungeon.d:667
+#: ../source/dungeon.d:699
 msgid "c)ast inspct(6) z)leave alone(9)\n"
 msgstr "c)魔法で確認(6) z)立ち去る(9)\n"
 
-#: ../source/dungeon.d:668
+#: ../source/dungeon.d:700
 msgid "*************************\n"
 msgstr "*******************************\n"
 
-#: ../source/dungeon.d:699
+#: ../source/dungeon.d:731
 msgid "who inspects the chest(z:leave(9))? "
 msgstr "誰が調べますか？(z:戻る(9)) "
 
-#: ../source/dungeon.d:716
+#: ../source/dungeon.d:748
 msgid "%1 disarm?(y/n)\n"
 msgstr "%1 が罠をはずしますか？(y/n)\n"
 
-#: ../source/dungeon.d:733 ../source/dungeon.d:805
+#: ../source/dungeon.d:765 ../source/dungeon.d:837
 msgid "no trap ...\n"
 msgstr "罠はなかった……\n"
 
-#: ../source/dungeon.d:745
+#: ../source/dungeon.d:777
 msgid "  you disarmed the trap.\n"
 msgstr "  罠をはずした！\n"
 
-#: ../source/dungeon.d:751
+#: ../source/dungeon.d:783
 msgid "  you could not disarm it.\n"
 msgstr "  罠を解除できなかった……\n"
 
-#: ../source/dungeon.d:756
+#: ../source/dungeon.d:788
 msgid "who opens the chest(z:leave(9))? "
 msgstr "誰が開けますか？(z:戻る(9)) "
 
-#: ../source/dungeon.d:767
+#: ../source/dungeon.d:799
 msgid "leave alone ...\n"
 msgstr "立ち去った……\n"
 
-#: ../source/dungeon.d:772
+#: ../source/dungeon.d:804
 msgid "who casts a inspct(z:leave(9))? "
 msgstr "誰が唱えますか？〜inspect(z:戻る(9)) "
 
-#: ../source/dungeon.d:781
+#: ../source/dungeon.d:813
 msgid "  you don't know the spell.\n"
 msgstr "  まだ覚えていない。\n"
 
-#: ../source/dungeon.d:786
+#: ../source/dungeon.d:818
 msgid "  you've used that spell up.\n"
 msgstr "  もう使いはたした。\n"
 
-#: ../source/dungeon.d:810
+#: ../source/dungeon.d:842
 msgid "oops! %1\n"
 msgstr "おおっと！ %1\n"
 
-#: ../source/dungeon.d:907 ../source/battle.d:213
+#: ../source/dungeon.d:939 ../source/battle.d:214
 msgid ""
 "\n"
 "*** your party is lost...<push space bar>\n"
@@ -1143,11 +1147,11 @@ msgstr ""
 "\n"
 "*** 全滅した……  <push space bar>\n"
 
-#: ../source/dungeon.d:921
+#: ../source/dungeon.d:953
 msgid "  each survivor gets %1 gold.\n"
 msgstr "  生き残った者は %1 gold 獲得\n"
 
-#: ../source/dungeon.d:966
+#: ../source/dungeon.d:998
 msgid "  %1 discovered a %2.\n"
 msgstr "  %1 は %2 を手に入れた。\n"
 
@@ -1181,7 +1185,7 @@ msgstr ""
 " *** モンスターが襲いかかってきた！ ***\n"
 "\n"
 
-#: ../source/battle.d:273
+#: ../source/battle.d:275
 msgid ""
 "\n"
 "  each survivor gets %1 ep.\n"
@@ -1189,81 +1193,81 @@ msgstr ""
 "\n"
 "  生き残った者は %1 ep 手に入れた。\n"
 
-#: ../source/cMember.d:56
+#: ../source/cMember.d:55
 msgid "you are cursed...\n"
 msgstr "呪われている……n\n"
 
-#: ../source/cMember.d:67
+#: ../source/cMember.d:66
 msgid "*** oops! you got cursed ...\n"
 msgstr "*** おっと! あなたは呪われた……\n"
 
-#: ../source/cMember.d:76
+#: ../source/cMember.d:75
 msgid "you cannot equip it.\n"
 msgstr "あなたは装備できません。\n"
 
-#: ../source/cMember.d:92
+#: ../source/cMember.d:91
 msgid ""
 "do you want to use the special power\n"
 "  of %1 (y/n)?"
 msgstr "%1の特殊効果を使いますか？ (y/n)?"
 
-#: ../source/cMember.d:913
+#: ../source/cMember.d:919
 msgid "  push any key to see items\n"
 msgstr "  パラメーター表示\n"
 
-#: ../source/cMember.d:917
+#: ../source/cMember.d:923
 msgid "  push any key to read mage spells\n"
 msgstr "  所持品を表示\n"
 
-#: ../source/cMember.d:921
+#: ../source/cMember.d:927
 msgid "  push any key to read priest spells\n"
 msgstr "  覚えている魔術師呪文\n"
 
-#: ../source/cMember.d:925
+#: ../source/cMember.d:931
 msgid "  push any key to return\n"
 msgstr "  覚えている僧侶呪文\n"
 
-#: ../source/cMember.d:1365
+#: ../source/cMember.d:1371
 msgid "  %1 read mage spells\n"
 msgstr "  %1 が覚えている魔術師呪文\n"
 
-#: ../source/cMember.d:1368
+#: ../source/cMember.d:1374
 msgid "  %1 read priest spells\n"
 msgstr "  %1 が覚えている僧侶呪文\n"
 
-#: ../source/cMember.d:1667
+#: ../source/cMember.d:1673
 msgid "which weapon(1,2,...,l:leave)?\n"
 msgstr "どの武器？(1,2,...,l:装備しない)\n"
 
-#: ../source/cMember.d:1669
+#: ../source/cMember.d:1675
 msgid "which armor(1,2,...,l:leave)?\n"
 msgstr "どの鎧？(1,2,...,l:装備しない)\n"
 
-#: ../source/cMember.d:1671
+#: ../source/cMember.d:1677
 msgid "which shield(1,2,...,l:leave)?\n"
 msgstr "どの盾？(1,2,...,l:装備しない)\n"
 
-#: ../source/cMember.d:1673
+#: ../source/cMember.d:1679
 msgid "which helm(1,2,...,l:leave)?\n"
 msgstr "どの兜(1,2,...,l:装備しない)\n"
 
-#: ../source/cMember.d:1675
+#: ../source/cMember.d:1681
 msgid "which gloves(1,2,...,l:leave)?\n"
 msgstr "どの小手？(1,2,...,l:装備しない)\n"
 
-#: ../source/cMember.d:1677
+#: ../source/cMember.d:1683
 msgid "which item(1,2,...,l:leave)?\n"
 msgstr "どのアイテム？(1,2,...,l:装備しない)\n"
 
-#: ../source/cMember.d:1735
+#: ../source/cMember.d:1741
 msgid "to whom(z:leave(9))? "
 msgstr "誰に渡しますか？(z:戻る(9)) "
 
-#: ../source/cMember.d:1760
+#: ../source/cMember.d:1766
 msgid "full...\n"
 msgstr "持ち物がいっぱいです。\n"
 
-#: ../source/cMember.d:1785
+#: ../source/cMember.d:1791
 msgid ""
 "\n"
 "cursed ...\n"
@@ -1271,7 +1275,7 @@ msgstr ""
 "\n"
 "それは呪われています……\n"
 
-#: ../source/cMember.d:1789
+#: ../source/cMember.d:1795
 msgid ""
 "\n"
 "equipped ...\n"
@@ -1279,7 +1283,7 @@ msgstr ""
 "\n"
 "それは装備しています……\n"
 
-#: ../source/cMember.d:1801
+#: ../source/cMember.d:1807
 msgid ""
 "\n"
 "done.\n"
@@ -1287,35 +1291,35 @@ msgstr ""
 "\n"
 "完了。\n"
 
-#: ../source/cMember.d:1814
+#: ../source/cMember.d:1820
 msgid "which item will you drop(z:leave(9))? "
 msgstr "どれを捨てますか？(z:戻る(9)) "
 
-#: ../source/cMember.d:1836
+#: ../source/cMember.d:1842
 msgid "cursed item ...\n"
 msgstr "それは呪われています……\n"
 
-#: ../source/cMember.d:1841
+#: ../source/cMember.d:1847
 msgid "equipped ...\n"
 msgstr "それは装備しています……\n"
 
-#: ../source/cMember.d:1847
+#: ../source/cMember.d:1853
 msgid "dropped.\n"
 msgstr "捨てました。\n"
 
-#: ../source/cMember.d:1867
+#: ../source/cMember.d:1873
 msgid "which item do you use(z:leave(9))? "
 msgstr "どれを使いますか？(z:戻る(9)) "
 
-#: ../source/cMember.d:1953
+#: ../source/cMember.d:1959
 msgid "you made the next level!\n"
 msgstr "レベルアップ！！！\n"
 
-#: ../source/cMember.d:1971
+#: ../source/cMember.d:1977
 msgid "  you gained %1 h.p.\n"
 msgstr "  %1 h.p. 上昇！\n"
 
-#: ../source/cMember.d:1978 ../source/cMember.d:2083
+#: ../source/cMember.d:1984 ../source/cMember.d:2089
 msgid ""
 "you need %1 more\n"
 "  ep to make the next level.\n"
@@ -1323,51 +1327,59 @@ msgstr ""
 "次のレベルアップまで\n"
 "  %1 ep 必要です。\n"
 
-#: ../source/cMember.d:2111
+#: ../source/cMember.d:2117
 msgid "  you lost %1 \n"
 msgstr "  %1 減少…\n"
 
-#: ../source/cMember.d:2120
+#: ../source/cMember.d:2126
 msgid "  you gained %1 \n"
 msgstr "  %1 上昇！\n"
 
-#: ../source/cMember.d:2136
+#: ../source/cMember.d:2142
 msgid "The character died of age...\n"
 msgstr "老衰で亡くなりました……\n"
 
-#: ../source/cMember.d:2297
+#: ../source/cMember.d:2303
 msgid "  you've learned new mage spells!\n"
 msgstr "  新しい魔術師呪文を覚えた！\n"
 
-#: ../source/cMember.d:2343
+#: ../source/cMember.d:2349
 msgid "  you've learned new priest spells!\n"
 msgstr "  新しい僧侶呪文を覚えた！\n"
 
-#: ../source/cMember.d:2572
+#: ../source/cMember.d:2578
 msgid "what spell?\n"
 msgstr "なにを唱える？\n"
 
-#: ../source/cMember.d:2588
+#: ../source/cMember.d:2594
 msgid "no such spell\n"
 msgstr "そんな呪文ない\n"
 
-#: ../source/cMember.d:2590
+#: ../source/cMember.d:2596
 msgid "cannot cast now\n"
 msgstr "今は使えない……\n"
 
-#: ../source/cMember.d:2592
+#: ../source/cMember.d:2598
 msgid "don't know the spell\n"
 msgstr "まだ覚えていない……\n"
 
-#: ../source/cMember.d:2598
+#: ../source/cMember.d:2604
 msgid "you've used that up\n"
 msgstr "もう使い果たした……\n"
 
-#: ../source/cMember.d:2622
+#: ../source/cMember.d:2625
+msgid "to whom?: "
+msgstr "誰に？: "
+
+#: ../source/cMember.d:2682
+msgid "teleport to the castle!\n"
+msgstr "城下町までテレポート！\n"
+
+#: ../source/cMember.d:2706
 msgid "which item will you identify(z:leave(9))? "
 msgstr "どれを識別しますか？(z:戻る(9)) "
 
-#: ../source/cMember.d:2649
+#: ../source/cMember.d:2733
 msgid ""
 "\n"
 " * oops! *\n"
@@ -1375,7 +1387,7 @@ msgstr ""
 "\n"
 " * おっと! *\n"
 
-#: ../source/cMember.d:2682
+#: ../source/cMember.d:2766
 msgid ""
 "\n"
 "no clue ...\n"
@@ -1383,11 +1395,11 @@ msgstr ""
 "\n"
 "見当もつかない……\n"
 
-#: ../source/cMember.d:2866
+#: ../source/cMember.d:2950
 msgid "you have:\n"
 msgstr "アイテム使用:\n"
 
-#: ../source/cMember.d:2896
+#: ../source/cMember.d:2980
 msgid ""
 "you can't use it now\n"
 "option? \n"
@@ -1395,81 +1407,81 @@ msgstr ""
 "今は使えない。\n"
 "option? \n"
 
-#: ../source/cMember.d:2942
+#: ../source/cMember.d:3026
 msgid " no such spell"
 msgstr " そんな呪文ない"
 
-#: ../source/cMember.d:2944
+#: ../source/cMember.d:3028
 msgid " cannot cast now"
 msgstr " 今は使えない"
 
-#: ../source/cMember.d:2946
+#: ../source/cMember.d:3030
 msgid " don't know the spell"
 msgstr " まだ覚えていない"
 
-#: ../source/cMember.d:2955
+#: ../source/cMember.d:3039
 msgid " you've used that up"
 msgstr " もう使い果たした"
 
-#: ../source/cMember.d:3026
+#: ../source/cMember.d:3110
 msgid "The %1 gets broken!\n"
 msgstr "%1 は壊れた！\n"
 
-#: ../source/cMember.d:3071
+#: ../source/cMember.d:3155
 msgid "%1 thrusts hard at a %2\n"
 msgstr "%1 は %2 を激しく突いた！\n"
 
-#: ../source/cMember.d:3074
+#: ../source/cMember.d:3158
 msgid "%1 tries to slice a %2\n"
 msgstr "%1 は %2 を切りつけた！\n"
 
-#: ../source/cMember.d:3077
+#: ../source/cMember.d:3161
 msgid "%1 swings at a %2\n"
 msgstr "%1 は %2 を薙ぎはらった！\n"
 
-#: ../source/cMember.d:3080
+#: ../source/cMember.d:3164
 msgid "%1 chops savagely at a %2\n"
 msgstr "%1 は %2 を野蛮に切り刻む！\n"
 
-#: ../source/cMember.d:3083
+#: ../source/cMember.d:3167
 msgid "%1 tries to bash a %2\n"
 msgstr "%1 は %2 を打ちつけた！\n"
 
-#: ../source/cMember.d:3086
+#: ../source/cMember.d:3170
 msgid "%1 attempts to stab a %2\n"
 msgstr "%1 は %2 を突き刺す！\n"
 
-#: ../source/cMember.d:3090
+#: ../source/cMember.d:3174
 msgid "%1 lunges at a %2\n"
 msgstr "%1 は %2 に突進した！\n"
 
-#: ../source/cMember.d:3190 ../source/cMonster.d:463
+#: ../source/cMember.d:3274 ../source/cMonster.d:461
 msgid "  and hits once for %1 damage!\n"
 msgid_plural "  and hits %2 times for %1 damage!\n"
 msgstr[0] "  %2 回ヒットして %1 ダメージを与えた！\n"
 
-#: ../source/cMember.d:3212
+#: ../source/cMember.d:3296
 msgid "  The %1 gets the head cut off!\n"
 msgstr "  %1 は首をはねられた！\n"
 
-#: ../source/cMember.d:3222 ../source/cMember.d:3233
+#: ../source/cMember.d:3306 ../source/cMember.d:3317
 msgid "    The %1 is killed!\n"
 msgstr "    %1 を倒した！\n"
 
-#: ../source/cMember.d:3249
+#: ../source/cMember.d:3333
 msgid "  The %1 is slept!\n"
 msgstr "  %1 は眠りについた!\n"
 
-#: ../source/cMember.d:3258 ../source/cMonster.d:457
+#: ../source/cMember.d:3342 ../source/cMonster.d:455
 msgid "   ... and misses\n"
 msgstr "   ……だが外した\n"
 
-#: ../source/cMember.d:3300
+#: ../source/cMember.d:3384
 msgid "%1 dispels %2 monster\n"
 msgid_plural "%1 dispels %2 monsters\n"
 msgstr[0] "%1 は %2 体のモンスターを浄化した\n"
 
-#: ../source/cMember.d:3307
+#: ../source/cMember.d:3391
 msgid ""
 "%1 attempts to dispel\n"
 "   and fails.\n"
@@ -1477,95 +1489,131 @@ msgstr ""
 "%1 はディスペルを行ったが\n"
 "   ……失敗した。\n"
 
-#: ../source/cMember.d:3328
+#: ../source/cMember.d:3412
 msgid "%1 casts a %2.\n"
 msgstr "%1 は %2 を唱えた。\n"
 
-#: ../source/cMember.d:3332 ../source/cMonster.d:211
+#: ../source/cMember.d:3416 ../source/cMonster.d:209
 msgid "  but, %1 is silenced!\n"
 msgstr "  しかし、%1 は声を出せない！\n"
 
-#: ../source/cMember.d:3458 ../source/cMember.d:3774 ../source/cMember.d:3810
-#: ../source/cMember.d:3860 ../source/cMember.d:3899 ../source/cMember.d:3930
-#: ../source/cMonster.d:645 ../source/cMonster.d:664 ../source/cMonster.d:683
-#: ../source/cMonster.d:722 ../source/cMonster.d:745 ../source/cMonster.d:835
+#: ../source/cMember.d:3545 ../source/cMember.d:3991 ../source/cMember.d:4027
+#: ../source/cMember.d:4077 ../source/cMember.d:4116 ../source/cMember.d:4147
+#: ../source/cMonster.d:643 ../source/cMonster.d:662 ../source/cMonster.d:681
+#: ../source/cMonster.d:720 ../source/cMonster.d:743 ../source/cMonster.d:833
 msgid "  %1 resisted the spell.\n"
 msgstr "  %1 は魔法に抵抗した。\n"
 
-#: ../source/cMember.d:3486
+#: ../source/cMember.d:3573
 msgid "  %1 takes %2 damage.\n"
 msgstr "  %1 に %2 ダメージを与えた！\n"
 
-#: ../source/cMember.d:3490
+#: ../source/cMember.d:3577
 msgid "    %1 is dead!\n"
 msgstr "    %1 を倒した！\n"
 
-#: ../source/cMember.d:3549
+#: ../source/cMember.d:3636
 msgid "  %1 is vanished!\n"
 msgstr "  %1 は消滅した！\n"
 
-#: ../source/cMember.d:3560 ../source/cMonster.d:695 ../source/cMonster.d:778
+#: ../source/cMember.d:3647 ../source/cMonster.d:693 ../source/cMonster.d:776
 msgid "  %1 is alive.\n"
 msgstr "  %1 は生き延びた。\n"
 
-#: ../source/cMember.d:3602 ../source/cMember.d:3751
+#: ../source/cMember.d:3689 ../source/cMember.d:3855
 msgid "%1 is completely healed.\n"
 msgstr "%1 は全快した。\n"
 
-#: ../source/cMember.d:3607
+#: ../source/cMember.d:3694
 msgid ""
 "%1 hit points are restored\n"
 "  to %2.\n"
 msgstr "%2 は %1 ポイント回復。\n"
 
-#: ../source/cMember.d:3634 ../source/cMember.d:3655
+#: ../source/cMember.d:3731 ../source/cMember.d:3755
 msgid "  %1 is cured.\n"
 msgstr "  %1 は治癒した。\n"
 
-#: ../source/cMember.d:3638 ../source/cMember.d:3659 ../source/cMember.d:3743
+#: ../source/cMember.d:3735 ../source/cMember.d:3759 ../source/cMember.d:3847
 msgid "  * done *\n"
 msgstr "  * OK *\n"
 
-#: ../source/cMember.d:3682
+#: ../source/cMember.d:3786
 msgid "  %1's AC +%2.\n"
 msgid_plural "  %1' AC +%2.\n"
 msgstr[0] "  %1 の AC を %2 上げた。\n"
 
-#: ../source/cMember.d:3781 ../source/cMonster.d:650
+#: ../source/cMember.d:3875 ../source/cMember.d:3937
+msgid "  what?\n"
+msgstr "  なに？\n"
+
+#: ../source/cMember.d:3906
+msgid "  * ok *\n"
+msgstr "  * 復活 *\n"
+
+#: ../source/cMember.d:3912 ../source/cMember.d:3965
+msgid "  oops!!\n"
+msgstr "  おっと! *\n"
+
+#: ../source/cMember.d:3998 ../source/cMonster.d:648
 msgid "  %1 is silenced!\n"
 msgstr "  %1 は沈黙した！\n"
 
-#: ../source/cMember.d:3785 ../source/cMonster.d:654
+#: ../source/cMember.d:4002 ../source/cMonster.d:652
 msgid "  %1 is not silenced.\n"
 msgstr "  %1 は沈黙しなかった。\n"
 
-#: ../source/cMember.d:3817 ../source/cMember.d:3829 ../source/cMonster.d:726
+#: ../source/cMember.d:4034 ../source/cMember.d:4046 ../source/cMonster.d:724
 msgid "  %1 is slept.\n"
 msgstr "  %1 は眠りについた。\n"
 
-#: ../source/cMember.d:3821 ../source/cMember.d:3833 ../source/cMonster.d:731
+#: ../source/cMember.d:4038 ../source/cMember.d:4050 ../source/cMonster.d:729
 msgid "  %1 is not slept.\n"
 msgstr "  %1 は眠らなかった。\n"
 
-#: ../source/cMember.d:3867 ../source/cMember.d:3879 ../source/cMonster.d:749
+#: ../source/cMember.d:4084 ../source/cMember.d:4096 ../source/cMonster.d:747
 msgid "  %1 is held.\n"
 msgstr "  %1 は固まった。\n"
 
-#: ../source/cMember.d:3871 ../source/cMember.d:3883 ../source/cMonster.d:754
+#: ../source/cMember.d:4088 ../source/cMember.d:4100 ../source/cMonster.d:752
 msgid "  %1 is not held.\n"
 msgstr "  %1 は固まらなかった。\n"
 
-#: ../source/cMember.d:3903 ../source/cMonster.d:690
+#: ../source/cMember.d:4120 ../source/cMonster.d:688
 msgid "  %1 is dead!\n"
 msgstr "    %1 を倒した！\n"
 
-#: ../source/cMember.d:3914
+#: ../source/cMember.d:4131
 msgid "  %1 is alive!\n"
 msgstr "  %1 は生きている！\n"
 
-#: ../source/cMember.d:3938 ../source/cMonster.d:671 ../source/cMonster.d:839
+#: ../source/cMember.d:4155 ../source/cMonster.d:669 ../source/cMonster.d:837
 msgid "  %1 gets %2 damage!\n"
 msgstr "  %1 は %2 ダメージを受けた！\n"
+
+#: ../source/cMember.d:4234
+msgid ""
+"\n"
+"*** where do you want to teleport? ***\n"
+msgstr ""
+"\n"
+"*** テレポート先は？ ***\n"
+
+#: ../source/cMember.d:4237
+msgid "enter xpos(z:leave): \n"
+msgstr "x座標を入力。(z:戻る): \n"
+
+#: ../source/cMember.d:4243
+msgid "quit.\n"
+msgstr "中止。\n"
+
+#: ../source/cMember.d:4262
+msgid "enter ypos(z:enter xpos again): \n"
+msgstr "y座標を入力。(z:x座標入力に戻る): \n"
+
+#: ../source/cMember.d:4285
+msgid "enter layer(z:enter ypos again): \n"
+msgstr "地下何階？(z:y座標入力に戻る): \n"
 
 #: ../source/cParty.d:177
 msgid "select members(a,b,... ,z:leave(9))\n"
@@ -1635,52 +1683,52 @@ msgstr "  mapper……OK!\n"
 msgid "  guard...done.\n"
 msgstr "  guard……OK！\n"
 
-#: ../source/cParty.d:820 ../source/cParty.d:888 ../source/cParty.d:900
-#: ../source/cParty.d:913
+#: ../source/cParty.d:818 ../source/cParty.d:886 ../source/cParty.d:898
+#: ../source/cParty.d:911
 msgid "input action...\n"
 msgstr "どうする？\n"
 
-#: ../source/cParty.d:872
+#: ../source/cParty.d:870
 msgid "************ assigned keys ************\n"
 msgstr "************** 行動メニュー **************\n"
 
-#: ../source/cParty.d:873
+#: ../source/cParty.d:871
 msgid "f/4:fight, p/5:parry, s/c/6:cast spell,\n"
 msgstr "f/4:戦う, p/5:避ける, s/c/6:呪文を唱える,\n"
 
-#: ../source/cParty.d:874
+#: ../source/cParty.d:872
 msgid "e/7:run, u/8:use, t/9:take back, \n"
 msgstr "e/7:逃げる, u/8:アイテム使用, t/9:再入力, \n"
 
-#: ../source/cParty.d:875
+#: ../source/cParty.d:873
 msgid "d/0:dispell, i:monster info\n"
 msgstr "d/0:呪いを解く, i:モンスター情報\n"
 
-#: ../source/cParty.d:876
+#: ../source/cParty.d:874
 msgid "r/:read spells book\n"
 msgstr "r/:呪文を確認\n"
 
-#: ../source/cParty.d:877
+#: ../source/cParty.d:875
 msgid "------ short cut ------\n"
 msgstr "------ ショートカット ------\n"
 
-#: ../source/cParty.d:878
+#: ../source/cParty.d:876
 msgid "j/1:fight1, h/2:fight2, n/3:fight3\n"
 msgstr "j/1:戦う#1, h/2:戦う#2, n/3:戦う#3\n"
 
-#: ../source/cParty.d:879
+#: ../source/cParty.d:877
 msgid "k:parry, l:take back, ;:run\n"
 msgstr "k:避ける, l:再入力, ;:逃げる\n"
 
-#: ../source/cParty.d:880
+#: ../source/cParty.d:878
 msgid "***************************************"
 msgstr "******************************************"
 
-#: ../source/cParty.d:941
+#: ../source/cParty.d:939
 msgid " ok?(t:take back)"
 msgstr " ok?(t:take back)"
 
-#: ../source/cParty.d:945
+#: ../source/cParty.d:943
 msgid ""
 "\n"
 "input again ..."
@@ -1688,111 +1736,111 @@ msgstr ""
 "\n"
 "もう一度入力する..."
 
-#: ../source/cParty.d:995
+#: ../source/cParty.d:1025
 msgid " who?                   "
 msgstr " 誰に？                 "
 
-#: ../source/cMonster.d:164
+#: ../source/cMonster.d:162
 msgid "A %1 runs away.\n"
 msgstr "%1 は逃げ出した\n"
 
-#: ../source/cMonster.d:173
+#: ../source/cMonster.d:171
 msgid "A %1 calls for help.\n"
 msgstr "%1 は仲間を呼んだ\n"
 
-#: ../source/cMonster.d:178
+#: ../source/cMonster.d:176
 msgid "  A %1 appeared.\n"
 msgstr "  %1 が現れた！\n"
 
-#: ../source/cMonster.d:182 ../source/cMonster.d:187
+#: ../source/cMonster.d:180 ../source/cMonster.d:185
 msgid "  but, no one responded.\n"
 msgstr "  しかし、なにも起こらなかった\n"
 
-#: ../source/cMonster.d:207
+#: ../source/cMonster.d:205
 msgid "A %1 casts a %2.\n"
 msgstr "%1 は %2 を唱えた\n"
 
-#: ../source/cMonster.d:299
+#: ../source/cMonster.d:297
 msgid "A %1 exhales breathe.\n"
 msgstr "%1 のブレス攻撃！\n"
 
-#: ../source/cMonster.d:331
+#: ../source/cMonster.d:329
 msgid "  %1 takes %2 damage!\n"
 msgstr "  %1 は %2 ダメージを受けた！\n"
 
-#: ../source/cMonster.d:338
+#: ../source/cMonster.d:336
 msgid "    %1 is killed!\n"
 msgstr "    %1 は倒れた！\n"
 
-#: ../source/cMonster.d:348
+#: ../source/cMonster.d:346
 msgid "    and is poisoned!\n"
 msgstr "    さらに毒を喰らった！\n"
 
-#: ../source/cMonster.d:356
+#: ../source/cMonster.d:354
 msgid "    and is asleep!\n"
 msgstr "    さらに眠らされた！\n"
 
-#: ../source/cMonster.d:364
+#: ../source/cMonster.d:362
 msgid "    and is paralized!\n"
 msgstr "    さらに麻痺した！\n"
 
-#: ../source/cMonster.d:372
+#: ../source/cMonster.d:370
 msgid "    and is petrified!\n"
 msgstr "    さらに石化した！\n"
 
-#: ../source/cMonster.d:382
+#: ../source/cMonster.d:380
 msgid "    and is killed instantly!\n"
 msgstr "    そして即死！\n"
 
-#: ../source/cMonster.d:422
+#: ../source/cMonster.d:420
 msgid "A %1 attacks at %2\n"
 msgstr "%1 は %2 を攻撃！\n"
 
-#: ../source/cMonster.d:426
+#: ../source/cMonster.d:424
 msgid "A %1 tries to sting %2\n"
 msgstr "%1 は %2 を刺した！\n"
 
-#: ../source/cMonster.d:430
+#: ../source/cMonster.d:428
 msgid "A %1 tries to touch %2\n"
 msgstr "%1 は %2 に触れた！\n"
 
-#: ../source/cMonster.d:434
+#: ../source/cMonster.d:432
 msgid "A %1 tries to bite %2\n"
 msgstr "%1 は %2 に噛みついた！\n"
 
-#: ../source/cMonster.d:485
+#: ../source/cMonster.d:483
 msgid "  %1 is poisoned!\n"
 msgstr "  %1 は毒を喰らった！\n"
 
-#: ../source/cMonster.d:501
+#: ../source/cMonster.d:499
 msgid "  %1 is asleep!\n"
 msgstr "  %1 は眠ってしまった！\n"
 
-#: ../source/cMonster.d:516
+#: ../source/cMonster.d:514
 msgid "  %1 is paralized!\n"
 msgstr "  %1 は麻痺した！\n"
 
-#: ../source/cMonster.d:531
+#: ../source/cMonster.d:529
 msgid "  %1 is petrified!\n"
 msgstr "  %1 は石になった！\n"
 
-#: ../source/cMonster.d:548
+#: ../source/cMonster.d:546
 msgid "  %1 gets the head cut off!\n"
 msgstr "  %1 は首をはねられた！\n"
 
-#: ../source/cMonster.d:570 ../source/cMonster.d:590 ../source/cMonster.d:619
+#: ../source/cMonster.d:568 ../source/cMonster.d:588 ../source/cMonster.d:617
 msgid "  %1 is killed!\n"
 msgstr "  %1 は倒れた！\n"
 
-#: ../source/cMonster.d:585
+#: ../source/cMonster.d:583
 msgid "  %1 gets %2 level drained!\n"
 msgstr "  %1 は %2 レベル 吸い取られた!\n"
 
-#: ../source/cMonster.d:770
+#: ../source/cMonster.d:768
 msgid "  %1 is suffocated.\n"
 msgstr "  %1 は消滅した。\n"
 
-#: ../source/cMonster.d:784
+#: ../source/cMonster.d:782
 msgid "  but, nothing happened...\n"
 msgstr "  しかし、なにも起こらなかった……\n"
 

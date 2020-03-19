@@ -12,8 +12,6 @@ import cMonsterDef;
 import cParty;
 import cMember;
 
-import spell;
-
 
 /**
   Monster - モンスター1体を管理

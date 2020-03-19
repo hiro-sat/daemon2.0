@@ -20,7 +20,6 @@ import lib_screen;
 import lib_readline;
 import lib_json;
 import def;
-import spell;
 
 import castle;
 import dungeon;
@@ -880,7 +879,7 @@ void header_disp( HSTS sts , bool rewrite = true )
             mvprintw(0, 31, _( "- battle -               [push '?' key for help]" ));
             break;
         case HSTS.CAMP:
-            mvprintw(0, 31, _( "- camp mode -         [#:inspect,h:help,z:leave]" ));
+            mvprintw(0, 31, _( "- camp mode -         [#:inspect,?:help,z:leave]" ));
             break;
         case HSTS.CASTLE:
             mvprintw(0, 23, _( "- castle -       [g:bar,s:hotel,t:temple,a:shop,e:leave]" ));
