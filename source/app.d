@@ -56,6 +56,8 @@ void main(string[] args)
     readline = new ReadLine( gsdl , scr );
     readline_spell = new ReadLine( gsdl , scr );
 
+    // タイトル表示
+    title;
 
     // メインルーチン
     while( true )
@@ -97,6 +99,61 @@ void appSave()
 }
 
 
+/**
+  ====== title ========================================================
+  */
+void title()
+{
+    int x , y;
+    bool waitflg = true;
+    string txt2;
+
+    void titlePrint( int wait , string txt )
+    {
+        
+        txt2 = txt;
+
+        foreach( i , s ; txt )
+        {
+            if( ! waitflg )
+            {
+                mvprintw( y , x , txt2 );
+                return;
+            }
+        
+            mvprintw( y , x++ , s );
+            scr.disp;
+            if( waitflg || wait > -1 )
+                if( getChar( wait ) != 0 )
+                    waitflg = false;
+
+            txt2 = txt[ i + 1 .. $ ];
+        }
+        return;
+    }
+    
+
+    x = 32 ; 
+    y = 8 ;
+    titlePrint( 75 , "d a e m o n  2.0");
+
+    if( waitflg )
+        getChar( 1500 ); // timeout付き
+
+    x = 30 ; 
+    y = 13 ;
+    titlePrint( 0 , "yet another WIZ-LIKE");
+
+    x = 30 ; 
+    y = 15 ;
+    titlePrint( 0 , "--- press any key ---");
+
+    getChar;
+    scr.cls;
+
+    return;
+
+}
 
 /**
   ====== ending ========================================================
@@ -1173,10 +1230,10 @@ int getColor()
 /**-------------------- 
    getChar - 一文字入力
    --------------------*/
-char getChar()
+char getChar( int timeout = -1 )
 {
     bool quit;
-    char ret = gsdl.inkey( quit );
+    char ret = gsdl.inkey( timeout , quit );
 
     if( quit )
         appExit;

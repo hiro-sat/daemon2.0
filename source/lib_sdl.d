@@ -1,6 +1,7 @@
 // Phobos Runtime Library
 import std.stdio;
 import std.string;
+import std.conv;
 
 // derelict SDL
 import derelict.sdl2.sdl;
@@ -163,6 +164,14 @@ public:
     }
 
     /*--------------------
+       GetTicks - 時間取得
+       --------------------*/
+    uint GetTicks()
+    {
+        return SDL_GetTicks();
+    }
+
+    /*--------------------
        GetRenderer - レンダラー取得
        --------------------*/
     SDL_Renderer* GetRenderer()
@@ -173,10 +182,13 @@ public:
     /**--------------------
        inkey - キーボード入力(1文字取得)
        --------------------*/
-    char inkey( ref bool quit )
+    char inkey( int timeout , ref bool quit )
     {
 
+        ulong ticks;
         string ch = "";
+
+        ticks = GetTicks;
 
         while( ch.length == 0 )
         {
@@ -205,8 +217,15 @@ public:
             }
 
             scr.disp;
-            /* gsdl.disp; */
-            /* gsdl.delay( 1 ); */
+
+            // check Timeout
+            if( timeout >= 0 && timeout < GetTicks - ticks )
+            {
+                ch = "";
+                ch ~= to!char( 0 );
+                break;
+            }
+
         }
 
         assert( ch.length > 0 , "ch.length error" );
