@@ -156,6 +156,7 @@ BATTLE_RESULT battle_main()
 
         if ( ! party.suprised )    // not ( mon -> you )
         {
+            header_disp( HSTS.BATTLE );
             party.action_input;
             if ( party.mem[ 0 ].action == ACT.RUN )
             { /* run */
@@ -266,6 +267,7 @@ BATTLE_RESULT battle_main()
     }
 
 BATTLE_LOOP_EXIT:
+    header_disp( HSTS.DUNGEON );
     party.win_disp();
     if ( monParty.num == 0 )
     {
@@ -286,6 +288,7 @@ EXIT:
             party.mem[i].status = STS.OK;
         party.mem[ i ].silenced = false;
     }
+    header_disp( HSTS.DUNGEON );
     party.win_disp();
     return cast(BATTLE_RESULT)rtncode;
   

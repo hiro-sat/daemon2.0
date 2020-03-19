@@ -521,7 +521,7 @@ public:
                     if( indexOf( order , ch ) >= 0 )
                         continue;
 
-                    textout( ch );
+                    textout( "%1(%2)" , ch , mem[ ch - '1' ].name );
                     textout( '\n' );
                     break;
                 }
@@ -815,8 +815,6 @@ public:
 
         Member pl;
 
-
-        header_disp( HSTS.BATTLE );
         textout( _( "input action...\n" ) );
 
     AGAIN:
@@ -952,6 +950,38 @@ public:
     
 
     /*--------------------
+       selectMember - メンバーを選択
+       --------------------*/
+    Member selectMember( string msg )
+    {
+
+        char c;
+
+        textout( msg ~ "\n" );
+        while( true )
+        {
+            c = getChar();
+            if ( c == 'z' || c == '9' )
+                break;
+            if ( c >= '1' && c <= '0' + num )
+                break;
+        }
+
+        if ( c == 'z' || c == '9' )
+        {
+            textout( c );
+            textout( "\n" );
+            return null;
+        }
+
+        textout( c );
+        c -= '1';
+        textout( "(" ~ mem[ c ].name ~ ")\n" );
+        return mem[ c ];
+
+    }
+
+    /*--------------------
        selectActiveMember - status OK のメンバーを選択
        --------------------*/
     Member selectActiveMember( string msg )
@@ -1004,6 +1034,16 @@ public:
         }
     }
     
+    /*--------------------
+       getMemberNoy - メンバーの並び順を取得
+       --------------------*/
+    int getMemberNo( Member _m )
+    {
+        foreach( i , m ; mem )
+            if( m is _m )
+                return to!int( i );
+        assert( 0 );
+    }
     
 }
     
