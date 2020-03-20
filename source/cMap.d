@@ -353,6 +353,18 @@ public:
 
 
     /**--------------------
+       upStairs - 上り階段チェック
+       --------------------*/
+    int upStairs()
+        { return event.upStairs( orgmap[ party.y ][ party.x ] ); }
+
+    /**--------------------
+       downStairs - 下り階段チェック
+       --------------------*/
+    int downStairs()
+        { return event.downStairs( orgmap[ party.y ][ party.x ] ); }
+
+    /**--------------------
        event_chk - 移動後のイベントチェック
        --------------------*/
     int event_chk()

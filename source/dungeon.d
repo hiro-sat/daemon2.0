@@ -123,6 +123,30 @@ bool dungeon_main()
                     party.win_disp();
                 }
                 break;
+            case '<':   // up stairs
+                switch( party.dungeon.upStairs() )
+                {
+                    case 2: /* exit from maze */
+                        goto EXIT;
+                    case 1: /* not encount */
+                        rate_encount = -1;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case '>':   // down stairs   
+                switch( party.dungeon.downStairs() )
+                {
+                    case 2: /* exit from maze */
+                        goto EXIT;
+                    case 1: /* not encount */
+                        rate_encount = -1;
+                        break;
+                    default:
+                        break;
+                }
+                break;
             case 'o':
             case '5':
                 if( ! doorflg )
@@ -223,7 +247,7 @@ bool dungeon_main()
                 {
                     case 2: /* exit from maze */
                         goto EXIT;
-                    case 1: /* not excount */
+                    case 1: /* not encount */
                         rate_encount = -1;
                         break;
                     default:
