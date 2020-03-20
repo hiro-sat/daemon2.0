@@ -188,6 +188,14 @@ public:
         return;
     }
 
+    /*--------------------
+       dispInfo - アイテム情報表示
+       --------------------*/
+    void dispInfo()
+    {
+        data.dispInfo;
+        return;
+    }
 
     /*--------------------
        canBeEquipped - 装備可能かどうか
@@ -195,10 +203,7 @@ public:
        --------------------*/
     bool canBeEquipped( int cl )
     {
-        if( ( ( 0x80 >> cl ) & data.Class ) == 0 )
-            return false;
-        else
-            return true; 
+        return data.canBeEquipped( cl );
     }
 
     /*--------------------
@@ -206,7 +211,7 @@ public:
        --------------------*/
     bool checkAtkEf( ITM_ATKEF ef )
     {
-        return ( ( atkef & ef ) != 0 ); 
+        return data.checkAtkEf( ef );
     }
 
     /*--------------------
@@ -214,7 +219,7 @@ public:
        --------------------*/
     bool checkDefEf( ITM_DEFEF ef )
     {
-        return ( ( defef & ef ) != 0 ); 
+        return checkDefEf( ef );
     }
 
     /*--------------------
