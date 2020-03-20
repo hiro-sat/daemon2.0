@@ -4,9 +4,11 @@
 import std.stdio;
 import std.conv;
 import std.string;
+import std.array;
 
 // mysource 
 import def;
+import app;
 
 class MonsterDef
 {
@@ -123,6 +125,7 @@ public:
     /* 10-:atk(no effect), 10:attack, 11:slash, 12:touch, 13:bite, etc.*/
     /* 20-:atk(effect) */
     /* bit7=1 as spell# */
+    byte[] actionNoMagic;   // suprised
 
     
     /*--------------------
@@ -186,6 +189,14 @@ public:
         action[6]    = cast( byte ) parse!(int)( data[ i++ ], 16);
         action[7]    = cast( byte ) parse!(int)( data[ i++ ], 16);
 
+        foreach( a ; action )
+            if( ( a & 0x80 ) == 0 )
+            {
+                actionNoMagic.length ++;
+                actionNoMagic.back = a;
+            }
+        assert( actionNoMagic.length > 0 , "monster data no action without magic." );
+
         return;
     }
 
@@ -200,6 +211,13 @@ public:
         return;
     }
 
+    /*--------------------
+       getActionNoMagic - サプライズ時のアクション ※魔法なし
+       --------------------*/
+    int getActionNoMagic()
+    {
+        return actionNoMagic[ get_rand( to!int( actionNoMagic.length - 1 ) ) ];
+    }
 
 
 }

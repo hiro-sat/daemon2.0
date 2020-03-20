@@ -134,8 +134,10 @@ class Monster
         if ( i == party.num )
             return;
       
-      
-        monaction = def.action[ get_rand( 7 ) ];
+        if( party.suprised ) 
+            monaction = def.getActionNoMagic;
+        else
+            monaction = def.action[ get_rand( 7 ) ];
 
         for ( i = 0; i < 100; i++ )
         {
