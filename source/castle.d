@@ -518,13 +518,13 @@ void boltac_buy()
     {
         setColor( CL.MENU );
         textout( "\n" );
-        textout( _( "********* buy *********\n"  ));
-        textout( _( "p)urchase z)leave(9)\n"  ));
-        textout( _( "n)ext page(6)\n"  ));
+        textout( _( "********* buy **********\n"  ));
+        textout( _( "b)uy p)ick it up\n"  ));
+        textout( _( "n)ext page(6) z)leave(9)\n"  ));
         textout( _( "------\n"  ));
         textout( _( "w)eapon a)rmor s)hield\n"  ));
         textout( _( "h)elm g)loves i)tem\n"  ));
-        textout( _( "***********************\n"  ));
+        textout( _( "************************\n"  ));
         setColor( CL.NORMAL );
         textout( "option? " );
         return;
@@ -547,7 +547,8 @@ WHO_BUY:
         {
             c = getChar();
             if ( c == 'p' || c == 'z' || c == 'n' || c == '9' || c == 'w'
-              || c == 'a' || c == 's' || c == 'h' || c == 'g' || c == 'i' )
+              || c == 'a' || c == 's' || c == 'h' || c == 'g' || c == 'i' 
+              || c == 'b' )
                 break;
         }
         switch ( c )
@@ -591,10 +592,29 @@ WHO_BUY:
                 top = last + 1;
                 break;
             case 'p':
-                textout( _( "purchase\n"  ));
+                textout( _( "pick it up\n"  ));
+                textout( _( "which pick it up(a,b,...,z:quit(9))? "  ));
                 while ( true )
                 {
-                    textout( _( "purchase(a,b,...,z:quit(9))? "  ));
+                  c = getChar();
+                  if ( c == 'z' || c == '9' || 
+                          ( ( c >= 'a' ) && ( c < 'a' + disp_lines ) && ( item[ c - 'a' ] < MAXITEM ) ) )
+                      break;
+                }
+                textout( c );
+                textout( '\n' );
+                if ( c == 'z' || c == '9' )
+                    break;
+
+                i = item[ c - 'a' ];
+                item_data[ i ].dispInfo;
+                dispBoltacBuyMenu;
+                break;
+            case 'b':
+                textout( _( "buy\n"  ));
+                while ( true )
+                {
+                    textout( _( "which buy(a,b,...,z:quit(9))? "  ));
                     while ( true )
                     {
                       c = getChar();
@@ -976,7 +996,6 @@ void uncurse()
 void boltac_identify()
 {
     char c;
-    string ef;
     Member mem;
     Item itm;
 
@@ -1046,164 +1065,9 @@ void boltac_identify()
             itm.undefined = false;
             mem.inspect;
         }
-        textout( "\n*** " );
-        textout( itm.name );
-        switch( itm.kind )
-        {
-            case ITM_KIND.WEAPON:
-                if ( itm.range == RANGE.SHORT )
-                  textout( _( " ***\n it is a short range weapon.\n" ) );
-                else
-                  textout( _( " ***\n it is a long range weapon.\n" ) );
-                break;
-            case ITM_KIND.ARMOR:
-                textout( _( " is an armor.\n" ) );
-                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
-                break;
-            case ITM_KIND.SHIELD:
-                textout( _( " is a shield.\n" ) );
-                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
-                break;
-            case ITM_KIND.HELM:
-                textout( " is a helm.\n" );
-                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
-                break;
-            case ITM_KIND.GLOVES:
-                textout( " are gloves.\n" );
-                textout( _( " it affects your AC by %1 points.\n" ) , itm.ac );
-                break;
-            case ITM_KIND.ITEM:
-                textout( _( " is an item.\n" ) );
-                break;
-            default:
-                assert( 0 );
-        }
-        
-        if ( itm.Class !=0 )
-        {
-            textout(" ");
 
-            ef = "";
-            if ( itm.canBeEquipped( CLS.FIG ) ) ef ~= 'F' ;
-            if ( itm.canBeEquipped( CLS.THI ) ) ef ~= 'T' ;
-            if ( itm.canBeEquipped( CLS.PRI ) ) ef ~= 'P' ;
-            if ( itm.canBeEquipped( CLS.MAG ) ) ef ~= 'M' ;
-            if ( itm.canBeEquipped( CLS.BIS ) ) ef ~= 'B' ;
-            if ( itm.canBeEquipped( CLS.SAM ) ) ef ~= 'S' ;
-            if ( itm.canBeEquipped( CLS.LOR ) ) ef ~= 'L' ;
-            if ( itm.canBeEquipped( CLS.NIN ) ) ef ~= 'N' ;
-            textout( _( " %1 can equip it. \n" ) , ef );
-        }
-        if ( ( itm.atkef & 
-                ( ITM_ATKEF.CRITICAL | ITM_ATKEF.STONE | ITM_ATKEF.SLEEP ) ) != 0 )
-        {
-            ef = "";
-            if ( itm.checkAtkEf( ITM_ATKEF.CRITICAL ) ) ef ~= " critical" ;
-            if ( itm.checkAtkEf( ITM_ATKEF.STONE ) )    ef ~= " stone" ;
-            if ( itm.checkAtkEf( ITM_ATKEF.SLEEP ) )    ef ~= " sleep" ;
-            textout( _( " it has a %1 effect.\n" ) , ef );
-        }
-  
-        if ( ( itm.atkef & 
-                ( ITM_ATKEF.HUMAN | ITM_ATKEF.ANIMAL| ITM_ATKEF.DRAGON 
-                  | ITM_ATKEF.DEMON | ITM_ATKEF.INSECT ) ) != 0 )
-        {
-            ef = "";
-            if( itm.checkAtkEf( ITM_ATKEF.HUMAN ) )  ef ~= " human";
-            if( itm.checkAtkEf( ITM_ATKEF.ANIMAL ) ) ef ~= " animal";
-            if( itm.checkAtkEf( ITM_ATKEF.DRAGON ) ) ef ~= " dragon";
-            if( itm.checkAtkEf( ITM_ATKEF.DEMON ) )  ef ~= " demon";
-            if( itm.checkAtkEf( ITM_ATKEF.INSECT ) ) ef ~= " insect";
-            textout(_( " damages will be doubled to\n %1 type monsters.\n" ) , ef );
-        }
-  
-        if ( itm.defef != 0 )
-        {
-            ef = "";
-            if ( itm.checkDefEf( ITM_DEFEF.CRITICAL ) ) ef ~= " critical";
-            if ( itm.checkDefEf( ITM_DEFEF.STONE    ) ) ef ~= " stone";
-            if ( itm.checkDefEf( ITM_DEFEF.PARALIZE ) ) ef ~= " paralize";
-            if ( itm.checkDefEf( ITM_DEFEF.SLEEP    ) ) ef ~= " sleep";
-            if ( itm.checkDefEf( ITM_DEFEF.POISON   ) ) ef ~= " poison";
-            if ( itm.checkDefEf( ITM_DEFEF.FIRE     ) ) ef ~= " fire";
-            if ( itm.checkDefEf( ITM_DEFEF.ICE      ) ) ef ~= " ice";
-            if ( itm.checkDefEf( ITM_DEFEF.DRAIN    ) ) ef ~= " drain";
-            textout( _( " it is resistive to %1 attacks.\n" ) , ef ) ;
-        }
-  
-        if ( itm.magdef != 0 )
-          textout( _( " it is resistive to spells.\n" ) );
+        itm.dispInfo;
 
-        if ( itm.hpplus > 0 )
-          textout( _( " it is a healing item.\n" ) );
-
-        if ( itm.hpplus < 0 )
-          textout( _( " it is a cursed item and\n" )
-                 ~ _( "  just having it will hurt you badly.\n" ) );
-  
-        if ( itm.effect[ 0 ] != 0 )
-        {
-            if ( ( itm.effect[ 0 ] & 0x80 ) != 0 )
-            {
-                ef = magic_data[ itm.effect[ 0 ] & 0x7f ].name ;
-                textout( _( " you can cast a %1 by using it\n                 while you are in camp.\n" ) , ef );
-            }
-            else
-            {
-                textout( _( " using it while you are in camp\n               will cause something.\n" ) );
-            }
-        }
-
-        if ( itm.effect[ 1 ] != 0 )
-        {
-            if ( ( itm.effect[ 1 ] & 0x80 ) != 0 )
-            {
-                ef = magic_data[ itm.effect[ 1 ] & 0x7f ].name ;
-                textout( _( " you can cast a %1 during battle.\n" ) , ef );
-            }
-            else
-            {
-                textout( _( " using it while you are in battle\n               will cause something.\n" ) );
-            }
-        }
-
-        if ( itm.effect[ 2 ] != 0 )
-          textout( _( " using it during equip\n           will cause something.\n" ) );
-  
-        // 個別に
-        if (itm.itemNo == 170) // vorpat_tooth
-            textout( _( " you got it from the vorpal_bunnies\n" )
-                   ~ _( "   on B2 layer, right?\n" ) );
-        if (itm.itemNo == 149) // The_Muramasa_Blade!
-            textout( _( " oh...finally, I got to see\n" )
-                   ~ _( "    *** THE TRUE MURAMASA BLADE!! ***\n" ) );
-        if (itm.itemNo == 148) // muramasa_katana
-            textout( _( " I've heard a rumor that there's a more\n" )
-                   ~ _( " powerful weapon than this. can it be true!\n" ) );
-        if (itm.itemNo == 147) // 皆伝の書
-            textout( _( " God!  written in this is\n" )
-                   ~ _( "         the secret of ninja.\n" ) );
-        if (itm.itemNo == 146) // garb_of_lords
-            textout( _( " one of the top three items, you know.\n" ) );
-        if (itm.itemNo == 143) // shurikens
-            textout( _( " one of the top three items, you know.\n" ) );
-        if (itm.itemNo == 137) // vorpal_weapon
-            textout( _( " it is the most powerful sword for F&L.\n" ) );
-        if (itm.itemNo == 135) // fox_gon's_mittens
-            textout( _( " have you heard a sad story of the fox?\n" ) );
-        if (itm.itemNo == 131) // vampire_killer
-            textout( _( " Mmm...what happened to the hunter?\n" ) );
-        if (itm.itemNo == 99) // gradius
-            textout( _( " Mmm...it is a really good sword, you know.\n" ) );
-        if (itm.itemNo == 43) // garcon_jacket(e)
-            textout( _( " Mmm...very stylish, very...\n" ) );
-        if (itm.itemNo == 42) // antwerp_sweater
-            textout( _( " look at this!  what a beautiful color!\n" ));
-  
-        textout( _( " I would buy it for %1 gp.\n" ) , itm.gold / 2 );
-
-        if ( ( itm.Align & 0x7 ) == 7 )
-            textout( _( " Be aware! it is cursed.\n" ) );
     }
     goto TOP;
 }

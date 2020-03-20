@@ -10,3 +10,4 @@
 ../source/cMonsterParty.d
 ../source/cMap.d
 ../source/cEvent.d
+../source/cItemDef.d
