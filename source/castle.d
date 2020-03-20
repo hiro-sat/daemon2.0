@@ -386,7 +386,7 @@ void gilgamesh()
 
             case 'z': 
             case '9':   // z)leave(9)
-                textout( _( "leave\n"  ));
+                textout( _( "leave the bar\n"  ));
                 for( i = 0 ; i < 6 ; i++ )
                     party.memsv[ i ] = party.mem[ i ];
                 header_disp( HSTS.CASTLE );
@@ -469,7 +469,7 @@ void boltac()
                 break;
             case 'z': /* leave */
             case '9': /* leave */
-                textout( _( "leave\n"  ));
+                textout( _( "leave the mart\n"  ));
                 header_disp( HSTS.CASTLE );
                 return;
             case 'b': /* buy */
@@ -511,6 +511,8 @@ void boltac_buy()
     int[ MAXITEM ] item;
 
     Member mem;
+    Member mem_takes;
+
 
     void dispBoltacBuyMenu()
     {
@@ -528,12 +530,18 @@ void boltac_buy()
         return;
     }
 
+WHO_BUY:
+    mem = party.selectActiveMember( _( "who will buy(z:leave(9))? " ) , _( "leave" ) );
+    if( mem is null )
+        return;
+
     dispBoltacBuyMenu;
 
     while ( true )
     {
         scrwin_clear();
-        last = boltac_list( top, kind, disp_lines, item );   // ref: disp_lines , item[]
+        // ref: disp_lines , item[]
+        last = boltac_list( mem , top, kind, disp_lines, item );   
 
         while ( true )
         {
@@ -623,34 +631,29 @@ void boltac_buy()
                         if ( item_data[ i ].canBeEquipped( CLS.NIN ) ) textout( 'n' );
                         textout(" \n");
 
-                    ANOTHER_PUR:
-                        textout( _( "who takes it(z:leave(9))? "  ));
-                        while (true)
+                        if ( mem.canCarry )
                         {
-                            c = getChar();
-                            if ( c == 'z' || c == '9' 
-                                    || ( c >= '1' && c <= party.num + '0' ) )
-                                break;
+                            mem_takes = mem;
                         }
-                        textout( c );
-                        if ( c=='z' || c=='9' ) 
-                        {
-                            textout( '\n' );
-                            continue;
-                        }
-
-                        mem = party.mem[ c - '1' ];
-                        textout( "(" ~ mem.name ~ ")\n" );
-
-                        if ( ! mem.canCarry )
+                        else
                         {
                             textout( _( "you cannot carry anything more.\n"  ));
+
+                        ANOTHER_PUR:
                             textout( _( "anyone else takes it(y/n)?"  ));
 
-                            if ( answerYN == 'y')
+                            if ( answerYN != 'y')
+                                break;
+
+                            mem_takes = party.selectActiveMember( _( "who takes it(z:leave(9))? " ) 
+                                                                , _( "leave" ) );
+                            if( mem_takes is null )
+                                break;
+                            if( ! mem_takes.canCarry )
+                            {
+                                textout( _( "%1 cannot carry anything more.\n" ) , mem_takes.name );
                                 goto ANOTHER_PUR;
-                            dispBoltacBuyMenu;
-                            continue;
+                            }
                         }
 
                         if ( mem.gold < item_data[ i ].gold )
@@ -659,7 +662,7 @@ void boltac_buy()
                             textout( _( "pool gold(y/n)? "  ));
 
                             if ( answerYN == 'n' )
-                                goto ANOTHER_PUR;
+                                continue;
 
                             party.poolGold( mem );
                             if ( mem.gold < item_data[ i ].gold )
@@ -671,10 +674,10 @@ void boltac_buy()
                         }
 
                         mem.gold -= item_data[ i ].gold;
-                        mem.getItem( i );
+                        mem_takes.getItem( i );
 
                         boltacitem[ i ]--;
-                        last = boltac_list( top, kind, disp_lines , item );
+                        last = boltac_list( mem , top, kind, disp_lines , item );
                         party.win_disp();
                         textout( _( "\njust what you needed.\n"  ));
                         break;
@@ -686,15 +689,19 @@ void boltac_buy()
                 break;
         }
     }
+    goto WHO_BUY;
 }
 
 
 /**
   boltac_list
   */ 
-int boltac_list( int top, ITM_KIND kind , ref int lines , ref int[ MAXITEM ]  item )
+int boltac_list( Member mem 
+        , int top, ITM_KIND kind , ref int lines , ref int[ MAXITEM ]  item )
 {
     int i, j, k;
+    string list;
+    string canEquip;
 
     lines = 0;
 
@@ -748,9 +755,18 @@ int boltac_list( int top, ITM_KIND kind , ref int lines , ref int[ MAXITEM ]  it
             if ( boltacitem[ i ] != 0 )
             {
                 item[ lines ] = i;
+                if ( item_data[ i ].canBeEquipped( mem.Class ) )
+                    canEquip = " ";
+                else
+                    canEquip = "#";
+
+                list = formatText( "%1)%2%3" 
+                        , cast(char)( 'a' + lines ) 
+                        , canEquip
+                        , item_data[ i ].name ) ;
+
                 mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP, "                             " );
-                mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP, " )" ~ item_data[i].name );
-                mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP, cast(char)( 'a' + lines ) );
+                mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP , list );
                 mvIntDispD( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP + 18, item_data[ i ].gold, 8 );
                 printw( "*" );
 
@@ -830,7 +846,12 @@ void boltac_sell()
             {
                 itm = mem.item[ ch - '1' ];
                 textout( "(" ~ itm.getDispNameA ~ ")\n" );
-                if ( itm.equipped )
+                if ( itm.cursed )
+                {
+                    textout( _( "    cursed item.\n"  ));
+                    continue;
+                }
+                else if ( itm.equipped )
                 {
                     textout( _( "    equipped item.\n"  ));
                     continue;
@@ -940,8 +961,8 @@ void uncurse()
                 }
             }
             mem.gold -= itm.gold / 2;
+            textout( _( "uncursed and %1 is vanished...\n" ) , itm.getDispNameA );
             mem.releaseItem( itm );
-            textout( _( "uncursed.\n" ) );
             getChar();
             return;
         }

@@ -752,7 +752,8 @@ bool treasure_main( int monnum )
         {
             case 'i':   // inspect
             case '4':
-                mem = party.selectActiveMember( _( "who inspects the chest(z:leave(9))? " ) );
+                mem = party.selectActiveMember( _( "who inspects the chest(z:leave(9))? " ) 
+                                              , _( "leave" ) );
                 if( mem is null )
                     continue;
 
@@ -809,7 +810,8 @@ bool treasure_main( int monnum )
                 break;
 
             case 'o':   // open
-                mem = party.selectActiveMember( _( "who opens the chest(z:leave(9))? " ) );
+                mem = party.selectActiveMember( _( "who opens the chest(z:leave(9))? " ) 
+                                              , _( "leave" ) );
                 if( mem is null )
                     continue;
 
@@ -825,7 +827,8 @@ bool treasure_main( int monnum )
 
             case 'c':   // spell
             case '6':
-                mem = party.selectActiveMember( _( "who casts a inspct(z:leave(9))? " ) );
+                mem = party.selectActiveMember( _( "who casts a inspct(z:leave(9))? " ) 
+                                              , _( "leave" ) );
                 if( mem is null )
                     continue;
 
