@@ -4,6 +4,7 @@
 import std.stdio;
 import std.file;
 import std.conv;
+import std.array;
 import std.string : format , split , chop , indexOf ;
 import std.math : abs ;
 import std.ascii : toLower ;
@@ -85,11 +86,14 @@ private:
             case '=':
             case '*':
             case '^':
+            case 'X':   // except 'X'
                 return false;
             case '$':
                 return party.isLight ;
             default:
                 if( orgmap[ y ][ x ] >= 'a' && orgmap[ y ][ x ] <= 'z' )
+                    return true;
+                else if( orgmap[ y ][ x ] >= 'A' && orgmap[ y ][ x ] <= 'Z' )   // except 'X'
                     return true;
                 else if( orgmap[ y ][ x ] >= '0' && orgmap[ y ][ x ] <= '9' )
                     return true;
@@ -217,13 +221,21 @@ public:
     bool readMap()
     {
 
-        int y = 0;
         char c;
+        char _c;
+        int enc_cnt;
         bool encountFlg;
 
+        string[] line;
+
         auto fin  = File( ORGMAPFILE ~ to!string( layer ) ,"r");
-        y = 0;
-        foreach ( line ; fin.byLine )
+        foreach( s ; fin.byLine )
+        {
+            line.length++;
+            line.back = to!string ( s );
+        }
+
+        foreach ( y , ln ; line )
         {
 
             if( y < MAP_MAX_Y )
@@ -232,31 +244,24 @@ public:
                 for( int x = 0 ; x < MAP_MAX_X ; x++ )
                 {
                     encountFlg = false;
-                    c = to!char( line[ x .. x + 1 ] );
+                    c = to!char( ln[ x .. x + 1 ] );
                     if( c == '<' )
                     {
                         startX = x;
-                        startY = y;
+                        startY = to!int( y );
                     }
                     else if( c == '>' )
                     {
-                        endX = x;
-                        endY = y;
+                        endX = x; endY = to!int( y );
+                    }
+                    else if( c == '^' )
+                    {   // pit
+                        c = '_';
                     }
                     else if( c == '@' )
                     {
                         c = ' ';
                         encountFlg = true;
-                    }
-                    else if( ( c >= 'A' && c <= 'Z' ) && c != 'X' )
-                    {   // event
-                        c = toLower( c ); 
-                        encountFlg = true;
-                    }
-                    else if( c == '^' )
-                    {   // pit
-                        c = '_';
-                        encountFlg = false;
                     }
                     else if( c == '~' )
                     {   // pit
@@ -268,29 +273,51 @@ public:
                         c = '$';
                         encountFlg = true;
                     }
+                    else if( ( c >= 'a' && c <= 'z' ) ||
+                             ( ( c >= 'A' && c <= 'Z' ) && c != 'X' ) )
+                    {   // event
+                        enc_cnt = 0;
+                        if( encountRoom.isEncount( to!int( y ) , x - 1 ) )
+                            enc_cnt ++;
+                        if( encountRoom.isEncount( to!int( y - 1 ) , x ) )
+                            enc_cnt ++;
+
+                        string _ln;
+                        _ln = line[ y + 1 ];
+                        _c = to!char( _ln[ x .. x + 1 ] );
+                        if( _c == '@' || _c == '~' || _c == '&' )
+                            enc_cnt ++;
+
+                        _c = to!char( ln[ x + 1 .. x + 2 ] );
+                        if( _c == '@' || _c == '~' || _c == '&' )
+                            enc_cnt ++;
+
+                        if( enc_cnt >= 2 )
+                            encountFlg = true;
+
+                    }
+
                     orgmap[ y ][ x ] = c;
-                    /* encountRoom[ y ][ x ].setEncount = encountFlg; */
-                    encountRoom.setEncount( y , x , encountFlg );
+                    encountRoom.setEncount( to!int( y ) , x , encountFlg );
                 }
             }
-            y++;
         }
 
         if( ! exists( MAPFILE ~ to!string( layer ) ) )
         {
             writef( "initializing... %s%d\n", MAPFILE , layer );
-            for (y = 0; y < MAP_MAX_Y; y++)
-                for (int x = 0; x < MAP_MAX_X; x++)
+            for ( int y = 0; y < MAP_MAX_Y; y++ )
+                for ( int x = 0; x < MAP_MAX_X; x++ )
                     map[ y ][ x ] = '^';
         }
         else
         {
             auto fin2  = File( MAPFILE ~ to!string( layer ) ,"r");
-            y = 0;
-            foreach ( line; fin2.byLine )
+            int y = 0;
+            foreach( ln ; fin2.byLine )
             {
                 for( int x = 0 ; x < MAP_MAX_X ; x++ )
-                    map[ y ][ x ] = to!char( line[ x .. x + 1 ] );
+                    map[ y ][ x ] = to!char( ln[ x .. x + 1 ] );
                 y++;
             }
         }
@@ -455,6 +482,31 @@ public:
         char c = map[ y ][ x ];
 
         if( ( c >= 'a' && c <= 'z' )
+         || ( c != 'X' && ( c >= 'A' && c <= 'Z' ) )
+         || ( c >= '0' && c <= '9' ) )
+            return true;
+
+        if ( c == '<' 
+          || c == '>' 
+          || c == '$' 
+          || c == '#' 
+          || c == ' ' 
+          || c == '_'
+          || ( c == '+' && doorFlg ) )
+            return true;
+        else
+            return false;
+    }
+
+    /*--------------------
+       isPassableOrgmap - 通行可能？
+       --------------------*/
+    bool isPassableOrgmap( int y , int x ,  bool doorFlg = false )
+    {
+        char c = orgmap[ y ][ x ];
+
+        if( ( c >= 'a' && c <= 'z' )
+         || ( c != 'X' && ( c >= 'A' && c <= 'Z' ) )
          || ( c >= '0' && c <= '9' ) )
             return true;
 
@@ -735,10 +787,14 @@ public:
 
                     if (c == '*' && ! debugmode )  // secret door
                     {
-                        if ( orgmap[ y ][ x - 1 ] == ' ' 
-                          || orgmap[ y ][ x + 1 ] == ' ' )
+                        if ( orgmap[ y ][ x - 1 ] == 'X' 
+                          || orgmap[ y ][ x + 1 ] == 'X' )
+                            c = 'X';
+                        else if ( isPassableOrgmap( y , x - 1 )
+                               || isPassableOrgmap( y , x + 1 ) )
                             c = '|';
-                        else c = '-';
+                        else
+                            c = '-';
                     }
                     map[ y ][ x ] = c;
                 }
@@ -791,6 +847,8 @@ public:
                         c = ' ';
 
                     if ( ( c >= 'a' && c <= 'z' ) && ! debugmode )
+                        c = '#';
+                    if ( ( c != 'X' && ( c >= 'A' && c <= 'Z' ) ) && ! debugmode )
                         c = '#';
                     if ( ( c >= '0' && c <= '9' ) && ! debugmode )
                         c = '#';
