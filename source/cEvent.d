@@ -42,10 +42,12 @@ abstract class Event
     {
         switch( m )
         {
+            /+  階段のチェックはイベントで行わない
             case '>':
                 return downStairs;
             case '<':
                 return upStairs;
+            +/
             case '_':
                 return pit;
             default:
@@ -55,8 +57,14 @@ abstract class Event
     }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
-    int upStairs()
+    int upStairs( char m )
     {
+        if( m != '<' )
+        {
+            textout( _( "what?\n" ) );
+            return 0;
+        }
+
         textout( _( "\n*** up stairs ***\n" ) );
         textout( _( "go up(y/n)? " ) );
 
@@ -77,13 +85,21 @@ abstract class Event
                 party.dungeon.disp;
                 header_disp( HSTS.DUNGEON );
             }
+            return 1;
         }
-        return 1;
+        return 0;
     }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
-    int downStairs()
+    int downStairs( char m )
     {
+
+        if( m != '>' )
+        {
+            textout( _( "what?\n" ) );
+            return 0;
+        }
+
         textout( _( "\n*** down stairs ***\n" ) );
         textout( _( "go down(y/n)? " ) );
 
@@ -95,8 +111,9 @@ abstract class Event
             party.dungeon.initDisp;
             party.dungeon.disp;
             header_disp( HSTS.DUNGEON );
+            return 1;
         }
-        return 1;
+        return 0;
     }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
@@ -241,25 +258,27 @@ class EventL1 : Event
 
         switch( m )
         {
-            case 'a':
+            case 'A':
                 textout( "*** Welcome to the Dungeon of Daemon ***\n" );
                 textout( "    Copyright by K.Achiwa, 1996,2002.\n" );
                 textout( "                 All Rights Reserved.\n" );
                 textout( "****************************************\n" );
-                getChar();
                 break;
-            case 'b':
+            case 'B':
                 textout( "壁にmessageが書かれている:\n" );
                 textout( "「ここでsearch('s')してみな。\n" );
                 textout( "　。。うわ、俺ってやさしいぜ！ S.」\n" );
                 break;
             case 'c':
+                textout( "ムッとするような湿気で満たされている部屋だ。\n" );
+                break;
+            case 'C':
                 textout( "壁にメッセージが書かれている:\n" );
                 getChar();
                 textout( "「おまえら初心者だな。悪いことは言わねえ。\n" );
                 textout( "　痛い目に遭わない内に引き返すこった。 S.」\n" );
                 break;
-            case 'd':
+            case 'D':
                 textout( "壁にメッセージが書かれている:\n" );
                 getChar();
                 textout( "「うーむ。。。\n" );

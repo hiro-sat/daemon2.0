@@ -12,7 +12,7 @@ syntax match orgmapSecretDoor /*/
 syntax match orgmapPit        /\^/
 syntax match orgmapPitE       /\~/
 syntax match orgmapEvent      /[a-z]/
-syntax match orgmapEventE     /[ABCDEFGHIJKLMNOPQRSTUVWYZ]/
+syntax match orgmapEvent      /[ABCDEFGHIJKLMNOPQRSTUVWYZ]/
 syntax match orgmapDarkzone   /\$/
 syntax match orgmapDarkzoneE  /&/
 syntax match orgmapStairs     /[<>]/
