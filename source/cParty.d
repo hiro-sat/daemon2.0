@@ -784,6 +784,7 @@ public:
               if ( mem[ i ].consume_spell( 0x3 ) == 0 )
               {
                   setMapper;
+                  dungeon.disp;
                   textout( _( "  mapper...done.\n" ) );
                   break;
               }

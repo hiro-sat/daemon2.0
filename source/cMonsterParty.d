@@ -35,66 +35,41 @@ class MonsterParty
 
         /* int[ 4 ] mdef; */
         MonsterDef mondef;
-        int i, j;
+        MonsterTeam mt;
+        MonsterTeam prev;
+
         int moncount , sum;
 
-        for ( i = 0; i < 4 * 9; i++ )
-            monster[ i ].def = null;
+        foreach( s ; monster )
+        {
+            s.def = null;
+            s.previous = null;
+            s.next = null;
+        }
       
         num = to!int( mdef.length );
         assert( ( num >= 1 && num <= 4  ) , "err : tnum : " ~ to!string( num ) );
 
         top = monTeam[ 0 ];
         end = monTeam[ num - 1 ];
-      
-        sum = 0;
-        for ( j = 0; j < num; j++ )
+
+        prev = null;
+        foreach( i , d ; mdef )
         {
-            mondef = monster_data[ mdef[ j ] ];
+            mt = monTeam[ i ];
+            mt.previous = prev;
+            mt.next = null;
 
-            moncount = mondef.minnum + get_rand( mondef.addnum );
-            monTeam[ j ].num = moncount;
-            monTeam[ j ].top = monster[ sum ];
+            mt.def = monster_data[ mdef[ i ] ];
+            mt.addMonsterTeam();
+            
+            if( prev !is null )
+                prev.next = mt;
 
-            monTeam[ j ].ident = party.isIdentify;  // latumapic invalid?
-
-            if ( j == 0 )
-                monTeam[ j ].previous = null;
-            else
-                monTeam[ j ].previous = monTeam[ j - 1 ];
-
-            if ( j < num - 1 )
-                monTeam[ j ].next = monTeam[ j + 1 ];
-            else
-                monTeam[ j ].next = null;
-      
-            for ( i = 0; i < moncount; i++ )
-            {
-                monster[ sum + i ].team     = monTeam[ j ];
-                monster[ sum + i ].def      = mondef;
-
-                /* monster[ sum + i ].maxhp    = mondef.minhp + mondef.addhp;  // get_rand?? */
-                monster[ sum + i ].maxhp    = mondef.minhp + get_rand( mondef.addhp );  // get_rand??
-                monster[ sum + i ].hp       = monster[ sum + i ].maxhp;
-
-                monster[ sum + i ].status   = 0;
-                monster[ sum + i ].silenced = false;
-                monster[ sum + i ].acplus   = 0;
-
-                if ( i == 0 )
-                    monster[ sum + i ].previous = null;
-                else
-                    monster[ sum + i ].previous = monster[ sum + i - 1 ];
-
-                if ( i < moncount - 1 )
-                    monster[ sum + i ].next = monster[ sum + i + 1 ];
-                else
-                    monster[ sum + i ].next = null;
-            }
-            sum += moncount;
+            prev = mt;
         }
-        return;
 
+        return;
     }
 
 

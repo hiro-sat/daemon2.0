@@ -43,6 +43,27 @@ class Monster
     }
 
     /*--------------------
+       add - モンスター新規追加
+       --------------------*/
+    void add( MonsterTeam mt , MonsterDef d )
+    {
+
+        team = mt;
+        def  = d;
+
+        maxhp = def.minhp + get_rand( def.addhp );
+        hp    = maxhp;
+
+        status   = MON_STS.OK;
+        silenced = false;
+        acplus   = 0;
+
+        return;
+
+    }
+
+
+    /*--------------------
        getDispName - モンスター表示名称取得（単数）
        --------------------*/
     string getDispNameA()
@@ -97,14 +118,14 @@ class Monster
         def = null;
 
         if ( previous is null ) /* top? */
-          team.top = next;
+            team.top = next;
         else
-          previous.next = next;
+            previous.next = next;
 
         if ( next is null )     /* end? */
-          team.end = previous;
+            team.end = previous;
         else
-          next.previous = previous;
+            next.previous = previous;
 
         team.num--;
 
@@ -173,7 +194,7 @@ class Monster
                 textout( _( "A %1 calls for help.\n" ) , getDispNameA );
                 if ( get_rand( 2 ) == 0 )
                 {
-                    if ( add() )
+                    if ( help() )
                     {
                         textout( _( "  A %1 appeared.\n" ) , getDispNameA );
                     }
@@ -227,47 +248,11 @@ class Monster
 
 
     /**--------------------
-       add - 仲間を呼ぶ
+        help - 仲間を呼ぶ
        --------------------*/
-    bool add()
+    bool help()
     {
-        int i;
-        Monster m;
-        Monster mprevious;
-      
-        if ( team.num == 9 ) /* max mons in a team */
-            return false;
-
-        m = null;
-        for ( i = 0; i < 4 * 9; i++ )
-            if ( monster[ i ].def is null )
-            {
-                m = monster[ i ];
-                break;
-            }
-        if( m is null )
-            return false;
-      
-        mprevious = team.top;
-        while ( mprevious.next !is null )
-            mprevious = mprevious.next;
-
-        mprevious.next = m;
-        m.previous = mprevious;
-        m.next = null;
-        team.end = m;
-
-        team.num++;
-        team.actnum++;
-        m.def = mprevious.def;
-
-
-        m.maxhp    = m.def.minhp + get_rand( m.def.addhp );
-        m.hp       = m.maxhp;
-        m.status   = MON_STS.OK;
-        m.silenced = false;
-
-        return true;
+        return team.callHelp;
     }
 
     /**--------------------

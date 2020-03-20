@@ -9,6 +9,7 @@ import std.array;
 import def;
 import app;
 import cMonster;
+import cMonsterDef;
 
 class MonsterTeam
 {
@@ -17,6 +18,8 @@ class MonsterTeam
 
     bool ident; /* identify flag true:identify, false:not */
                 /* identify flag 0:identify, 1:not  // original*/
+
+    MonsterDef def;
 
     MonsterTeam previous;   // fp
     MonsterTeam next;       // tp
@@ -110,6 +113,90 @@ class MonsterTeam
         for ( int i = 0; i < get_rand( num - 1); i++ )
             m = m.next;
         return m;
+    }
+
+    /*--------------------
+       addMonsterTeam - MonsterTeam 追加
+       --------------------*/
+    void addMonsterTeam()
+    {
+
+        Monster m;
+        Monster prev;
+
+        num = def.minnum + get_rand( def.addnum );
+        ident = party.isIdentify;  // latumapic invalid?
+
+        top = addMonster();
+        assert( top !is null );
+
+        top.previous = null;
+
+        prev = top;
+        for( int i = 1 ; i < num ; i++ )
+        {
+            m = addMonster;
+            m.previous = prev;
+            m.next = null;
+            
+            if( prev !is null )
+                prev.next = m;
+
+            prev = m;
+        }
+        end = m;
+        return;
+    }
+
+    /*--------------------
+       callHelp - 仲間を呼ぶ
+       --------------------*/
+    bool callHelp()
+    {
+
+        Monster m;
+
+        if ( num == 9 ) /* max mons in a team */
+            return false;
+
+        m = addMonster();
+        if( m is null )
+            return false;
+
+        end.next = m;
+        m.previous = end;
+        m.next = null;
+
+        end = m;
+        num ++;
+        actnum ++;  // 未使用？
+
+        return true;
+    }
+
+    /*--------------------
+       addMonster - Monster 追加
+       --------------------*/
+    Monster addMonster()
+    {
+
+        Monster m;
+
+        // get empty slot
+        m = null;
+        foreach( s ; monster )
+            if( s.def is null )
+            {
+                m = s;
+                break;
+            }
+
+        if( m is null )
+            return null;
+
+        m.add( this , def );
+        return m;
+
     }
 
     /*--------------------
