@@ -985,7 +985,7 @@ public:
     /*--------------------
        selectActiveMember - status OK のメンバーを選択
        --------------------*/
-    Member selectActiveMember( string msg )
+    Member selectActiveMember( string msg , string msg_ret )
     {
 
         char c;
@@ -1003,8 +1003,7 @@ public:
 
         if ( c == 'z' || c == '9' )
         {
-            textout( c );
-            textout( "\n" );
+            textout( "%1:%2\n" , c , msg_ret );
             return null;
         }
 

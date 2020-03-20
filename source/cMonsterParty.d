@@ -203,16 +203,12 @@ class MonsterParty
                     continue;
                 }
                 mondef = monteam.top.def;
-                textout( mondef.name );
-                textout( ":\n  level:" );
-                textout( mondef.level );
-                textout( ", ac:" );
-                textout( mondef.ac );
-                textout( ", hp:" );
-                textout( mondef.minhp );
-                textout( "-" );
-                textout( mondef.minhp + mondef.addhp );
-                textout( "\n" );
+                textout( mondef.name ~ ":\n");
+                textout( "  level:%1, ac:%2, hp:%3-%4\n" 
+                        , mondef.level
+                        , mondef.ac
+                        , mondef.minhp
+                        , mondef.minhp + mondef.addhp );
                 if ( mondef.atkef != 0 )
                 {
                     textout( _( "  special attacks:" ) );
