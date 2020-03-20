@@ -358,9 +358,9 @@ void gilgamesh()
                 break;
 
             case 'e':   // equip
-                textout( _( "equip\n"  ));
                 if( party.num < 1 )
                     break;
+                textout( _( "equip\n"  ));
                 party.equip;
                 dispGilgameshMenu;
                 break;
