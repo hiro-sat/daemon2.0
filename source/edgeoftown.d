@@ -240,7 +240,7 @@ private void training()
                 break;
             case 'z': /* leave */
             case '9': /* leave */
-                textout( _( "leave\n" ) );
+                textout( _( "leave the training ground.\n" ) );
                 header_disp( HSTS.EOT );
                 return;
             case 'n': // change name
