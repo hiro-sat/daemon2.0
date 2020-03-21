@@ -3932,7 +3932,8 @@ public:
                 else
                     mem.status = STS.ASHED;
             }
-            mem.vit[ 0 ]--;
+            if( get_rand( 3 ) == 0 )
+                mem.vit[ 0 ]--;
         }
         party.win_disp();
         return;
@@ -3982,7 +3983,8 @@ public:
                 textout( _( "  oops!!\n" ) );
                 mem.status = STS.ASHED;
             }
-            mem.vit[ 0 ]--;
+            if( get_rand( 3 ) == 0 )
+                mem.vit[ 0 ]--;
         }
         party.win_disp();
         return;

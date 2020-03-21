@@ -608,6 +608,7 @@ WHO_BUY:
 
                 i = item[ c - 'a' ];
                 item_data[ i ].dispInfo;
+                getChar;
                 dispBoltacBuyMenu;
                 break;
             case 'b':
