@@ -1670,17 +1670,34 @@ public:
     {
         int i;
 
+        setColor( CL.MENU );
         textout( _( "which weapon(1,2,...,l:leave)?\n" ) );
+        setColor( CL.NORMAL );
         equip_sub( ITM_KIND.WEAPON );
+
+        setColor( CL.MENU );
         textout( _( "which armor(1,2,...,l:leave)?\n" ) );
+        setColor( CL.NORMAL );
         equip_sub( ITM_KIND.ARMOR );
+
+        setColor( CL.MENU );
         textout( _( "which shield(1,2,...,l:leave)?\n" ) );
+        setColor( CL.NORMAL );
         equip_sub( ITM_KIND.SHIELD );
+
+        setColor( CL.MENU );
         textout( _( "which helm(1,2,...,l:leave)?\n" ) );
+        setColor( CL.NORMAL );
         equip_sub( ITM_KIND.HELM );
+
+        setColor( CL.MENU );
         textout( _( "which gloves(1,2,...,l:leave)?\n" ) );
+        setColor( CL.NORMAL );
         equip_sub( ITM_KIND.GLOVES );
+
+        setColor( CL.MENU );
         textout( _( "which item(1,2,...,l:leave)?\n" ) );
+        setColor( CL.NORMAL );
         equip_sub( ITM_KIND.ITEM );
 
         range    = 1;
@@ -3915,7 +3932,8 @@ public:
                 else
                     mem.status = STS.ASHED;
             }
-            mem.vit[ 0 ]--;
+            if( get_rand( 3 ) == 0 )
+                mem.vit[ 0 ]--;
         }
         party.win_disp();
         return;
@@ -3965,7 +3983,8 @@ public:
                 textout( _( "  oops!!\n" ) );
                 mem.status = STS.ASHED;
             }
-            mem.vit[ 0 ]--;
+            if( get_rand( 3 ) == 0 )
+                mem.vit[ 0 ]--;
         }
         party.win_disp();
         return;

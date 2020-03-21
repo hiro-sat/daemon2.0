@@ -291,7 +291,7 @@ public:
         if ( ( Align & 0x7 ) == 7 )
             textout( _( " Be aware! it is cursed.\n" ) );
 
-        getChar;
+        /* getChar; */
         return;
     }
 }
