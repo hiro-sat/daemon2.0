@@ -144,28 +144,28 @@ public:
         switch( layer )
         {
             case 1:
-                event = new EventL1;
+                event = new EventL1( 1 );
                 break;
             case 2:
-                event = new EventL2;
+                event = new EventL2( 2 );
                 break;
             case 3:
-                event = new EventL3;
+                event = new EventL3( 3 );
                 break;
             case 4:
-                event = new EventL4;
+                event = new EventL4( 4 );
                 break;
             case 5:
-                event = new EventL5;
+                event = new EventL5( 5 );
                 break;
             case 6:
-                event = new EventL6;
+                event = new EventL6( 6 );
                 break;
             case 7:
-                event = new EventL7;
+                event = new EventL7( 7 );
                 break;
             case 8:
-                event = new EventL8;
+                event = new EventL8( 8 );
                 break;
             default:
                 assert( 0 );
