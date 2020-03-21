@@ -23,6 +23,7 @@ import cMonsterParty;
 import cMonsterTeam;
 import cMonster;
 import cMonsterDef;
+import cMonsterEncount;
 import cBattleTurn;
 
 // json設定ファイル
@@ -240,6 +241,9 @@ MonsterDef[ MAXMONSTER ]  monster_data;
 MonsterParty      monParty;
 MonsterTeam[ 4 ]  monTeam;
 Monster[ 4 * 9 ]  monster; /* max 4team*9 */
+
+MonsterEncountTable[ string ]   encountTable;
+string ENC_TBL_SP = "s";
 int get_exp;
 
 //----------------------------------------

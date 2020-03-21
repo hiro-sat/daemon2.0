@@ -9,6 +9,7 @@ import std.array;
 // mysource 
 import def;
 import app;
+import cMonsterEncount;
 
 class MonsterDef
 {
@@ -196,6 +197,25 @@ public:
                 actionNoMagic.back = a;
             }
         assert( actionNoMagic.length > 0 , "monster data no action without magic." );
+
+        // encount table
+        string[] tbl_id;
+        MonsterEncountTable table;
+        tbl_id = to!string( data[ i++ ] ).chop.split( "," );
+
+        foreach( t ;tbl_id )
+        {
+            if( t in encountTable )
+            {
+                table = encountTable[ t ];
+            }
+            else
+            {
+                table = new MonsterEncountTable( t );
+                encountTable[ t ] = table;
+            }
+            table.add( id );
+        }
 
         return;
     }
