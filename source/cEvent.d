@@ -8,6 +8,7 @@ import std.array;
 import cParty;
 import cMember;
 import cMonsterParty;
+import cMonsterEncount;
 
 import def;
 import app;
@@ -236,13 +237,28 @@ abstract class Event
 /*====== event L1 ===================================================*/
 class EventL1 : Event
 {
+    
+    int specialRate = 4;
+    string encID= "1";
 
     override int getEncounterMonster()
     {
-        if ( get_rand( 3 ) != 0 )
-            return get_rand( 3 );
+        if( specialRate != 0 && ( get_rand( specialRate - 1 ) == 0 ) )
+            // special
+        {
+            assert( ( encID ~ ENC_TBL_SP ) in encountTable );
+            return encountTable[ encID ~ ENC_TBL_SP ].getEncount;
+        }
         else
-            return get_rand( 5 );
+        {
+            assert( encID in encountTable );
+            return encountTable[ encID ].getEncount;
+        }
+
+        /* if ( get_rand( 3 ) != 0 ) */
+        /*     return get_rand( 3 ); */
+        /* else */
+        /*     return get_rand( 5 ); */
     }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
