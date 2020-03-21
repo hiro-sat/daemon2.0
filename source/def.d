@@ -184,6 +184,7 @@ enum RATE_ENCOUNT_STOP  = 63;   //  1/64
 enum MAP_MAX_X = 80;
 enum MAP_MAX_Y = 40;
 string ORGMAPFILE = "resources/orgmap.";
+string ORGMAPJSON = "resources/orgmap.%1.json";
 string MAPFILE = "data/map.";
 
 Map[ MAXLAYER ] dungeonMap;

@@ -3,8 +3,11 @@
 import std.stdio;
 import std.conv;
 import std.array;
+import std.json;
 
 // mysource 
+import lib_json;
+
 import cParty;
 import cMember;
 import cMonsterParty;
@@ -19,13 +22,28 @@ import dungeon;
 
 abstract class Event
 {
-    // virtual
-    abstract int getEncounterMonster();
 
+    int layer;
     bool[ 50 ] eventflg;
 
-    this()
+    // encount
+    /* int specialRate = 4; */
+    /* string encID= "1"; */
+    int specialRate;
+    string encID;
+
+
+    this( int l )
     {
+        layer = l;
+
+        // json 確認
+        Json json = new Json( formatText( ORGMAPJSON , layer  ) );
+        JSONValue mapJson = json[ "encount" ].object;
+
+        specialRate = to!int( mapJson[ "special_rate" ].integer );
+        encID = mapJson[ "id" ].str;
+
         resetFlg;
         return;
     }
@@ -171,6 +189,24 @@ abstract class Event
     }
 
 
+    /*--------------------
+       getEncounterMonster - エンカウンターモンスター取得
+       --------------------*/
+    int getEncounterMonster()
+    {
+        if( specialRate != 0 && ( get_rand( specialRate - 1 ) == 0 ) )
+            // special
+        {
+            assert( ( encID ~ ENC_TBL_SP ) in encountTable );
+            return encountTable[ encID ~ ENC_TBL_SP ].getEncount;
+        }
+        else
+        {
+            assert( encID in encountTable );
+            return encountTable[ encID ].getEncount;
+        }
+    }
+
     /*====== encount =================================================*/
     /* tre=0 : gold */
     /* tre=1 : treasure */
@@ -237,29 +273,8 @@ abstract class Event
 /*====== event L1 ===================================================*/
 class EventL1 : Event
 {
-    
-    int specialRate = 4;
-    string encID= "1";
 
-    override int getEncounterMonster()
-    {
-        if( specialRate != 0 && ( get_rand( specialRate - 1 ) == 0 ) )
-            // special
-        {
-            assert( ( encID ~ ENC_TBL_SP ) in encountTable );
-            return encountTable[ encID ~ ENC_TBL_SP ].getEncount;
-        }
-        else
-        {
-            assert( encID in encountTable );
-            return encountTable[ encID ].getEncount;
-        }
-
-        /* if ( get_rand( 3 ) != 0 ) */
-        /*     return get_rand( 3 ); */
-        /* else */
-        /*     return get_rand( 5 ); */
-    }
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -270,7 +285,6 @@ class EventL1 : Event
         rtncode = super.event_chk( m );
         if( rtncode != 0 )
             return rtncode;
-
 
         switch( m )
         {
@@ -476,10 +490,8 @@ class EventL1 : Event
 /*====== event L2 ===================================================*/
 class EventL2 : Event
 {
-    override int getEncounterMonster()
-    {
-        return 6 + get_rand(8);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -587,10 +599,8 @@ class EventL2 : Event
 /*====== event L3 ===================================================*/
 class EventL3 : Event
 {
-    override int getEncounterMonster()
-    {
-        return 15 + get_rand(14);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -689,10 +699,8 @@ class EventL3 : Event
 /*====== event L4 ===================================================*/
 class EventL4 : Event
 {
-    override int getEncounterMonster()
-    {
-        return 20 + get_rand(19);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -768,10 +776,8 @@ class EventL4 : Event
 /*====== event L5 ===================================================*/
 class EventL5 : Event
 {
-    override int getEncounterMonster()
-    {
-        return 30 + get_rand(24);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -824,10 +830,8 @@ class EventL5 : Event
 /*====== event L6 ===================================================*/
 class EventL6 : Event
 {
-    override int getEncounterMonster()
-    {
-        return 40 + get_rand(39);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -917,10 +921,8 @@ class EventL6 : Event
 /*====== event L7 ===================================================*/
 class EventL7 : Event
 {
-    override int getEncounterMonster()
-    {
-        return 55 + get_rand(34);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )
@@ -995,13 +997,8 @@ class EventL7 : Event
 /*====== event L8 ===================================================*/
 class EventL8 : Event
 {
-    override int getEncounterMonster()
-    {
-        if ( get_rand( 9 ) != 0 )
-            return 70 + get_rand(28); // maelificまで
-        else
-            return 70 + get_rand(37);
-    }
+
+    this( int l ) { super( l ); }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
     override int event_chk( char m )

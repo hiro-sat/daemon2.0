@@ -35,7 +35,7 @@ public:
 
     int getEncount()
     {
-        return get_rand( to!int( table.length - 1 ) );
+        return table[ get_rand( to!int( table.length - 1 ) ) ];
     }
 
 }
