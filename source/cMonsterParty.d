@@ -226,6 +226,34 @@ class MonsterParty
                         textout( _( "drain" ) );
                     textout( "\n" );
                 }
+                foreach( a ; mondef.action )
+                    if( ( a & 0x80 ) != 0 )
+                    {
+                        textout( _( "  cast spells.\n" ) );
+                        break;
+                    }
+                foreach( a ; mondef.action )
+                    if( a != MON_ACT.BRT )
+                    {
+                        textout( _( "  exhales breath\n" ) );
+                        string effect = "";
+                        if ( mondef.isBreEfPoison )
+                            effect ~= _( "poison " );
+                        if ( mondef.isBreEfSleep )
+                            effect ~= _( "sleep " );
+                        if ( mondef.isBreEfParalize )
+                           effect ~=  _( "paralize " );
+                        if ( mondef.isBreEfStone )
+                            effect ~= _( "stone " );
+                        if ( mondef.isBreEfCritical )
+                            effect ~= _( "critical " );
+                        if ( mondef.getBreEfDrainLv > 0 )
+                            effect ~= _( "drain" );
+
+                        if( effect != "" )
+                            textout( _( "  breath effect:%1" ) , effect );
+                        break;
+                    }
                 if ( mondef.magdef !=0 )
                 {
                     textout( _( "  resistance to spells:" ) );
@@ -238,6 +266,7 @@ class MonsterParty
               textout( monteam.top.def.unname );
               textout( _( ":\n  unidentified\n" ) );
             }
+            getChar;
             monteam = monteam.next;
         }
         return;

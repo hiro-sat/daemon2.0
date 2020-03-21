@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 00:22+0900\n"
-"PO-Revision-Date: 2020-03-21 00:23+0900\n"
+"POT-Creation-Date: 2020-03-21 00:25+0900\n"
+"PO-Revision-Date: 2020-03-21 00:25+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -1827,6 +1827,180 @@ msgstr ""
 msgid "  each survivor gets %1 gp.\n"
 msgstr "  生き残った者は %1 g.p. 手に入れた。\n"
 
+#: ../source/cItemDef.d:140
+msgid ""
+" ***\n"
+" it is a short range weapon.\n"
+msgstr ""
+" ***\n"
+" 近接攻撃用の武器です。\n"
+
+#: ../source/cItemDef.d:142
+msgid ""
+" ***\n"
+" it is a long range weapon.\n"
+msgstr ""
+" ***\n"
+" 遠距離攻撃できる武器です。\n"
+
+#: ../source/cItemDef.d:143
+#, fuzzy
+msgid " it deals %1-%2 damage.\n"
+msgstr "  %1 に %2 ダメージを与えた！\n"
+
+#: ../source/cItemDef.d:146
+msgid " is an armor.\n"
+msgstr " は鎧です。\n"
+
+#: ../source/cItemDef.d:147 ../source/cItemDef.d:151 ../source/cItemDef.d:155
+#: ../source/cItemDef.d:159
+msgid " it affects your AC by %1 points.\n"
+msgstr " AC を %1 ポイント下げます。\n"
+
+#: ../source/cItemDef.d:150
+msgid " is a shield.\n"
+msgstr " は盾です。\n"
+
+#: ../source/cItemDef.d:162
+msgid " is an item.\n"
+msgstr " はアイテムです。\n"
+
+#: ../source/cItemDef.d:181
+msgid " %1 can equip it. \n"
+msgstr " %1 が装備可能です。\n"
+
+#: ../source/cItemDef.d:190
+msgid " it has a %1 effect.\n"
+msgstr " 攻撃すると %1 の効果が。\n"
+
+#: ../source/cItemDef.d:203
+msgid ""
+" damages will be doubled to\n"
+" %1 type monsters.\n"
+msgstr " %1 タイプのモンスターに２倍の効果が。\n"
+
+#: ../source/cItemDef.d:217
+msgid " it is resistive to %1 attacks.\n"
+msgstr " %1 攻撃に抵抗属性が。\n"
+
+#: ../source/cItemDef.d:221
+msgid " it is resistive to spells.\n"
+msgstr " 魔法抵抗属性が。\n"
+
+#: ../source/cItemDef.d:224
+msgid " it is a healing item.\n"
+msgstr " ヒール効果があります。\n"
+
+#: ../source/cItemDef.d:227
+msgid " it is a cursed item and\n"
+msgstr " これは…呪われている！\n"
+
+#: ../source/cItemDef.d:228
+msgid "  just having it will hurt you badly.\n"
+msgstr "  持っているだけであなたのことを傷つける。\n"
+
+#: ../source/cItemDef.d:235
+msgid ""
+" you can cast a %1 by using it\n"
+"                 while you are in camp.\n"
+msgstr ""
+" キャンプ中に使用すると\n"
+"   %1 の効果が。\n"
+
+#: ../source/cItemDef.d:239
+msgid ""
+" using it while you are in camp\n"
+"               will cause something.\n"
+msgstr ""
+" キャンプ中に使用すると\n"
+"   何かが起こるようだ。\n"
+
+#: ../source/cItemDef.d:248
+msgid " you can cast a %1 during battle.\n"
+msgstr " 戦闘中に %1 の効果が。\n"
+
+#: ../source/cItemDef.d:252
+msgid ""
+" using it while you are in battle\n"
+"               will cause something.\n"
+msgstr ""
+" 戦闘中に使用すると\n"
+"   何かが起こるようだ。\n"
+
+#: ../source/cItemDef.d:257
+msgid ""
+" using it during equip\n"
+"           will cause something.\n"
+msgstr " 装備していると何かの効果があるようだ。\n"
+
+#: ../source/cItemDef.d:261
+msgid " you got it from the vorpal_bunnies\n"
+msgstr " これは地下２階の ウサギたちから\n"
+
+#: ../source/cItemDef.d:262
+msgid "   on B2 layer, right?\n"
+msgstr "  手に入れたんじゃないか？\n"
+
+#: ../source/cItemDef.d:264
+msgid " oh...finally, I got to see\n"
+msgstr " おお！ついに。これは！！\n"
+
+#: ../source/cItemDef.d:265
+msgid "    *** THE TRUE MURAMASA BLADE!! ***\n"
+msgstr "    *** THE TRUE MURAMASA BLADE!! ***\n"
+
+#: ../source/cItemDef.d:267
+msgid " I've heard a rumor that there's a more\n"
+msgstr " これが噂に聞く！\n"
+
+#: ../source/cItemDef.d:268
+msgid " powerful weapon than this. can it be true!\n"
+msgstr " 最強の武器！。実在したとは。\n"
+
+#: ../source/cItemDef.d:270
+msgid " God!  written in this is\n"
+msgstr " なんと！これには……\n"
+
+#: ../source/cItemDef.d:271
+msgid "         the secret of ninja.\n"
+msgstr "  忍者の秘密が！\n"
+
+#: ../source/cItemDef.d:273 ../source/cItemDef.d:275
+msgid " one of the top three items, you know.\n"
+msgstr " これは三種の神器の一つ！\n"
+
+#: ../source/cItemDef.d:277
+msgid " it is the most powerful sword for F&L.\n"
+msgstr " 戦士、君主にとってもっとも強力な剣だ！\n"
+
+#: ../source/cItemDef.d:279
+msgid " have you heard a sad story of the fox?\n"
+msgstr " 狐にまつわる悲しい話を知っているかい？\n"
+
+#: ../source/cItemDef.d:281
+msgid " Mmm...what happened to the hunter?\n"
+msgstr " むぅ。ハンターに何が？\n"
+
+#: ../source/cItemDef.d:283
+msgid " Mmm...it is a really good sword, you know.\n"
+msgstr " むぅ。これは本当にいい剣だ。\n"
+
+#: ../source/cItemDef.d:285
+msgid " Mmm...very stylish, very...\n"
+msgstr " むぅ。とてもスタイリッシュだ。とても…\n"
+
+#: ../source/cItemDef.d:287
+msgid " look at this!  what a beautiful color!\n"
+msgstr " 見てみろ！なんて美しい……\n"
+
+#: ../source/cItemDef.d:289
+msgid " I would buy it for %1 gp.\n"
+msgstr " %1 g.p. で引き取ります。\n"
+
+#: ../source/cItemDef.d:292
+msgid " Be aware! it is cursed.\n"
+msgstr " 気を付けろ！呪われている！\n"
+
 #~ msgid "p)urchase z)leave(9)\n"
 #~ msgstr "p)購入する z)戻る(9)\n"
 
@@ -1835,138 +2009,6 @@ msgstr "  生き残った者は %1 g.p. 手に入れた。\n"
 
 #~ msgid "purchase\n"
 #~ msgstr "p)購入する\n"
-
-#~ msgid ""
-#~ " ***\n"
-#~ " it is a short range weapon.\n"
-#~ msgstr ""
-#~ " ***\n"
-#~ " 近接攻撃用の武器です。\n"
-
-#~ msgid ""
-#~ " ***\n"
-#~ " it is a long range weapon.\n"
-#~ msgstr ""
-#~ " ***\n"
-#~ " 遠距離攻撃できる武器です。\n"
-
-#~ msgid " is an armor.\n"
-#~ msgstr " は鎧です。\n"
-
-#~ msgid " it affects your AC by %1 points.\n"
-#~ msgstr " AC を %1 ポイント下げます。\n"
-
-#~ msgid " is a shield.\n"
-#~ msgstr " は盾です。\n"
-
-#~ msgid " is an item.\n"
-#~ msgstr " はアイテムです。\n"
-
-#~ msgid " %1 can equip it. \n"
-#~ msgstr " %1 が装備可能です。\n"
-
-#~ msgid " it has a %1 effect.\n"
-#~ msgstr " 攻撃すると %1 の効果が。\n"
-
-#~ msgid ""
-#~ " damages will be doubled to\n"
-#~ " %1 type monsters.\n"
-#~ msgstr " %1 タイプのモンスターに２倍の効果が。\n"
-
-#~ msgid " it is resistive to %1 attacks.\n"
-#~ msgstr " %1 攻撃に抵抗属性が。\n"
-
-#~ msgid " it is resistive to spells.\n"
-#~ msgstr " 魔法抵抗属性が。\n"
-
-#~ msgid " it is a healing item.\n"
-#~ msgstr " ヒール効果があります。\n"
-
-#~ msgid " it is a cursed item and\n"
-#~ msgstr " これは…呪われている！\n"
-
-#~ msgid "  just having it will hurt you badly.\n"
-#~ msgstr "  持っているだけであなたのことを傷つける。\n"
-
-#~ msgid ""
-#~ " you can cast a %1 by using it\n"
-#~ "                 while you are in camp.\n"
-#~ msgstr ""
-#~ " キャンプ中に使用すると\n"
-#~ "   %1 の効果が。\n"
-
-#~ msgid ""
-#~ " using it while you are in camp\n"
-#~ "               will cause something.\n"
-#~ msgstr ""
-#~ " キャンプ中に使用すると\n"
-#~ "   何かが起こるようだ。\n"
-
-#~ msgid " you can cast a %1 during battle.\n"
-#~ msgstr " 戦闘中に %1 の効果が。\n"
-
-#~ msgid ""
-#~ " using it while you are in battle\n"
-#~ "               will cause something.\n"
-#~ msgstr ""
-#~ " 戦闘中に使用すると\n"
-#~ "   何かが起こるようだ。\n"
-
-#~ msgid ""
-#~ " using it during equip\n"
-#~ "           will cause something.\n"
-#~ msgstr " 装備していると何かの効果があるようだ。\n"
-
-#~ msgid " you got it from the vorpal_bunnies\n"
-#~ msgstr " これは地下２階の ウサギたちから\n"
-
-#~ msgid "   on B2 layer, right?\n"
-#~ msgstr "  手に入れたんじゃないか？\n"
-
-#~ msgid " oh...finally, I got to see\n"
-#~ msgstr " おお！ついに。これは！！\n"
-
-#~ msgid "    *** THE TRUE MURAMASA BLADE!! ***\n"
-#~ msgstr "    *** THE TRUE MURAMASA BLADE!! ***\n"
-
-#~ msgid " I've heard a rumor that there's a more\n"
-#~ msgstr " これが噂に聞く！\n"
-
-#~ msgid " powerful weapon than this. can it be true!\n"
-#~ msgstr " 最強の武器！。実在したとは。\n"
-
-#~ msgid " God!  written in this is\n"
-#~ msgstr " なんと！これには……\n"
-
-#~ msgid "         the secret of ninja.\n"
-#~ msgstr "  忍者の秘密が！\n"
-
-#~ msgid " one of the top three items, you know.\n"
-#~ msgstr " これは三種の神器の一つ！\n"
-
-#~ msgid " it is the most powerful sword for F&L.\n"
-#~ msgstr " 戦士、君主にとってもっとも強力な剣だ！\n"
-
-#~ msgid " have you heard a sad story of the fox?\n"
-#~ msgstr " 狐にまつわる悲しい話を知っているかい？\n"
-
-#~ msgid " Mmm...what happened to the hunter?\n"
-#~ msgstr " むぅ。ハンターに何が？\n"
-
-#~ msgid " Mmm...it is a really good sword, you know.\n"
-#~ msgstr " むぅ。これは本当にいい剣だ。\n"
-
-#~ msgid " Mmm...very stylish, very...\n"
-#~ msgstr " むぅ。とてもスタイリッシュだ。とても…\n"
-
-#~ msgid " look at this!  what a beautiful color!\n"
-#~ msgstr " 見てみろ！なんて美しい……\n"
-
-#~ msgid " I would buy it for %1 gp.\n"
-#~ msgstr " %1 g.p. で引き取ります。\n"
-
-#~ msgid " Be aware! it is cursed.\n"
-#~ msgstr " 気を付けろ！呪われている！\n"
 
 #~ msgid "uncursed.\n"
 #~ msgstr "u)呪いを解く\n"
