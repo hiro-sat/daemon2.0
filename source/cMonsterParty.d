@@ -233,7 +233,7 @@ class MonsterParty
                         break;
                     }
                 foreach( a ; mondef.action )
-                    if( a != MON_ACT.BRT )
+                    if( a == MON_ACT.BRT )
                     {
                         textout( _( "  exhales breath\n" ) );
                         string effect = "";

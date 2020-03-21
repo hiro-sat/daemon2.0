@@ -23,6 +23,7 @@ import cMonsterParty;
 import cMonsterTeam;
 import cMonster;
 import cMonsterDef;
+import cMonsterEncount;
 import cBattleTurn;
 
 // json設定ファイル
@@ -183,6 +184,7 @@ enum RATE_ENCOUNT_STOP  = 63;   //  1/64
 enum MAP_MAX_X = 80;
 enum MAP_MAX_Y = 40;
 string ORGMAPFILE = "resources/orgmap.";
+string ORGMAPJSON = "resources/orgmap.%1.json";
 string MAPFILE = "data/map.";
 
 Map[ MAXLAYER ] dungeonMap;
@@ -240,6 +242,9 @@ MonsterDef[ MAXMONSTER ]  monster_data;
 MonsterParty      monParty;
 MonsterTeam[ 4 ]  monTeam;
 Monster[ 4 * 9 ]  monster; /* max 4team*9 */
+
+MonsterEncountTable[ string ]   encountTable;
+string ENC_TBL_SP = "s";
 int get_exp;
 
 //----------------------------------------

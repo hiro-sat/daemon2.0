@@ -65,6 +65,10 @@ void main(string[] args)
         if( ! castle_main )
             break;
 
+        // return で戻った直後に保存すると layer=0 になる。
+        if( party.layer == 0 )
+            continue;
+
         if( ! dungeon_main )
             break;
 
@@ -504,7 +508,6 @@ public bool saveBoltac()
 {
 
     auto fout = File( SHOPFILE, "w" );
-    /* fout.writeln("Hello World!"); */
 
     for ( int i = 0  ; i < boltacitem.length ; i++ )
         if ( boltacitem[ i ] !=0 )
