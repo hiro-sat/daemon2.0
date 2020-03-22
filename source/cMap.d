@@ -144,7 +144,8 @@ public:
         switch( layer )
         {
             case 1:
-                event = new EventL1( 1 );
+                /* event = new EventL1( 1 ); */
+                event = new Event( 1 );
                 break;
             case 2:
                 event = new EventL2( 2 );
