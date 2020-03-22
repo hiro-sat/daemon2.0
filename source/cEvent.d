@@ -20,11 +20,15 @@ import dungeon;
 
 /* import lib_sdl; */
 
-abstract class Event
+class Event
 {
 
     int layer;
     bool[ 50 ] eventflg;
+
+    Json      json;  // map info , event
+    JSONValue event;  // event
+    bool set_event_json = false;
 
     // encount
     /* int specialRate = 4; */
@@ -38,11 +42,19 @@ abstract class Event
         layer = l;
 
         // json 確認
-        Json json = new Json( formatText( ORGMAPJSON , layer  ) );
+        json = new Json( formatText( ORGMAPJSON , layer  ) );
         JSONValue mapJson = json[ "encount" ].object;
 
-        specialRate = to!int( mapJson[ "special_rate" ].integer );
         encID = mapJson[ "id" ].str;
+        specialRate = to!int( mapJson[ "special_rate" ].integer );
+
+        // event json
+        if( l == 1 )
+        {
+            set_event_json = true;
+            event = json[ "event" ].object;
+        }
+
 
         resetFlg;
         return;
@@ -53,26 +65,6 @@ abstract class Event
         for( int i = 0 ; i < 20 ; i++ )
             eventflg = false;
         return;
-    }
-
-    // (super) override  event_chk
-    // ret : 2: exit from maze , 1:not encount , defalut: encount check
-    int event_chk( char m ) 
-    {
-        switch( m )
-        {
-            /+  階段のチェックはイベントで行わない
-            case '>':
-                return downStairs;
-            case '<':
-                return upStairs;
-            +/
-            case '_':
-                return pit;
-            default:
-                break;
-        }
-        return 0;        
     }
 
     // ret : 2: exit from maze , 1:not encount , defalut: encount check
@@ -213,7 +205,8 @@ abstract class Event
     /* tre=2 : no gold nor treasure (alarm) */
     // rtncode = 1 : won
     //           2 : ran
-    BATTLE_RESULT encounter( TRE tre )
+    BATTLE_RESULT
+        encounter( TRE tre )
     {
         int getgold;
         int i;
@@ -267,6 +260,287 @@ abstract class Event
 
         return bt_result;
     }
+
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+    int event_chk( char m ) 
+    {
+        switch( m )
+        {
+            case '_':
+                return pit;
+            default:
+                break;
+        }
+
+
+        // TEST
+        if( ! set_event_json )
+            return 0;
+
+
+        // check event
+        if( ( m >= 'a' && m <= 'z') 
+         || ( m >= 'A' && m <= 'Z' && m != 'X' ) 
+         || ( m >= '0' && m <= '9' ) )
+        {
+            // fall through
+        }
+        else
+        {
+            return 0;
+        }
+
+        // check json
+        if( ! ( to!string( m ) in event ) )
+        {
+            textout( "not event : " ~ to!string( m ) );
+            return 0;
+        }
+        
+        JSONValue ev;
+        ev = event[ to!string( m ) ].object;
+        
+        int ret = 0;
+        bool exit = false;
+        executeEvent( ev , ret , exit );
+        return ret;
+
+    }
+
+
+    /*--------------------
+       executeEvent - イベント実行
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+       --------------------*/
+    void executeEvent( JSONValue ev , ref int ret , ref bool exit )
+    {
+
+        int count = 1;
+        string index;
+        int[] mdef;
+
+        JSONValue com;
+        JSONValue result;
+
+        while( !exit )
+        {
+
+            index = "00" ~ to!string( count ++ );
+            index = index[ index.length - 3 .. $ ];
+
+            if( ! ( index in ev ) )
+                break;
+
+            com = ev[ index ].object;
+            
+            switch( com[ "command" ].str )
+            {
+                case "msg":
+                    textout( com[ "text" ].str );
+                    break;
+                case "getkey":
+                    getChar;
+                    break;
+                case "ret":
+                    exit = true;
+                    ret = to!int( com[ "value" ].integer );
+                    return;
+                case "battle":
+                    foreach( m ; com[ "monster" ].array )
+                        mdef ~= to!int( m.integer );
+                    monParty.add( mdef );
+                    battle_main;
+                    break;
+                case "jumplayer":
+                    party.layer = to!byte( com[ "layer" ].integer );
+                    party.setDungeon;
+                    party.x = to!byte( com[ "x" ].integer );
+                    party.y = to!byte( com[ "y" ].integer );
+                    party.dungeon.initDisp;
+                    party.dungeon.disp;
+                    header_disp( HSTS.DUNGEON );
+                    break;
+                case "jump":
+                    party.x = to!byte( com[ "x" ].integer );
+                    party.y = to!byte( com[ "y" ].integer );
+                    party.dungeon.initDisp;
+                    party.dungeon.disp;
+                    header_disp( HSTS.DUNGEON );
+                    break;
+                case "setflg":
+                    eventflg[ to!int( com[ "flg" ].integer ) ] = true;
+                    break;
+                case "resetfg":
+                    eventflg[ to!int( com[ "flg" ].integer ) ] = false;
+                    break;
+                case "getitem":
+                    party.theyGet( to!int( com[ "item" ].integer ) );
+                    break;
+
+                case "if_yn":
+                    result = com[ "result" ].object;
+                    event_ifYN( result , ret , exit );
+                    if( exit )
+                        return;
+                    break;
+                case "if_battle":
+                    result = com[ "result" ].object;
+                    event_ifBattle( result , ret , exit );
+                    if( exit )
+                        return;
+                    break;
+                case "if_flg":
+                    result = com[ "result" ].object;
+                    event_ifFlg( result , ret , exit );
+                    if( exit )
+                        return;
+                    break;
+                case "if_item":
+                    result = com[ "result" ].object;
+                    event_ifItem( result , ret , exit );
+                    if( exit )
+                        return;
+                    break;
+                default:
+                    assert( 0 );
+            }
+        }
+        return;
+    }
+
+    /*--------------------
+       event_ifYN - イベント実行
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+       true: event end / false: continue
+       --------------------*/
+    void event_ifYN( JSONValue ev , ref int ret , ref bool exit)
+    {
+
+        JSONValue result;
+
+        switch( answerYN )
+        {
+            case 'y':
+                if( "y" in ev )
+                {
+                    result = ev[ "y" ].object;
+                    executeEvent( result , ret , exit );
+                }
+                return;
+            case 'n':
+                if( "n" in ev )
+                {
+                    result = ev[ "n" ].object;
+                    executeEvent( result , ret , exit );
+                }
+                return;
+            default:
+                assert( 0 );
+        }
+    }
+
+    /*--------------------
+       event_ifBattle - イベント実行
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+       --------------------*/
+    void event_ifBattle( JSONValue ev , ref int ret , ref bool exit )
+    {
+
+        int[] mdef;
+        JSONValue result;
+
+        foreach( m ; ev[ "monster" ].array )
+            mdef ~= to!int( m.integer );
+        monParty.add( mdef );
+
+        switch( battle_main )
+        {
+            case BATTLE_RESULT.WON:
+                if( "win" in ev )
+                {
+                    result = ev[ "win" ].object;
+                    executeEvent( result , ret , exit );
+                }
+                return;
+            case BATTLE_RESULT.LOST:
+                if( "lose" in ev )
+                {
+                    result = ev[ "lose" ].object;
+                    executeEvent( result , ret , exit );
+                }
+                return;
+            case BATTLE_RESULT.RAN:
+                if( "escape" in ev )
+                {
+                    result = ev[ "escape" ].object;
+                    executeEvent( result , ret , exit );
+                }
+                return;
+            default:
+                assert( 0 );
+        }
+    }
+
+    /*--------------------
+       event_ifFlg - イベント実行
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+       true: event end / false: continue
+       --------------------*/
+    void event_ifFlg( JSONValue ev , ref int ret , ref bool exit )
+    {
+
+        JSONValue result;
+
+        if( eventflg[ ev[ "flg" ].integer ] )
+        {
+            if( "on" in ev )
+            {
+                result = ev[ "on" ].object;
+                executeEvent( result , ret , exit );
+            }
+        }
+        else
+        {
+            if( "off" in ev )
+            {
+                result = ev[ "off" ].object;
+                executeEvent( result , ret , exit );
+            }
+        }
+        return;
+
+    }
+
+    /*--------------------
+       event_ifItem - イベント実行
+    // ret : 2: exit from maze , 1:not encount , defalut: encount check
+       true: event end / false: continue
+       --------------------*/
+    void event_ifItem( JSONValue ev , ref int ret , ref bool exit )
+    {
+
+        JSONValue result;
+
+        if ( party.doTheyHave( to!int( ev[ "item" ].integer ) ) )
+        {
+            if( "have" in ev )
+            {
+                result = ev[ "have" ].object;
+                executeEvent( result , ret , exit );
+            }
+        }
+        else
+        {
+            if( "dont" in ev )
+            {
+                result = ev[ "dont" ].object;
+                executeEvent( result , ret , exit );
+            }
+        }
+        return;
+
+    }
+
 }
 
 

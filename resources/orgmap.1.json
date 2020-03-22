@@ -1,8 +1,168 @@
-
 {
-    "encount" : 
-    {
-        "id" : "1" ,
-        "special_rate" : 4
+  "encount": {
+    "id": "1",
+    "special_rate": 4
+  },
+  "event": {
+    "a": {
+      "001": { "command": "msg", "text": "*** Welcome to the Dungeon of Daemon ***\n" },
+      "002": { "command": "msg", "text": "    Copyright by K.Achiwa, 1996,2002.\n" },
+      "003": { "command": "msg", "text": "                 All Rights Reserved.\n" },
+      "004": { "command": "msg", "text": "****************************************\n" }
+    },
+    "b": {
+      "001": { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      "002": { "command": "msg", "text": "「ここでsearch('s')してみな。\n" },
+      "003": { "command": "msg", "text": "　。。うわ、俺ってやさしいぜ！ S.」\n" }
+    },
+    "c": {
+      "001": { "command": "msg", "text": "ムッとするような湿気で満たされている部屋だ。\n" }
+    },
+    "C": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「おまえら初心者だな。悪いことは言わねえ。\n" },
+      "004": { "command": "msg", "text": "　痛い目に遭わない内に引き返すこった。 S.」\n" }
+    },
+    "d": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「うーむ。。。\n" },
+      "004": { "command": "msg", "text": "　戻る気は無いってことか。。。 S.」\n" }
+    },
+    "e": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「しかし残念だったな。お宝は残ってないぜ。\n" },
+      "004": { "command": "msg", "text": "　俺たちflorin公国の精鋭部隊purple beretが\n" },
+      "005": { "command": "msg", "text": "　お先にいただいちまってる筈さ! S.」\n" }
+    },
+    "f": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "msg", "text": "「この先にdarkzoneがあるぜ。 S.」\n" } 
+    },
+    "g": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「flip!! flip!! flipしてるか?\n" },
+      "004": { "command": "msg", "text": "　冒険には何よりflipが大切さ! S.」\n" }
+    },
+    "h": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「Howdy! 調子はどうだい?\n" },
+      "004": { "command": "msg", "text": "　そろそろお家に帰りたくなってきたろ? S.」\n" }
+    },
+    "i": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「この中には強いモンスターがいるぜ。 S.」\n" }
+    },
+    "j": {
+      "001": { "command": "msg", "text": "*** 異常な妖気が満ちている。\n  探しますか(y/n)? " },
+      "002": { "command": "if_yn",
+          "result": {
+            "y": {
+              "001": { "command": "battle", "monster": [ 77 ] },
+              "002": { "command": "ret", "value": 1 }
+            },
+            "n": {
+              "001": { "command": "ret", "value": 1 }
+            }
+          }
+      }
+    },
+    "k": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「おい、何だかおかしいぜ?\n" },
+      "004": { "command": "msg", "text": "　ここのモンスターは普通じゃない。\n" },
+      "005": { "command": "msg", "text": "　何らかの力で強化されてるみたいだ S.」\n" }
+    },
+    "l": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「いやー、無駄に広い部屋だ。。 S.」\n" }
+    },
+    "m": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「。。。メンバーには内緒だけどな、\n" },
+      "004": { "command": "msg", "text": "　モンスターを倒して宝を取ってこい、\n" },
+      "005": { "command": "msg", "text": "　なんてミッションには裏がありそうだ。\n" },
+      "006": { "command": "msg", "text": "　。。。。。\n" },
+      "007": { "command": "getkey" },
+      "008": { "command": "msg", "text": "　ここには何かある。\n" },
+      "009": { "command": "msg", "text": "　俺の直感がそう言っているぜ。 S.」\n" }
+    },
+    "n": {
+      "001": { "command": "msg", "text": "壁にメッセージが書かれている:\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "msg", "text": "「ここまで来たか。\n　おまえらなかなかやるな S.」\n" }
+    },
+    "o": {
+      "001": { "command": "msg", "text": "どこか遠くの部屋でガタガタと物音が聞こえてくる。 \n" },
+      "002": { "command": "getkey" }
+    },
+
+    "p": {
+      "001": { "command": "msg", "text": "この部屋は異様な妖気で満たされている。\n" }
+    },
+    "3": {
+      "001": { "command": "msg", "text": "突然、目もくらむほど強烈な光につつまれた！\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "jumplayer", "layer": 3, "x": 37, "y": 17 },
+      "004": { "command": "ret", "value": 1 }
+    },
+
+    "q": {
+      "001": { "command": "msg", "text": "この部屋は異様な妖気で満たされている。\n" }
+    },
+    "4": {
+      "001": { "command": "msg", "text": "突然、目もくらむほど強烈な光につつまれた！\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "jumplayer", "layer": 3, "x": 4, "y": 16 },
+      "004": { "command": "ret", "value": 1 }
+    },
+
+    "r": {
+      "001": { "command": "msg", "text": "この部屋は異様な妖気で満たされている。\n" }
+    },
+    "5": {
+      "001": { "command": "msg", "text": "突然、目もくらむほど強烈な光につつまれた！\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "jumplayer", "layer": 5, "x": 28, "y": 4 },
+      "004": { "command": "ret", "value": 1 }
+    },
+
+    "s": {
+      "001": { "command": "msg", "text": "この部屋は異様な妖気で満たされている。\n" }
+    },
+    "6": {
+      "001": { "command": "msg", "text": "突然、目もくらむほど強烈な光につつまれた！\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "jumplayer", "layer": 6, "x": 37, "y": 24 },
+      "004": { "command": "ret", "value": 1 }
+    },
+
+    "t": {
+      "001": { "command": "msg", "text": "この部屋は異様な妖気で満たされている。\n" }
+    },
+    "7": {
+      "001": { "command": "msg", "text": "突然、目もくらむほど強烈な光につつまれた！\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "jumplayer", "layer": 7, "x": 1, "y": 2 },
+      "004": { "command": "ret", "value": 1 }
+    },
+
+    "u": {
+      "001": { "command": "msg", "text": "この部屋は異様な妖気で満たされている。\n" }
+    },
+    "8": {
+      "001": { "command": "msg", "text": "突然、目もくらむほど強烈な光につつまれた！\n" },
+      "002": { "command": "getkey" },
+      "003": { "command": "jumplayer", "layer": 8, "x": 1, "y": 2 },
+      "004": { "command": "ret", "value": 1 }
     }
+  }
 }

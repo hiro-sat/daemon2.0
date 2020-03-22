@@ -3519,6 +3519,9 @@ public:
             case MAG_TYPE.DYNG:
                 spell_dyng( getTargetMonsterTeam.getRandMonster );
                 break;
+            case MAG_TYPE.BREATHE:
+                spell_breathe();
+                break;
             default:
                 assert( 0 );
         }
