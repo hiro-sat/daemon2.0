@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"hiro-sat"
+	],
+	"copyright": "Copyright © 2020, hiro-sat",
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "maptools"
+}

@@ -1,0 +1,86 @@
+!_TAG_FILE_FORMAT	2
+!_TAG_FILE_SORTED	1
+!_TAG_FILE_AUTHOR	Brian Schott
+!_TAG_PROGRAM_URL	https://github.com/Hackerpilot/Dscanner/
+Map	./cMap.d	8;"	c	line:8
+Passage	./cPassage.d	11;"	c	line:11
+PassageManager	./cPassage.d	328;"	c	line:328
+Point	./cRoom.d	13;"	s	line:13	class:Room	access:public
+Room	./cRoom.d	10;"	c	line:10
+RoomsManager	./cRoom.d	340;"	c	line:340
+SPC	./cRoom.d	8;"	v	line:8
+add	./cPassage.d	332;"	f	line:332	class:PassageManager	access:public	signature:(int x, int y)
+add	./cRoom.d	345;"	f	line:345	class:RoomsManager	access:public	signature:(int x, int y)
+checkClockwise	./cRoom.d	55;"	f	line:55	class:Room	access:public	signature:(int dir, int x, int y)
+checkCounterClockwise	./cRoom.d	74;"	f	line:74	class:Room	access:public	signature:(int dir, int x, int y)
+checkDir	./cRoom.d	120;"	f	line:120	class:Room	access:public	signature:(int dir, ref int dx, ref int dy)
+checkRoom	./cRoom.d	368;"	f	line:368	class:RoomsManager	access:public	signature:(int x, int y)
+clock	./cRoom.d	15;"	v	line:15	struct:Point	access:public
+disp	./cRoom.d	44;"	f	line:44	class:Room	access:public	signature:()
+dispFlg	./cMap.d	212;"	f	line:212	class:Map	access:public	signature:()
+dispTile	./cMap.d	201;"	f	line:201	class:Map	access:public	signature:()
+door1	./cPassage.d	17;"	v	line:17	class:Passage	access:public
+door2	./cPassage.d	18;"	v	line:18	class:Passage	access:public
+doorH	./cPassage.d	21;"	v	line:21	class:Passage	access:public
+doorV	./cPassage.d	22;"	v	line:22	class:Passage	access:public
+drawRooms	./cRoom.d	221;"	f	line:221	class:Room	access:public	signature:(int x, int y)
+drawtemp	./cRoom.d	28;"	f	line:28	class:Room	access:public	signature:(int x, int y)
+filename	./app.d	10;"	v	line:10
+flg	./cMap.d	12;"	v	line:12	class:Map	access:public
+getFlg	./cMap.d	34;"	f	line:34	class:Map	access:public	signature:(int x, int y)
+getTile	./cMap.d	52;"	f	line:52	class:Map	access:public	signature:(int x, int y)
+gettemp	./cRoom.d	32;"	f	line:32	class:Room	access:public	signature:(int x, int y)
+height	./cMap.d	14;"	v	line:14	class:Map	access:public
+initFlg	./cMap.d	16;"	f	line:16	class:Map	access:public	signature:()
+isPassage	./cMap.d	76;"	f	line:76	class:Map	access:public	signature:(int px, int py)
+isSpace	./cMap.d	62;"	f	line:62	class:Map	access:public	signature:(int x, int y)
+isWall	./cMap.d	58;"	f	line:58	class:Map	access:public	signature:(int x, int y)
+main	./app.d	17;"	f	line:17	signature:()
+map	./app.d	13;"	v	line:13
+openD	./cPassage.d	27;"	v	line:27	class:Passage	access:public
+openL	./cPassage.d	25;"	v	line:25	class:Passage	access:public
+openR	./cPassage.d	26;"	v	line:26	class:Passage	access:public
+openU	./cPassage.d	24;"	v	line:24	class:Passage	access:public
+passage	./cPassage.d	330;"	v	line:330	class:PassageManager	access:public
+passages	./app.d	15;"	v	line:15
+pnt	./cRoom.d	21;"	v	line:21	class:Room	access:public
+reTile	./cMap.d	141;"	f	line:141	class:Map	access:public	signature:()
+reTile	./cPassage.d	188;"	f	line:188	class:Passage	access:public	signature:()
+reTile	./cPassage.d	366;"	f	line:366	class:PassageManager	access:public	signature:()
+reTile	./cRoom.d	260;"	f	line:260	class:Room	access:public	signature:()
+reTile	./cRoom.d	385;"	f	line:385	class:RoomsManager	access:public	signature:()
+resetFlg	./cMap.d	29;"	f	line:29	class:Map	access:public	signature:(int x, int y)
+room	./cRoom.d	342;"	v	line:342	class:RoomsManager	access:public
+roomflg	./cRoom.d	343;"	v	line:343	class:RoomsManager	access:public
+rooms	./app.d	14;"	v	line:14
+setFlg	./cMap.d	22;"	f	line:22	class:Map	access:public	signature:(int x, int y)
+setPassage	./cMap.d	113;"	f	line:113	class:Map	access:public	signature:()
+setPassage	./cPassage.d	75;"	f	line:75	class:Passage	access:public	signature:(int typ, int x, int y)
+setPoint	./cPassage.d	30;"	f	line:30	class:Passage	access:public	signature:(int x, int y)
+setPoint	./cRoom.d	110;"	f	line:110	class:Room	access:public	signature:(int cl, int x, int y)
+setRoom	./cMap.d	87;"	f	line:87	class:Map	access:public	signature:()
+setRoomFlg	./cRoom.d	358;"	f	line:358	class:RoomsManager	access:public	signature:()
+setSpace	./cPassage.d	177;"	f	line:177	class:Passage	access:public	signature:(int x, int y)
+setTile	./cMap.d	41;"	f	line:41	class:Map	access:public	signature:(char c)
+setTile	./cMap.d	47;"	f	line:47	class:Map	access:public	signature:(char c, int x, int y)
+setWall	./cPassage.d	159;"	f	line:159	class:Passage	access:public	signature:(int x, int y, char c = 'X')
+setWall	./cRoom.d	392;"	f	line:392	class:RoomsManager	access:public	signature:()
+setWide	./cMap.d	130;"	f	line:130	class:Map	access:public	signature:()
+setWide	./cPassage.d	345;"	f	line:345	class:PassageManager	access:public	signature:()
+setWide	./cRoom.d	252;"	f	line:252	class:Room	access:public	signature:()
+setWide	./cRoom.d	378;"	f	line:378	class:RoomsManager	access:public	signature:()
+settemp	./cRoom.d	24;"	f	line:24	class:Room	access:public	signature:(int x, int y)
+start	./cRoom.d	20;"	v	line:20	class:Room	access:public
+temp	./cRoom.d	23;"	v	line:23	class:Room	access:public
+this	./cMap.d	153;"	f	line:153	class:Map	signature:(string filename)	access:public
+this	./cPassage.d	307;"	f	line:307	class:Passage	signature:(int x, int y)	access:public
+this	./cRoom.d	146;"	f	line:146	class:Room	signature:(int x, int y)	access:public
+tile	./cMap.d	11;"	v	line:11	class:Map	access:public
+type	./cPassage.d	14;"	v	line:14	class:Passage	access:public
+width	./cMap.d	13;"	v	line:13	class:Map	access:public
+x	./cRoom.d	16;"	v	line:16	struct:Point	access:public
+x1	./cPassage.d	15;"	v	line:15	class:Passage	access:public
+x2	./cPassage.d	16;"	v	line:16	class:Passage	access:public
+y	./cRoom.d	17;"	v	line:17	struct:Point	access:public
+y1	./cPassage.d	15;"	v	line:15	class:Passage	access:public
+y2	./cPassage.d	16;"	v	line:16	class:Passage	access:public
