@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/maptools2
+maptools2.so
+maptools2.dylib
+maptools2.dll
+maptools2.a
+maptools2.lib
+maptools2-test-*
+*.exe
+*.o
+*.obj
+*.lst
