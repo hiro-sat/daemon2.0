@@ -6,6 +6,7 @@ import std.string;
 import std.file;
 import std.conv;
 import std.random;
+import std.array;
 import std.datetime.systime : SysTime, Clock;
 import core.stdc.stdlib : exit;
 import core.stdc.stdarg;    // ... : 可変個引数関数
@@ -19,6 +20,7 @@ import lib_sdl;
 import lib_screen;
 import lib_readline;
 import lib_json;
+import cTextarea;
 import def;
 
 import castle;
@@ -164,26 +166,26 @@ void title()
 void ending()
 {
     int i, j;
-    textout( "\n       *** Congratulations! ***" );
+    win_msg.textout( "\n       *** Congratulations! ***" );
     getChar();
-    textout( "\n\n" );
-    textout( "君たちはShelton氏の豪華な屋敷でのディナーに\n" );
-    textout( "招かれた。Sheltonホテルの一流シェフによって\n" );
-    textout( "作られた、見目麗しい料理の数々がテーブルに\n" );
-    textout( "並んでいた。\n" );
+    win_msg.textout( "\n\n" );
+    win_msg.textout( "君たちはShelton氏の豪華な屋敷でのディナーに\n" );
+    win_msg.textout( "招かれた。Sheltonホテルの一流シェフによって\n" );
+    win_msg.textout( "作られた、見目麗しい料理の数々がテーブルに\n" );
+    win_msg.textout( "並んでいた。\n" );
     getChar();
-    textout( "\n「ほう、これが例の魔物が持っていたという\n" );
-    textout( "  日記かね」\n" );
-    textout( "君たちが迷宮の主を倒した証拠として持ってきた\n" );
-    textout( "日記にShelton氏は興味を示したようだ。\n" );
+    win_msg.textout( "\n「ほう、これが例の魔物が持っていたという\n" );
+    win_msg.textout( "  日記かね」\n" );
+    win_msg.textout( "君たちが迷宮の主を倒した証拠として持ってきた\n" );
+    win_msg.textout( "日記にShelton氏は興味を示したようだ。\n" );
     getChar();
-    textout( "\n「これを調べれば奴が何者であったかがわかる\n" );
-    textout( "  だろう。しかし何はともあれ、君たちには\n" );
-    textout( "  『おめでとう!』を言わせてもらおう!」\n" );
+    win_msg.textout( "\n「これを調べれば奴が何者であったかがわかる\n" );
+    win_msg.textout( "  だろう。しかし何はともあれ、君たちには\n" );
+    win_msg.textout( "  『おめでとう!』を言わせてもらおう!」\n" );
     getChar();
-    textout( "\nその夜、君たちは思う存分豪華な食事を堪能\n" );
-    textout( "した。そして約束どおり、60万ゴールドの賞金を\n" );
-    textout( "受け取った。\n" );
+    win_msg.textout( "\nその夜、君たちは思う存分豪華な食事を堪能\n" );
+    win_msg.textout( "した。そして約束どおり、60万ゴールドの賞金を\n" );
+    win_msg.textout( "受け取った。\n" );
     for ( i = 0; i < party.num; i++ )
     {
         party.mem[ i ].gold += 600000 / party.num;
@@ -195,8 +197,8 @@ void ending()
                     party.mem[ i ].item[ j ].release;
         }
     }
-    textout( "\n*** game is over.\n" );
-    textout( "    push any key to continue.\n" );
+    win_msg.textout( "\n*** game is over.\n" );
+    win_msg.textout( "    push any key to continue.\n" );
     getChar();
 
     return;
@@ -345,6 +347,12 @@ private bool initialize()
     TRAP_NAME[ TRAP.PRIBLASTER ] = _( "priest blaster" );
     TRAP_NAME[ TRAP.ALARM      ] = _( "alarm" );
 
+    win_msg = new Textarea( TXTW_X_SIZ , TXTW_Y_SIZ );
+    win_msg.setDispPos( TXTW_X_TOP , TXTW_Y_TOP );
+
+    win_status = new Textarea( STSW_X_SIZ , STSW_Y_SIZ );
+    win_status.setDispPos( STSW_X_TOP , STSW_Y_TOP );
+
     return true;
 }
 
@@ -414,12 +422,17 @@ private bool readMagic()
 private bool readMapAll()
 {
 
-    for (int layer = 0 ; layer < 8 ; layer ++)
+    int layer = 1;
+    Map m;
+    while( exists( formatText( ORGMAPFILE , fill0( layer , 2 ) ) ) )
     {
-        dungeonMap[ layer ] = new Map( layer ); // インスタンス作成のみ
-        if( ! dungeonMap[ layer ].initialize )  // 初期化はこちらですべて行う
+        dungeonMap.length ++;
+        dungeonMap.back = new Map( layer ); // インスタンス作成のみ
+        if( ! dungeonMap.back.initialize )  // 初期化はこちらですべて行う
             return false;
+        layer ++;
     }
+    MAXLAYER = layer;
 
     return true;
 }
@@ -431,8 +444,8 @@ private bool readMapAll()
 public bool saveMap()
 {
 
-    for ( int layer = 0 ; layer <= 7; layer ++)
-        dungeonMap[ layer ].saveMap;
+    foreach( d ; dungeonMap )
+        d.saveMap;
 
     return true;
 }
@@ -473,18 +486,18 @@ private bool readBoltac()
 
     int i;
     for ( i = 0 ; i < MAXITEM ; i++ )
-        boltacitem[ i ] = 0;
+        shopitem[ i ] = 0;
 
     if( ! exists( SHOPFILE ) )
     {
         // initialize
         printf("initializing... shoplist\n");
         for ( i = 1 ; i <= 10 ; i++ )
-            boltacitem[ i ] = 9999 ;
+            shopitem[ i ] = 9999 ;
         for ( i = 13 ; i <= 19 ; i++ )
-            boltacitem[ i ] = 9999 ;
-        boltacitem[ 39 ] = 1 ; // plate+1
-        boltacitem[ 77 ] = 9999; // gloves of copper
+            shopitem[ i ] = 9999 ;
+        shopitem[ 39 ] = 1 ; // plate+1
+        shopitem[ 77 ] = 9999; // gloves of copper
         return true;
     }
 
@@ -494,7 +507,7 @@ private bool readBoltac()
         if( line == "9999" )
             break;
         auto data = split( line , " " );
-        boltacitem[ to!int( data[ 0 ] ) ] = to!int( data[ 1 ] ) ;
+        shopitem[ to!int( data[ 0 ] ) ] = to!int( data[ 1 ] ) ;
     }
 
     return true;
@@ -509,9 +522,9 @@ public bool saveBoltac()
 
     auto fout = File( SHOPFILE, "w" );
 
-    for ( int i = 0  ; i < boltacitem.length ; i++ )
-        if ( boltacitem[ i ] !=0 )
-            fout.writef( "%d %d\n" , i , boltacitem[ i ] );
+    for ( int i = 0  ; i < shopitem.length ; i++ )
+        if ( shopitem[ i ] !=0 )
+            fout.writef( "%d %d\n" , i , shopitem[ i ] );
 
     fout.writef( "9999" );
 
@@ -916,184 +929,27 @@ void header_disp( HSTS sts , bool rewrite = true )
 }
 
 
-
-
-
-/*====== text window ===========================================*/
-
-/** テキストエリア表示(変換あり) */
-void textout( T... )( string fmt , T args )
-{
-    textout( formatText( fmt , args ) );
-    return;
-}
-
-/** テキストエリア表示 */
-void textout( T )( T value )
-{
-
-    string text;
-    text = to!string( value );
-
-    /*-------------------- 
-    line_disp - 行表示
-    --------------------*/
-    void line_disp( int winline , int lineno )
-    {
-        int i , pos ;
-        string buf;
-
-        char[] bufline = text_win_buffer[ lineno ].dup;
-        char* c;
-
-        bool flg = false ;
-        pos = 0;
-
-        for( i = 0; i < TXTW_X_SIZ; i++)
-        {
-
-            if( ! flg )
-                if( pos >= bufline.length )
-                    flg = true;
-
-            if( flg )
-            {
-                buf ~= ' ';
-            }
-            else
-            {
-                c = &bufline[ pos ];
-
-                if( isHankaku( *c ) )
-                {
-                    buf ~= *c;
-                    pos++;
-                }
-                else
-                {
-                    buf ~= *c; c++;
-                    buf ~= *c; c++;
-                    buf ~= *c;
-                    pos += 3;
-                    i++;
-                }
-            }
-        }
-
-        CL tmp = cast(CL)text_color;
-        setColor( text_win_buffer_color[ lineno ] );
-        mvprintw( winline + TXTW_Y_TOP, TXTW_X_TOP,  buf );
-        setColor( tmp );
-
-        return;
-    }
-
-
-    /*-------------------- 
-    scroll - スクロール
-    --------------------*/
-    void scroll()
-    {
-        int i;
-        text_top++;
-
-        if( text_top >= TXTW_Y_SIZ )
-            text_top=0;
-
-        for( i = 0 ; i < TXTW_Y_SIZ - 1 ; i++ )
-            line_disp( i , ( text_top + i ) % TXTW_Y_SIZ );
-
-        string spc;
-        for( i = 0 ; i < TXTW_X_SIZ ; i++ )
-            spc ~= " ";
-        mvprintw( TXTW_Y_TOP + TXTW_Y_SIZ - 1 , TXTW_X_TOP , spc );
-
-        return;
-    }
-
-
-    /*-------------------- 
-    crlf - 改行
-    --------------------*/
-    void crlf()
-    {
-        line_disp( text_cury , ( text_top + text_cury ) % TXTW_Y_SIZ );
-        text_cury++;
-        text_win_buffer     [ ( text_top + text_cury ) % TXTW_Y_SIZ ] = "";
-        text_win_buffer_size[ ( text_top + text_cury ) % TXTW_Y_SIZ ] = 0;
-
-        if( text_cury > TXTW_Y_SIZ - 1)
-        {
-            text_cury = TXTW_Y_SIZ - 1;
-            scroll();
-        }
-        return;
-    }
-
-
-
-    rewriteOff;
-
-    char[] txt = text.dup;
-    for( int i = 0 ; i < txt.length ; i++ )
-    {
-        if ( txt[ i ] == '\n' )
-        {
-            crlf;
-        }
-        else
-        {
-            if( isHankaku( txt[ i ] ) )
-            {   // 半角
-                text_win_buffer     [ ( text_top + text_cury ) % TXTW_Y_SIZ ] ~= txt[ i ];
-                text_win_buffer_size[ ( text_top + text_cury ) % TXTW_Y_SIZ ] ++;
-                text_win_buffer_color[ ( text_top + text_cury ) % TXTW_Y_SIZ ] = text_color;
-                if( text_win_buffer_size[ ( text_top + text_cury ) % TXTW_Y_SIZ ] > TXTW_X_SIZ - 2 )
-                    crlf;
-            }
-            else
-            {   // 全角
-                text_win_buffer[ ( text_top + text_cury ) % TXTW_Y_SIZ ] ~= txt[ i++ ];
-                text_win_buffer[ ( text_top + text_cury ) % TXTW_Y_SIZ ] ~= txt[ i++ ];
-                text_win_buffer[ ( text_top + text_cury ) % TXTW_Y_SIZ ] ~= txt[ i ];
-                text_win_buffer_size[ ( text_top + text_cury ) % TXTW_Y_SIZ ] += 2;
-                text_win_buffer_color[ ( text_top + text_cury ) % TXTW_Y_SIZ ] = text_color;
-                if( text_win_buffer_size[ ( text_top + text_cury ) % TXTW_Y_SIZ ] > TXTW_X_SIZ - 2 )
-                    crlf;
-            }
-        }
-    }
-    line_disp( text_cury, ( text_top + text_cury ) % TXTW_Y_SIZ );
-
-    rewriteOn;
-
-    return;
-}
-
-
-
-
 /*====== scroll window ===========================================*/
-/**
-  scrwin_clear - マップ表示エリア初期化
-  */
-void scrwin_clear()
+/*--------------------
+   scrClear - 表示初期化
+   --------------------*/
+void scrClear()
 {
     int x, y;
     string spc;
     
-    rewriteOff;
-    
-    for( x = 0 ; x < SCRW_X_SIZ + 2 ; x++ )
+    for( x = 0 ; x < TEXT_WIDTH ; x++ )
         spc ~= " ";
 
-    for( y = 1 ; y < SCRW_Y_SIZ + SCRW_Y_TOP ; y++ )
-        mvprintw( y, SCRW_X_TOP - 1, spc );
-
+    rewriteOff;
+    for( y = 0 ; y < SCRW_Y_SIZ ; y++ )
+        /* mvprintw( y + SCRW_Y_TOP , x + SCRW_X_TOP , spc ); */
+        mvprintw( y + SCRW_Y_TOP , 0 , spc );
     rewriteOn;
 
     return;
 }
+
 
 /*====== sub routines =====================================*/
 
@@ -1160,14 +1016,48 @@ void mvIntDispD( int y , int x , long num, int digit )
 }
 
 /**-------------------- 
-   fill - 文字列長をそろえる
+   fill - 文字列長をそろえる（左詰め）
    --------------------*/
-string fill( string word , int size )
+string fillL( T )( T value , int size )
 {
+    string word = to!string( value );
     string spc;
     for( int i ; word.length + i < size ; i++ )
         spc ~= " ";
     word ~= spc;
+    return word[ 0 .. size ];
+}
+
+/**-------------------- 
+   fillR - 文字列長をそろえる（右詰め）
+   --------------------*/
+string fillR( T )( T value , int size )
+{
+    string word = to!string( value );
+
+    if( size > word.length )
+    {
+        string spc;
+        for( int i = 0 ; word.length + i < size ; i++ )
+            spc ~= " ";
+        word = spc ~ word;
+    }
+    return word[ size - word.length .. $ ];
+}
+
+/**-------------------- 
+   fill0 - 0埋め
+   --------------------*/
+string fill0( int value , int size )
+{
+    string word = to!string( value );
+    assert( word.length <= size );
+
+    string zero;
+    for( int i ; word.length + i < size ; i++ )
+        zero ~= "0";
+
+    word = zero ~ word;
     return word[ 0 .. size ];
 
 }
@@ -1260,8 +1150,8 @@ char answerYN()
         if ( c == 'y' || c == 'n' )
             break;
     }
-    textout( c );
-    textout( '\n' );
+    win_msg.textout( c );
+    win_msg.textout( '\n' );
     
     return c;
 }
@@ -1341,16 +1231,19 @@ bool isHankaku( char c )
            ret : 42 is the ultimate answer.
            formatText( "This is %1%%" , 42 );
            ret : This is 42%
+           ※ args は9まで。%10になると、%1 がヒットしてしまう。
    --------------------*/
 /* string formatText( string fmt , ... ) */
 string formatText( T... )( string fmt , T args )
 {
+
     string keyword;
     foreach( i, type ; args )
     {
         keyword = to!string( type );
         fmt = fmt.replace( "%" ~ to!string( i + 1 ) , keyword );
     }
+
     return fmt.replace( "%%" , "%" );
 }
 

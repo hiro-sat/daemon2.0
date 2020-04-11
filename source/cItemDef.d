@@ -8,6 +8,7 @@ import std.string;
 // mysource 
 import def;
 import app;
+import cTextarea;
 
 class ItemDef
 {
@@ -131,35 +132,35 @@ public:
 
         string ef;
 
-        textout( "\n*** " );
-        textout( name );
+        win_msg.textout( "\n*** " );
+        win_msg.textout( name );
         switch( kind )
         {
             case ITM_KIND.WEAPON:
                 if ( range == RANGE.SHORT )
-                  textout( _( " ***\n it is a short range weapon.\n" ) );
+                  win_msg.textout( _( " ***\n it is a short range weapon.\n" ) );
                 else
-                  textout( _( " ***\n it is a long range weapon.\n" ) );
-                textout( _( " it deals %1-%2 damage.\n" ) , atk[ 0 ] , atk[ 0 ] + atk[ 1 ] );
+                  win_msg.textout( _( " ***\n it is a long range weapon.\n" ) );
+                win_msg.textout( _( " it deals %1-%2 damage.\n" ) , atk[ 0 ] , atk[ 0 ] + atk[ 1 ] );
                 break;
             case ITM_KIND.ARMOR:
-                textout( _( " is an armor.\n" ) );
-                textout( _( " it affects your AC by %1 points.\n" ) , ac );
+                win_msg.textout( _( " is an armor.\n" ) );
+                win_msg.textout( _( " it affects your AC by %1 points.\n" ) , ac );
                 break;
             case ITM_KIND.SHIELD:
-                textout( _( " is a shield.\n" ) );
-                textout( _( " it affects your AC by %1 points.\n" ) , ac );
+                win_msg.textout( _( " is a shield.\n" ) );
+                win_msg.textout( _( " it affects your AC by %1 points.\n" ) , ac );
                 break;
             case ITM_KIND.HELM:
-                textout( " is a helm.\n" );
-                textout( _( " it affects your AC by %1 points.\n" ) , ac );
+                win_msg.textout( " is a helm.\n" );
+                win_msg.textout( _( " it affects your AC by %1 points.\n" ) , ac );
                 break;
             case ITM_KIND.GLOVES:
-                textout( " are gloves.\n" );
-                textout( _( " it affects your AC by %1 points.\n" ) , ac );
+                win_msg.textout( " are gloves.\n" );
+                win_msg.textout( _( " it affects your AC by %1 points.\n" ) , ac );
                 break;
             case ITM_KIND.ITEM:
-                textout( _( " is an item.\n" ) );
+                win_msg.textout( _( " is an item.\n" ) );
                 break;
             default:
                 assert( 0 );
@@ -167,7 +168,7 @@ public:
         
         if ( Class !=0 )
         {
-            textout(" ");
+            win_msg.textout(" ");
 
             ef = "";
             if ( canBeEquipped( CLS.FIG ) ) ef ~= 'F' ;
@@ -178,7 +179,7 @@ public:
             if ( canBeEquipped( CLS.SAM ) ) ef ~= 'S' ;
             if ( canBeEquipped( CLS.LOR ) ) ef ~= 'L' ;
             if ( canBeEquipped( CLS.NIN ) ) ef ~= 'N' ;
-            textout( _( " %1 can equip it. \n" ) , ef );
+            win_msg.textout( _( " %1 can equip it. \n" ) , ef );
         }
         if ( ( atkef & 
                 ( ITM_ATKEF.CRITICAL | ITM_ATKEF.STONE | ITM_ATKEF.SLEEP ) ) != 0 )
@@ -187,7 +188,7 @@ public:
             if ( checkAtkEf( ITM_ATKEF.CRITICAL ) ) ef ~= " critical" ;
             if ( checkAtkEf( ITM_ATKEF.STONE ) )    ef ~= " stone" ;
             if ( checkAtkEf( ITM_ATKEF.SLEEP ) )    ef ~= " sleep" ;
-            textout( _( " it has a %1 effect.\n" ) , ef );
+            win_msg.textout( _( " it has a %1 effect.\n" ) , ef );
         }
   
         if ( ( atkef & 
@@ -200,7 +201,7 @@ public:
             if( checkAtkEf( ITM_ATKEF.DRAGON ) ) ef ~= " dragon";
             if( checkAtkEf( ITM_ATKEF.DEMON ) )  ef ~= " demon";
             if( checkAtkEf( ITM_ATKEF.INSECT ) ) ef ~= " insect";
-            textout(_( " damages will be doubled to\n %1 type monsters.\n" ) , ef );
+            win_msg.textout(_( " damages will be doubled to\n %1 type monsters.\n" ) , ef );
         }
   
         if ( defef != 0 )
@@ -214,17 +215,17 @@ public:
             if ( checkDefEf( ITM_DEFEF.FIRE     ) ) ef ~= " fire";
             if ( checkDefEf( ITM_DEFEF.ICE      ) ) ef ~= " ice";
             if ( checkDefEf( ITM_DEFEF.DRAIN    ) ) ef ~= " drain";
-            textout( _( " it is resistive to %1 attacks.\n" ) , ef ) ;
+            win_msg.textout( _( " it is resistive to %1 attacks.\n" ) , ef ) ;
         }
   
         if ( magdef != 0 )
-          textout( _( " it is resistive to spells.\n" ) );
+          win_msg.textout( _( " it is resistive to spells.\n" ) );
 
         if ( hpplus > 0 )
-          textout( _( " it is a healing item.\n" ) );
+          win_msg.textout( _( " it is a healing item.\n" ) );
 
         if ( hpplus < 0 )
-          textout( _( " it is a cursed item and\n" )
+          win_msg.textout( _( " it is a cursed item and\n" )
                  ~ _( "  just having it will hurt you badly.\n" ) );
   
         if ( effect[ 0 ] != 0 )
@@ -232,11 +233,11 @@ public:
             if ( ( effect[ 0 ] & 0x80 ) != 0 )
             {
                 ef = magic_data[ effect[ 0 ] & 0x7f ].name ;
-                textout( _( " you can cast a %1 by using it\n                 while you are in camp.\n" ) , ef );
+                win_msg.textout( _( " you can cast a %1 by using it\n                 while you are in camp.\n" ) , ef );
             }
             else
             {
-                textout( _( " using it while you are in camp\n               will cause something.\n" ) );
+                win_msg.textout( _( " using it while you are in camp\n               will cause something.\n" ) );
             }
         }
 
@@ -245,51 +246,51 @@ public:
             if ( ( effect[ 1 ] & 0x80 ) != 0 )
             {
                 ef = magic_data[ effect[ 1 ] & 0x7f ].name ;
-                textout( _( " you can cast a %1 during battle.\n" ) , ef );
+                win_msg.textout( _( " you can cast a %1 during battle.\n" ) , ef );
             }
             else
             {
-                textout( _( " using it while you are in battle\n               will cause something.\n" ) );
+                win_msg.textout( _( " using it while you are in battle\n               will cause something.\n" ) );
             }
         }
 
         if ( effect[ 2 ] != 0 )
-          textout( _( " using it during equip\n           will cause something.\n" ) );
+          win_msg.textout( _( " using it during equip\n           will cause something.\n" ) );
   
         // 個別に
         if (id == 170) // vorpat_tooth
-            textout( _( " you got it from the vorpal_bunnies\n" )
+            win_msg.textout( _( " you got it from the vorpal_bunnies\n" )
                    ~ _( "   on B2 layer, right?\n" ) );
         if (id == 149) // The_Muramasa_Blade!
-            textout( _( " oh...finally, I got to see\n" )
+            win_msg.textout( _( " oh...finally, I got to see\n" )
                    ~ _( "    *** THE TRUE MURAMASA BLADE!! ***\n" ) );
         if (id == 148) // muramasa_katana
-            textout( _( " I've heard a rumor that there's a more\n" )
+            win_msg.textout( _( " I've heard a rumor that there's a more\n" )
                    ~ _( " powerful weapon than this. can it be true!\n" ) );
         if (id == 147) // 皆伝の書
-            textout( _( " God!  written in this is\n" )
+            win_msg.textout( _( " God!  written in this is\n" )
                    ~ _( "         the secret of ninja.\n" ) );
         if (id == 146) // garb_of_lords
-            textout( _( " one of the top three items, you know.\n" ) );
+            win_msg.textout( _( " one of the top three items, you know.\n" ) );
         if (id == 143) // shurikens
-            textout( _( " one of the top three items, you know.\n" ) );
+            win_msg.textout( _( " one of the top three items, you know.\n" ) );
         if (id == 137) // vorpal_weapon
-            textout( _( " it is the most powerful sword for F&L.\n" ) );
+            win_msg.textout( _( " it is the most powerful sword for F&L.\n" ) );
         if (id == 135) // fox_gon's_mittens
-            textout( _( " have you heard a sad story of the fox?\n" ) );
+            win_msg.textout( _( " have you heard a sad story of the fox?\n" ) );
         if (id == 131) // vampire_killer
-            textout( _( " Mmm...what happened to the hunter?\n" ) );
+            win_msg.textout( _( " Mmm...what happened to the hunter?\n" ) );
         if (id == 99) // gradius
-            textout( _( " Mmm...it is a really good sword, you know.\n" ) );
+            win_msg.textout( _( " Mmm...it is a really good sword, you know.\n" ) );
         if (id == 43) // garcon_jacket(e)
-            textout( _( " Mmm...very stylish, very...\n" ) );
+            win_msg.textout( _( " Mmm...very stylish, very...\n" ) );
         if (id == 42) // antwerp_sweater
-            textout( _( " look at this!  what a beautiful color!\n" ));
+            win_msg.textout( _( " look at this!  what a beautiful color!\n" ));
   
-        textout( _( " I would buy it for %1 gp.\n" ) , gold / 2 );
+        win_msg.textout( _( " I would buy it for %1 gp.\n" ) , gold / 2 );
 
         if ( ( Align & 0x7 ) == 7 )
-            textout( _( " Be aware! it is cursed.\n" ) );
+            win_msg.textout( _( " Be aware! it is cursed.\n" ) );
 
         /* getChar; */
         return;

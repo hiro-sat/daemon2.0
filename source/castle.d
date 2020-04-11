@@ -36,25 +36,8 @@ bool castle_main()
         if( party.mem[ i ].status <= STS.AFRAID )
         {
             party.mem[ i ].status = STS.OK;
-
-            /+
-            // どうせみんな馬小屋にしか泊まらないんでしょ。
-            // だからHP全回復にした。
-            party.mem[ i ].hp = party.mem[ i ].maxhp;
-            for ( j = 0; j < 7; j++ )
-            {
-                party.mem[ i ].msplcnt[ j ] &= 0xf0;
-                party.mem[ i ].msplcnt[ j ] |= party.mem[ i ].msplcnt[ j ] >> 4;
-                party.mem[ i ].psplcnt[ j ] &= 0xf0;
-                party.mem[ i ].psplcnt[ j ] |= party.mem[ i ].psplcnt[ j ] >> 4;
-            }
-            textout( party.mem[ i ].name ~ " have been healed.\n" );
-            party.mem[ i ].day++; // modified to: one night stay(not one week)
-            +/
             party.win_disp_noreorder;
-
         }
-    
 
         if (party.mem[ i ].status >= STS.PARALY)
         {
@@ -72,31 +55,30 @@ bool castle_main()
         }
     }
   
-    for ( i = 0 ; i < 6 ; i++)
-        party.memsv[ i ] = party.mem[ i ];      // ?????
-  
     header_disp( HSTS.CASTLE );
     party.win_disp();
-    scrwin_clear();
+    /* win_status.clear; */
+    scrClear;
   
     // ending check
     if ( party.num >= 1 && party.doTheyHave( 171 ) == 1 )
         ending();
   
+    win_msg.disp;
 
     while( true )
     {
         setColor( CL.MENU );
-        textout( "\n" );
-        textout( _( "******** castle ********\n"  ));
-        textout( _( "g)inger's forest bar\n"  ));
-        textout( _( "s)helton yankee flipper\n"  ));
-        textout( _( "t)emple of dice\n"  ));
-        textout( _( "a)lbertsan's mart\n"  ));
-        textout( _( "e)dge of town\n"  ));
-        textout( _( "************************\n"  ));
+        win_msg.textout( "\n" );
+        win_msg.textout( _( "******** castle ********\n"  ));
+        win_msg.textout( _( "g)inger's forest bar\n"  ));
+        win_msg.textout( _( "s)helton yankee flipper\n"  ));
+        win_msg.textout( _( "t)emple of dice\n"  ));
+        win_msg.textout( _( "a)lbertsan's mart\n"  ));
+        win_msg.textout( _( "e)dge of town\n"  ));
+        win_msg.textout( _( "************************\n"  ));
         setColor( CL.NORMAL );
-        textout( _( "option? "  ));
+        win_msg.textout( _( "option? "  ));
 
 
         char keycode;
@@ -113,27 +95,27 @@ bool castle_main()
             case 's': // shelton hotel
                 if ( party.num == 0 )
                     continue;
-                textout( _( "shelton hotel\n"  ));
+                win_msg.textout( _( "shelton hotel\n"  ));
                 inn();
                 break;
             case 'a': // albertsan's
                 if ( party.num == 0 )
                     continue;
-                textout( _( "albertsan's mart\n"  ));
-                boltac();
+                win_msg.textout( _( "albertsan's mart\n"  ));
+                shop();
                 break;
             case 'g': // ginger's bar
-                textout( _( "ginger's forest bar\n"  ));
-                gilgamesh();
+                win_msg.textout( _( "ginger's forest bar\n"  ));
+                bar();
                 break;
             case 't': /* temple of dice */ 
                 if ( party.num == 0 )
                     continue;
-                textout( _( "temple of dice\n"  ));
+                win_msg.textout( _( "temple of dice\n"  ));
                 temple();
                 break;
             case 'e': /* edge of town */ 
-                textout( _( "edge of tonw\n"  ));
+                win_msg.textout( _( "edge of tonw\n"  ));
                 rtncode = eoftown();
                 if ( rtncode==1 )
                 {
@@ -149,7 +131,7 @@ bool castle_main()
             default:
                 continue;
         }
-        scrwin_clear();
+        win_status.clear;
     }
     EXIT:
     return false;  /* leave game */
@@ -168,33 +150,35 @@ void seeMonsterMarks()
     char c;
 
     setColor( CL.MENU );
-    textout( "\n" );
-    textout( "****** monster marks! ******\n" );
-    textout( _( "n)ext(6) z)leave(9)\n"  ));
+    win_msg.textout( "\n" );
+    win_msg.textout( "****** monster marks! ******\n" );
+    win_msg.textout( _( "n)ext(6) z)leave(9)\n"  ));
     setColor( CL.NORMAL );
-    textout( "option?\n" );
+    win_msg.textout( "option?\n" );
     top = 0;
     while( true )
     {
 
         rewriteOff;
         
-        for( i = 0; i < SCRW_Y_SIZ - 2 ; i++ )
+        win_status.clear;
+
+        for( i = 0; i < win_status.height - 2 ; i++ )
         {
-            mvprintw( SCRW_Y_TOP + i + 1, SCRW_X_TOP, "                             ");
             if( top + i > 108)
                 continue; // 108 as # of DAEMON
             if( monstermarks[ top + i ] != 0)
             {
-                mvIntDispD( SCRW_Y_TOP + i + 1, SCRW_X_TOP, top + i, 3 );
-                printw(")");
-                printw( monster_data[ top + i ].name );
-                mvIntDispD( SCRW_Y_TOP + i + 1 , SCRW_X_TOP + SCRW_X_SIZ - 8 , monstermarks[ top + i ] , 7 );
+                win_status.print( i + 1 , 0 
+                        , formatText( "%1)%2" 
+                            , fillR( top + i , 3 ) 
+                            , monster_data[ top + i ].name ) );
+                win_status.print( i + 1 , win_status.width - 8 , fillR( monstermarks[ top + i ] , 7 ) );
             }
             else
             {
-                mvIntDispD( SCRW_Y_TOP + i + 1, SCRW_X_TOP, top + i, 3);
-                printw( ")?????" );
+                win_status.print( i + 1 , 0 
+                        , formatText( "%1)?????" , fillR( top + i , 3 ) ) );
             }
         }
 
@@ -207,7 +191,7 @@ void seeMonsterMarks()
                 break;
             if( c == 'n' || c == '6' )
             {
-                top += SCRW_Y_SIZ - 2;
+                top += win_status.height - 2;
                 if (top > 108)
                     top = 0; // 108 as # of DAEMON ++++++++++++++++++
                 break;
@@ -236,10 +220,10 @@ void inn()
     while ( true )
     {
         setColor( CL.MENU );
-        textout( "\n" );
-        textout( _( "****** shelton yankee flipper hotel ******\n" ));
+        win_msg.textout( "\n" );
+        win_msg.textout( _( "****** shelton yankee flipper hotel ******\n" ));
         setColor( CL.NORMAL );
-        textout( _( "who will stay(z:leave(9))? "  ));
+        win_msg.textout( _( "who will stay(z:leave(9))? "  ));
         while ( true )
         {
             ch = getChar();
@@ -254,11 +238,11 @@ void inn()
 
 
         mem = party.mem[ ch - '1' ];
-        textout( mem.name ~ "\n" );
+        win_msg.textout( mem.name ~ "\n" );
   
         if( mem.status >= STS.PARALY )
         {
-            textout( _( "\n  ...You must be joking!\n\n"  ));
+            win_msg.textout( _( "\n  ...You must be joking!\n\n"  ));
             continue;
         }
 
@@ -266,11 +250,11 @@ void inn()
 
         // どうせみんな馬小屋にしか泊まらないんでしょ？
         // だからHP全回復にした。
-        textout( _( "sleeping ...\n" ) );
+        win_msg.textout( _( "sleeping ...\n" ) );
         if( mem.hp < mem.maxhp )
         {
             mem.hp = mem.maxhp;
-            textout( _( "%1 have been healed.\n" ) , mem.name );
+            win_msg.textout( _( "%1 have been healed.\n" ) , mem.name );
         }
 
         mem.levelup_chk();
@@ -285,7 +269,7 @@ void inn()
             mem.age++;
             mem.day = 0;
             party.win_disp();
-            textout( "*** happy birthday to you! ***\n" );
+            win_msg.textout( "*** happy birthday to you! ***\n" );
             getChar();
         }
         party.win_disp();
@@ -293,7 +277,7 @@ void inn()
         mem.char_disp;
         getChar;
     }
-    textout( "\n" );
+    win_msg.textout( "\n" );
     header_disp( HSTS.CASTLE );
 
     return;
@@ -307,25 +291,24 @@ void inn()
 //
 //////////////////////////////////////////////////////////////////////////////////
 //
-void gilgamesh()
+void bar()
 {
 
     //////////////////// 
     // Menu 表示
     //////////////////// 
-    void dispGilgameshMenu()
+    void dispBarMenu()
     {
         setColor( CL.MENU );
-        textout( "\n" );
-        textout( _( "*** ginger's forest bar ***\n"  ));
-        textout( _( "a)dd  r)emove  n)inspect\n"  ));
-        textout( _( "d)ivvy gold  z)leave(9)\n"  ));
-        textout( _( "e)quip #)see character\n"  ));
-        textout( _( "s)ee monster marks\n"  ));
-        textout( _( "***************************\n"  ));
+        win_msg.textout( "\n" );
+        win_msg.textout( _( "*** ginger's forest bar ***\n"  ));
+        win_msg.textout( _( "a)dd  r)emove  n)inspect\n"  ));
+        win_msg.textout( _( "d)ivvy gold  z)leave(9)\n"  ));
+        win_msg.textout( _( "e)quip #)see character\n"  ));
+        win_msg.textout( _( "s)ee monster marks\n"  ));
+        win_msg.textout( _( "***************************\n"  ));
         setColor( CL.NORMAL );
-        /* textout( "option? \n" ); */
-        textout( "option? " );
+        win_msg.textout( "option? " );
         return;
     }
     //////////////////// 
@@ -335,7 +318,7 @@ void gilgamesh()
     char keycode;
 
     header_disp( HSTS.BAR );
-    dispGilgameshMenu;
+    dispBarMenu;
 
     while( true )
     {
@@ -351,63 +334,61 @@ void gilgamesh()
         switch( keycode )
         {
             case 's':   // see monster marks 
-                textout( _( "see monster marks\n"  ));
+                win_msg.textout( _( "see monster marks\n"  ));
                 seeMonsterMarks;
-                scrwin_clear();
-                dispGilgameshMenu;
+                win_status.clear();
+                dispBarMenu;
                 break;
 
             case 'e':   // equip
                 if( party.num < 1 )
                     break;
-                textout( _( "equip\n"  ));
+                win_msg.textout( _( "equip\n"  ));
                 party.equip;
-                dispGilgameshMenu;
+                dispBarMenu;
                 break;
 
             case 'i':
             case 'n':   // n) inspect
                 if( party.num < 1 )
                     break;
-                textout( _( "inspect\n"  ));
+                win_msg.textout( _( "inspect\n"  ));
                 party.inspect();
-                scrwin_clear();
-                dispGilgameshMenu;
+                win_status.clear();
+                dispBarMenu;
                 break;
 
             case 'd':   // divvy
                 if( party.num < 1 )
                     break;
-                textout( _( "divvy gold\n"  ));
+                win_msg.textout( _( "divvy gold\n"  ));
                 party.divvy;
                 party.mem[ current ].char_disp;
-                dispGilgameshMenu;
+                dispBarMenu;
                 break;
 
             case 'z': 
             case '9':   // z)leave(9)
-                textout( _( "leave the bar\n"  ));
-                for( i = 0 ; i < 6 ; i++ )
-                    party.memsv[ i ] = party.mem[ i ];
+                win_msg.textout( _( "leave the bar\n"  ));
                 header_disp( HSTS.CASTLE );
                 return;
 
             case 'a': /* add */
                 if( party.num == 6 )
                     break;
-                textout( _( "add\n"  ));
+                win_msg.textout( _( "add\n"  ));
                 party.add();
-                scrwin_clear();
-                dispGilgameshMenu;
+                win_status.clear();
+                dispBarMenu;
                 break;
 
             case 'r': /* remove */
                 if( party.num < 1 )
                     break;
-                textout( _( "remove\n"  ));
+                win_msg.textout( _( "remove\n"  ));
                 party.remove();
-                scrwin_clear();
-                dispGilgameshMenu;
+                win_status.clear();
+                dispBarMenu;
                 break;
 
             default:
@@ -424,7 +405,7 @@ void gilgamesh()
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-void boltac()
+void shop()
 {
     char c;
   
@@ -432,15 +413,15 @@ void boltac()
   
     while ( true )
     {
-        scrwin_clear();
+        win_status.clear();
         setColor( CL.MENU );
-        textout( "\n" );
-        textout( _( "****** albertsan's mart ******\n"  ));
-        textout( _( "b)uy s)ell u)ncurse i)dentify\n"  ));
-        textout( _( "p)ool gold z)leave(9)\n"  ));
-        textout( _( "******************************\n"  ));
+        win_msg.textout( "\n" );
+        win_msg.textout( _( "****** albertsan's mart ******\n"  ));
+        win_msg.textout( _( "b)uy s)ell u)ncurse i)dentify\n"  ));
+        win_msg.textout( _( "p)ool gold z)leave(9)\n"  ));
+        win_msg.textout( _( "******************************\n"  ));
         setColor( CL.NORMAL );
-        textout( "option? " );
+        win_msg.textout( "option? " );
 
         while ( true )
         {
@@ -452,8 +433,8 @@ void boltac()
         switch ( c )
         {
             case 'p': /* pool gold */
-                textout( _( "pool gold\n"  ));
-                textout( _( "pool gold to whom(z:leave(9))? "  ));
+                win_msg.textout( _( "pool gold\n"  ));
+                win_msg.textout( _( "pool gold to whom(z:leave(9))? "  ));
                 while ( true )
                 {
                   c = getChar();
@@ -461,7 +442,7 @@ void boltac()
                           ( c >= '1' && c <= '1' + party.num - 1 ) )
                       break;
                 }
-                textout( to!string( c ) ~ "(" ~ party.mem[ c - '1' ].name ~ ")\n" );
+                win_msg.textout( to!string( c ) ~ "(" ~ party.mem[ c - '1' ].name ~ ")\n" );
 
                 if ( c >= '1' && ( c <= '1' + party.num - 1 ) )
                     party.poolGold( c - '1' );
@@ -469,27 +450,27 @@ void boltac()
                 break;
             case 'z': /* leave */
             case '9': /* leave */
-                textout( _( "leave the mart\n"  ));
+                win_msg.textout( _( "leave the mart\n"  ));
                 header_disp( HSTS.CASTLE );
                 return;
             case 'b': /* buy */
-                textout( _( "buy\n"  ));
+                win_msg.textout( _( "buy\n"  ));
                 header_disp( HSTS.CASTLE );
-                boltac_buy();
+                shop_buy();
                 break;
             case 's': /* sell */
-                textout( _( "sell\n"  ));
-                boltac_sell();
+                win_msg.textout( _( "sell\n"  ));
+                shop_sell();
                 break;
             case 'u': // uncurse
-                textout( _( "uncurse\n"  ));
+                win_msg.textout( _( "uncurse\n"  ));
                 uncurse();
                 party.calcAtkAC;
                 party.win_disp();
                 break;
             case 'i': // identify
-                textout( _( "identify\n"  ));
-                boltac_identify();
+                win_msg.textout( _( "identify\n"  ));
+                shop_identify();
                 break;
             default:
                 break;
@@ -500,9 +481,9 @@ void boltac()
 
 
 /**
-  boltac_buy - 
+  shop_buy - 
   */
-void boltac_buy()
+void shop_buy()
 {
     char c;
     ITM_KIND kind = ITM_KIND.WEAPON; // weapon
@@ -514,19 +495,19 @@ void boltac_buy()
     Member mem_takes;
 
 
-    void dispBoltacBuyMenu()
+    void dispShopBuyMenu()
     {
         setColor( CL.MENU );
-        textout( "\n" );
-        textout( _( "********* buy **********\n"  ));
-        textout( _( "b)uy p)ick it up\n"  ));
-        textout( _( "n)ext page(6) z)leave(9)\n"  ));
-        textout( _( "------\n"  ));
-        textout( _( "w)eapon a)rmor s)hield\n"  ));
-        textout( _( "h)elm g)loves i)tem\n"  ));
-        textout( _( "************************\n"  ));
+        win_msg.textout( "\n" );
+        win_msg.textout( _( "********* buy **********\n"  ));
+        win_msg.textout( _( "b)uy p)ick it up\n"  ));
+        win_msg.textout( _( "n)ext page(6) z)leave(9)\n"  ));
+        win_msg.textout( _( "------\n"  ));
+        win_msg.textout( _( "w)eapon a)rmor s)hield\n"  ));
+        win_msg.textout( _( "h)elm g)loves i)tem\n"  ));
+        win_msg.textout( _( "************************\n"  ));
         setColor( CL.NORMAL );
-        textout( "option? " );
+        win_msg.textout( "option? " );
         return;
     }
 
@@ -535,13 +516,13 @@ WHO_BUY:
     if( mem is null )
         return;
 
-    dispBoltacBuyMenu;
+    dispShopBuyMenu;
 
     while ( true )
     {
-        scrwin_clear();
+        win_status.clear();
         // ref: disp_lines , item[]
-        last = boltac_list( mem , top, kind, disp_lines, item );   
+        last = shop_list( mem , top, kind, disp_lines, item );   
 
         while ( true )
         {
@@ -555,8 +536,8 @@ WHO_BUY:
         {
             case 'z':
             case '9':
-                textout( _( "leave\n"  ));
-                scrwin_clear();
+                win_msg.textout( _( "leave\n"  ));
+                win_status.clear();
                 return;
             case 'w':
                 kind = ITM_KIND.WEAPON; // weapon
@@ -592,8 +573,8 @@ WHO_BUY:
                 top = last + 1;
                 break;
             case 'p':
-                textout( _( "pick it up\n"  ));
-                textout( _( "which pick it up(a,b,...,z:quit(9))? "  ));
+                win_msg.textout( _( "pick it up\n"  ));
+                win_msg.textout( _( "which pick it up(a,b,...,z:quit(9))? "  ));
                 while ( true )
                 {
                   c = getChar();
@@ -601,21 +582,21 @@ WHO_BUY:
                           ( ( c >= 'a' ) && ( c < 'a' + disp_lines ) && ( item[ c - 'a' ] < MAXITEM ) ) )
                       break;
                 }
-                textout( c );
-                textout( '\n' );
+                win_msg.textout( c );
+                win_msg.textout( '\n' );
                 if ( c == 'z' || c == '9' )
                     break;
 
                 i = item[ c - 'a' ];
                 item_data[ i ].dispInfo;
                 getChar;
-                dispBoltacBuyMenu;
+                dispShopBuyMenu;
                 break;
             case 'b':
-                textout( _( "buy\n"  ));
+                win_msg.textout( _( "buy\n"  ));
                 while ( true )
                 {
-                    textout( _( "which buy(a,b,...,z:quit(9))? "  ));
+                    win_msg.textout( _( "which buy(a,b,...,z:quit(9))? "  ));
                     while ( true )
                     {
                       c = getChar();
@@ -623,8 +604,8 @@ WHO_BUY:
                               ( ( c >= 'a' ) && ( c < 'a' + disp_lines ) && ( item[ c - 'a' ] < MAXITEM ) ) )
                           break;
                     }
-                    textout( c );
-                    textout( '\n' );
+                    win_msg.textout( c );
+                    win_msg.textout( '\n' );
                     if ( c == 'z' || c == '9' )
                     {
                       break;
@@ -632,25 +613,25 @@ WHO_BUY:
                     else
                     {
                         i = item[ c - 'a' ];
-                        if ( i >= MAXITEM || boltacitem[ i ] == 0 )
+                        if ( i >= MAXITEM || shopitem[ i ] == 0 )
                         {
-                            textout( _( "out of stock.\n"  ));
+                            win_msg.textout( _( "out of stock.\n"  ));
                             break;
                         }
-                        textout( '>' );
-                        textout( item_data[ i ].name );
-                        textout( '\n' );
+                        win_msg.textout( '>' );
+                        win_msg.textout( item_data[ i ].name );
+                        win_msg.textout( '\n' );
 
-                        textout(_( "  classes :  " ));
-                        if ( item_data[ i ].canBeEquipped( CLS.FIG ) ) textout( 'f' );
-                        if ( item_data[ i ].canBeEquipped( CLS.THI ) ) textout( 't' );
-                        if ( item_data[ i ].canBeEquipped( CLS.PRI ) ) textout( 'p' );
-                        if ( item_data[ i ].canBeEquipped( CLS.MAG ) ) textout( 'm' );
-                        if ( item_data[ i ].canBeEquipped( CLS.BIS ) ) textout( 'b' );
-                        if ( item_data[ i ].canBeEquipped( CLS.SAM ) ) textout( 's' );
-                        if ( item_data[ i ].canBeEquipped( CLS.LOR ) ) textout( 'l' );
-                        if ( item_data[ i ].canBeEquipped( CLS.NIN ) ) textout( 'n' );
-                        textout(" \n");
+                        win_msg.textout(_( "  classes :  " ));
+                        if ( item_data[ i ].canBeEquipped( CLS.FIG ) ) win_msg.textout( 'f' );
+                        if ( item_data[ i ].canBeEquipped( CLS.THI ) ) win_msg.textout( 't' );
+                        if ( item_data[ i ].canBeEquipped( CLS.PRI ) ) win_msg.textout( 'p' );
+                        if ( item_data[ i ].canBeEquipped( CLS.MAG ) ) win_msg.textout( 'm' );
+                        if ( item_data[ i ].canBeEquipped( CLS.BIS ) ) win_msg.textout( 'b' );
+                        if ( item_data[ i ].canBeEquipped( CLS.SAM ) ) win_msg.textout( 's' );
+                        if ( item_data[ i ].canBeEquipped( CLS.LOR ) ) win_msg.textout( 'l' );
+                        if ( item_data[ i ].canBeEquipped( CLS.NIN ) ) win_msg.textout( 'n' );
+                        win_msg.textout(" \n");
 
                         if ( mem.canCarry )
                         {
@@ -658,10 +639,10 @@ WHO_BUY:
                         }
                         else
                         {
-                            textout( _( "you cannot carry anything more.\n"  ));
+                            win_msg.textout( _( "you cannot carry anything more.\n"  ));
 
                         ANOTHER_PUR:
-                            textout( _( "anyone else takes it(y/n)?"  ));
+                            win_msg.textout( _( "anyone else takes it(y/n)?"  ));
 
                             if ( answerYN != 'y')
                                 break;
@@ -672,15 +653,15 @@ WHO_BUY:
                                 break;
                             if( ! mem_takes.canCarry )
                             {
-                                textout( _( "%1 cannot carry anything more.\n" ) , mem_takes.name );
+                                win_msg.textout( _( "%1 cannot carry anything more.\n" ) , mem_takes.name );
                                 goto ANOTHER_PUR;
                             }
                         }
 
                         if ( mem.gold < item_data[ i ].gold )
                         {
-                            textout( _( "sorry, you cannot afford it.\n"  ));
-                            textout( _( "pool gold(y/n)? "  ));
+                            win_msg.textout( _( "sorry, you cannot afford it.\n"  ));
+                            win_msg.textout( _( "pool gold(y/n)? "  ));
 
                             if ( answerYN == 'n' )
                                 continue;
@@ -688,8 +669,8 @@ WHO_BUY:
                             party.poolGold( mem );
                             if ( mem.gold < item_data[ i ].gold )
                             {
-                                textout( _( "sorry, you cannot afford it.\n"  ));
-                                dispBoltacBuyMenu;
+                                win_msg.textout( _( "sorry, you cannot afford it.\n"  ));
+                                dispShopBuyMenu;
                                 continue;
                             }
                         }
@@ -697,14 +678,14 @@ WHO_BUY:
                         mem.gold -= item_data[ i ].gold;
                         mem_takes.getItem( i );
 
-                        boltacitem[ i ]--;
-                        last = boltac_list( mem , top, kind, disp_lines , item );
+                        shopitem[ i ]--;
+                        last = shop_list( mem , top, kind, disp_lines , item );
                         party.win_disp();
-                        textout( _( "\njust what you needed.\n"  ));
+                        win_msg.textout( _( "\njust what you needed.\n"  ));
                         break;
                     }
                 }
-                dispBoltacBuyMenu;
+                dispShopBuyMenu;
                 break;
             default:
                 break;
@@ -715,9 +696,9 @@ WHO_BUY:
 
 
 /**
-  boltac_list
+  shop_list
   */ 
-int boltac_list( Member mem 
+int shop_list( Member mem 
         , int top, ITM_KIND kind , ref int lines , ref int[ MAXITEM ]  item )
 {
     int i, j, k;
@@ -736,22 +717,22 @@ int boltac_list( Member mem
     switch ( kind )
     {
         case ITM_KIND.WEAPON:   // weapon
-            mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "[ weapon: ]                  " );
+            win_status.print( 0, 0, "[ weapon: ]                  " );
             break;
         case ITM_KIND.ARMOR:    // armor
-            mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "[ armor:  ]                  " );
+            win_status.print( 0, 0, "[ armor:  ]                  " );
             break;
         case ITM_KIND.SHIELD:   // shield
-            mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "[ shield: ]                  " );
+            win_status.print( 0, 0, "[ shield: ]                  " );
             break;
         case ITM_KIND.HELM:     // helm
-            mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "[ helm:   ]                  " );
+            win_status.print( 0, 0, "[ helm:   ]                  " );
             break;
         case ITM_KIND.GLOVES:   // gloves
-            mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "[ gloves: ]                  " );
+            win_status.print( 0, 0, "[ gloves: ]                  " );
             break;
         case ITM_KIND.ITEM:     // item
-            mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "[ item:   ]                  " );
+            win_status.print( 0, 0, "[ item:   ]                  " );
             break;
         default:
             assert( 0 );
@@ -773,7 +754,7 @@ int boltac_list( Member mem
         if ( ( item_data[ i ] !is null ) && ( i != 171 ) 
                 && ( item_data[ i ].kind == kind ) )
         {
-            if ( boltacitem[ i ] != 0 )
+            if ( shopitem[ i ] != 0 )
             {
                 item[ lines ] = i;
                 if ( item_data[ i ].canBeEquipped( mem.Class ) )
@@ -786,19 +767,18 @@ int boltac_list( Member mem
                         , canEquip
                         , item_data[ i ].name ) ;
 
-                mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP, "                             " );
-                mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP , list );
-                mvIntDispD( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP + 18, item_data[ i ].gold, 8 );
-                printw( "*" );
+                win_status.print( 1 + lines, 0 , "                             " );
+                win_status.print( 1 + lines, 18, fillR( item_data[ i ].gold, 8 ) );
+                win_status.print( 1 + lines, 0 , list );
 
-                if ( boltacitem[ i ] > 999 )
-                    mvIntDispD( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP + 27, 999, 3 );
+                if ( shopitem[ i ] > 999 )
+                    win_status.print( 1 + lines, 26, "*%1" , fillR( 999 , 3 ) );
                 else
-                    mvIntDispD( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP + 27, boltacitem[ i ], 3 );
+                    win_status.print( 1 + lines, 26, "*%1" , fillR( shopitem[ i ] , 3 ) );
             }
             else
             {
-                mvprintw( SCRW_Y_TOP + 1 + lines, SCRW_X_TOP, "-)                out of stock" );
+                win_status.print( 1 + lines , 0 , "-)                out of stock" );
             }
             lines++;
             j = i;
@@ -815,9 +795,9 @@ int boltac_list( Member mem
 
 
 /**
-  boltac_sell
+  shop_sell
   */
-void boltac_sell()
+void shop_sell()
 {
     char ch;
     Member mem;
@@ -825,7 +805,7 @@ void boltac_sell()
 
     while ( true )
     {
-        textout( _( "whose item(z:leave(9))? "  ));
+        win_msg.textout( _( "whose item(z:leave(9))? "  ));
 
         while ( true )
         {
@@ -834,21 +814,21 @@ void boltac_sell()
                   || (ch >= '1' && ch <= '1' + party.num - 1))
               break;
         }
-        textout( ch );
+        win_msg.textout( ch );
         if (ch == 'z' || ch == '9')
         {
-            textout( '\n' );
+            win_msg.textout( '\n' );
             return;
         }
 
         mem = party.mem[ ch - '1' ];
-        textout( "(" ~ mem.name ~ ")\n" );
+        win_msg.textout( "(" ~ mem.name ~ ")\n" );
 
         mem.inspect;
 
         while ( true )
         {
-            textout( _( "  which item(z:leave(9))? "  ));
+            win_msg.textout( _( "  which item(z:leave(9))? "  ));
 
             while ( true )
             {
@@ -857,45 +837,45 @@ void boltac_sell()
                         (ch >= '1' && ch <= '8' && ! mem.item[ ch - '1' ].isNothing ) )
                     break;
             }
-            textout( ch );
+            win_msg.textout( ch );
             if ( ch == 'z' || ch == '9' )
             {
-                textout( '\n' );
+                win_msg.textout( '\n' );
                 break;
             }
             else
             {
                 itm = mem.item[ ch - '1' ];
-                textout( "(" ~ itm.getDispNameA ~ ")\n" );
+                win_msg.textout( "(" ~ itm.getDispNameA ~ ")\n" );
                 if ( itm.cursed )
                 {
-                    textout( _( "    cursed item.\n"  ));
+                    win_msg.textout( _( "    cursed item.\n"  ));
                     continue;
                 }
                 else if ( itm.equipped )
                 {
-                    textout( _( "    equipped item.\n"  ));
+                    win_msg.textout( _( "    equipped item.\n"  ));
                     continue;
                 }
                 if ( itm.gold != 0 )
                 {
-                    textout( _( "    It will be %1 gp.(y/n)"  ), itm.gold / 2 );
+                    win_msg.textout( _( "    It will be %1 gp.(y/n)"  ), itm.gold / 2 );
                     if ( answerYN == 'n' )
                         continue;
                     mem.gold += itm.gold / 2;
 
-                    boltacitem[ itm.itemNo ]++;
-                    textout( "    " );
-                    textout( itm.name );
-                    textout( ".\n" );
+                    shopitem[ itm.itemNo ]++;
+                    win_msg.textout( "    " );
+                    win_msg.textout( itm.name );
+                    win_msg.textout( ".\n" );
 
                     mem.releaseItem( itm );
                     party.win_disp();
-                    textout( _( "    Anything else, noble sir?\n"  ));
+                    win_msg.textout( _( "    Anything else, noble sir?\n"  ));
                 }
                 else
                 {
-                    textout( _( "    Not interested.\n"  ));
+                    win_msg.textout( _( "    Not interested.\n"  ));
                 }
                 mem.inspect;
             }
@@ -916,7 +896,7 @@ void uncurse()
 
     while ( true )
     {
-        textout( _( "whose item(z:leave(9))? "  ));
+        win_msg.textout( _( "whose item(z:leave(9))? "  ));
         while ( true )
         {
           c = getChar();
@@ -924,29 +904,29 @@ void uncurse()
                   || ( c >= '1' && c <= '1' + party.num - 1 ) )
               break;
         }
-        textout( c );
+        win_msg.textout( c );
         if ( c == 'z' || c == '9' )
         {
-            textout( '\n' );
+            win_msg.textout( '\n' );
             return;
         }
 
         mem = party.mem[ c - '1' ];
-        textout( "(" ~ mem.name ~ ")\n" );
+        win_msg.textout( "(" ~ mem.name ~ ")\n" );
         for ( i = 0; i < MAXCARRY; i++ )
         {
             if ( mem.item[ i ].cursed )
             {
-                textout( "  " );
-                textout( i + 1 );
-                textout( ')' ~ mem.item[ i ].getDispName );
-                textout( '\n' );
+                win_msg.textout( "  " );
+                win_msg.textout( i + 1 );
+                win_msg.textout( ')' ~ mem.item[ i ].getDispName );
+                win_msg.textout( '\n' );
             }
         }
 
         while ( true )
         {
-            textout( _( "which item(z:leave(9))?  "  ));
+            win_msg.textout( _( "which item(z:leave(9))?  "  ));
             while ( true )
             {
                 c = getChar();
@@ -958,31 +938,31 @@ void uncurse()
                 if ( itm.cursed )
                      break;
             }
-            textout( c );
+            win_msg.textout( c );
             if ( c == 'z' || c == '9' )
             {
-                textout( '\n' );
+                win_msg.textout( '\n' );
                 break;
             }
-            textout( "(" ~ itm.getDispNameA ~ ")\n" );
+            win_msg.textout( "(" ~ itm.getDispNameA ~ ")\n" );
 
-            textout( _( "That will be %1 gp.(y/n)"  ), itm.gold / 2 );
+            win_msg.textout( _( "That will be %1 gp.(y/n)"  ), itm.gold / 2 );
             if ( answerYN == 'n' )
                 break;
             if ( mem.gold < itm.gold / 2)
             {
-                textout( _( "you can't afford it, pool gold(y/n)? " ) );
+                win_msg.textout( _( "you can't afford it, pool gold(y/n)? " ) );
                 if ( answerYN == 'n' )
                     return;
                 party.poolGold( mem );
                 if ( mem.gold < itm.gold / 2)
                 {
-                    textout( _( "  still, you can't afford it\n" ) );
+                    win_msg.textout( _( "  still, you can't afford it\n" ) );
                     return;
                 }
             }
             mem.gold -= itm.gold / 2;
-            textout( _( "uncursed and %1 is vanished...\n" ) , itm.getDispNameA );
+            win_msg.textout( _( "uncursed and %1 is vanished...\n" ) , itm.getDispNameA );
             mem.releaseItem( itm );
             getChar();
             return;
@@ -992,9 +972,9 @@ void uncurse()
 
 
 /**
-  boltac_identify -
+  shop_identify -
  */
-void boltac_identify()
+void shop_identify()
 {
     char c;
     Member mem;
@@ -1002,8 +982,8 @@ void boltac_identify()
 
     TOP:
 
-    scrwin_clear();
-    textout( _( "whose item(z:leave(9))? " ) );
+    win_status.clear();
+    win_msg.textout( _( "whose item(z:leave(9))? " ) );
     while ( true )
     {
         c = getChar();
@@ -1011,21 +991,21 @@ void boltac_identify()
                 ( c >= '1' && c <= '1' + party.num - 1 ) )
             break;
     }
-    textout( c );
+    win_msg.textout( c );
     if ( c == 'z' || c == '9' )
     {
-        textout( '\n' );
+        win_msg.textout( '\n' );
         return;
     }
 
     mem = party.mem[ c - '1'];
-    textout( "(" ~ mem.name ~ ")\n" );
+    win_msg.textout( "(" ~ mem.name ~ ")\n" );
 
     mem.inspect;
 
     while ( true )
     {
-        textout( _( "which item(z:leave(9))? " ) );
+        win_msg.textout( _( "which item(z:leave(9))? " ) );
         while ( true )
         {
             c = getChar();
@@ -1037,28 +1017,28 @@ void boltac_identify()
             if ( ! itm.isNothing )
                 break;
         }
-        textout( c );
+        win_msg.textout( c );
         if (c == 'z' || c == '9')
         {
-            textout( '\n' );
+            win_msg.textout( '\n' );
             break;
         }
 
-        textout( "(" ~ itm.getDispNameA ~ ")\n" );
+        win_msg.textout( "(" ~ itm.getDispNameA ~ ")\n" );
         if ( itm.undefined )
         {
-            textout( _( "That will be %1 gp.(y/n)"  ), itm.gold / 2 );
+            win_msg.textout( _( "That will be %1 gp.(y/n)"  ), itm.gold / 2 );
             if ( answerYN == 'n' )
                 break;
             if ( mem.gold < itm.gold / 2 )
             {
-                textout( _( "you can't afford it, pool gold(y/n)? " ) );
+                win_msg.textout( _( "you can't afford it, pool gold(y/n)? " ) );
                 if ( answerYN == 'n')
                     return;
                 party.poolGold( mem );
                 if ( mem.gold < itm.gold / 2 )
                 {
-                    textout( _( "  still, you can't afford it\n" ) );
+                    win_msg.textout( _( "  still, you can't afford it\n" ) );
                     return;
                 }
             }
@@ -1095,8 +1075,8 @@ void temple()
     {
 
         setColor( CL.MENU );
-        textout( "\n" );
-        textout( _( "*** temple of dice, we have: ***\n" ) );
+        win_msg.textout( "\n" );
+        win_msg.textout( _( "*** temple of dice, we have: ***\n" ) );
         setColor( CL.NORMAL );
 
         for ( i = 0; i < MAXMEMBER ; i++ )
@@ -1104,30 +1084,30 @@ void temple()
             if ( member[ i ].name != "" && member[ i ].status >= STS.PARALY
               && member[ i ].outflag==0 )
             {
-                textout( "  " );
-                textout( to!char( i + 'a' ) );
-                textout( ')' );
-                textout( member[ i ].name );
+                win_msg.textout( "  " );
+                win_msg.textout( to!char( i + 'a' ) );
+                win_msg.textout( ')' );
+                win_msg.textout( member[ i ].name );
                 switch ( member[ i ].status )
                 {
                     case STS.PARALY:
-                        textout( "(paralized)\n" );
+                        win_msg.textout( "(paralized)\n" );
                         break;
                     case STS.STONED:
-                        textout("(stoned)\n");
+                        win_msg.textout("(stoned)\n");
                         break;
                     case STS.DEAD:
-                        textout("(dead)\n");
+                        win_msg.textout("(dead)\n");
                         break;
                     case STS.ASHED:
-                        textout( "(ashed)\n" );
+                        win_msg.textout( "(ashed)\n" );
                         break;
                     default:
                         assert( 0 );
                 }
             }
         }
-        textout( _( "  who needs help(z:leave(9))? " ) );
+        win_msg.textout( _( "  who needs help(z:leave(9))? " ) );
         while ( true )
         {
             c = getChar();
@@ -1139,15 +1119,15 @@ void temple()
               && member[ c - 'a' ].outflag == 0 )
                 break;
         }
-        textout( c );
+        win_msg.textout( c );
         if ( c == 'z' || c == '9' )
         {
-            textout( '\n' );
+            win_msg.textout( '\n' );
             goto EXIT;
         }
 
         mem = member[ c - 'a' ];
-        textout( "(" ~ mem.name ~ ")\n" );
+        win_msg.textout( "(" ~ mem.name ~ ")\n" );
         switch ( mem.status )
         {
             case STS.PARALY:
@@ -1168,8 +1148,8 @@ void temple()
                 break;
         }
         donation *= mem.level;
-        textout( _( "the donation is %1 gp.\n" ) , donation );
-        textout( _( "  who will pay(z:leave(9))? " ) );
+        win_msg.textout( _( "the donation is %1 gp.\n" ) , donation );
+        win_msg.textout( _( "  who will pay(z:leave(9))? " ) );
 
         while ( true )
         {
@@ -1179,26 +1159,26 @@ void temple()
             if ( c >= '1' && c < '1' + party.num )
                 break;
         }
-        textout( c );
+        win_msg.textout( c );
 
         if ( c == 'z' || c == '9' )
         {
-            textout( '\n' );
+            win_msg.textout( '\n' );
             break;
         }
 
         p = party.mem[ c - '1' ];
-        textout( "(" ~ p.name ~ ")\n" );
+        win_msg.textout( "(" ~ p.name ~ ")\n" );
         if ( p.gold < donation )
         {
-            textout( _( "you don't have enough money.\n" ) );
-            textout( _( "  pool gold(y/n)? " ) );
+            win_msg.textout( _( "you don't have enough money.\n" ) );
+            win_msg.textout( _( "  pool gold(y/n)? " ) );
             if (answerYN == 'n')
                 goto EXIT;
             party.poolGold( p );
             if ( p.gold < donation )
             {
-              textout( _( "  still not enough...\n" ) );
+              win_msg.textout( _( "  still not enough...\n" ) );
               getChar();
               goto EXIT;
             }
@@ -1221,13 +1201,13 @@ void temple()
             if ( ratio > 95 ) ratio = 95;
             if ( ratio < 10 ) ratio = 10;
         }
-        textout( "\n*** murmur - " );
+        win_msg.textout( "\n*** murmur - " );
         getChar();
-        textout( "chant - " );
+        win_msg.textout( "chant - " );
         getChar();
-        textout( "pray - " );
+        win_msg.textout( "pray - " );
         getChar();
-        textout( "invoke! ***\n" );
+        win_msg.textout( "invoke! ***\n" );
         getChar();
 
         if ( get_rand( 99 ) + 1 <= ratio )
@@ -1239,12 +1219,12 @@ void temple()
         }
         else if( mem.status == STS.DEAD )
         {
-            textout( _( " %1 needs Bless now!\n" ) , mem.name );
+            win_msg.textout( _( " %1 needs Bless now!\n" ) , mem.name );
             mem.status = STS.ASHED;
         }
         else
         {
-            textout( _( " %1 is buried...\n" ) , mem.name );
+            win_msg.textout( _( " %1 is buried...\n" ) , mem.name );
             mem.status = STS.LOST;
             mem.name = "";
         }

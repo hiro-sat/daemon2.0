@@ -14,6 +14,8 @@ import lib_sdl;
 import lib_screen;
 import lib_readline;
 
+import cTextarea;
+
 import cParty;
 import cMember;
 import cMap;
@@ -100,7 +102,6 @@ int FONT_X_MARGINE;
 int FONT_Y_MARGINE;
 
 
-
 enum TEXT_WIDTH = 80;
 enum TEXT_HEIGHT = 23;
 
@@ -124,24 +125,55 @@ enum WIN_X_SIZ  = 78;
 enum WIN_Y_SIZ  = SCRW_Y_SIZ + CHRW_Y_SIZ + 2;
 enum SCRW_X_TOP = 1;
 enum SCRW_Y_TOP = 1;
+
+/+
 enum SCRW_X_SIZ = 30;
+enum SCRW_Y_SIZ = 15;
+enum TXTW_X_TOP = SCRW_X_TOP + SCRW_X_SIZ + 2;  // 33
+enum TXTW_Y_TOP = SCRW_X_TOP + 1;               //  2
+enum TXTW_X_SIZ = WIN_X_SIZ - TXTW_X_TOP - 1;   // 44
+enum TXTW_Y_SIZ = SCRW_Y_SIZ - 2;               // 13
++/
+
+/+
+enum SCRW_X_SIZ = 75;
 enum SCRW_Y_SIZ = 15;
 enum TXTW_X_TOP = SCRW_X_TOP + SCRW_X_SIZ + 2;
 enum TXTW_Y_TOP = SCRW_X_TOP + 1;
 enum TXTW_X_SIZ = WIN_X_SIZ - TXTW_X_TOP - 1;
 enum TXTW_Y_SIZ = SCRW_Y_SIZ - 2;
++/
+enum SCRW_X_SIZ = 79;
+enum SCRW_Y_SIZ = 15;
+enum SCR_X_MARGIN = 15;
+enum SCR_Y_MARGIN = 5;
+
+
+enum TXTW_X_TOP = 33;
+enum TXTW_Y_TOP = 2;
+enum TXTW_X_SIZ = 44;
+enum TXTW_Y_SIZ = 13;
+
+enum STSW_X_TOP = 1;
+enum STSW_Y_TOP = 1;
+enum STSW_X_SIZ = 30;
+enum STSW_Y_SIZ = 15;
+
+
 enum CHRW_X_SIZ = WIN_X_SIZ;
 enum CHRW_Y_SIZ = 7;
 enum CHRW_X_TOP = 0;
 enum CHRW_Y_TOP = SCRW_Y_TOP + SCRW_Y_SIZ;
 
-/* for text window */
-int text_curx, text_cury;
-int text_color = CL.NORMAL;
-int text_top;
-string[ TXTW_Y_SIZ ] text_win_buffer;
-int   [ TXTW_Y_SIZ ] text_win_buffer_size;
-int   [ TXTW_Y_SIZ ] text_win_buffer_color;
+
+/* textarea */
+Textarea win_msg;
+Textarea win_status;
+Textarea win_event;
+int text_color;
+
+
+
 
 /* text color */
 enum CL
@@ -164,7 +196,6 @@ enum CL
 /* etc */
 enum MAXITEM    = 200;
 enum MAXMAGIC   = 100;
-enum MAXLAYER   = 10;
 enum MAXMONSTER = 150;
 enum MAXTRAP    = 9;
 enum MAXMEMBER  = 20;
@@ -181,13 +212,12 @@ enum RATE_ENCOUNT_STOP  = 63;   //  1/64
 //----------------------------------------
 // マップ情報
 //----------------------------------------
-enum MAP_MAX_X = 80;
-enum MAP_MAX_Y = 40;
-string ORGMAPFILE = "resources/orgmap.";
-string ORGMAPJSON = "resources/orgmap.%1.json";
-string MAPFILE = "data/map.";
+int    MAXLAYER;    // readMapAll で設定
+string ORGMAPFILE = "resources/mapdata/orgmap.%1";
+string ORGMAPJSON = "resources/mapdata/orgmap.%1.json";
+string MAPFILE = "data/map.%1";
 
-Map[ MAXLAYER ] dungeonMap;
+Map[] dungeonMap;
 
 enum MAP_CL
 {
@@ -213,7 +243,7 @@ ItemDef[ MAXITEM ] item_data;
 // 商店情報
 //----------------------------------------
 string SHOPFILE = "data/boltac";
-int[ MAXITEM ] boltacitem;
+int[ MAXITEM ] shopitem;
 
 //----------------------------------------
 // 魔法情報

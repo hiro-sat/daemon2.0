@@ -13,7 +13,11 @@ import def;
 class MapEncountRoom
 {
 private:
-    MapEncountRoomChip[ MAP_MAX_X ][ MAP_MAX_Y ] chip;
+
+    int MAP_MAX_X;
+    int MAP_MAX_Y;
+
+    MapEncountRoomChip[][] chip;
 
     class MapEncountRoomChip
     {
@@ -80,8 +84,14 @@ private:
 
 
 public:
-    this()
+    this( int maxx , int maxy )
     {
+
+        MAP_MAX_X = maxx;
+        MAP_MAX_Y = maxy;
+
+        chip = new MapEncountRoomChip[][]( MAP_MAX_Y , MAP_MAX_X );
+
         // インスタンス
         for( int y = 0 ; y < MAP_MAX_Y ; y++ )
             for( int x = 0 ; x < MAP_MAX_X ; x++ )

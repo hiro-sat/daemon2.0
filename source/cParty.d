@@ -37,9 +37,10 @@ private:
     void addMem_disp()
     {
         int i, j, disp_count;
+        int x;
         string name;
       
-        scrwin_clear();
+        win_status.clear();
       
         rewriteOff;
 
@@ -57,14 +58,12 @@ private:
                 if ( j != num )
                     continue;
                 
-                name = to!string( cast(char)( 'a' + i ) );
-                name ~= ")";
-                name ~= leftB( member[ i ].name , 14 );
+                name = formatText( "%1)%2"  
+                                , to!string( cast(char)( 'a' + i ) )
+                                , leftB( member[ i ].name , 14 ) );
 
-                if ( disp_count % 2 == 0 )
-                    mvprintw( SCRW_Y_TOP + 1 + ( disp_count / 2 ),  0, name ) ;
-                else
-                    mvprintw( SCRW_Y_TOP + 1 + ( disp_count / 2 ), 16, name ) ;
+                x = ( ( disp_count % 2 == 0 ) ? 0 : 16 );
+                win_status.print( 1 + ( disp_count / 2 ),  x , name ) ;
 
                 disp_count ++;
 
@@ -80,7 +79,6 @@ private:
 
 public:
     Member[ 6 ] mem;
-    Member[ 6 ] memsv;      // ?????
     Map dungeon;
 
     int step;
@@ -119,10 +117,7 @@ public:
         actnum = 0;
         ac     = 0;
         for ( int i = 0 ; i < 6 ; i++ )
-        {
             mem[ i ] = null;
-            memsv[ i ] = null;
-        }
         return;
     }
 
@@ -174,9 +169,10 @@ public:
 
         addMem_disp();
 
-        textout( _( "select members(a,b,... ,z:leave(9))\n" ) );
+        win_msg.textout( _( "select members(a,b,... ,z:leave(9))\n" ) );
         while ( true )
         {
+
             keycode = getChar();
             if ( keycode == 'z' || keycode == '9' )
                 break;
@@ -186,7 +182,6 @@ public:
             {
 
                 mem[ num ]   =  member[ keycode - 'a' ];
-                memsv[ num ] =  member[ keycode - 'a' ];
                 num++;
                 actnum++;
 
@@ -215,7 +210,7 @@ public:
             return;
 
         addMem_disp();
-        textout( _( "remove who(z:leave(9))?\n" ) );
+        win_msg.textout( _( "remove who(z:leave(9))?\n" ) );
 
         while( true )
         {
@@ -240,12 +235,8 @@ public:
             mem[ c ] = null;
 
             for ( int i = c ; i < 5; i++ )
-            {
                 mem[ i ] = mem[ i + 1 ];
-                memsv[ i ] = mem[ i + 1 ];
-            }
             mem[ 5 ] = null;
-            memsv[ 5 ] = null;
 
             addMem_disp();
             win_disp_sub();
@@ -296,7 +287,7 @@ public:
             mem[ i ].gold = 0;
         }
         m.gold = poolgold;
-        textout( _( "%1 has %2 gp.\n" ) , m.name , poolgold );
+        win_msg.textout( _( "%1 has %2 gp.\n" ) , m.name , poolgold );
 
         return;
     }
@@ -506,13 +497,13 @@ public:
 
         bool reorder_sub( string step )
         {
-            textout( _( "who comes %1(z:leave(9))? " ) , step  );
+            win_msg.textout( _( "who comes %1(z:leave(9))? " ) , step  );
             while ( true )
             {
                 ch = getChar();
                 if ( ch == 'z' || ch == '9' )
                 {
-                    textout( "leave\n" );
+                    win_msg.textout( "leave\n" );
                     return false;
                 }
 
@@ -521,8 +512,8 @@ public:
                     if( indexOf( order , ch ) >= 0 )
                         continue;
 
-                    textout( "%1(%2)" , ch , mem[ ch - '1' ].name );
-                    textout( '\n' );
+                    win_msg.textout( "%1(%2)" , ch , mem[ ch - '1' ].name );
+                    win_msg.textout( '\n' );
                     break;
                 }
             }
@@ -624,12 +615,12 @@ public:
                 itm = mem[ j ].getItem( itemno );
                 itm.undefined = true;
 
-                textout( _( "  %1 got a %2.\n" ) , mem[ j ].name , itm.getDispName );
+                win_msg.textout( _( "  %1 got a %2.\n" ) , mem[ j ].name , itm.getDispName );
                 getChar();
                 return true;
             }
         }
-        textout( _( "you cannot carry anything more.\n" ) );
+        win_msg.textout( _( "you cannot carry anything more.\n" ) );
         return false;
     }
 
@@ -659,7 +650,7 @@ public:
         if( num < 1 )
             return;
 
-        textout( _( "who(z:leave(9))? " ) );
+        win_msg.textout( _( "who(z:leave(9))? " ) );
         while( true )
         {
             c = getChar();
@@ -669,7 +660,7 @@ public:
                 break;
         }
 
-        textout( to!string( c ) ~ "\n" );
+        win_msg.textout( to!string( c ) ~ "\n" );
 
         if( c != 'z' && c != '9' )
         {
@@ -689,7 +680,7 @@ public:
     {
         char c;
         
-        textout( _( "who do you want to inspect(z:leave(9))? " ) );
+        win_msg.textout( _( "who do you want to inspect(z:leave(9))? " ) );
         while ( true )
         {
             c = getChar();
@@ -698,7 +689,7 @@ public:
             if ( c=='z' || c=='9' )
                 break;
         }
-        textout ( to!string( c ) ~ "\n" );
+        win_msg.textout ( to!string( c ) ~ "\n" );
 
         if ( c == 'z' || c == '9' )
             return;
@@ -749,7 +740,7 @@ public:
             if ( mem[ i ].consume_spell( 0x28 ) == 0 )
             {
               setIdentify;
-              textout( _( "  rcgnize...done.\n" ) );
+              win_msg.textout( _( "  rcgnize...done.\n" ) );
               break;
             }
         }
@@ -760,7 +751,7 @@ public:
             if ( mem[ i ].consume_spell( 0xb ) == 0)
             {
                 setFloat;
-                textout( _( "  floatn...done.\n" ) );
+                win_msg.textout( _( "  floatn...done.\n" ) );
                 break;
             }
         }
@@ -773,7 +764,7 @@ public:
                 party.lightCount += L_LIGHT_COUNT;
                 party.setScope;
                 party.scopeCount += L_SCOPE_COUNT;
-              textout( _( "  shine...done.\n" ) );
+              win_msg.textout( _( "  shine...done.\n" ) );
               break;
             }
         }
@@ -785,7 +776,7 @@ public:
               {
                   setMapper;
                   dungeon.disp;
-                  textout( _( "  mapper...done.\n" ) );
+                  win_msg.textout( _( "  mapper...done.\n" ) );
                   break;
               }
         }
@@ -796,7 +787,7 @@ public:
             if ( mem[ i ].consume_spell( 0x2e ) == 0 )
             {
               ac = -2;
-              textout( _( "  guard...done.\n" ) );
+              win_msg.textout( _( "  guard...done.\n" ) );
               break;
             }
         }
@@ -816,7 +807,7 @@ public:
 
         Member pl;
 
-        textout( _( "input action...\n" ) );
+        win_msg.textout( _( "input action...\n" ) );
 
     AGAIN:
         for ( j = 0; j < num; j++ )
@@ -868,48 +859,48 @@ public:
                 if ( c == '?' )
                 {
                     setColor( CL.MENU );
-                    textout( _( "************ assigned keys ************\n" ) );
-                    textout( _( "f/4:fight, p/5:parry, s/c/6:cast spell,\n" ) );
-                    textout( _( "e/7:run, u/8:use, t/9:take back, \n" ) );
-                    textout( _( "d/0:dispell, i:monster info\n" ) );
-                    textout( _( "r/:read spells book\n" ) );
-                    textout( _( "------ short cut ------\n" ) );
-                    textout( _( "j/1:fight1, h/2:fight2, n/3:fight3\n" ) );
-                    textout( _( "k:parry, l:take back, ;:run\n" ) );
-                    textout( _( "***************************************" ) );
+                    win_msg.textout( _( "************ assigned keys ************\n" ) );
+                    win_msg.textout( _( "f/4:fight, p/5:parry, s/c/6:cast spell,\n" ) );
+                    win_msg.textout( _( "e/7:run, u/8:use, t/9:take back, \n" ) );
+                    win_msg.textout( _( "d/0:dispell, i:monster info\n" ) );
+                    win_msg.textout( _( "r/:read spells book\n" ) );
+                    win_msg.textout( _( "------ short cut ------\n" ) );
+                    win_msg.textout( _( "j/1:fight1, h/2:fight2, n/3:fight3\n" ) );
+                    win_msg.textout( _( "k:parry, l:take back, ;:run\n" ) );
+                    win_msg.textout( _( "***************************************" ) );
                     setColor( CL.MONSTER );
-                    textout( "\n****** encounter ****** - push any key -" );
+                    win_msg.textout( "\n****** encounter ****** - push any key -" );
                     getChar();
-                    textout( "\n" );
+                    win_msg.textout( "\n" );
                     monParty.disp;
-                    textout( "***********************\n" );
+                    win_msg.textout( "***********************\n" );
                     setColor( CL.NORMAL );
-                    textout( _( "input action...\n" ) );
+                    win_msg.textout( _( "input action...\n" ) );
                 }
                 else if ( c == 'i' )
                 {
                     monParty.dispMonsterInfo;
                     setColor( CL.MONSTER );
-                    textout( "****** encounter ****** - push any key -" );
+                    win_msg.textout( "****** encounter ****** - push any key -" );
                     getChar();
-                    textout( "\n" );
+                    win_msg.textout( "\n" );
                     monParty.disp();
-                    textout( "***********************\n" );
+                    win_msg.textout( "***********************\n" );
                     setColor( CL.NORMAL );
-                    textout( _( "input action...\n" ) );
+                    win_msg.textout( _( "input action...\n" ) );
                 }
                 else if( c == 'r' ) // read spell
                 {
                     pl.dispSpellsInBattle();
 
                     setColor( CL.MONSTER );
-                    textout( "****** encounter ****** - push any key -" );
+                    win_msg.textout( "****** encounter ****** - push any key -" );
                     getChar();
-                    textout( "\n" );
+                    win_msg.textout( "\n" );
                     monParty.disp();
-                    textout( "***********************\n" );
+                    win_msg.textout( "***********************\n" );
                     setColor( CL.NORMAL );
-                    textout( _( "input action...\n" ) );
+                    win_msg.textout( _( "input action...\n" ) );
                 }
                 else if ( c == 't'  // take back
                         || c == 'l' 
@@ -937,15 +928,15 @@ public:
                 }
             }
         }
-        textout( _( " ok?(t:take back)" ) );
+        win_msg.textout( _( " ok?(t:take back)" ) );
         c = getChar();
         if ( c == 't' || c == ';' || c == '9' )
         {
-            textout( _( "\ninput again ..." ) );
+            win_msg.textout( _( "\ninput again ..." ) );
             goto AGAIN;
         }
     EXIT:
-        textout( "\n" );
+        win_msg.textout( "\n" );
         return;
     }
     
@@ -958,7 +949,7 @@ public:
 
         char c;
 
-        textout( msg ~ "\n" );
+        win_msg.textout( msg ~ "\n" );
         while( true )
         {
             c = getChar();
@@ -970,14 +961,14 @@ public:
 
         if ( c == 'z' || c == '9' )
         {
-            textout( c );
-            textout( "\n" );
+            win_msg.textout( c );
+            win_msg.textout( "\n" );
             return null;
         }
 
-        textout( c );
+        win_msg.textout( c );
         c -= '1';
-        textout( "(" ~ mem[ c ].name ~ ")\n" );
+        win_msg.textout( "(" ~ mem[ c ].name ~ ")\n" );
         return mem[ c ];
 
     }
@@ -990,7 +981,7 @@ public:
 
         char c;
 
-        textout( msg ~ "\n" );
+        win_msg.textout( msg ~ "\n" );
         while( true )
         {
             c = getChar();
@@ -1003,13 +994,13 @@ public:
 
         if ( c == 'z' || c == '9' )
         {
-            textout( "%1:%2\n" , c , msg_ret );
+            win_msg.textout( "%1:%2\n" , c , msg_ret );
             return null;
         }
 
-        textout( c );
+        win_msg.textout( c );
         c -= '1';
-        textout( "(" ~ mem[ c ].name ~ ")\n" );
+        win_msg.textout( "(" ~ mem[ c ].name ~ ")\n" );
         return mem[ c ];
 
     }

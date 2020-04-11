@@ -10,6 +10,8 @@ import std.math : abs ;
 import std.ascii : toLower ;
 
 // mysource 
+import cTextarea;
+
 import cParty;
 import cMember;
 import cEvent;
@@ -30,8 +32,13 @@ private:
     int layer;
     Event event;
 
-    char[ MAP_MAX_X ][ MAP_MAX_Y ] map;
-    char[ MAP_MAX_X ][ MAP_MAX_Y ] orgmap;
+    int MAP_MAX_X;
+    int MAP_MAX_Y;
+
+    /* char[ MAP_MAX_X ][ MAP_MAX_Y ] map; */
+    /* char[ MAP_MAX_X ][ MAP_MAX_Y ] orgmap; */
+    char[][] map;
+    char[][] orgmap;
     MapEncountRoom encountRoom;
 
     int startX , startY;
@@ -40,6 +47,12 @@ private:
     /* char vram1[ 29 * 15 ]; */
     char[ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vram;
     int [ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vramCl;
+
+
+    int disp_scr_x;
+    int disp_scr_y;
+    int disp_party_x;
+    int disp_party_y;
 
 
     /*-------------------- 
@@ -105,12 +118,15 @@ private:
 
 public:
 
+    @property int width(){ return MAP_MAX_X; }
+    @property int height(){ return MAP_MAX_Y; }
+
     /**--------------------
        this - コンストラクタ
        --------------------*/
     this( int l )
     {
-        layer = l + 1;  // 1 - 8
+        layer = l; // 1 - xx
         return;
     }
 
@@ -141,49 +157,8 @@ public:
     {
 
         // イベントクラス
-        switch( layer )
-        {
-            case 1:
-                /* event = new EventL1( 1 ); */
-                event = new Event( 1 );
-                break;
-            case 2:
-                event = new EventL2( 2 );
-                break;
-            case 3:
-                event = new EventL3( 3 );
-                break;
-            case 4:
-                event = new EventL4( 4 );
-                break;
-            case 5:
-                event = new EventL5( 5 );
-                break;
-            case 6:
-                event = new EventL6( 6 );
-                break;
-            case 7:
-                event = new EventL7( 7 );
-                break;
-            case 8:
-                event = new EventL8( 8 );
-                break;
-            default:
-                assert( 0 );
-        }
+        event = new Event( layer );
 
-        // 初期化
-        char* p1 = &map[ 0 ][ 0 ];
-        char* p2 = &orgmap[ 0 ][ 0 ];
-        for ( int i = 0; i < MAP_MAX_Y * MAP_MAX_X; i++ )
-        {
-            * p1++ = '^';
-            * p2++ = '.';
-        }
-
-        // 初期化(エンカウントエリア)
-        encountRoom = new MapEncountRoom;
-                
         // read file
         if( ! readMap() )
         {
@@ -202,6 +177,7 @@ public:
     {
         party.x = to!byte( startX );
         party.y = to!byte( startY );
+        setDispPos;
         return;
     }
 
@@ -212,6 +188,19 @@ public:
     {
         party.x = to!byte( endX );
         party.y = to!byte( endY );
+        setDispPos;
+        return;
+    }
+
+    /*--------------------
+       setDispPos - 画面スクロール用座標設定
+       --------------------*/
+    void setDispPos()
+    {
+        disp_party_x = SCRW_X_SIZ / 2;
+        disp_party_y = SCRW_Y_SIZ / 2;
+        disp_scr_x = party.x - disp_party_x;
+        disp_scr_y = party.y - disp_party_y;
         return;
     }
 
@@ -229,23 +218,42 @@ public:
 
         string[] line;
 
-        auto fin  = File( ORGMAPFILE ~ to!string( layer ) ,"r");
+        auto fin = File( formatText( ORGMAPFILE , fill0( layer , 2 ) ) , "r" );
         foreach( s ; fin.byLine )
         {
             line.length++;
             line.back = to!string ( s );
         }
 
+        // 初期化
+        MAP_MAX_X = to!int( line[ 0 ].length );
+        MAP_MAX_Y = to!int( line.length );
+        map    = new char[][]( MAP_MAX_Y , MAP_MAX_X );
+        orgmap = new char[][]( MAP_MAX_Y , MAP_MAX_X );
+        for ( int y = 0 ; y < MAP_MAX_Y ; y++ )
+            for( int x = 0 ; x < MAP_MAX_X ; x++ )
+            {
+                map[ y ][ x ] = '^';
+                orgmap[ y ][ x ] = '.';
+            }
+
+
+        // 初期化(エンカウントエリア)
+        encountRoom = new MapEncountRoom( MAP_MAX_X , MAP_MAX_Y );
+
+
         foreach ( y , ln ; line )
         {
-
             if( y < MAP_MAX_Y )
             {
                 // map情報
                 for( int x = 0 ; x < MAP_MAX_X ; x++ )
                 {
+                    /* writef( "map : x , %d / y , %d \n" , x , y ); */
+
                     encountFlg = false;
                     c = to!char( ln[ x .. x + 1 ] );
+
                     if( c == '<' )
                     {
                         startX = x;
@@ -304,21 +312,22 @@ public:
             }
         }
 
-        if( ! exists( MAPFILE ~ to!string( layer ) ) )
+        if( ! exists( formatText( MAPFILE , fill0( layer , 2 ) ) ) )
         {
-            writef( "initializing... %s%d\n", MAPFILE , layer );
+            writef( "initializing... %s\n", formatText( MAPFILE , fill0( layer , 2 ) ) );
             for ( int y = 0; y < MAP_MAX_Y; y++ )
                 for ( int x = 0; x < MAP_MAX_X; x++ )
                     map[ y ][ x ] = '^';
         }
         else
         {
-            auto fin2  = File( MAPFILE ~ to!string( layer ) ,"r");
+            auto fin2  = File( formatText( MAPFILE , fill0( layer , 2 ) ) ,"r");
             int y = 0;
-            foreach( ln ; fin2.byLine )
+
+            foreach( l ; fin2.byLine )
             {
                 for( int x = 0 ; x < MAP_MAX_X ; x++ )
-                    map[ y ][ x ] = to!char( ln[ x .. x + 1 ] );
+                    map[ y ][ x ] = to!char( l[ x .. x + 1 ] );
                 y++;
             }
         }
@@ -335,7 +344,8 @@ public:
     {
         int x , y ;
 
-        auto fout = File( ( MAPFILE ~ to!string( layer ) ) , "w" );
+        /* auto fout = File( ( MAPFILE ~ to!string( layer ) ) , "w" ); */
+        auto fout = File( formatText( MAPFILE , fill0( layer , 2 ) ) , "w" );
 
         string line = "";
         for ( y = 0; y < MAP_MAX_Y ; y++ )
@@ -413,6 +423,13 @@ public:
        --------------------*/
     int checkEncounterArea()
     {
+
+
+        /////////////////////////
+        // debug 用 
+        if( party.x > -99 )
+            return 0;
+        /////////////////////////
 
         bool encount;
         int dx , dy;
@@ -573,10 +590,10 @@ public:
         if (ratio < 0)
             ratio = 0;
 
-        textout( _( "unlock door.\nwhich side? " ) );
+        win_msg.textout( _( "unlock door.\nwhich side? " ) );
         c = getChar();
-        textout( c );
-        textout( '\n' );
+        win_msg.textout( c );
+        win_msg.textout( '\n' );
 
         if ( c=='h' || c=='4' ) 
         {
@@ -601,13 +618,13 @@ public:
 
         if( orgmap[ party.y + dy ][ party.x + dx ] != '=' )
         {
-            textout( _( "what ?\n" ) );
+            win_msg.textout( _( "what ?\n" ) );
             return false;
         }
 
         if ( ratio == 0 )
         {
-            textout( _( "locks around here is too complicated!\n" ) );
+            win_msg.textout( _( "locks around here is too complicated!\n" ) );
             return false;
         }
 
@@ -656,9 +673,9 @@ public:
                     c = to!char( 'a' + i );
                     discover ~= c;
 
-                    textout( c );
-                    textout( ")" ~ member[ i ].name );
-                    textout( "\n" );
+                    win_msg.textout( c );
+                    win_msg.textout( ")" ~ member[ i ].name );
+                    win_msg.textout( "\n" );
                     if( firstflg )
                         getChar();
                 }
@@ -673,7 +690,7 @@ public:
 
         while ( party.num < 6 )
         {
-            textout( _( "who do you want to pick(z:leave(9))? " ) );
+            win_msg.textout( _( "who do you want to pick(z:leave(9))? " ) );
             while ( true )
             {
                 c = getChar();
@@ -681,8 +698,8 @@ public:
                     break;
                 if( indexOf( discover , c ) >= 0 )
                 {
-                    textout( c );
-                    textout( '\n' );
+                    win_msg.textout( c );
+                    win_msg.textout( '\n' );
                     member[ c - 'a' ].layer = 99;
                     party.mem[ party.num ] =  member[ c - 'a' ];
                     party.num++;
@@ -695,7 +712,7 @@ public:
             if ( c == 'z' || c == '9' )
                 break;
         }
-        textout( "done.\n" );
+        win_msg.textout( "done.\n" );
 
         return;
     }
@@ -710,7 +727,7 @@ public:
         {
             if ( orgmap[ party.y + dy ][ party.x + dx ] == '*' )
             {
-                textout( _( "you found a hidden door!\n" ) );
+                win_msg.textout( _( "you found a hidden door!\n" ) );
                 /* orgmap[ party.y + dy ][ party.x + dx ] = '+'; */
                 map[ party.y + dy ][ party.x + dx ] = '+';
             }
@@ -747,54 +764,98 @@ public:
     }
 
     /*--------------------
+       clear - 表示初期化
+       --------------------*/
+    void clear()
+    {
+        int x, y , i;
+        string spc;
+        
+        for( x = SCRW_X_TOP ; x < SCRW_X_SIZ ; x++ )
+            spc ~= " ";
+
+        rewriteOff;
+        for( y = SCRW_Y_TOP ; y < SCRW_Y_TOP ; y++ )
+            mvprintw( y, x , spc );
+        rewriteOn;
+
+        return;
+    }
+
+    /*--------------------
        disp - マップ表示
        --------------------*/
     void disp()
     {
 
         int x,y;
+        int xmin,ymin;
         int xmax,ymax;
-        int viewarea;
         char c;
         
 
+        // scroll check
+        disp_party_x = party.x - disp_scr_x;
+        disp_party_y = party.y - disp_scr_y;
+        if( disp_party_x < SCR_X_MARGIN )
+        {
+            disp_scr_x --;
+            disp_party_x ++; 
+        }
+        else if( SCRW_X_SIZ - disp_party_x - 2 < SCR_X_MARGIN )
+        {
+            disp_scr_x ++;
+            disp_party_x --; 
+        }
+
+        if( disp_party_y < SCR_Y_MARGIN )
+        {
+            disp_scr_y --;
+            disp_party_y++; 
+        }
+        else if( SCRW_Y_SIZ - disp_party_y - 1 < SCR_Y_MARGIN )
+        {
+            disp_scr_y ++;
+            disp_party_y --; 
+        }
+
+
         rewriteOff;
       
-        /* if (debugmode == 1  */
-        /*         && (keycode == 'H' || keycode == 'J' || keycode == 'K' || keycode == 'L')) */
-        /*     viewarea = 16; */
-        
-        if( party.isLight )
-            viewarea = 2;
-        else
-            viewarea = 1;
-      
+        // ( orgmap -> map )
+        // set map data 
 
-        if ( party.y + viewarea > MAP_MAX_Y - 1 )
-            ymax = MAP_MAX_Y - 1;
+        if ( party.x - SCRW_X_SIZ / 2 < 0 )    // -2 ??? -> 78
+            xmin = 0;
         else
-            ymax = party.y + viewarea;
+            xmin = party.x - SCRW_X_SIZ / 2;
 
-        if ( party.x + viewarea > MAP_MAX_X - 2 )    // -2 ??? -> 78
+        if ( party.x + SCRW_X_SIZ / 2 > MAP_MAX_X - 2 )    // -2 ??? -> 78
             xmax = MAP_MAX_X - 2;
         else
-            xmax = party.x + viewarea;
-      
+            xmax = party.x + SCRW_X_SIZ / 2;
 
-        // set map data ( orgmap -> map )
-        for ( y = party.y - viewarea; y <= ymax; y++ )
-        {
-            if (y < 0)
-                y = 0;
-            for (x = party.x - viewarea; x <= xmax; x++)
+
+        if ( party.y - SCRW_Y_SIZ / 2 < 0 )
+            ymin = 0;
+        else
+            ymin = party.y - SCRW_Y_SIZ / 2;
+
+        if ( party.y + SCRW_Y_SIZ / 2 > MAP_MAX_Y - 1 )
+            ymax = MAP_MAX_Y - 1;
+        else
+            ymax = party.y + SCRW_Y_SIZ / 2;
+
+        for ( y = ymin ; y <= ymax ; y++ )
+            for (x = xmin ; x <= xmax ; x++)
             {
-                if (x < 0)
-                    x = 0;
                 if ( map[ y ][ x ] == '^' )
                 {
-                    if( viewarea != 1 )
-                        if( ! checkViewOrgMap( party.x , party.y , x , y ) )
-                            continue;
+                    if( orgmap[ y ][ x ] == '.' )
+                        continue;
+
+                    if( ! checkViewOrgMap( party.x , party.y , x , y ) )
+                        continue;
 
                     c = orgmap[ y ][ x ];
 
@@ -812,19 +873,22 @@ public:
                     map[ y ][ x ] = c;
                 }
             }
-        }
 
 
+        // ( map -> vram )
         /* virtual vram make */
         int _x , _y;
         for ( y = 0; y < SCRW_Y_SIZ; y++ )
-        {
             for ( x = 0; x < SCRW_X_SIZ - 1 ; x++ )
             {
-                if ( party.x - SCRW_X_SIZ / 2 + x + 1 < 0 
-                  || party.x - SCRW_X_SIZ / 2 + x + 1 >= MAP_MAX_X
-                  || party.y - SCRW_Y_SIZ / 2 + y < 0 
-                  || party.y - SCRW_Y_SIZ / 2 + y >= MAP_MAX_Y )
+                /* if ( party.x - SCRW_X_SIZ / 2 + x + 1 < 0  */
+                /*   || party.x - SCRW_X_SIZ / 2 + x + 1 >= MAP_MAX_X */
+                /*   || party.y - SCRW_Y_SIZ / 2 + y < 0  */
+                /*   || party.y - SCRW_Y_SIZ / 2 + y >= MAP_MAX_Y ) */
+                if ( disp_scr_x + x < 0 
+                  || disp_scr_x + x >= MAP_MAX_X
+                  || disp_scr_y + y < 0
+                  || disp_scr_y + y >= MAP_MAX_Y )
                 {
                     vram[ x ][ y ] = '^';
                     continue;
@@ -839,22 +903,11 @@ public:
                             vram[ x ][ y ] = '^';
                             continue;
                         }
-                        
-                        /* if( party.isLight && ! party.isScope ) */
-                        /* {   // 3 x 3 */
-                        /*     _x = ( party.x - ( SCRW_X_SIZ / 2 ) + x + 1 ); */
-                        /*     _y = ( party.y - ( SCRW_Y_SIZ / 2 ) + y ); */
-                        /*     if( ( abs( party.x - _x ) > 1 )  */
-                        /*      || ( abs( party.y - _y ) > 1 ) ) */
-                        /*     { */
-                        /*         vram[ x ][ y ] = '^'; */
-                        /*         continue; */
-                        /*     } */
-                        /* } */
                     }
 
-                    c = map[ party.y - ( SCRW_Y_SIZ / 2 ) + y ]
-                           [ party.x - ( SCRW_X_SIZ / 2 ) + x + 1 ];
+                    /* c = map[ party.y - ( SCRW_Y_SIZ / 2 ) + y ] */
+                    /*        [ party.x - ( SCRW_X_SIZ / 2 ) + x + 1 ]; */
+                    c = map[ disp_scr_y + y ][ disp_scr_x + x ];
 
                     if (c == '_' && ! debugmode )  // pit
                         c = ' ';
@@ -870,10 +923,6 @@ public:
 
                 }
             }
-        }
-
-        int px = ( SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 - 1 );
-        int py = ( SCRW_Y_TOP + SCRW_Y_SIZ / 2 - 1 );
 
         /* set light */
         for ( y = 0; y < SCRW_Y_SIZ ; y++ )             // 15
@@ -887,7 +936,7 @@ public:
                 }
 
                 // 可視チェック
-                if( ! checkViewVram( px , py , x , y ) )
+                if( ! checkViewVram( disp_party_x , disp_party_y , x , y ) )
                 {
                     if( party.isScope )
                     {
@@ -900,22 +949,6 @@ public:
                         vramCl[ x ][ y ] = MAP_CL.NUL;
                         continue;
                     }
-                }
-
-                // 灯りチェック
-                if( ( abs( px - x ) <= viewarea )
-                 && ( abs( py - y ) <= viewarea ) )
-                {
-                    if( vram[ x ][ y ] == '$' )
-                        vramCl[ x ][ y ] = MAP_CL.DARKZONE;
-                    else if( vram[ x ][ y ] == '>' || vram[ x ][ y ] == '<' )
-                        vramCl[ x ][ y ] = MAP_CL.STAIRS;
-                    else if( vram[ x ][ y ] == '#' )
-                        vramCl[ x ][ y ] = MAP_CL.NUL;
-                    else
-                        vramCl[ x ][ y ] = MAP_CL.LIGHT;
-
-                    continue;
                 }
 
                 switch( vram[ x ][ y ] )
@@ -948,7 +981,8 @@ public:
             }
 
       
-        /* scroll disp */
+        // ( vram -> screen )
+        /*  disp */
         int tmp = -1;
         for ( y = 0; y < SCRW_Y_SIZ ; y++ )     // 15
             for ( x = 0; x < SCRW_X_SIZ - 1 ; x++ )       // 29
@@ -961,8 +995,10 @@ public:
                 mvprintw( y + SCRW_Y_TOP, x + SCRW_X_TOP, vram[ x ][ y ] );
             }
 
-        setColor( MAP_CL.PARTY );
-        mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2, SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 , '@' );
+        int color = MAP_CL.PARTY;
+        setColor( color );
+        /* mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2, SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 , '@' ); */
+        mvprintw( SCRW_Y_TOP + disp_party_y , SCRW_X_TOP + disp_party_x , '@' );
         setColor( CL.NORMAL );
 
         header_disp( now_mode );
@@ -978,7 +1014,29 @@ public:
     +/   
     bool checkViewOrgMap( int mx , int my , int x , int y )
     {
-        return ( checkView( mx , my , x , y , &isVisibleOrgMap ) );
+        if( checkView( mx , my , x , y , &isVisibleOrgMap ) )
+            return true;
+
+        int _x = ( x > mx ) ? -1 : 1; 
+        int _y = ( y > my ) ? -1 : 1; 
+
+        // 再チェック（x）
+        if( ( isVisibleOrgMap( x + _x , y ) ) 
+                && ( checkView( mx , my , x + _x , y , &isVisibleOrgMap ) ) )
+            return true;
+
+        // 再チェック（y）
+        if( ( isVisibleOrgMap( x , y + _y ) ) 
+                && ( checkView( mx , my , x , y + _y , &isVisibleOrgMap ) ) )
+            return true;
+
+        // 再チェック（x,y）
+        if( ( isVisibleOrgMap( x + _x , y + _y ) ) 
+                && ( checkView( mx , my , x + _x , y + _y , &isVisibleOrgMap ) ) )
+            return true;
+
+        return false;
+
     }
 
 

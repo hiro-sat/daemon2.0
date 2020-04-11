@@ -7,6 +7,7 @@ import std.conv;
 // mysource 
 import app;
 import def;
+import cTextarea;
 import cParty;
 import cMember;
 import cMonsterParty;
@@ -72,16 +73,16 @@ BATTLE_RESULT battle_main()
     if ( get_rand( 99 ) + 1 < ratio && party.layer <= 7 )
     { // friendly
         monParty.ident = true;
-        textout( _( "*** a friendly group of \n            %1 ***\n" ) , monParty.getDispNameS );
-        textout( _( "f)ight(5) or z)leave(7)? " ) );
+        win_msg.textout( _( "*** a friendly group of \n            %1 ***\n" ) , monParty.getDispNameS );
+        win_msg.textout( _( "f)ight(5) or z)leave(7)? " ) );
         while ( true )
         {
             c = getChar();
             if ( c == 'f' || c == 'z' || c == '5' || c == '7' )
                 break;
         }
-        textout( c );
-        textout( '\n' ); 
+        win_msg.textout( c );
+        win_msg.textout( '\n' ); 
 
         for ( i = 0; i < party.num; i++ )
         {
@@ -123,7 +124,7 @@ BATTLE_RESULT battle_main()
     }
     
     setColor( CL.MONSTER );
-    textout( "\n\n****** encounter ****** - push space(5) -\n" );
+    win_msg.textout( "\n\n****** encounter ****** - push space(5) -\n" );
     while ( true )
     {
         c = getChar();
@@ -132,20 +133,20 @@ BATTLE_RESULT battle_main()
     }
     monParty.updateIdentify;
     monParty.disp();
-    textout( "***********************\n" );
+    win_msg.textout( "***********************\n" );
     setColor( CL.NORMAL );
 
 
     if ( monParty.suprised )
     {
         setColor( CL.MENU );
-        textout( _( "\n *** you surprised the monsters ***\n\n" ) );
+        win_msg.textout( _( "\n *** you surprised the monsters ***\n\n" ) );
         setColor( CL.NORMAL );
     }
     if ( party.suprised )
     {
         setColor( CL.ENCOUNT );
-        textout( _( "\n *** the monsters surprised you ***\n\n" ) );
+        win_msg.textout( _( "\n *** the monsters surprised you ***\n\n" ) );
         setColor( CL.NORMAL );
         getChar();
     }
@@ -168,7 +169,7 @@ BATTLE_RESULT battle_main()
                         if ( party.mem[ i ].status == STS.SLEEP )
                             party.mem[ i ].status = STS.OK;
                     }
-                    textout( " ... escaped.\n" );
+                    win_msg.textout( " ... escaped.\n" );
                     party.layer = party.olayer;
                     party.x     = party.ox;
                     party.y     = party.oy;
@@ -211,7 +212,7 @@ BATTLE_RESULT battle_main()
             party.win_disp();
             party.num = 0;
             party.layer = 0;
-            textout( _( "\n*** your party is lost...<push space bar>\n" ) );
+            win_msg.textout( _( "\n*** your party is lost...<push space bar>\n" ) );
             while ( true )
             {
                 c = getChar();
@@ -257,10 +258,10 @@ BATTLE_RESULT battle_main()
             }
 
         setColor( CL.MONSTER );
-        textout( "*******  battle *******\n" );
+        win_msg.textout( "*******  battle *******\n" );
         monParty.updateIdentify;
         monParty.disp();
-        textout( "***********************\n" );
+        win_msg.textout( "***********************\n" );
         setColor( CL.NORMAL );
   
         party.win_disp();
@@ -272,7 +273,7 @@ BATTLE_LOOP_EXIT:
     if ( monParty.num == 0 )
     {
       rtncode = BATTLE_RESULT.WON ; /* win!! */
-      textout( _( "\n  each survivor gets %1 ep.\n" ) , get_exp / party.actnum );
+      win_msg.textout( _( "\n  each survivor gets %1 ep.\n" ) , get_exp / party.actnum );
       for ( i = 0; i < party.num; i++ )
       {
           if ( party.mem[ i ].status <= STS.AFRAID )

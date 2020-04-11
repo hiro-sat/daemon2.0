@@ -162,20 +162,12 @@ class MonsterParty
             monteam.actnum = actnum;
 
             actnum = 0;
-            textout( i + 1 );
-            textout( ") " );
-            textout( monteam.num );
-            textout(" ");
+            win_msg.textout( "%1)%2 %3 (%4)\n" 
+                            , i + 1 
+                            , monteam.num 
+                            , ( monteam.ident ? "" : "?" ) ~  monteam.getDispNameS 
+                            , monteam.actnum );
 
-            if( monteam.ident )
-                textout( monteam.getDispNameS );
-            else
-                textout( "?" ~ monteam.getDispNameS );
-
-
-            textout( " (" );
-            textout( monteam.actnum );
-            textout( ")\n" );
             monteam = monteam.next;
         }
         return;
@@ -203,39 +195,39 @@ class MonsterParty
                     continue;
                 }
                 mondef = monteam.top.def;
-                textout( mondef.name ~ ":\n");
-                textout( "  level:%1, ac:%2, hp:%3-%4\n" 
+                win_msg.textout( mondef.name ~ ":\n");
+                win_msg.textout( "  level:%1, ac:%2, hp:%3-%4\n" 
                         , mondef.level
                         , mondef.ac
                         , mondef.minhp
                         , mondef.minhp + mondef.addhp );
                 if ( mondef.atkef != 0 )
                 {
-                    textout( _( "  special attacks:" ) );
+                    win_msg.textout( _( "  special attacks:" ) );
                     if ( mondef.isAtkPoison )
-                        textout( _( "poison " ) );
+                        win_msg.textout( _( "poison " ) );
                     if ( mondef.isAtkStone )
-                        textout( _( "stone " ) );
+                        win_msg.textout( _( "stone " ) );
                     if ( mondef.isAtkParalize )
-                        textout( _( "paralize " ) );
+                        win_msg.textout( _( "paralize " ) );
                     if ( mondef.isAtkSleep )
-                        textout( _( "sleep " ) );
+                        win_msg.textout( _( "sleep " ) );
                     if ( mondef.isAtkCritical )
-                        textout( _( "critical " ) );
+                        win_msg.textout( _( "critical " ) );
                     if ( mondef.getAtkDrainLv > 0 )
-                        textout( _( "drain" ) );
-                    textout( "\n" );
+                        win_msg.textout( _( "drain" ) );
+                    win_msg.textout( "\n" );
                 }
                 foreach( a ; mondef.action )
                     if( ( a & 0x80 ) != 0 )
                     {
-                        textout( _( "  cast spells.\n" ) );
+                        win_msg.textout( _( "  cast spells.\n" ) );
                         break;
                     }
                 foreach( a ; mondef.action )
                     if( a == MON_ACT.BRT )
                     {
-                        textout( _( "  exhales breath\n" ) );
+                        win_msg.textout( _( "  exhales breath\n" ) );
                         string effect = "";
                         if ( mondef.isBreEfPoison )
                             effect ~= _( "poison " );
@@ -251,20 +243,20 @@ class MonsterParty
                             effect ~= _( "drain" );
 
                         if( effect != "" )
-                            textout( _( "  breath effect:%1" ) , effect );
+                            win_msg.textout( _( "  breath effect:%1" ) , effect );
                         break;
                     }
                 if ( mondef.magdef !=0 )
                 {
-                    textout( _( "  resistance to spells:" ) );
-                    textout( to!int( mondef.magdef ) )  ;
-                    textout( "%\n" );
+                    win_msg.textout( _( "  resistance to spells:" ) );
+                    win_msg.textout( to!int( mondef.magdef ) )  ;
+                    win_msg.textout( "%\n" );
                 }
             }
             else
             { // unidentified
-              textout( monteam.top.def.unname );
-              textout( _( ":\n  unidentified\n" ) );
+              win_msg.textout( monteam.top.def.unname );
+              win_msg.textout( _( ":\n  unidentified\n" ) );
             }
             getChar;
             monteam = monteam.next;

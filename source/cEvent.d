@@ -7,6 +7,7 @@ import std.json;
 
 // mysource 
 import lib_json;
+import cTextarea;
 
 import cParty;
 import cMember;
@@ -28,7 +29,6 @@ class Event
 
     Json      json;  // map info , event
     JSONValue event;  // event
-    bool set_event_json = false;
 
     // encount
     /* int specialRate = 4; */
@@ -42,19 +42,13 @@ class Event
         layer = l;
 
         // json 確認
-        json = new Json( formatText( ORGMAPJSON , layer  ) );
+        json = new Json( formatText( ORGMAPJSON , fill0( layer , 2 ) ) );
         JSONValue mapJson = json[ "encount" ].object;
 
         encID = mapJson[ "id" ].str;
         specialRate = to!int( mapJson[ "special_rate" ].integer );
 
-        // event json
-        if( l == 1 )
-        {
-            set_event_json = true;
-            event = json[ "event" ].object;
-        }
-
+        event = json[ "event" ].object;
 
         resetFlg;
         return;
@@ -72,12 +66,12 @@ class Event
     {
         if( m != '<' )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             return 0;
         }
 
-        textout( _( "\n*** up stairs ***\n" ) );
-        textout( _( "go up(y/n)? " ) );
+        win_msg.textout( _( "\n*** up stairs ***\n" ) );
+        win_msg.textout( _( "go up(y/n)? " ) );
 
         if ( answerYN == 'y')
         {
@@ -107,12 +101,12 @@ class Event
 
         if( m != '>' )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             return 0;
         }
 
-        textout( _( "\n*** down stairs ***\n" ) );
-        textout( _( "go down(y/n)? " ) );
+        win_msg.textout( _( "\n*** down stairs ***\n" ) );
+        win_msg.textout( _( "go down(y/n)? " ) );
 
         if ( answerYN == 'y')
         {
@@ -137,12 +131,12 @@ class Event
         // pit! but floating.
         if ( party.isFloat )
         {
-            textout( _( "a pit, but floating.\n" ) );
+            win_msg.textout( _( "a pit, but floating.\n" ) );
             return 0;
         }
 
         // pit!
-        textout( _( "\n*** a pit! ***\n\n" ) );
+        win_msg.textout( _( "\n*** a pit! ***\n\n" ) );
         for ( i = 0; i < party.num; i++ )
         {
             if ( party.mem[ i ].status < STS.DEAD )
@@ -168,7 +162,7 @@ class Event
 
         party.num = 0;
         party.layer = 0;
-        textout( _( "\n*** your party is lost...\n<push space bar(5)>\n" ) );
+        win_msg.textout( _( "\n*** your party is lost...\n<push space bar(5)>\n" ) );
 
         while ( true )
         {
@@ -249,7 +243,7 @@ class Event
                 getgold = monster_data[ mon[ 0 ] ].mingp 
                         + get_rand( monster_data[ mon[ 0 ] ].addgp );
                 getgold /= party.num;
-                textout( _( "  each survivor gets %1 gp.\n" ) , getgold );
+                win_msg.textout( _( "  each survivor gets %1 gp.\n" ) , getgold );
                 for ( i = 0; i < party.num; i++ )
                 {
                     if ( party.mem[ i ].status  == STS.OK )
@@ -272,12 +266,6 @@ class Event
                 break;
         }
 
-
-        // TEST
-        if( ! set_event_json )
-            return 0;
-
-
         // check event
         if( ( m >= 'a' && m <= 'z') 
          || ( m >= 'A' && m <= 'Z' && m != 'X' ) 
@@ -293,7 +281,7 @@ class Event
         // check json
         if( ! ( to!string( m ) in event ) )
         {
-            textout( "not event : " ~ to!string( m ) );
+            win_msg.textout( "not event : " ~ to!string( m ) );
             return 0;
         }
         
@@ -336,7 +324,7 @@ class Event
             switch( com[ "command" ].str )
             {
                 case "msg":
-                    textout( com[ "text" ].str );
+                    win_msg.textout( com[ "text" ].str );
                     break;
                 case "getkey":
                     getChar;
@@ -543,7 +531,7 @@ class Event
 
 }
 
-
+/+ 
 /*====== event L1 ===================================================*/
 class EventL1 : Event
 {
@@ -563,61 +551,61 @@ class EventL1 : Event
         switch( m )
         {
             case 'A':
-                textout( "*** Welcome to the Dungeon of Daemon ***\n" );
-                textout( "    Copyright by K.Achiwa, 1996,2002.\n" );
-                textout( "                 All Rights Reserved.\n" );
-                textout( "****************************************\n" );
+                win_msg.textout( "*** Welcome to the Dungeon of Daemon ***\n" );
+                win_msg.textout( "    Copyright by K.Achiwa, 1996,2002.\n" );
+                win_msg.textout( "                 All Rights Reserved.\n" );
+                win_msg.textout( "****************************************\n" );
                 break;
             case 'B':
-                textout( "壁にmessageが書かれている:\n" );
-                textout( "「ここでsearch('s')してみな。\n" );
-                textout( "　。。うわ、俺ってやさしいぜ！ S.」\n" );
+                win_msg.textout( "壁にmessageが書かれている:\n" );
+                win_msg.textout( "「ここでsearch('s')してみな。\n" );
+                win_msg.textout( "　。。うわ、俺ってやさしいぜ！ S.」\n" );
                 break;
             case 'c':
-                textout( "ムッとするような湿気で満たされている部屋だ。\n" );
+                win_msg.textout( "ムッとするような湿気で満たされている部屋だ。\n" );
                 break;
             case 'C':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「おまえら初心者だな。悪いことは言わねえ。\n" );
-                textout( "　痛い目に遭わない内に引き返すこった。 S.」\n" );
+                win_msg.textout( "「おまえら初心者だな。悪いことは言わねえ。\n" );
+                win_msg.textout( "　痛い目に遭わない内に引き返すこった。 S.」\n" );
                 break;
             case 'D':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「うーむ。。。\n" );
-                textout( "　戻る気は無いってことか。。。 S.」\n" );
+                win_msg.textout( "「うーむ。。。\n" );
+                win_msg.textout( "　戻る気は無いってことか。。。 S.」\n" );
                 break;
             case 'e':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「しかし残念だったな。お宝は残ってないぜ。\n" );
-                textout( "　俺たちflorin公国の精鋭部隊purple beretが\n" );
-                textout( "　お先にいただいちまってる筈さ! S.」\n" );
+                win_msg.textout( "「しかし残念だったな。お宝は残ってないぜ。\n" );
+                win_msg.textout( "　俺たちflorin公国の精鋭部隊purple beretが\n" );
+                win_msg.textout( "　お先にいただいちまってる筈さ! S.」\n" );
                 break;
             case 'f':
-                textout( "壁にメッセージが書かれている:\n" );
-                textout( "「この先にdarkzoneがあるぜ。 S.」\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "「この先にdarkzoneがあるぜ。 S.」\n" );
                 break;
             case 'g':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「flip!! flip!! flipしてるか?\n" );
-                textout( "　冒険には何よりflipが大切さ! S.」\n" );
+                win_msg.textout( "「flip!! flip!! flipしてるか?\n" );
+                win_msg.textout( "　冒険には何よりflipが大切さ! S.」\n" );
                 break;
             case 'h':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「Howdy! 調子はどうだい?\n" );
-                textout( "　そろそろお家に帰りたくなってきたろ? S.」\n" );
+                win_msg.textout( "「Howdy! 調子はどうだい?\n" );
+                win_msg.textout( "　そろそろお家に帰りたくなってきたろ? S.」\n" );
                 break;
             case 'i':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「この中には強いモンスターがいるぜ。 S.」\n" );
+                win_msg.textout( "「この中には強いモンスターがいるぜ。 S.」\n" );
                 break;
             case 'j':
-                textout( "*** 異常な妖気が満ちている。\n  探しますか(y/n)? " );
+                win_msg.textout( "*** 異常な妖気が満ちている。\n  探しますか(y/n)? " );
                 if ( answerYN == 'y')
                 {
                     monParty.add( [ 77 ] );
@@ -626,44 +614,44 @@ class EventL1 : Event
                 rtncode = 1;
                 break;
             case 'k':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「おい、何だかおかしいぜ?\n" );
-                textout( "　ここのモンスターは普通じゃない。\n" );
-                textout( "　何らかの力で強化されてるみたいだ S.」\n" );
+                win_msg.textout( "「おい、何だかおかしいぜ?\n" );
+                win_msg.textout( "　ここのモンスターは普通じゃない。\n" );
+                win_msg.textout( "　何らかの力で強化されてるみたいだ S.」\n" );
                 break;
             case 'l':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「いやー、無駄に広い部屋だ。。 S.」\n" );
+                win_msg.textout( "「いやー、無駄に広い部屋だ。。 S.」\n" );
                 break;
             case 'm':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「。。。メンバーには内緒だけどな、\n" );
-                textout( "　モンスターを倒して宝を取ってこい、\n" );
-                textout( "　なんてミッションには裏がありそうだ。\n" );
-                textout( "　。。。。。\n" );
+                win_msg.textout( "「。。。メンバーには内緒だけどな、\n" );
+                win_msg.textout( "　モンスターを倒して宝を取ってこい、\n" );
+                win_msg.textout( "　なんてミッションには裏がありそうだ。\n" );
+                win_msg.textout( "　。。。。。\n" );
                 getChar();
-                textout( "　ここには何かある。\n" );
-                textout( "　俺の直感がそう言っているぜ。 S.」\n" );
+                win_msg.textout( "　ここには何かある。\n" );
+                win_msg.textout( "　俺の直感がそう言っているぜ。 S.」\n" );
                 break;
             case 'n':
-                textout( "壁にメッセージが書かれている:\n" );
+                win_msg.textout( "壁にメッセージが書かれている:\n" );
                 getChar();
-                textout( "「ここまで来たか。\n　おまえらなかなかやるな S.」\n" );
+                win_msg.textout( "「ここまで来たか。\n　おまえらなかなかやるな S.」\n" );
                 break;
             case 'o':
-                textout( "どこか遠くの部屋でガタガタと物音が聞こえてくる。 \n" );
+                win_msg.textout( "どこか遠くの部屋でガタガタと物音が聞こえてくる。 \n" );
                 getChar();
                 break;
 
 
             case 'p':
-                textout( "この部屋は異様な妖気で満たされている。\n" );
+                win_msg.textout( "この部屋は異様な妖気で満たされている。\n" );
                 break;
             case '3':
-                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                win_msg.textout("突然、目もくらむほど強烈な光につつまれた！\n");
                 getChar();
 
                 party.layer=3;
@@ -676,10 +664,10 @@ class EventL1 : Event
                 rtncode = 1;
                 break;
             case 'q':
-                textout( "この部屋は異様な妖気で満たされている。\n" );
+                win_msg.textout( "この部屋は異様な妖気で満たされている。\n" );
                 break;
             case '4':
-                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                win_msg.textout("突然、目もくらむほど強烈な光につつまれた！\n");
                 getChar();
                 party.layer=4;
                 party.setDungeon;
@@ -691,10 +679,10 @@ class EventL1 : Event
                 rtncode = 1;
                 break;
             case 'r':
-                textout( "この部屋は異様な妖気で満たされている。\n" );
+                win_msg.textout( "この部屋は異様な妖気で満たされている。\n" );
                 break;
             case '5':
-                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                win_msg.textout("突然、目もくらむほど強烈な光につつまれた！\n");
                 getChar();
                 party.layer=5;
                 party.setDungeon;
@@ -706,10 +694,10 @@ class EventL1 : Event
                 rtncode = 1;
                 break;
             case 's':
-                textout( "この部屋は異様な妖気で満たされている。\n" );
+                win_msg.textout( "この部屋は異様な妖気で満たされている。\n" );
                 break;
             case '6':
-                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                win_msg.textout("突然、目もくらむほど強烈な光につつまれた！\n");
                 getChar();
                 party.layer=6;
                 party.setDungeon;
@@ -721,10 +709,10 @@ class EventL1 : Event
                 rtncode = 1;
                 break;
             case 't':
-                textout( "この部屋は異様な妖気で満たされている。\n" );
+                win_msg.textout( "この部屋は異様な妖気で満たされている。\n" );
                 break;
             case '7':
-                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                win_msg.textout("突然、目もくらむほど強烈な光につつまれた！\n");
                 getChar();
                 party.layer=7;
                 party.setDungeon;
@@ -736,10 +724,10 @@ class EventL1 : Event
                 rtncode = 1;
                 break;
             case 'u':
-                textout( "この部屋は異様な妖気で満たされている。\n" );
+                win_msg.textout( "この部屋は異様な妖気で満たされている。\n" );
                 break;
             case '8':
-                textout("突然、目もくらむほど強烈な光につつまれた！\n");
+                win_msg.textout("突然、目もくらむほど強烈な光につつまれた！\n");
                 getChar();
                 party.layer=8;
                 party.setDungeon;
@@ -781,30 +769,30 @@ class EventL2 : Event
         switch( m )
         {
             case 'a':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「悪いことは言わない。\n　とりあえず北からにしろ S.」\n");
+                win_msg.textout("「悪いことは言わない。\n　とりあえず北からにしろ S.」\n");
                 break;
             case 'b':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「bishopのCynthiaも何か気づいてるみてぇだ\n");
-                textout("　dispelのかかりが悪いと言ってる。 S.」\n");
+                win_msg.textout("「bishopのCynthiaも何か気づいてるみてぇだ\n");
+                win_msg.textout("　dispelのかかりが悪いと言ってる。 S.」\n");
                 break;
             case 'c':
-                textout("*** ここはかつて宝物庫であったらしい。\n");
-                textout("    しかし、荒らされて貴重な物は何も\n    残っていないようだ。\n");
+                win_msg.textout("*** ここはかつて宝物庫であったらしい。\n");
+                win_msg.textout("    しかし、荒らされて貴重な物は何も\n    残っていないようだ。\n");
                 break;
             case 'd':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「へへへ。いただき! S.」\n");
+                win_msg.textout("「へへへ。いただき! S.」\n");
                 break;
             case 'e':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「ここ、コーヒーの臭いがしねぇか? S.」\n");
-                textout("探しますか(y/n)? ");
+                win_msg.textout("「ここ、コーヒーの臭いがしねぇか? S.」\n");
+                win_msg.textout("探しますか(y/n)? ");
                 if( answerYN == 'y' && ! eventflg[ 0 ] )
                 {
                     eventflg[ 0 ] = true;
@@ -814,27 +802,27 @@ class EventL2 : Event
                 }
                 else
                 {
-                  textout("気のせいだったようだ。\n");
+                  win_msg.textout("気のせいだったようだ。\n");
                 }
                 break;
             case 'f':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「vorpal_toothは持ったかい? S.」\n");
+                win_msg.textout("「vorpal_toothは持ったかい? S.」\n");
                 break;
             case 'g':
                 if ( ! party.doTheyHave( 170 ) )
                 {
-                    textout("*** 頭の中で声が響いた:\n");
+                    win_msg.textout("*** 頭の中で声が響いた:\n");
                     getChar();
-                    textout("「お前達にはここに来る資格が無い!」\n");
+                    win_msg.textout("「お前達にはここに来る資格が無い!」\n");
                     party.y -= 2;
                     party.oy -= 2;
                 }
                 break;
             case 'h':
-                textout("*** なんだかウサギ臭い。。。。\n");
-                textout("探しますか(y/n)? ");
+                win_msg.textout("*** なんだかウサギ臭い。。。。\n");
+                win_msg.textout("探しますか(y/n)? ");
                 if ( answerYN == 'y' && !eventflg[ 1 ] )
                 {
                     eventflg[ 1 ] = true;
@@ -844,23 +832,23 @@ class EventL2 : Event
                 }
                 else
                 {
-                  textout("気のせいだったようだ。\n");
+                  win_msg.textout("気のせいだったようだ。\n");
                 }
                 break;
             case 'i':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「darkzoneってのは歩きにくいよな。\n");
-                textout("　shineとmapperを唱えておけよ。 S.」\n");
+                win_msg.textout("「darkzoneってのは歩きにくいよな。\n");
+                win_msg.textout("　shineとmapperを唱えておけよ。 S.」\n");
                 break;
             case 'j':
-                textout("*** ひんやりとした冷気が漂っている\n");
-                textout("    ここはかつて冷暗所だったのだろうか。\n");
+                win_msg.textout("*** ひんやりとした冷気が漂っている\n");
+                win_msg.textout("    ここはかつて冷暗所だったのだろうか。\n");
                 break;
             case 'k':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「floatを覚えてりゃpitは怖く\n　ないんだが。 S.」\n");
+                win_msg.textout("「floatを覚えてりゃpitは怖く\n　ないんだが。 S.」\n");
                 break;
             default:
                 break;
@@ -890,77 +878,77 @@ class EventL3 : Event
         {
 
             case 'a':
-                textout("たて看板がある:\n");
-                textout("「危険!南に行くな」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「危険!南に行くな」\n");
                 break;
             case 'b':
-                textout("たて看板がある:\n");
-                textout("「危険!北に行くな」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「危険!北に行くな」\n");
                 break;
             case 'c':
-                textout("たて看板がある:\n");
-                textout("「右を向け」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「右を向け」\n");
                 break;
             case 'd':
-                textout("たて看板がある:\n");
-                textout("「左を向け」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「左を向け」\n");
                 break;
             case 'e':
-                textout("焚き火をした跡がある。\n");
-                textout("まだ暖かい。他の冒険者達が\n");
-                textout("キャンプを張っていたのだろうか。\n");
+                win_msg.textout("焚き火をした跡がある。\n");
+                win_msg.textout("まだ暖かい。他の冒険者達が\n");
+                win_msg.textout("キャンプを張っていたのだろうか。\n");
                 break;
             case 'f':
-                textout("息苦しい空気の立ち込めた部屋だ。\n");
-                textout("足元には赤みがかった苔がむしている。\n");
+                win_msg.textout("息苦しい空気の立ち込めた部屋だ。\n");
+                win_msg.textout("足元には赤みがかった苔がむしている。\n");
                 break;
             case 'g':
-                textout("壁に小さな人影が焼きついている。\n");
-                textout("おそらくfireかflamesで焼かれた\n");
-                textout("モンスターであろう。\n");
+                win_msg.textout("壁に小さな人影が焼きついている。\n");
+                win_msg.textout("おそらくfireかflamesで焼かれた\n");
+                win_msg.textout("モンスターであろう。\n");
                 break;
             case 'h':
-                textout("真っ暗な部屋の一部の壁が\n");
-                textout("ぼうっと青白く光っている。\n");
+                win_msg.textout("真っ暗な部屋の一部の壁が\n");
+                win_msg.textout("ぼうっと青白く光っている。\n");
                 break;
             case 'i':
-                textout("壁の向こうをガシャガシャと、数名の冒険者\n");
-                textout("(モンスターか?)が通る音が聞こえた。\n");
+                win_msg.textout("壁の向こうをガシャガシャと、数名の冒険者\n");
+                win_msg.textout("(モンスターか?)が通る音が聞こえた。\n");
                 break;
             case 'j':
-                textout("何体かのモンスターの死体が横たわってる。\n");
-                textout("一体はまっぷたつに切り裂かれ、別の一体は\n");
-                textout("上半身が黒こげだ。その横に、蓋の開いた宝箱\n");
-                textout("がある。中には何も残っていないようだ。\n");
+                win_msg.textout("何体かのモンスターの死体が横たわってる。\n");
+                win_msg.textout("一体はまっぷたつに切り裂かれ、別の一体は\n");
+                win_msg.textout("上半身が黒こげだ。その横に、蓋の開いた宝箱\n");
+                win_msg.textout("がある。中には何も残っていないようだ。\n");
                 break;
             case 'k':
-                textout("暗闇の中に、ぶきみな二つの目が光った。\n");
-                textout("それは君たちに襲い掛かってくることもなく、\n");
-                textout("数秒して消えてしまった。\n");
+                win_msg.textout("暗闇の中に、ぶきみな二つの目が光った。\n");
+                win_msg.textout("それは君たちに襲い掛かってくることもなく、\n");
+                win_msg.textout("数秒して消えてしまった。\n");
                 break;
             case 'l':
-                textout("突然けたたましい音が鳴り響いた!\n");
-                textout("が、その音に集まってくるモンスターは\n");
-                textout("いなかった。\n");
+                win_msg.textout("突然けたたましい音が鳴り響いた!\n");
+                win_msg.textout("が、その音に集まってくるモンスターは\n");
+                win_msg.textout("いなかった。\n");
                 break;
             case 'm':
-                textout("ビュン! 目の前を何本かの矢が風きり音を\n");
-                textout("たてて横切った。。トラップだ! しかし、\n");
-                textout("作動が少し早すぎたようだ。\n");
+                win_msg.textout("ビュン! 目の前を何本かの矢が風きり音を\n");
+                win_msg.textout("たてて横切った。。トラップだ! しかし、\n");
+                win_msg.textout("作動が少し早すぎたようだ。\n");
                 break;
             case 'n':
-                textout("床が動いている!\n");
-                textout("と思ったら、それは大量のゴキブリだった。\n");
+                win_msg.textout("床が動いている!\n");
+                win_msg.textout("と思ったら、それは大量のゴキブリだった。\n");
                 break;
             case 'o':
-                textout("邪悪な気配に満ちた部屋だ。\n");
+                win_msg.textout("邪悪な気配に満ちた部屋だ。\n");
                 break;
             case 'p':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「このダンジョンのヌシは相当あぶねぇ\n");
-                textout("　奴のようだ。こんなに上層にwerebearが\n");
-                textout("　うろついているとは。 S.」\n");
+                win_msg.textout("「このダンジョンのヌシは相当あぶねぇ\n");
+                win_msg.textout("　奴のようだ。こんなに上層にwerebearが\n");
+                win_msg.textout("　うろついているとは。 S.」\n");
                 break;
             default:
                 break;
@@ -989,48 +977,48 @@ class EventL4 : Event
         switch( m )
         {
             case 'a':
-                textout("焼け付くように熱い部屋だ。\n");
-                textout("何者かがflamoeでも使ったあとか?\n");
+                win_msg.textout("焼け付くように熱い部屋だ。\n");
+                win_msg.textout("何者かがflamoeでも使ったあとか?\n");
                 break;
             case 'b':
-                textout("バナナの皮が落ちている。\n");
-                textout("それで滑って転んだ時にちょうど頭が\n");
-                textout("来る位置に、硬そうな石が置いてある。\n");
-                textout("・・・罠だ!\n");
+                win_msg.textout("バナナの皮が落ちている。\n");
+                win_msg.textout("それで滑って転んだ時にちょうど頭が\n");
+                win_msg.textout("来る位置に、硬そうな石が置いてある。\n");
+                win_msg.textout("・・・罠だ!\n");
                 break;
             case 'c':
-                textout("首のない死体が3体横たわっている。\n");
-                textout("忍者に殺された冒険者か?\n");
+                win_msg.textout("首のない死体が3体横たわっている。\n");
+                win_msg.textout("忍者に殺された冒険者か?\n");
                 break;
             case 'd':
-                textout("操り人形が落ちている。\n");
-                textout("どうやら生きているらしいが、糸がからまって\n");
-                textout("身動きができないようだ。\n");
+                win_msg.textout("操り人形が落ちている。\n");
+                win_msg.textout("どうやら生きているらしいが、糸がからまって\n");
+                win_msg.textout("身動きができないようだ。\n");
                 break;
             case 'e':
-                textout("壊れた機械らしきものが置いてある。\n");
-                textout("蹴ってみたが反応は無かった。\n");
+                win_msg.textout("壊れた機械らしきものが置いてある。\n");
+                win_msg.textout("蹴ってみたが反応は無かった。\n");
                 break;
             case 'f':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「しくじった!\n");
-                textout("　Cynthiaの奴が呪いのメイスに取り付かれ\n");
-                textout("　ちまった。進むべきか、いったん引き上げ\n");
-                textout("　るか。。。 S.」\n");
+                win_msg.textout("「しくじった!\n");
+                win_msg.textout("　Cynthiaの奴が呪いのメイスに取り付かれ\n");
+                win_msg.textout("　ちまった。進むべきか、いったん引き上げ\n");
+                win_msg.textout("　るか。。。 S.」\n");
                 break;
             case 'h':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「まいった。。。\n");
-                textout("　Cynthiaの奴、ショック状態から回復しねぇ。\n");
-                textout("　ここでは呪いが強くなっているのか。。 S.」\n");
+                win_msg.textout("「まいった。。。\n");
+                win_msg.textout("　Cynthiaの奴、ショック状態から回復しねぇ。\n");
+                win_msg.textout("　ここでは呪いが強くなっているのか。。 S.」\n");
                 break;
             case 'i':
                 if( eventflg[ 0 ] )
                     break;
-                textout("突然、目の前に黒い影が現れた!\n");
-                textout("「グルルル・・・ガガガッ」\n");
+                win_msg.textout("突然、目の前に黒い影が現れた!\n");
+                win_msg.textout("「グルルル・・・ガガガッ」\n");
                 getChar();
                 monParty.add( [ 86,59 ] ); // vampireとwerewolf
                 if ( battle_main() == BATTLE_RESULT.WON )
@@ -1066,32 +1054,32 @@ class EventL5 : Event
         switch( m )
         {
             case 'a':
-                textout("このフロアは壁が磨き上げられた大理石で\n");
-                textout("できているようだ。カツカツと足音が響く。\n");
+                win_msg.textout("このフロアは壁が磨き上げられた大理石で\n");
+                win_msg.textout("できているようだ。カツカツと足音が響く。\n");
                 break;
             case 'b':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「Cynthiaを宿屋に預けてきた。\n");
-                textout("　ずいぶんと時間をロスしちまったぜ。 S.」\n");
+                win_msg.textout("「Cynthiaを宿屋に預けてきた。\n");
+                win_msg.textout("　ずいぶんと時間をロスしちまったぜ。 S.」\n");
                 break;
             case 'c':
-                textout("!! モンスターが!\n");
-                textout("・・と思ったら、壁に映った自分たちだった。\n");
+                win_msg.textout("!! モンスターが!\n");
+                win_msg.textout("・・と思ったら、壁に映った自分たちだった。\n");
                 break;
             case 'd':
-                textout("ポロンポロン、とピアノを弾く音が聞こえて\n");
-                textout("くる。なぜこのようなダンジョンにピアノが??\n");
+                win_msg.textout("ポロンポロン、とピアノを弾く音が聞こえて\n");
+                win_msg.textout("くる。なぜこのようなダンジョンにピアノが??\n");
                 break;
             case 'e':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「やはり一人欠けると厳しいか。。\n");
-                textout("　回復魔法の残りが気になる。 S.」\n");
+                win_msg.textout("「やはり一人欠けると厳しいか。。\n");
+                win_msg.textout("　回復魔法の残りが気になる。 S.」\n");
                 break;
             case 'f':
-                textout("グランドピアノが置いてある。\n");
-                textout("モンスターがピアノを・・・?\n");
+                win_msg.textout("グランドピアノが置いてある。\n");
+                win_msg.textout("モンスターがピアノを・・・?\n");
                 break;
             default:
                 break;
@@ -1122,8 +1110,8 @@ class EventL6 : Event
             case 'a':
                 if( eventflg[ 0 ] )
                     break;
-                textout("突然、目の前に黒い影が現れた!\n");
-                textout("「おや、珍しい。お客さんだ。」\n");
+                win_msg.textout("突然、目の前に黒い影が現れた!\n");
+                win_msg.textout("「おや、珍しい。お客さんだ。」\n");
                 getChar();
                 monParty.add([ 99,86,86,86 ]); // vampire lordとvampire
                 if ( battle_main() == BATTLE_RESULT.WON  )
@@ -1133,56 +1121,56 @@ class EventL6 : Event
                 }
                 break;
             case 'b':
-                textout("ふわふわと風船のような物が漂っている。\n");
-                textout("特に何もしないようだ。\n");
+                win_msg.textout("ふわふわと風船のような物が漂っている。\n");
+                win_msg.textout("特に何もしないようだ。\n");
                 break;
             case 'c':
-                textout("ちろちろと水が流れている。\n");
-                textout("ひんやりとしたきれいな水だ。\n");
+                win_msg.textout("ちろちろと水が流れている。\n");
+                win_msg.textout("ひんやりとしたきれいな水だ。\n");
                 break;
             case 'd':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「やべぇ。\n");
-                textout("　モンスターがかなり手強くなってきた。 S.」\n");
+                win_msg.textout("「やべぇ。\n");
+                win_msg.textout("　モンスターがかなり手強くなってきた。 S.」\n");
                 break;
             case 'e':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「くそっ。\n");
-                textout("　なんだ、この部屋の数は!? S.」\n");
+                win_msg.textout("「くそっ。\n");
+                win_msg.textout("　なんだ、この部屋の数は!? S.」\n");
                 break;
             case 'f':
-                textout("耳鳴りがする。圧迫されたダンジョンの\n");
-                textout("空気で、気が変になりそうだ。。\n");
+                win_msg.textout("耳鳴りがする。圧迫されたダンジョンの\n");
+                win_msg.textout("空気で、気が変になりそうだ。。\n");
                 break;
             case 'g':
-                textout("冒険者とみられる死体が6体倒れている。\n");
-                textout("こうはなりたくないものだ。。。\n");
+                win_msg.textout("冒険者とみられる死体が6体倒れている。\n");
+                win_msg.textout("こうはなりたくないものだ。。。\n");
                 break;
             case 'h':
-                textout("フランス人形が笑い声をたてている。\n");
-                textout("剣でまっぷたつに切ったら笑い声は止んだ。\n");
+                win_msg.textout("フランス人形が笑い声をたてている。\n");
+                win_msg.textout("剣でまっぷたつに切ったら笑い声は止んだ。\n");
                 break;
             case 'i':
-                textout("壁に大きな字で｢6｣と書いてある。\n");
-                textout("何かの意味があるのだろうか?\n");
+                win_msg.textout("壁に大きな字で｢6｣と書いてある。\n");
+                win_msg.textout("何かの意味があるのだろうか?\n");
                 break;
             case 'j':
-                textout("たて看板がある:\n");
-                textout("「危険!回れ右をせよ」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「危険!回れ右をせよ」\n");
                 break;
             case 'k':
-                textout("たて看板がある:\n");
-                textout("「危険!立ち止まるな」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「危険!立ち止まるな」\n");
                 break;
             case 'l':
-                textout("たて看板がある:\n");
-                textout("「危険!右に行け」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「危険!右に行け」\n");
                 break;
             case 'm':
-                textout("たて看板がある:\n");
-                textout("「危険!南に行くな」\n");
+                win_msg.textout("たて看板がある:\n");
+                win_msg.textout("「危険!南に行くな」\n");
                 break;
             default:
                 break;
@@ -1211,7 +1199,7 @@ class EventL7 : Event
         switch( m )
         {
             case 'a':
-                textout("\n*** chute! ***\n");
+                win_msg.textout("\n*** chute! ***\n");
 
                 party.layer++;
                 party.setDungeon;
@@ -1227,29 +1215,29 @@ class EventL7 : Event
                 rtncode = 1;
                 break;
             case 'b':
-                textout("壁に大きな看板がかかっている。\n");
-                textout("「引き返せ!さもないと、」\n");
-                textout("その続きは汚れて読めない。\n");
+                win_msg.textout("壁に大きな看板がかかっている。\n");
+                win_msg.textout("「引き返せ!さもないと、」\n");
+                win_msg.textout("その続きは汚れて読めない。\n");
                 break;
             case 'c':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「地下1Fに似ているな。\n");
-                textout("　しかし、陰険な罠だらけのフロアだ。 S.」\n");
+                win_msg.textout("「地下1Fに似ているな。\n");
+                win_msg.textout("　しかし、陰険な罠だらけのフロアだ。 S.」\n");
                 break;
             case 'd':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「やべぇ。前衛の一人が倒れて、\n");
-                textout("　盗賊が前衛に立つことになった。 S.」\n");
+                win_msg.textout("「やべぇ。前衛の一人が倒れて、\n");
+                win_msg.textout("　盗賊が前衛に立つことになった。 S.」\n");
                 break;
             case 'e':
                 if( eventflg[ 0 ] )
                     break;
-                textout("*** 異常な妖気が満ちている。\n  探しますか(y/n)? ");
+                win_msg.textout("*** 異常な妖気が満ちている。\n  探しますか(y/n)? ");
                 if ( answerYN == 'y' )
                 {
-                    textout( "地鳴りがする。。。来るぞ!!!\n" );
+                    win_msg.textout( "地鳴りがする。。。来るぞ!!!\n" );
                     getChar();
                     monParty.add( [ 98,89,89,89 ] ); // maelificとdoragon zombies
                     if ( battle_main() == BATTLE_RESULT.WON )
@@ -1290,7 +1278,7 @@ class EventL8 : Event
                 // L8 start 地点
                 break;
             case 'b':
-                textout( "\n*** jump to the castle! ***\n" );
+                win_msg.textout( "\n*** jump to the castle! ***\n" );
                 getChar();
                 party.x = 1;
                 party.y = 2;
@@ -1299,7 +1287,7 @@ class EventL8 : Event
                     party.mem[ i ].outflag = OUT_F.CASTLE ; // in castle
                 break;
             case 'c':
-                textout( "\n*** teleporter! ***\n" );
+                win_msg.textout( "\n*** teleporter! ***\n" );
                 party.x = 1;
                 party.y = 2;
                 party.dungeon.initDisp;
@@ -1308,32 +1296,32 @@ class EventL8 : Event
                 rtncode = 1;
                 break;
             case 'd':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「俺は見た!\n");
-                textout("　50回攻撃し、最後には首を刎ねるという\n");
-                textout("　伝説の魔神を! S.」\n");
+                win_msg.textout("「俺は見た!\n");
+                win_msg.textout("　50回攻撃し、最後には首を刎ねるという\n");
+                win_msg.textout("　伝説の魔神を! S.」\n");
                 break;
             case 'e':
-                textout("頭の中に声が響いた。\n");
-                textout("「お前たちは来てはいけない領域に迷い混んで\n");
-                textout("　しまった。引き返すがよい。今のうちに。。」\n");
+                win_msg.textout("頭の中に声が響いた。\n");
+                win_msg.textout("「お前たちは来てはいけない領域に迷い混んで\n");
+                win_msg.textout("　しまった。引き返すがよい。今のうちに。。」\n");
                 break;
             case 'f':
-                textout("壁にmessageが書かれている:\n");
+                win_msg.textout("壁にmessageが書かれている:\n");
                 getChar();
-                textout("「俺たちはもうボロボロだ。\n");
-                textout("　最強のpurple beretがこんなにも簡単に\n");
-                textout("　やられるとは。。。。 S.」\n");
+                win_msg.textout("「俺たちはもうボロボロだ。\n");
+                win_msg.textout("　最強のpurple beretがこんなにも簡単に\n");
+                win_msg.textout("　やられるとは。。。。 S.」\n");
                 getChar();
-                textout("その下に、白骨化した死体が転がっている。\n");
+                win_msg.textout("その下に、白骨化した死体が転がっている。\n");
                 break;
             case 'g':
                 if( eventflg[ 0 ] )
                     break;
-                textout("頭の中に声が響いた。\n");
-                textout("「私の忠告を無視したようだな。\n");
-                textout("　あの世で後悔するがいい。。。」\n");
+                win_msg.textout("頭の中に声が響いた。\n");
+                win_msg.textout("「私の忠告を無視したようだな。\n");
+                win_msg.textout("　あの世で後悔するがいい。。。」\n");
                 break;
             case 'h':
                 if( eventflg[ 1 ] )
@@ -1341,7 +1329,7 @@ class EventL8 : Event
                     rtncode = 1;
                     break;
                 }
-                textout( "一筋の風が吹いた。\n" );
+                win_msg.textout( "一筋の風が吹いた。\n" );
                 getChar();
                 monParty.add( [ 91,91,91,91 ] ); // the_high_masters
                 if ( battle_main() == BATTLE_RESULT.WON )
@@ -1351,9 +1339,9 @@ class EventL8 : Event
             case 'i':
                 if( eventflg[ 0 ] )
                     break;
-                textout("頭の中に声が響いた。\n");
-                textout("「思ったよりやるようだ。\n");
-                textout("　楽しみになってきたよ。。。」\n");
+                win_msg.textout("頭の中に声が響いた。\n");
+                win_msg.textout("「思ったよりやるようだ。\n");
+                win_msg.textout("　楽しみになってきたよ。。。」\n");
                 break;
             case 'j':
                 if( eventflg[ 2 ] )
@@ -1361,7 +1349,7 @@ class EventL8 : Event
                     rtncode = 1;
                     break;
                 }
-                textout( "暗闇に雷が轟いた!!\n" );
+                win_msg.textout( "暗闇に雷が轟いた!!\n" );
                 getChar();
                 monParty.add( [ 102,97,87,68 ] ); // demon lord
                 if ( battle_main() == BATTLE_RESULT.WON )
@@ -1371,9 +1359,9 @@ class EventL8 : Event
             case 'k':
                 if( eventflg[ 0 ] )
                     break;
-                textout("頭の中に声が響いた。\n");
-                textout("「ほほう。よかろう。\n");
-                textout("　来るがいい、私の元へ。。。」\n");
+                win_msg.textout("頭の中に声が響いた。\n");
+                win_msg.textout("「ほほう。よかろう。\n");
+                win_msg.textout("　来るがいい、私の元へ。。。」\n");
                 break;
             case 'l':
                 if( eventflg[ 0 ] )
@@ -1381,7 +1369,7 @@ class EventL8 : Event
                     rtncode = 1;
                     break;
                 }
-                textout( "長身の男が立ったまま瞑想している。\n" );
+                win_msg.textout( "長身の男が立ったまま瞑想している。\n" );
                 getChar();
                 monParty.add( [ 108,101,91,91 ] ); // DAEMON, petit_daemon
 
@@ -1393,7 +1381,7 @@ class EventL8 : Event
             case 'm':
                 if ( party.doTheyHave(171) )
                     break;
-                textout( "一冊の本が落ちている。\n" );
+                win_msg.textout( "一冊の本が落ちている。\n" );
                 party.theyGet( 171 ); // diary
                 break;
             default:
@@ -1404,3 +1392,4 @@ class EventL8 : Event
     }
 }
 
++/

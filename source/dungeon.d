@@ -50,6 +50,7 @@ bool dungeon_main()
     party.step = 0;
     party.status = 0;
     party.setDungeon;
+    party.dungeon.setDispPos;
   
     for ( i = 0; i < party.num; i++ )
     {
@@ -59,19 +60,19 @@ bool dungeon_main()
         party.mem[ i ].layer = 99;
     }
   
-  
     party.dungeon.initDisp();
     party.dungeon.disp();
     header_disp( HSTS.DUNGEON );
     party.win_disp();
-  
+ 
+
     while ( party.layer > 0 )
     {
 
         // in rock check
         if ( party.dungeon.checkInRock )
         {
-            textout( _( "\n*** in rock! ***\n" ) );
+            win_msg.textout( _( "\n*** in rock! ***\n" ) );
             for ( i = 0; i < party.num; i++ )
                 party.mem[ i ].status = STS.LOST;
             party.win_disp();
@@ -92,24 +93,24 @@ bool dungeon_main()
         {
             case '?':
                 setColor( CL.MENU );
-                textout( _( "************* dungeon help *************\n" ) );
-                textout( _( "--- assigned keys ---\n" ) );
-                textout( _( "h/4:west, j/2:south, k/8:north, l/6:east\n" ) );
-                textout( _( "c/9:camp, o/5:open door, u:unlock door\n" ) );
-                textout( _( "./3:look for monsters, S:protect all\n" ) );
-                textout( _( "s:search hidden doors, Q:heal all\n" ) );
-                textout( _( "--- map info ---\n" ) );
-                textout( _( "|/-/X:wall, +:door, =:locked door\n" ) );
-                textout( _( "$:darkzone, </>:stairs, ' ':floor\n" ) );
-                textout( _( "@:your party, ^:unknown\n" ) );
-                textout( _( "*****************************************\n" ) );
+                win_msg.textout( _( "************* dungeon help *************\n" ) );
+                win_msg.textout( _( "--- assigned keys ---\n" ) );
+                win_msg.textout( _( "h/4:west, j/2:south, k/8:north, l/6:east\n" ) );
+                win_msg.textout( _( "c/9:camp, o/5:open door, u:unlock door\n" ) );
+                win_msg.textout( _( "./3:look for monsters, S:protect all\n" ) );
+                win_msg.textout( _( "s:search hidden doors, Q:heal all\n" ) );
+                win_msg.textout( _( "--- map info ---\n" ) );
+                win_msg.textout( _( "|/-/X:wall, +:door, =:locked door\n" ) );
+                win_msg.textout( _( "$:darkzone, </>:stairs, ' ':floor\n" ) );
+                win_msg.textout( _( "@:your party, ^:unknown\n" ) );
+                win_msg.textout( _( "*****************************************\n" ) );
                 setColor( CL.NORMAL );
                 break;
             case 'Q':
                 if ( party.layer > 0 )
                 {
                     party.heal_all();
-                    textout( _( "heal all done.\n" ) );
+                    win_msg.textout( _( "heal all done.\n" ) );
                     header_disp( HSTS.DUNGEON );
                     party.win_disp();
                 }
@@ -118,7 +119,7 @@ bool dungeon_main()
                 if ( party.layer > 0 )
                 {
                     party.protect_all();
-                    textout( _( "protect all done.\n" ) );
+                    win_msg.textout( _( "protect all done.\n" ) );
                     header_disp( HSTS.DUNGEON );
                     party.win_disp();
                 }
@@ -152,7 +153,8 @@ bool dungeon_main()
                 if( ! doorflg )
                 {
                     doorflg = true;
-                    textout( _( "which door? " ) );
+                    win_msg.textout( _( "which door? " ) );
+                    win_msg.textout( "\n" );
                 }
                 break;
             case 'h':
@@ -181,18 +183,18 @@ bool dungeon_main()
                 break;
             case 'u': // unlock a door
                 if ( ! party.dungeon.unlockDoor )
-                    textout( _( "failed.\n" ) );
+                    win_msg.textout( _( "failed.\n" ) );
                 else
-                    textout( _( "click!\n" ) );
+                    win_msg.textout( _( "click!\n" ) );
                 break;
             case 's': // search a hidden door (and members in maze)
-                textout( _( "searching" ) );
+                win_msg.textout( _( "searching" ) );
                 for ( i = 0; i < get_rand( 7 ) + 3; i++ )
                 {
-                    textout( '.' );
+                    win_msg.textout( '.' );
                     getChar();
                 }
-                textout( _( "done\n" ) );
+                win_msg.textout( _( "done\n" ) );
 
                 party.dungeon.searchMember;
                 party.dungeon.searchHiddenDoor;
@@ -218,21 +220,10 @@ bool dungeon_main()
         {
 
             step_proc();
-            if( ! doorflg )
-                setColor( CL.NORMAL_DARK );
-            if (dx > 0)
-                textout( _( "east\n" ) );
-            else if (dx < 0)
-                textout( _( "west\n" ) );
-            else if (dy < 0)
-                textout( _( "north\n" ) );
-            else if (dy > 0)
-                textout( _( "south\n" ) );
-            setColor( CL.NORMAL);
 
             if( ! party.dungeon.isPassable( party.y + dy , party.x + dx , doorflg  ) )
             {
-                textout( _( "      ... ouch!\n" ) );
+                win_msg.textout( _( "      ... ouch!\n" ) );
             }
             else
             {
@@ -259,6 +250,10 @@ bool dungeon_main()
             }
 
 
+            /////////////////
+            //debug 用
+            if( party.x < -99 )
+            /////////////////
             // check encounter
             if ( rate_encount > 0 && ( get_rand( rate_encount ) == 0 ) )
                 switch( party.dungeon.encounter( 0 ) )
@@ -478,31 +473,31 @@ int camp()
     while ( true )
     {
         setColor( CL.MENU );
-        textout( _( "******** camp ********\n" ) );
-        textout( _( "d)rop(0)     e)quip\n" ) );
-        textout( _( "i)dentify(8) z)leave(9)\n" ) );
-        textout( _( "r)ead spell  c)ast spell\n" ) );
-        textout( _( "t)rade       u)se\n" ) );
-        textout( _( "o)reorder    n)inspect\n" ) );
-        textout( _( "#)see a character\n" ) );
-        textout( _( "q)uit playing daemon(7)\n" ) );
-        textout( _( "**********************\n" ) );
+        win_msg.textout( _( "******** camp ********\n" ) );
+        win_msg.textout( _( "d)rop(0)     e)quip\n" ) );
+        win_msg.textout( _( "i)dentify(8) z)leave(9)\n" ) );
+        win_msg.textout( _( "r)ead spell  c)ast spell\n" ) );
+        win_msg.textout( _( "t)rade       u)se\n" ) );
+        win_msg.textout( _( "o)reorder    n)inspect\n" ) );
+        win_msg.textout( _( "#)see a character\n" ) );
+        win_msg.textout( _( "q)uit playing daemon(7)\n" ) );
+        win_msg.textout( _( "**********************\n" ) );
         /+
         if( first_disp )
         {
-            textout( _( "d)rop(0)     e)quip\n" ) );
-            textout( _( "i)dentify(8) z)leave(9)\n" ) );
-            textout( _( "r)ead spell  c)ast spell\n" ) );
-            textout( _( "t)rade       u)se\n" ) );
-            textout( _( "o)reorder    n)inspect\n" ) );
-            textout( _( "#)see a character\n" ) );
-            textout( _( "q)uit playing daemon(7)\n" ) );
-            textout( _( "**********************\n" ) );
+            win_msg.textout( _( "d)rop(0)     e)quip\n" ) );
+            win_msg.textout( _( "i)dentify(8) z)leave(9)\n" ) );
+            win_msg.textout( _( "r)ead spell  c)ast spell\n" ) );
+            win_msg.textout( _( "t)rade       u)se\n" ) );
+            win_msg.textout( _( "o)reorder    n)inspect\n" ) );
+            win_msg.textout( _( "#)see a character\n" ) );
+            win_msg.textout( _( "q)uit playing daemon(7)\n" ) );
+            win_msg.textout( _( "**********************\n" ) );
             first_disp = false;
         }
         +/
         setColor( CL.NORMAL );
-        textout( "option? " );
+        win_msg.textout( "option? " );
         while ( true )
         {
             ch = getChar();
@@ -515,30 +510,30 @@ int camp()
             else if ( ch == '?'  )
             {
                 setColor( CL.MENU );
-                textout(  "\n" );
-                textout( _( "******** camp ********\n" ) );
-                textout( _( "d)rop(0)     e)quip\n" ) );
-                textout( _( "i)dentify(8) z)leave(9)\n" ) );
-                textout( _( "r)ead spell  c)ast spell\n" ) );
-                textout( _( "t)rade       u)se\n" ) );
-                textout( _( "o)reorder    n)inspect\n" ) );
-                textout( _( "#)see a character\n" ) );
-                textout( _( "q)uit playing daemon(7)\n" ) );
-                textout( _( "**********************\n" ) );
+                win_msg.textout(  "\n" );
+                win_msg.textout( _( "******** camp ********\n" ) );
+                win_msg.textout( _( "d)rop(0)     e)quip\n" ) );
+                win_msg.textout( _( "i)dentify(8) z)leave(9)\n" ) );
+                win_msg.textout( _( "r)ead spell  c)ast spell\n" ) );
+                win_msg.textout( _( "t)rade       u)se\n" ) );
+                win_msg.textout( _( "o)reorder    n)inspect\n" ) );
+                win_msg.textout( _( "#)see a character\n" ) );
+                win_msg.textout( _( "q)uit playing daemon(7)\n" ) );
+                win_msg.textout( _( "**********************\n" ) );
                 setColor( CL.NORMAL );
-                textout( "option? " );
+                win_msg.textout( "option? " );
                 continue;
             }
             else if ( ch == 't' && ! mem.item[ 0 ].isNothing )
             {   // trade
-                textout( _( "trade\n" ) );
+                win_msg.textout( _( "trade\n" ) );
                 mem.tradeitem();
                 break;
             }
             else if ( ( ch == 'd' || ch == '0' ) 
                     && ( ! mem.item[ 0 ].isNothing ) )
             {   // drop
-                textout( _( "drop\n" ) );
+                win_msg.textout( _( "drop\n" ) );
                 mem.dropitem();
                 break;
             }
@@ -546,7 +541,7 @@ int camp()
                     && ( ! mem.item[ 0 ].isNothing )
                     && ( mem.status == STS.OK ) )
             {   // use
-                textout( _( "use\n" ) );
+                win_msg.textout( _( "use\n" ) );
                 mem.useitem();
                 mem.inspect;
                 break;
@@ -554,13 +549,13 @@ int camp()
             else if ( ( ch == 'c' || ch == 's' )
                     && ( mem.status == STS.OK ) )
             {   // spell
-                textout( _( "cast spell\n" ) );
+                win_msg.textout( _( "cast spell\n" ) );
                 mem.camp_spell();
                 break;
             }
             else if (ch == 'o')
             {   // reorder
-                textout( _( "reorder\n" ) );
+                win_msg.textout( _( "reorder\n" ) );
                 party.reorder( mem );
                 break;
             }   // identify
@@ -569,32 +564,32 @@ int camp()
                     && ( mem.Class == CLS.BIS )
                     && ( mem.status == STS.OK ) )
             {   // inspect
-                textout( _( "identify\n" ) );
+                win_msg.textout( _( "identify\n" ) );
                 mem.identify();
                 break;
             }
             else if ( ch == 'r' )
             {   // read spell
-                textout( _( "read spell\n" ) );
+                win_msg.textout( _( "read spell\n" ) );
                 mem.dispSpellsInCamp;
                 break;
             }
             else if ( ch == 'e' )
             {   // equip
-                textout( _( "equip\n" ) );
+                win_msg.textout( _( "equip\n" ) );
                 mem.equip;
                 break;
             }
             else if ( ch == 'z' || ch == '9' )
             {   // leave camp
-                textout( ch );
-                textout( _( "\nleave camp ...\n" ) );
+                win_msg.textout( ch );
+                win_msg.textout( _( "\nleave camp ...\n" ) );
                 goto EXIT;
             }
             else if (ch == 'q' || ch == '7')
             {   // quit game
-                textout( ch );
-                textout( _( "\nquit game ...\n" ) );
+                win_msg.textout( ch );
+                win_msg.textout( _( "\nquit game ...\n" ) );
                 for ( i = 0; i < party.num; i++ )
                 {
                     party.mem[ i ].x = party.x;
@@ -605,7 +600,7 @@ int camp()
 
                 appSave;
 
-                textout( _( "  leave game(y(1)/n(2))? \n" ) );
+                win_msg.textout( _( "  leave game(y(1)/n(2))? \n" ) );
                 while ( true )
                 {
                     c = getChar();
@@ -619,16 +614,16 @@ int camp()
                     party.layer = 0;
                     party.num = 0;
                     rtnval = 1; // leave game
-                    textout( "bye !" );
+                    win_msg.textout( "bye !" );
                     goto EXIT;
                 }
                 break;
             }   // inspect
             else if (ch == 'n' || c == '2')
             {
-                textout( "i\n" );
+                win_msg.textout( "i\n" );
                 party.inspect();
-                scrwin_clear();
+                win_status.clear();
                 break;
             }
         }
@@ -642,7 +637,7 @@ EXIT:
     // in rock check
     if ( party.dungeon.checkInRock )
     {
-        textout( _( "\n*** in rock! ***\n" ) );
+        win_msg.textout( _( "\n*** in rock! ***\n" ) );
         for ( i = 0; i < party.num; i++ )
             party.mem[i].status = STS.LOST;
         party.win_disp();
@@ -716,14 +711,14 @@ bool treasure_main( int monnum )
     while ( true )
     {
         setColor( CL.TREASURE );
-        textout( _( "\n*** a chest! you may: ***\n" ) );
+        win_msg.textout( _( "\n*** a chest! you may: ***\n" ) );
         setColor( CL.MENU );
 
-        textout( _( "o)pen i)nspect&disarm(4)\n" ) );
-        textout( _( "c)ast inspct(6) z)leave alone(9)\n" ) );
-        textout( _( "*************************\n" ) );
+        win_msg.textout( _( "o)pen i)nspect&disarm(4)\n" ) );
+        win_msg.textout( _( "c)ast inspct(6) z)leave alone(9)\n" ) );
+        win_msg.textout( _( "*************************\n" ) );
         setColor( CL.NORMAL );
-        textout( "option? " );
+        win_msg.textout( "option? " );
 
         c = 0;
         while ( c == 0 )
@@ -746,8 +741,8 @@ bool treasure_main( int monnum )
             }
         }
 
-        textout( c );
-        textout( '\n' );
+        win_msg.textout( c );
+        win_msg.textout( '\n' );
         switch( c )
         {
             case 'i':   // inspect
@@ -767,17 +762,17 @@ bool treasure_main( int monnum )
                     inspected = mem.predict;
 
                 setColor( CL.TRAP );
-                textout( "\n=== " ~ TRAP_NAME[ inspected ] ~ "? ===\n" );
+                win_msg.textout( "\n=== " ~ TRAP_NAME[ inspected ] ~ "? ===\n" );
                 setColor( CL.NORMAL );
 
-                textout( _( "%1 disarm?(y/n)\n" ) , mem.name );
+                win_msg.textout( _( "%1 disarm?(y/n)\n" ) , mem.name );
                 if( answerYN == 'n' )
                     continue;
 
                 // disarm
-                textout( ">" );
-                textout( TRAP_NAME[ inspected ] );
-                textout( "\n" );
+                win_msg.textout( ">" );
+                win_msg.textout( TRAP_NAME[ inspected ] );
+                win_msg.textout( "\n" );
                 if ( inspected != trap )
                 {
                     goto FAIL;
@@ -787,7 +782,7 @@ bool treasure_main( int monnum )
 
                     if ( trap == TRAP.NO )
                     {
-                        textout( _( "no trap ...\n" ) );
+                        win_msg.textout( _( "no trap ...\n" ) );
                         goto SUCEED;
                     }
 
@@ -799,13 +794,13 @@ bool treasure_main( int monnum )
 
                     if ( ratio > get_rand( 70 ) )
                     {
-                        textout( _( "  you disarmed the trap.\n" ) );
+                        win_msg.textout( _( "  you disarmed the trap.\n" ) );
                         goto SUCEED;
                     }
 
                     if ( ratio < get_rand( 20 ) )
                         goto FAIL;
-                    textout( _( "  you could not disarm it.\n" ) );
+                    win_msg.textout( _( "  you could not disarm it.\n" ) );
                 }
                 break;
 
@@ -822,7 +817,7 @@ bool treasure_main( int monnum )
 
             case 'z':   // leave alone
             case '9':
-              textout( _( "leave alone ...\n" ) );
+              win_msg.textout( _( "leave alone ...\n" ) );
               goto EXIT;
 
             case 'c':   // spell
@@ -837,12 +832,12 @@ bool treasure_main( int monnum )
                 rtn = mem.consume_spell( 0x24 ); // calfo
                 if ( rtn == 1 )
                 {
-                    textout( _( "  you don't know the spell.\n" ) );
+                    win_msg.textout( _( "  you don't know the spell.\n" ) );
                     break;
                 }
                 else if ( rtn == 2 )  
                 {
-                    textout( _( "  you've used that spell up.\n" ) );
+                    win_msg.textout( _( "  you've used that spell up.\n" ) );
                     break;
                 }
 
@@ -851,7 +846,7 @@ bool treasure_main( int monnum )
                 else
                     inspected_bycast = get_rand( MAXTRAP );
 
-                textout( "\n=== " ~ TRAP_NAME[ inspected_bycast ] ~ "? ===\n" );
+                win_msg.textout( "\n=== " ~ TRAP_NAME[ inspected_bycast ] ~ "? ===\n" );
                 break;
             default:
                 assert( 0 );
@@ -861,12 +856,12 @@ bool treasure_main( int monnum )
 FAIL:
     if ( trap == TRAP.NO )
     {
-        textout( _( "no trap ...\n" ) );
+        win_msg.textout( _( "no trap ...\n" ) );
         goto SUCEED;
     }
 
     setColor( CL.TRAP_FAIL );
-    textout( _( "oops! %1\n" ) , TRAP_NAME[ trap ] );
+    win_msg.textout( _( "oops! %1\n" ) , TRAP_NAME[ trap ] );
     setColor( CL.NORMAL );
     switch ( trap )
     {
@@ -912,8 +907,8 @@ FAIL:
         case TRAP.TELEPORT: /* teleporter */
             party.ox = party.x;
             party.oy = party.y;
-            party.x = to!byte( get_rand( MAP_MAX_X - 4 ) + 1 );
-            party.y = to!byte( get_rand( MAP_MAX_Y - 4 ) + 1 );
+            party.x = to!byte( get_rand( party.dungeon.width - 4 ) + 1 );
+            party.y = to!byte( get_rand( party.dungeon.height - 4 ) + 1 );
             party.dungeon.disp();
             header_disp( HSTS.DUNGEON );
             break;
@@ -963,7 +958,7 @@ FAIL:
         party.win_disp();
         party.num = 0;
         party.layer = 0;
-        textout( _( "\n*** your party is lost...<push space bar>\n" ) );
+        win_msg.textout( _( "\n*** your party is lost...<push space bar>\n" ) );
         while ( true )
         {
             c = getChar();
@@ -977,7 +972,7 @@ SUCEED:
     get_treasure( monnum );
     getgold = monster_data[ monnum ].mingp + get_rand( monster_data[ monnum ].addgp );
     getgold /= party.num;
-    textout( _( "  each survivor gets %1 gold.\n" ) , getgold );
+    win_msg.textout( _( "  each survivor gets %1 gold.\n" ) , getgold );
     for ( i = 0; i < party.num; i++ )
     {
         if ( party.mem[ i ].status == 0 )
@@ -1015,19 +1010,19 @@ void get_treasure( int mon )
             {
                 if (item_data[ itemno ].name == "")
                 {
-                    textout("item#: ");
-                    textout( itemno );
-                    textout( "\n" );
+                    win_msg.textout("item#: ");
+                    win_msg.textout( itemno );
+                    win_msg.textout( "\n" );
                 }
                 itm = party.mem[ j ].getItem( itemno );
                 itm.undefined = true;
 
-                textout( _( "  %1 discovered a %2.\n" ) , party.mem[ j ].name , itm.getDispName );
+                win_msg.textout( _( "  %1 discovered a %2.\n" ) , party.mem[ j ].name , itm.getDispName );
                 getChar();
                 return;
             }
         }
-        textout( _( "you cannot carry anything more.\n" ) );
+        win_msg.textout( _( "you cannot carry anything more.\n" ) );
         return;
     }
 

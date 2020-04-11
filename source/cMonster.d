@@ -182,7 +182,7 @@ class Monster
         switch ( monaction )
         {
             case MON_ACT.RUN: /* run away */
-                textout( _( "A %1 runs away.\n" ) , getDispNameA );
+                win_msg.textout( _( "A %1 runs away.\n" ) , getDispNameA );
 
                 turn.del;
                 del;
@@ -191,21 +191,21 @@ class Monster
                 break;
 
             case MON_ACT.HLP: /* help */
-                textout( _( "A %1 calls for help.\n" ) , getDispNameA );
+                win_msg.textout( _( "A %1 calls for help.\n" ) , getDispNameA );
                 if ( get_rand( 2 ) == 0 )
                 {
                     if ( help() )
                     {
-                        textout( _( "  A %1 appeared.\n" ) , getDispNameA );
+                        win_msg.textout( _( "  A %1 appeared.\n" ) , getDispNameA );
                     }
                     else
                     {
-                        textout( _( "  but, no one responded.\n" ) );
+                        win_msg.textout( _( "  but, no one responded.\n" ) );
                     }
                 }
                 else
                 {
-                    textout( _( "  but, no one responded.\n" ) );
+                    win_msg.textout( _( "  but, no one responded.\n" ) );
                 }
                 getChar();
                 break;
@@ -225,11 +225,11 @@ class Monster
             default:
                 if ( ( monaction & 0x80 ) != 0 && ! monParty.suprised )
                 {
-                    textout( _( "A %1 casts a %2.\n" ) , getDispNameA , magic_data[ monaction & 0x7f ].name );
+                    win_msg.textout( _( "A %1 casts a %2.\n" ) , getDispNameA , magic_data[ monaction & 0x7f ].name );
                     getChar();
                     if ( silenced )
                     {
-                      textout( _( "  but, %1 is silenced!\n" ) , getDispNameA );
+                      win_msg.textout( _( "  but, %1 is silenced!\n" ) , getDispNameA );
                       getChar();
                       break;
                     }
@@ -238,9 +238,9 @@ class Monster
                 else
                 {
                     attack( MON_ACT.ATK_ATKE, target );
-      //            textout("A ");
-      //            textout(&(name[0]));
-      //            textout(" looks at you carefully.\n");
+      //            win_msg.textout("A ");
+      //            win_msg.textout(&(name[0]));
+      //            win_msg.textout(" looks at you carefully.\n");
                 }
         }
         return;
@@ -281,7 +281,7 @@ class Monster
         }
 
 
-        textout( _( "A %1 exhales breathe.\n" ) , getDispNameA );
+        win_msg.textout( _( "A %1 exhales breathe.\n" ) , getDispNameA );
 
         for ( i = 0; i < party.num; i++ )
         {
@@ -303,7 +303,7 @@ class Monster
 
             if ( resist )
             {
-                textout( "  %1 resists\n" , p.name );
+                win_msg.textout( "  %1 resists\n" , p.name );
             }
             else
             {
@@ -313,14 +313,14 @@ class Monster
                 if ( damage == 0 && get_rand( 3 ) == 0 )
                     damage++;
 
-                textout( _( "  %1 takes %2 damage!\n" ) , p.name , damage );
+                win_msg.textout( _( "  %1 takes %2 damage!\n" ) , p.name , damage );
                 p.hp -= damage;
                 if ( p.hp <= 0 )
                 {
                     p.hp = 0;
                     p.status = STS.DEAD; /* dead */
                     p.rip++;
-                    textout( _( "    %1 is killed!\n" ) , p.name );
+                    win_msg.textout( _( "    %1 is killed!\n" ) , p.name );
                 }
                 else if ( def.breef != 0 )
                 {
@@ -330,7 +330,7 @@ class Monster
                         if( !p.isDefefPoison && checkBreathEffect )
                         {
                             p.poisoned = true;
-                            textout( _( "    and is poisoned!\n" ) );
+                            win_msg.textout( _( "    and is poisoned!\n" ) );
                         }
                 
                     /* sleep effect */
@@ -338,7 +338,7 @@ class Monster
                         if( !p.isDefefSleep && p.status < STS.SLEEP && checkBreathEffect ) 
                         {
                             p.status = STS.SLEEP;
-                            textout( _( "    and is asleep!\n" ) );
+                            win_msg.textout( _( "    and is asleep!\n" ) );
                         }
                 
                     /* paralize effect */
@@ -346,7 +346,7 @@ class Monster
                         if( !p.isDefefParalize && p.status < STS.PARALY && checkBreathEffect ) 
                         {
                             p.status = STS.PARALY;
-                            textout( _( "    and is paralized!\n" ) );
+                            win_msg.textout( _( "    and is paralized!\n" ) );
                         }
                 
                     /* stone effect */
@@ -354,7 +354,7 @@ class Monster
                         if( !p.isDefefStone && p.status < STS.STONED && checkBreathEffect ) 
                         {
                             p.status = STS.STONED;
-                            textout( _( "    and is petrified!\n" ) );
+                            win_msg.textout( _( "    and is petrified!\n" ) );
                         }
                 
                     /* critical effect */
@@ -364,7 +364,7 @@ class Monster
                             p.status = STS.DEAD;
                             p.hp = 0;
                             p.rip++;
-                            textout( _( "    and is killed instantly!\n" ) );
+                            win_msg.textout( _( "    and is killed instantly!\n" ) );
                         }
                 
                     /* Level drain  effect */
@@ -404,19 +404,19 @@ class Monster
         {
             case MON_ACT.ATK_ATK:
             case MON_ACT.ATK_ATKE:
-                textout( _( "A %1 attacks at %2\n" ) , getDispNameA , mem.name );
+                win_msg.textout( _( "A %1 attacks at %2\n" ) , getDispNameA , mem.name );
                 break;
             case MON_ACT.ATK_SLS:
             case MON_ACT.ATK_SLSE:
-                textout( _( "A %1 tries to sting %2\n" ) , getDispNameA , mem.name );
+                win_msg.textout( _( "A %1 tries to sting %2\n" ) , getDispNameA , mem.name );
                 break;
             case MON_ACT.ATK_TCH:
             case MON_ACT.ATK_TCHE:
-                textout( _( "A %1 tries to touch %2\n" ) , getDispNameA , mem.name );
+                win_msg.textout( _( "A %1 tries to touch %2\n" ) , getDispNameA , mem.name );
                 break;
             case MON_ACT.ATK_BIT:
             case MON_ACT.ATK_BITE:
-                textout( _( "A %1 tries to bite %2\n" ) , getDispNameA , mem.name );
+                win_msg.textout( _( "A %1 tries to bite %2\n" ) , getDispNameA , mem.name );
                 break;
             default:
                 assert( 0 );
@@ -439,13 +439,13 @@ class Monster
         }
         if ( hit_times == 0 )
         {
-            textout( _( "   ... and misses\n" ) );
+            win_msg.textout( _( "   ... and misses\n" ) );
             getChar();
             return;
         }
         else
         {   // hit_times > 0
-            textout( N_( "  and hits once for %1 damage!\n" 
+            win_msg.textout( N_( "  and hits once for %1 damage!\n" 
                        , "  and hits %2 times for %1 damage!\n" , hit_times )
                    , damage , hit_times );
             mem.hp -= damage;
@@ -467,7 +467,7 @@ class Monster
                     }
                     else
                     {
-                        textout( _( "  %1 is poisoned!\n" ) , mem.name );
+                        win_msg.textout( _( "  %1 is poisoned!\n" ) , mem.name );
                         mem.poisoned = true;
                         party.win_disp_noreorder();
                         getChar();
@@ -483,7 +483,7 @@ class Monster
                     else
                     {
                         mem.poisoned = true;
-                        textout( _( "  %1 is asleep!\n" ) , mem.name );
+                        win_msg.textout( _( "  %1 is asleep!\n" ) , mem.name );
                         party.win_disp_noreorder();
                         getChar();
                     }
@@ -498,7 +498,7 @@ class Monster
                     else
                     {
                         mem.status = STS.PARALY;
-                        textout( _( "  %1 is paralized!\n" ) , mem.name );
+                        win_msg.textout( _( "  %1 is paralized!\n" ) , mem.name );
                         party.win_disp_noreorder();
                         getChar();
                     }
@@ -513,7 +513,7 @@ class Monster
                     else
                     {
                         mem.status = STS.STONED;
-                        textout( _( "  %1 is petrified!\n" ) , mem.name );
+                        win_msg.textout( _( "  %1 is petrified!\n" ) , mem.name );
                         party.win_disp_noreorder();
                         getChar();
                     }
@@ -530,7 +530,7 @@ class Monster
                         mem.status = STS.DEAD;
                         mem.hp = 0;
                         mem.rip++;
-                        textout( _( "  %1 gets the head cut off!\n" ) , mem.name );
+                        win_msg.textout( _( "  %1 gets the head cut off!\n" ) , mem.name );
                         party.win_disp_noreorder();
                         getChar();
                     }
@@ -552,7 +552,7 @@ class Monster
                     mem.hp = 0;
                     mem.status = STS.DEAD; /* dead */
                     mem.rip++;
-                    textout( _( "  %1 is killed!\n" ) , mem.name );
+                    win_msg.textout( _( "  %1 is killed!\n" ) , mem.name );
                     party.win_disp_noreorder();
                     getChar();
                 }
@@ -567,12 +567,12 @@ class Monster
        --------------------*/
     void attackLvDrain( Member mem )
     {
-        textout( _( "  %1 gets %2 level drained!\n" ) , mem.name , def.getAtkDrainLv );
+        win_msg.textout( _( "  %1 gets %2 level drained!\n" ) , mem.name , def.getAtkDrainLv );
         if ( mem.level - def.getAtkDrainLv < 1 )
         {
             mem.status = STS.LOST;
             mem.hp = 0;
-            textout( _( "  %1 is killed!\n" ) , mem.name );
+            win_msg.textout( _( "  %1 is killed!\n" ) , mem.name );
             getChar();
         }
         else
@@ -601,7 +601,7 @@ class Monster
             {
                 mem.status = STS.LOST;
                 mem.hp = 0;
-                textout( _( "  %1 is killed!\n" ) , mem.name );
+                win_msg.textout( _( "  %1 is killed!\n" ) , mem.name );
                 getChar();
             }
         }
@@ -627,16 +627,16 @@ class Monster
 
                     if ( party.mem[ i ].magdef >= get_rand( 99 ) + 1 )
                     {
-                        textout( _( "  %1 resisted the spell.\n" ) , party.mem[ i ].name  );
+                        win_msg.textout( _( "  %1 resisted the spell.\n" ) , party.mem[ i ].name  );
                     }
                     else if ( get_rand( 1 ) == 0 )
                     { // possibility = 1/2
                         party.mem[ i ].silenced = true;
-                        textout( _( "  %1 is silenced!\n" ) , party.mem[ i ].name  );
+                        win_msg.textout( _( "  %1 is silenced!\n" ) , party.mem[ i ].name  );
                     }
                     else
                     {
-                        textout( _( "  %1 is not silenced.\n" ) , party.mem[ i ].name  );
+                        win_msg.textout( _( "  %1 is not silenced.\n" ) , party.mem[ i ].name  );
                     }
                     getChar();
                 }
@@ -646,14 +646,14 @@ class Monster
                     break;
                 if ( party.mem[ target ].magdef >= get_rand( 99 ) + 1 )
                 {
-                    textout( _( "  %1 resisted the spell.\n" ) , party.mem[ target ].name );
+                    win_msg.textout( _( "  %1 resisted the spell.\n" ) , party.mem[ target ].name );
                 }
                 else
                 {
                     mag_hp = get_rand( 7 ) + 1;
                     if ( mag_hp > party.mem[ target ].hp )
                         mag_hp = party.mem[ target ].hp;
-                    textout( _( "  %1 gets %2 damage!\n" ) 
+                    win_msg.textout( _( "  %1 gets %2 damage!\n" ) 
                             , party.mem[ target ].name , party.mem[ target ].hp - mag_hp );
                     party.mem[ target ].hp = mag_hp;
                 }
@@ -665,19 +665,19 @@ class Monster
                     break;
                 if ( party.mem[ target ].magdef >= get_rand( 99 ) + 1 )
                 {
-                    textout( _( "  %1 resisted the spell.\n" ) ,  party.mem[ target ].name  );
+                    win_msg.textout( _( "  %1 resisted the spell.\n" ) ,  party.mem[ target ].name  );
                 }
                 else if ( get_rand( 3 ) == 0 )
                 {
                     party.mem[ target ].status = STS.DEAD;
                     party.mem[ target ].hp = 0;
                     party.mem[ target ].rip++;
-                    textout( _( "  %1 is dead!\n" ) , party.mem[ target ].name  );
+                    win_msg.textout( _( "  %1 is dead!\n" ) , party.mem[ target ].name  );
                     party.win_disp_noreorder();
                 }
                 else
                 {
-                    textout( _( "  %1 is alive.\n" ) , party.mem[ target ].name  );
+                    win_msg.textout( _( "  %1 is alive.\n" ) , party.mem[ target ].name  );
                 }
                 break;
             case MAG_TYPE.ATKONE: /* atk(1) */
@@ -704,16 +704,16 @@ class Monster
                     {
                         if ( party.mem[ i ].magdef >= get_rand( 99 ) + 1 )
                         {
-                            textout( _( "  %1 resisted the spell.\n" ) ,  party.mem[ i ].name );
+                            win_msg.textout( _( "  %1 resisted the spell.\n" ) ,  party.mem[ i ].name );
                         }
                         else if ( get_rand( 3 ) == 0 )
                         {
-                            textout( _( "  %1 is slept.\n" ) ,  party.mem[ i ].name );
+                            win_msg.textout( _( "  %1 is slept.\n" ) ,  party.mem[ i ].name );
                             party.mem[ i ].status = STS.SLEEP;
                         }
                         else
                         {
-                            textout( _( "  %1 is not slept.\n" ) , party.mem[ i ].name  );
+                            win_msg.textout( _( "  %1 is not slept.\n" ) , party.mem[ i ].name  );
                         }
                         party.win_disp_noreorder();
                         getChar();
@@ -727,16 +727,16 @@ class Monster
                     {
                         if ( party.mem[ i ].magdef >= get_rand( 99 ) + 1 )
                         {
-                            textout( _( "  %1 resisted the spell.\n" ) , party.mem[ i ].name );
+                            win_msg.textout( _( "  %1 resisted the spell.\n" ) , party.mem[ i ].name );
                         }
                         else if ( get_rand( 3 ) == 0 )
                         {
-                            textout( _( "  %1 is held.\n" ) , party.mem[ i ].name );
+                            win_msg.textout( _( "  %1 is held.\n" ) , party.mem[ i ].name );
                             party.mem[ i ].status = STS.SLEEP;
                         }
                         else
                         {
-                            textout( _( "  %1 is not held.\n" ) , party.mem[ i ].name );
+                            win_msg.textout( _( "  %1 is not held.\n" ) , party.mem[ i ].name );
                         }
                         party.win_disp_noreorder();
                         getChar();
@@ -752,7 +752,7 @@ class Monster
 
                     if ( party.mem[ i ].level < 8 )
                     {
-                        textout( _( "  %1 is suffocated.\n" ) , party.mem[ i ].name );
+                        win_msg.textout( _( "  %1 is suffocated.\n" ) , party.mem[ i ].name );
                         party.mem[ i ].status = STS.DEAD;
                         party.mem[ i ].hp = 0;
                         party.mem[ i ].rip++;
@@ -760,13 +760,13 @@ class Monster
                     }
                     else
                     {
-                        textout( _( "  %1 is alive.\n" ) , party.mem[ i ].name );
+                        win_msg.textout( _( "  %1 is alive.\n" ) , party.mem[ i ].name );
                     }
                     getChar();
                 }
                 break;
             default:
-                textout( _( "  but, nothing happened...\n" ) );
+                win_msg.textout( _( "  but, nothing happened...\n" ) );
                 break;
         }
         return;
@@ -817,17 +817,17 @@ class Monster
 
             if ( p.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( _( "  %1 resisted the spell.\n" ) , p.name );
+                win_msg.textout( _( "  %1 resisted the spell.\n" ) , p.name );
             }
             else
             {
-                textout( _( "  %1 gets %2 damage!\n" ) , p.name , damage );
+                win_msg.textout( _( "  %1 gets %2 damage!\n" ) , p.name , damage );
                 if ( p.hp <= damage )
                 { // dead
                     p.hp = 0;
                     p.status = STS.DEAD; /* dead */
                     p.rip++;
-                    textout( "    %1 is killed!\n" , p.name );
+                    win_msg.textout( "    %1 is killed!\n" , p.name );
                 }
                 else
                 {

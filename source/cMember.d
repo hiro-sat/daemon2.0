@@ -41,7 +41,9 @@ private:
                 if ( item[ i ].cursed )
                     curseflag = 1;
 
-                textout( to!string( i + 1 ) ~ ")" ~ item[ i ].getDispNameA ~ "\n" );
+                win_msg.textout( "%1)%2\n" 
+                                    , to!string( i + 1 ) 
+                                    , item[ i ].getDispNameA );
 
                 if( ! item[ i ].cursed && item[ i ].equipped )
                     item[ i ].equipped = false;
@@ -52,7 +54,7 @@ private:
 
         if ( curseflag != 0 )
         {
-            textout( _( "you are cursed...\n" ) );
+            win_msg.textout( _( "you are cursed...\n" ) );
         }
         else if ( ( ch <= '8' && ch >= '1' ) && ( ! item[ ch-'1' ].isNothing ) )
         {
@@ -63,7 +65,7 @@ private:
                 {
                     itm.equipped = true;
                     itm.cursed = true;
-                    textout( _( "*** oops! you got cursed ...\n" ) );
+                    win_msg.textout( _( "*** oops! you got cursed ...\n" ) );
                 }
                 else
                 {
@@ -72,7 +74,7 @@ private:
             }
             else if ( ! itm.isNothing )
             {
-                textout( _( "you cannot equip it.\n" ) );
+                win_msg.textout( _( "you cannot equip it.\n" ) );
             }
         }
 
@@ -88,7 +90,8 @@ private:
             if ( itm.effect[ 2 ] == 0 )
                 continue;
 
-            textout( _( "do you want to use the special power\n  of %1 (y/n)?" ) , itm.getDispName );
+            win_msg.textout( _( "do you want to use the special power\n  of %1 (y/n)?" ) 
+                                , itm.getDispName );
 
             while ( true )
             {
@@ -96,7 +99,7 @@ private:
                 if ( ch == 'y' || ch == 'n' )
                     break;
             }
-            textout( to!string( ch ) ~ "\n" );
+            win_msg.textout( to!string( ch ) ~ "\n" );
 
             if ( ch == 'y' )
             {
@@ -576,26 +579,25 @@ public:
     {
         int difflevel;
 
-        scrwin_clear();
+        win_status.clear;
 
         rewriteOff;
 
-        mvprintw( SCRW_Y_TOP + 1, SCRW_X_TOP, "                 ");
-        mvprintw( SCRW_Y_TOP + 1, SCRW_X_TOP, leftB( name , 20 ) );
-        
-        mvprintw( SCRW_Y_TOP + 1, SCRW_X_TOP + 21, " age ");
-        intDispD( age, 3 );
+        win_status.clear;
+
+        win_status.print( 1 , 0 , leftB( name , 20 ) );
+        win_status.print( 1 , 21 , " age %1" , fillR( age , 3 ) );
       
         switch( Align )
         {
             case ALIGN.GOOD:
-                mvprintw(SCRW_Y_TOP + 2, SCRW_X_TOP, "g" );
+                win_status.print( 2, 0, "g" );
                 break;
             case ALIGN.EVIL:
-                mvprintw(SCRW_Y_TOP + 2, SCRW_X_TOP, "e" );
+                win_status.print( 2, 0, "e" );
                 break;
             case ALIGN.NEWT:
-                mvprintw(SCRW_Y_TOP + 2, SCRW_X_TOP, "n" );
+                win_status.print( 2, 0, "n" );
                 break;
             default:
                 assert( 0 );
@@ -603,28 +605,28 @@ public:
         switch( Class )
         {
             case CLS.FIG:
-                printw("-fig ");
+                win_status.print("-fig ");
                 break;
             case CLS.THI:
-                printw("-thi ");
+                win_status.print("-thi ");
                 break;
             case CLS.PRI:
-                printw("-pri ");
+                win_status.print("-pri ");
                 break;
             case CLS.MAG:
-                printw("-mag ");
+                win_status.print("-mag ");
                 break;
             case CLS.BIS:
-                printw("-bis ");
+                win_status.print("-bis ");
                 break;
             case CLS.SAM:
-                printw("-sam ");
+                win_status.print("-sam ");
                 break;
             case CLS.LOR:
-                printw("-lor ");
+                win_status.print("-lor ");
                 break;
             case CLS.NIN:
-                printw("-nin ");
+                win_status.print("-nin ");
                 break;
             default:
                 assert( 0 );
@@ -632,187 +634,122 @@ public:
         switch( race )
         {
             case RACE.HUMAN:
-                printw("human ");
+                win_status.print("human ");
                 break;
             case RACE.ELF:
-                printw("elf   ");
+                win_status.print("elf   ");
                 break;
             case RACE.DWARF:
-                printw("dwarf ");
+                win_status.print("dwarf ");
                 break;
             case RACE.GNOME: 
-                printw("gnome ");
+                win_status.print("gnome ");
                 break;
             case RACE.HOBBIT:
-                printw("hobbit");
+                win_status.print("hobbit");
                 break;
             default:
                 assert( 0 );
         }
-        mvprintw( SCRW_Y_TOP + 2, SCRW_X_TOP + 13, "ac " );
         if( ac[ 0 ] >=  - 999 )
-            intDispD( ac[ 0 ] , 4 );
+            win_status.print(  2 , 13 , "ac " , fillR( ac[ 0 ] , 4 ) );
         else
-            printw( "VVVL" );
+            win_status.print(  2 , 13 , "ac VVVL" );
 
-        printw("  day ");
-        intDispD( day, 3 );
-        mvprintw( SCRW_Y_TOP + 3, SCRW_X_TOP + 10, "level " );
+        win_status.print( "  day %1" , fillR( day , 3 ) );
+
+        win_status.print(  4 , 0 , " str %1" , fillR( str[ 0 ] + str[ 1 ] , 2 ) );
+        win_status.print(  5 , 0 , " i.q %1" , fillR( iq[ 0 ]  + iq[ 1 ]  , 2 ) );
+        win_status.print(  6 , 0 , " pie %1" , fillR( pie[ 0 ] + pie[ 1 ] , 2 ) );
+        win_status.print(  7 , 0 , " vit %1" , fillR( vit[ 0 ] + vit[ 1 ] , 2 ) );
+        win_status.print(  8 , 0 , " agi %1" , fillR( agi[ 0 ] + agi[ 1 ] , 2 ) );
+        win_status.print(  9 , 0 , " luk %1" , fillR( luk[ 0 ] + luk[ 1 ] , 2 ) );
+        win_status.print( 10 , 0 , " cha %1" , fillR( cha[ 0 ] + cha[ 1 ] , 2 ) );
+
+
         difflevel = calcLevel() - level;
         if (difflevel == 0)
-        {
-            intDispD( level, 13 );
-        }
+            win_status.print( 3 , 10 , "level %1" , fillR( level, 13 ) );
         else
-        {
-            intDispD( level, 8 );
-            printw("(+");
-            intDispD( difflevel, 2 );
-            printw(")");
-        }
-      
-        mvprintw( SCRW_Y_TOP + 4, SCRW_X_TOP, " str " );
-        intDispD( str[ 0 ] + str[ 1 ], 2);
-        printw("   gold ");
-        intDispD( gold, 14 );
-      
-        mvprintw( SCRW_Y_TOP + 5, SCRW_X_TOP, " i.q " );
-        intDispD( iq[ 0 ] + iq[ 1 ], 2 );
-        printw( "   ep" );
-        intDispD( exp, 17 );
-      
-        mvprintw( SCRW_Y_TOP + 6, SCRW_X_TOP, " pie " );
-        intDispD( pie[ 0 ] + pie[ 1 ] , 2 );
-        printw( "   next" );
+            win_status.print( 3 , 10 , "%1(+%2)" , fillR( level, 8 ) , fillR( difflevel, 2 ) );
+        win_status.print( 4 , 10 , "gold %1" , fillR( gold, 14 ) );
+        win_status.print( 5 , 10 , "ep%1" , fillR( exp, 17 ) );
+
         if( nextexp - exp >= 0 )
-        {
-            intDispD( nextexp - exp, 15 );
-        }
+            win_status.print( 6 , 10 , "next%1" , fillR( nextexp - exp, 15 ) );
         else
-        {
-            intDispD( 0, 7 );
-            printw( "(" );
-            intDispD( calcNextExp( calcLevel() ) - exp, 6 );
-            printw( ")" );
-        }
+            win_status.print( 6 , 10 , "next      0(%1)" , fillR( calcNextExp( calcLevel() ) - exp, 6 ) );
       
-        mvprintw( SCRW_Y_TOP + 7 , SCRW_X_TOP , " vit " );
-        intDispD( vit[ 0 ] + vit[ 1 ] , 2 );
-        printw( "   marks " );
-        intDispD( marks, 13 );
-      
-        mvprintw( SCRW_Y_TOP + 8 , SCRW_X_TOP , " agi " );
-        intDispD( agi[ 0 ] + agi[ 1 ] , 2 );
-        printw( "   h.p. " );
-        intDispD( hp, 6 );
-        printw( "/" );
-        intDispD( maxhp, 7 );
-      
-        mvprintw( SCRW_Y_TOP + 9 , SCRW_X_TOP , " luk " );
-        intDispD( luk[ 0 ] + luk[ 1 ] , 2 );
-        printw( "   rip" );
-        intDispD( rip, 3 );
-        printw( " sts " );
-      
+        win_status.print( 7 , 10 , "marks %1" , fillR( marks, 13 ) );
+        win_status.print( 8 , 10 , "h.p. %1/%2" , fillR( hp, 6 ) , fillR( maxhp, 7 ) );
+        win_status.print( 9 , 10 , "rip%1" , fillR( rip, 3 ) );
+
+        win_status.print( 10, 10 , " sts " );
         switch( status )
         {
             case STS.OK:
                 if( poisoned )
-                    printw( "poisoned" );
+                    win_status.print( "poisoned" );
                 else
-                    printw( "      ok" );
+                    win_status.print( "      ok" );
                 break;
             case STS.SLEEP:
-                printw( "   sleep" );
+                win_status.print( "   sleep" );
                 break;
             case STS.AFRAID:
-                printw( "  afraid" );
+                win_status.print( "  afraid" );
                 break;
             case STS.PARALY:
-                printw( "paralizd" );
+                win_status.print( "paralizd" );
                 break;
             case STS.STONED:
-                printw( "  stoned" );
+                win_status.print( "  stoned" );
                 break;
             case STS.DEAD:
-                printw( "    dead" );
+                win_status.print( "    dead" );
                 break;
             case STS.ASHED:
-                printw( "   ashed" );
+                win_status.print( "   ashed" );
                 break;
             case STS.LOST:
-                printw( "    lost" );
+                win_status.print( "    lost" );
                 break;
             default:
                 assert( 0 );
         }
       
-        mvprintw( SCRW_Y_TOP + 10 , SCRW_X_TOP , " cha " );
-        intDispD( cha[ 0 ] + cha[ 1 ], 2 );
-
-        printw( "   mage " );
-        intDispD( mspl_pt[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 6 ] , 1 );
-
-        mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP , "       " );
-        printw( "    max " );
-        intDispD( mspl_max[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 6 ] , 1 );
-      
-        mvprintw( SCRW_Y_TOP + 12 , SCRW_X_TOP , "       " );
-        printw( "   prst " );
-        intDispD( pspl_pt[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 6 ] , 1 );
-
-        mvprintw( SCRW_Y_TOP + 13 , SCRW_X_TOP , "       " );
-        printw( "    max " );
-        intDispD( pspl_max[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 6 ] , 1 );
-      
+        win_status.print( 11 , 10 , "mage %1/%2/%3/%4/%5/%6/%7" 
+                                    , fillR( mspl_pt[ 0 ] , 1 )
+                                    , fillR( mspl_pt[ 1 ] , 1 )
+                                    , fillR( mspl_pt[ 2 ] , 1 )
+                                    , fillR( mspl_pt[ 3 ] , 1 )
+                                    , fillR( mspl_pt[ 4 ] , 1 )
+                                    , fillR( mspl_pt[ 5 ] , 1 )
+                                    , fillR( mspl_pt[ 6 ] , 1 ) );
+        win_status.print( 12 , 11 , " max %1/%2/%3/%4/%5/%6/%7" 
+                                    , fillR( mspl_max[ 0 ] , 1 ) 
+                                    , fillR( mspl_max[ 1 ] , 1 ) 
+                                    , fillR( mspl_max[ 2 ] , 1 ) 
+                                    , fillR( mspl_max[ 3 ] , 1 ) 
+                                    , fillR( mspl_max[ 4 ] , 1 ) 
+                                    , fillR( mspl_max[ 5 ] , 1 ) 
+                                    , fillR( mspl_max[ 6 ] , 1 ) );
+        win_status.print( 13 , 10 , "prst %1/%2/%3/%4/%5/%6/%7" 
+                                    , fillR( pspl_pt[ 0 ] , 1 )
+                                    , fillR( pspl_pt[ 1 ] , 1 )
+                                    , fillR( pspl_pt[ 2 ] , 1 )
+                                    , fillR( pspl_pt[ 3 ] , 1 )
+                                    , fillR( pspl_pt[ 4 ] , 1 )
+                                    , fillR( pspl_pt[ 5 ] , 1 )
+                                    , fillR( pspl_pt[ 6 ] , 1 ) );
+        win_status.print( 14 , 11 , " max %1/%2/%3/%4/%5/%6/%7" 
+                                    , fillR( pspl_max[ 0 ] , 1 ) 
+                                    , fillR( pspl_max[ 1 ] , 1 ) 
+                                    , fillR( pspl_max[ 2 ] , 1 ) 
+                                    , fillR( pspl_max[ 3 ] , 1 ) 
+                                    , fillR( pspl_max[ 4 ] , 1 ) 
+                                    , fillR( pspl_max[ 5 ] , 1 ) 
+                                    , fillR( pspl_max[ 6 ] , 1 ) );
         rewriteOn;
 
         return;
@@ -825,58 +762,55 @@ public:
     {
         int i, difflevel;
       
-        scrwin_clear();
+        win_status.clear();
       
         rewriteOff;
 
         /* mem = party.mem[ no ]; */
         
-        mvprintw( SCRW_Y_TOP + 1, SCRW_X_TOP, "                 ");
-        mvprintw( SCRW_Y_TOP + 1, SCRW_X_TOP, leftB( name , 20 ) );
-        mvprintw( SCRW_Y_TOP + 1 + 1, SCRW_X_TOP, "age ");
-        intDispD( age, 3);
-        printw( " rip " );
-        intDispD( rip, 3 ); /*++++++++++++++++++++++++++++*/
-        printw(" marks ");
-        intDispD( marks, 7 );
+        win_status.print( 1 , 0 , "                 ");
+        win_status.print( 1 , 0 , leftB( name , 20 ) );
+        win_status.print( 2 , 0 , "age %1 rip %2 marks %3" 
+                                    , fillR( age , 3) 
+                                    , fillR( rip , 3 )
+                                    , fillR( marks , 7 ) );
 
         difflevel = calcLevel() - level;
-        mvprintw( SCRW_Y_TOP + 3, SCRW_X_TOP, "lvl" );
         if ( difflevel == 0 )
         {
-            intDispD( level, 11 );
+            win_status.print( 3, 0, "lvl%1" , fillR( level, 11 ) );
         }
         else
         {
-           intDispD( level, 6 );
-           printw( "(+" );
-           intDispD( difflevel, 2 );
-           printw( ")" );
+            win_status.print( 3, 0, "lvl%1(+%2)" 
+                                   , fillR( level, 6 )
+                                   , fillR( difflevel, 2 ) );
         }
       
-        printw( " gp" );
-        intDispD( gold, 12 );
-        mvprintw( SCRW_Y_TOP + 4, SCRW_X_TOP, "ep" );
-        intDispD( exp, 12 );
-        printw( " next" );
+        win_status.print( " gp%1" ,fillR( gold, 12 ) );
+        win_status.print( 4, 0, "ep%1" , fillR( exp, 12 ) );
         if ( nextexp - exp >= 0 )
-        {
-            intDispD( nextexp - exp, 10 );
-        }
+            win_status.print( " next%1" , fillR( nextexp - exp, 10 ) );
         else
-        {
-            printw( " 0(" );
-            intDispD( calcNextExp( calcLevel() ) - exp, 6 );
-            printw(")");
-        }
+            win_status.print( " next 0(%1)" , fillR( calcNextExp( calcLevel() ) - exp, 6 ) );
       
         // spell
-        mvprintw( SCRW_Y_TOP + 5, SCRW_X_TOP, "m0/0/0/0/0/0/0 p0/0/0/0/0/0/0" );
-        for (i = 0; i < 7; i++)
-        {
-            mvIntDispD( SCRW_Y_TOP + 5, SCRW_X_TOP +  1 + i * 2, mspl_pt[ i ] , 1 );
-            mvIntDispD( SCRW_Y_TOP + 5, SCRW_X_TOP + 16 + i * 2, pspl_pt[ i ] , 1 );
-        }
+        win_status.print( 5, 0, formatText( "m%1/%2/%3/%4/%5/%6/%7 "
+                                            , fillR( mspl_pt[ 0 ] , 1 )
+                                            , fillR( mspl_pt[ 1 ] , 1 )
+                                            , fillR( mspl_pt[ 2 ] , 1 )
+                                            , fillR( mspl_pt[ 3 ] , 1 )
+                                            , fillR( mspl_pt[ 4 ] , 1 )
+                                            , fillR( mspl_pt[ 5 ] , 1 )
+                                            , fillR( mspl_pt[ 6 ] , 1 ) ) ~ 
+                                formatText( "p%1/%2/%3/%4/%5/%6/%7"
+                                            , fillR( pspl_pt[ 0 ] , 1 )
+                                            , fillR( pspl_pt[ 1 ] , 1 )
+                                            , fillR( pspl_pt[ 2 ] , 1 )
+                                            , fillR( pspl_pt[ 3 ] , 1 )
+                                            , fillR( pspl_pt[ 4 ] , 1 )
+                                            , fillR( pspl_pt[ 5 ] , 1 )
+                                            , fillR( pspl_pt[ 6 ] , 1 ) ) );
 
         // item
         for ( i = 0; i < 8; i++ )
@@ -884,22 +818,21 @@ public:
             if ( item[ i ].isNothing )
                 continue;
 
-            mvprintw( SCRW_Y_TOP + 6 + i, SCRW_X_TOP, "                             " );
-            mvIntDispD( SCRW_Y_TOP + 6 + i, SCRW_X_TOP, i + 1, 1 );
-            printw( ") " );
-
-            printw( item[ i ].getDispNameA );
-
+            string flg;
+            flg = " ";
             if ( ! item[ i ].canBeEquipped( Class ) )
-                mvprintw( SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 2, "#" ); /* cannot equip */
-
+                flg = "#";/* cannot equip */
             if ( item[ i ].equipped )
-                mvprintw( SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 2, "*" ); /* equipped */
-
+                flg = "*";/* equipped */
             if ( item[ i ].cursed )
-                mvprintw( SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 2, "$" ); /* cursed */
+                flg = "$";/* cursed */
+
+            win_status.print( 6 + i, 0, "%1)%2%3" 
+                                        , i + 1
+                                        , flg
+                                        , item[ i ].getDispNameA );
+
         }
-        mvprintw( SCRW_Y_TOP, SCRW_X_TOP, "                             " );
 
         rewriteOn;
 
@@ -916,19 +849,19 @@ public:
 
         char_disp;
 
-        textout( _( "  push any key to see items\n" ) );
+        win_msg.textout( _( "  push any key to see items\n" ) );
         getChar();
         item_disp;
 
-        textout( _( "  push any key to read mage spells\n" ) );
+        win_msg.textout( _( "  push any key to read mage spells\n" ) );
         getChar();
         disp_mspell();
 
-        textout( _( "  push any key to read priest spells\n" ) );
+        win_msg.textout( _( "  push any key to read priest spells\n" ) );
         getChar();
         disp_pspell();
 
-        textout( _( "  push any key to return\n" ) );
+        win_msg.textout( _( "  push any key to return\n" ) );
         getChar();
 
         return;
@@ -1314,12 +1247,12 @@ public:
     void item_disp()
     {
         int i;
-        scrwin_clear();
+        win_status.clear();
 
         rewriteOff;
 
         setColor( CL.KIND );
-        mvprintw( SCRW_Y_TOP + 1 , SCRW_X_TOP, "[ items ]" );
+        win_status.print( 1 , SCRW_X_TOP, "[ items ]" );
         setColor( CL.NORMAL );
 
         for ( i = 0; i < 8; i++ )
@@ -1327,26 +1260,23 @@ public:
             if ( item[ i ].isNothing )
                 continue;
 
-            mvprintw( SCRW_Y_TOP + i + 2, SCRW_X_TOP, "                             " );
-            mvIntDispD( SCRW_Y_TOP + i + 2, SCRW_X_TOP, i + 1, 1 );
-            printw( ") " );
-
-            printw( item[ i ].getDispNameA );
-
+            string flg;
+            flg = " ";
             if ( ! item[ i ].canBeEquipped( Class ) )
-                mvprintw( SCRW_Y_TOP + i + 2, SCRW_X_TOP + 2, "#" ); /* cannot equip */
-
+                flg = "#";/* cannot equip */
             if ( item[ i ].equipped )
-                mvprintw( SCRW_Y_TOP + i + 2, SCRW_X_TOP + 2, "*" ); /* equipped */
-
+                flg = "*";/* equipped */
             if ( item[ i ].cursed )
-                mvprintw( SCRW_Y_TOP + i + 2, SCRW_X_TOP + 2, "$" ); /* cursed */
-       }
+                flg = "$";/* cursed */
 
-       rewriteOn;
-       
-       return;
+            win_status.print( i + 2 , 0 , "%1)%2%3" 
+                                        , i + 1
+                                        , flg
+                                        , item[ i ].getDispNameA );
+        }
 
+        rewriteOn;
+        return;
     }
 
 
@@ -1368,10 +1298,10 @@ public:
        --------------------*/
     void dispSpellsInBattle()
     {
-        textout( _( "  %1 read mage spells\n" ) , name  );
+        win_msg.textout( _( "  %1 read mage spells\n" ) , name  );
         disp_mspell();
         getChar();
-        textout( _( "  %1 read priest spells\n" ) , name  );
+        win_msg.textout( _( "  %1 read priest spells\n" ) , name  );
         disp_pspell();
         getChar();
         party.dungeon.disp();
@@ -1394,7 +1324,7 @@ public:
         else
             type = 0;
 
-        scrwin_clear();
+        win_status.clear;
         rewriteOff;
 
         for ( i = 0; i < 4; i++ )
@@ -1406,7 +1336,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP,  magic_data[ i + 1 ].name );
+                win_status.print( i + 1 , 0,  magic_data[ i + 1 ].name );
             }
 
         for ( i = 0; i < 3; i++ )
@@ -1418,7 +1348,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                    mvprintw( SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 5 ].name );
+                    win_status.print( i + 1 , 10,  magic_data[ i + 5 ].name );
             }
         
         for ( i = 0; i < 2; i++ )
@@ -1430,7 +1360,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                    mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 8 ].name );
+                    win_status.print( i + 1, 20,  magic_data[ i + 8 ].name );
             }
 
         for ( i = 0; i < 4; i++ )
@@ -1442,7 +1372,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                    mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 10 ].name );
+                    win_status.print( i + 6, 0,  magic_data[ i + 10 ].name );
             }
 
         for ( i = 0; i < 3; i++ )
@@ -1454,7 +1384,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                    mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 14 ].name );
+                    win_status.print( i + 6, 10,  magic_data[ i + 14 ].name );
             }
 
         for ( i = 0; i < 3; i++ )
@@ -1466,7 +1396,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                    mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 17 ].name );
+                    win_status.print( i + 6, 20,  magic_data[ i + 17 ].name );
             }
 
         for ( i = 0; i < 3; i++ )
@@ -1478,43 +1408,30 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                    mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 20 ].name );
+                    win_status.print( i + 11 , 0,  magic_data[ i + 20 ].name );
             }
 
         setColor( CL.KIND );
-        mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP + 10 , "[ mage spell ]" );
+        win_status.print( 11 , 10 , "[ mage spell ]" );
         setColor( CL.NORMAL );
 
-        mvprintw( SCRW_Y_TOP + 12 , SCRW_X_TOP + 10 , "pnt:" );
-        intDispD( mspl_pt[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_pt[ 6 ] , 1 );
+        win_status.print( 12 , 10 , "pnt:%1/%2/%3/%4/%5/%6/%7"
+                                    , fillR( mspl_pt[ 0 ] , 1 )
+                                    , fillR( mspl_pt[ 1 ] , 1 )
+                                    , fillR( mspl_pt[ 2 ] , 1 )
+                                    , fillR( mspl_pt[ 3 ] , 1 )
+                                    , fillR( mspl_pt[ 4 ] , 1 )
+                                    , fillR( mspl_pt[ 5 ] , 1 )
+                                    , fillR( mspl_pt[ 6 ] , 1 ) );
 
-        mvprintw( SCRW_Y_TOP + 13 , SCRW_X_TOP + 10 , "max:" );
-        intDispD( mspl_max[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( mspl_max[ 6 ] , 1 );
-
+        win_status.print( 13 , 10 , "max:%1/%2/%3/%4/%5/%6/%7"
+                                    , fillR( mspl_max[ 0 ] , 1 )
+                                    , fillR( mspl_max[ 1 ] , 1 )
+                                    , fillR( mspl_max[ 2 ] , 1 )
+                                    , fillR( mspl_max[ 3 ] , 1 )
+                                    , fillR( mspl_max[ 4 ] , 1 )
+                                    , fillR( mspl_max[ 5 ] , 1 )
+                                    , fillR( mspl_max[ 6 ] , 1 ) );
         rewriteOn;
 
         return;
@@ -1537,7 +1454,7 @@ public:
         else
             type = 0;
 
-        scrwin_clear();
+        win_status.clear();
         rewriteOff;
 
         for ( i = 0; i < 5; i++ )
@@ -1549,7 +1466,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP,  magic_data[ i + 30 ].name);
+                win_status.print( i + 1, 0,  magic_data[ i + 30 ].name);
             }
 
         for ( i = 0; i < 4; i++ )
@@ -1561,7 +1478,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 10,  magic_data[ i + 35 ].name);
+                win_status.print( i + 1, 10,  magic_data[ i + 35 ].name);
             }
 
         for ( i = 0; i < 4; i++ )
@@ -1573,7 +1490,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 1 + i, SCRW_X_TOP + 20,  magic_data[ i + 39 ].name);
+                win_status.print( i + 1, 20,  magic_data[ i + 39 ].name);
             }
 
         for ( i = 0; i < 4; i++ )
@@ -1585,7 +1502,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP,  magic_data[ i + 43 ].name);
+                win_status.print( i + 6, 0,  magic_data[ i + 43 ].name);
             }
 
         for ( i = 0; i < 5; i++ )
@@ -1597,7 +1514,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 10,  magic_data[ i + 47 ].name);
+                win_status.print( i + 6, 10,  magic_data[ i + 47 ].name);
             }
 
         for ( i = 0; i < 4; i++ )
@@ -1609,7 +1526,7 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 6 + i, SCRW_X_TOP + 20,  magic_data[ i + 52 ].name);
+                win_status.print( i + 6, 20,  magic_data[ i + 52 ].name);
             }
 
         for ( i = 0; i < 3; i++ )
@@ -1621,43 +1538,30 @@ public:
                     setColor( CL.CANT_SPELL );
                 else
                     setColor( CL.NORMAL );
-                mvprintw(SCRW_Y_TOP + 11 + i, SCRW_X_TOP,  magic_data[ i + 56 ].name);
+                win_status.print( i + 11, 0,  magic_data[ i + 56 ].name);
             }
         
         setColor( CL.KIND );
-        mvprintw( SCRW_Y_TOP + 11 , SCRW_X_TOP + 10 , "[ priest spell ]" );
+        win_status.print( 11 , 10 , "[ priest spell ]" );
         setColor( CL.NORMAL );
 
-        mvprintw( SCRW_Y_TOP + 12 , SCRW_X_TOP + 10 , "pnt:" );
-        intDispD( pspl_pt[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_pt[ 6 ] , 1 );
+        win_status.print( 12 , 10 , "pnt:%1/%2/%3/%4/%5/%6/%7"
+                                    , fillR( pspl_pt[ 0 ] , 1 )
+                                    , fillR( pspl_pt[ 1 ] , 1 )
+                                    , fillR( pspl_pt[ 2 ] , 1 )
+                                    , fillR( pspl_pt[ 3 ] , 1 )
+                                    , fillR( pspl_pt[ 4 ] , 1 )
+                                    , fillR( pspl_pt[ 5 ] , 1 )
+                                    , fillR( pspl_pt[ 6 ] , 1 ) );
 
-        mvprintw( SCRW_Y_TOP + 13 , SCRW_X_TOP + 10 , "max:" );
-        intDispD( pspl_max[ 0 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 1 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 2 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 3 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 4 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 5 ] , 1 );
-        printw( "/" );
-        intDispD( pspl_max[ 6 ] , 1 );
-
+        win_status.print( 13 , 10 , "max:%1/%2/%3/%4/%5/%6/%7"
+                                    , fillR( pspl_max[ 0 ] , 1 )
+                                    , fillR( pspl_max[ 1 ] , 1 )
+                                    , fillR( pspl_max[ 2 ] , 1 )
+                                    , fillR( pspl_max[ 3 ] , 1 )
+                                    , fillR( pspl_max[ 4 ] , 1 )
+                                    , fillR( pspl_max[ 5 ] , 1 )
+                                    , fillR( pspl_max[ 6 ] , 1 ) );
         rewriteOn;
         
         return;
@@ -1671,32 +1575,32 @@ public:
         int i;
 
         setColor( CL.MENU );
-        textout( _( "which weapon(1,2,...,l:leave)?\n" ) );
+        win_msg.textout( _( "which weapon(1,2,...,l:leave)?\n" ) );
         setColor( CL.NORMAL );
         equip_sub( ITM_KIND.WEAPON );
 
         setColor( CL.MENU );
-        textout( _( "which armor(1,2,...,l:leave)?\n" ) );
+        win_msg.textout( _( "which armor(1,2,...,l:leave)?\n" ) );
         setColor( CL.NORMAL );
         equip_sub( ITM_KIND.ARMOR );
 
         setColor( CL.MENU );
-        textout( _( "which shield(1,2,...,l:leave)?\n" ) );
+        win_msg.textout( _( "which shield(1,2,...,l:leave)?\n" ) );
         setColor( CL.NORMAL );
         equip_sub( ITM_KIND.SHIELD );
 
         setColor( CL.MENU );
-        textout( _( "which helm(1,2,...,l:leave)?\n" ) );
+        win_msg.textout( _( "which helm(1,2,...,l:leave)?\n" ) );
         setColor( CL.NORMAL );
         equip_sub( ITM_KIND.HELM );
 
         setColor( CL.MENU );
-        textout( _( "which gloves(1,2,...,l:leave)?\n" ) );
+        win_msg.textout( _( "which gloves(1,2,...,l:leave)?\n" ) );
         setColor( CL.NORMAL );
         equip_sub( ITM_KIND.GLOVES );
 
         setColor( CL.MENU );
-        textout( _( "which item(1,2,...,l:leave)?\n" ) );
+        win_msg.textout( _( "which item(1,2,...,l:leave)?\n" ) );
         setColor( CL.NORMAL );
         equip_sub( ITM_KIND.ITEM );
 
@@ -1755,13 +1659,13 @@ public:
         Member toMem;
 
 
-        textout( _( "to whom(z:leave(9))? " ) );
+        win_msg.textout( _( "to whom(z:leave(9))? " ) );
         while ( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-                textout( _( "leave\n" ) );
+                win_msg.textout( _( "leave\n" ) );
                 return;
             }
             else if ( ch >= '1' 
@@ -1771,26 +1675,26 @@ public:
                 break;
             }
         }
-        textout( ch );
-        textout( "(" ~ party.mem[ ch - '1' ].name ~ ")" );
-        textout( '\n' );
+        win_msg.textout( ch );
+        win_msg.textout( "(" ~ party.mem[ ch - '1' ].name ~ ")" );
+        win_msg.textout( '\n' );
         toMem = party.mem[ ch - '1' ];
 
         while ( ! item[ 0 ].isNothing )
         {
             if ( ! toMem.item[ 7 ].isNothing )
             {
-                textout( _( "full...\n" ) );
+                win_msg.textout( _( "full...\n" ) );
                 return;
             }
 
-            textout( _( "which item(z:leave(9))? " ) );
+            win_msg.textout( _( "which item(z:leave(9))? " ) );
             while ( true )
             {
                 ch = getChar();
                 if (ch == 'z' || ch == '9')
                 {
-                    textout("z\n");
+                    win_msg.textout("z\n");
                     /* goto TOP; */
                     return;
                 }
@@ -1798,18 +1702,18 @@ public:
                         && ( ! item[ ch - '1' ].isNothing ) )
                     break;
             }
-            textout( ch );
+            win_msg.textout( ch );
             ch -= '1';
-            textout( "(" ~ item[ ch ].getDispNameA ~ ")" );
+            win_msg.textout( "(" ~ item[ ch ].getDispNameA ~ ")" );
 
 
             if ( item[ ch ].cursed )
             {
-                textout( _( "\ncursed ...\n" ) );
+                win_msg.textout( _( "\ncursed ...\n" ) );
             }
             else if ( item[ ch ].equipped )
             {
-                textout( _( "\nequipped ...\n" ) );
+                win_msg.textout( _( "\nequipped ...\n" ) );
             }
             else
             {
@@ -1821,7 +1725,7 @@ public:
 
                 inspect();
                 party.win_disp();
-                textout( _( "\ndone.\n" ) );
+                win_msg.textout( _( "\ndone.\n" ) );
             }
         }
     }
@@ -1834,13 +1738,13 @@ public:
         char ch;
         Item itm;
 
-        textout( _( "which item will you drop(z:leave(9))? " ) );
+        win_msg.textout( _( "which item will you drop(z:leave(9))? " ) );
         while ( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-                textout( _( "leave\n" ) );
+                win_msg.textout( _( "leave\n" ) );
                 return;
             }
             else if ( ch >= '1' && ch <= '8' )
@@ -1849,25 +1753,25 @@ public:
                     break;
             }
         }
-        textout( ch );
+        win_msg.textout( ch );
         itm = item[ ch - '1' ];
-        textout( "(" ~ itm.getDispNameA ~ ")" );
-        textout( '\n' );
+        win_msg.textout( "(" ~ itm.getDispNameA ~ ")" );
+        win_msg.textout( '\n' );
 
         if ( itm.cursed )
         {
-            textout( _( "cursed item ...\n" ) );
+            win_msg.textout( _( "cursed item ...\n" ) );
             return;
         }
         else if ( itm.equipped )
         {
-            textout( _( "equipped ...\n" ) );
+            win_msg.textout( _( "equipped ...\n" ) );
             return;
         }
         else
         {
             itm.release;
-            textout( _( "dropped.\n" ) );
+            win_msg.textout( _( "dropped.\n" ) );
         }
 
         inspect();
@@ -1887,13 +1791,13 @@ public:
         int i, mag;
 
       
-        textout( _( "which item do you use(z:leave(9))? " ) );
+        win_msg.textout( _( "which item do you use(z:leave(9))? " ) );
         while ( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-                textout( _( "leave\n" ) );
+                win_msg.textout( _( "leave\n" ) );
                 return;
             }
             else if ( ch >= '1' && ch <= '8' )
@@ -1902,10 +1806,10 @@ public:
                     break;
             }
         }
-        textout( ch );
+        win_msg.textout( ch );
         itm = item[ ch - '1' ];
-        textout( "(" ~ itm.getDispNameA ~ ")" );
-        textout( '\n' );
+        win_msg.textout( "(" ~ itm.getDispNameA ~ ")" );
+        win_msg.textout( '\n' );
 
 
       
@@ -1973,7 +1877,7 @@ public:
         if ( exp > nextexp )
         {
             level++;
-            textout( _( "you made the next level!\n" ) );
+            win_msg.textout( _( "you made the next level!\n" ) );
             getChar();
   
             nexthp = calcHp;
@@ -1991,14 +1895,14 @@ public:
             }
             hp = maxhp;
 
-            textout( _( "  you gained %1 h.p.\n" ) , hpp );
+            win_msg.textout( _( "  you gained %1 h.p.\n" ) , hpp );
             change_property( true );
             learn_spell();
         }
         else
         {
             long more = nextexp - exp;
-            textout( _( "you need %1 more\n  ep to make the next level.\n" ) , more );
+            win_msg.textout( _( "you need %1 more\n  ep to make the next level.\n" ) , more );
         }
         return;
     }
@@ -2080,7 +1984,7 @@ public:
         for ( i = 0; i < n; i++ )
         {
             if ( i % ( n / 40 ) == 0 )
-                textout( "." );
+                win_msg.textout( "." );
 
             nextexp = calcNextExp();
 
@@ -2102,12 +2006,12 @@ public:
             {
 
                 long more = nextexp - exp;
-                textout( "\n" );
-                textout( _( "you need %1 more\n  ep to make the next level.\n" ) , more );
+                win_msg.textout( "\n" );
+                win_msg.textout( _( "you need %1 more\n  ep to make the next level.\n" ) , more );
                 return;
             }
         }
-        textout( "\n" );
+        win_msg.textout( "\n" );
         return; 
     }
 
@@ -2131,7 +2035,7 @@ public:
                     {
                         para --;
                         if ( message )
-                            textout( _( "  you lost %1 \n" ) , para_name );
+                            win_msg.textout( _( "  you lost %1 \n" ) , para_name );
                     }
                 }
                 else
@@ -2140,7 +2044,7 @@ public:
                     {
                         para ++;
                         if ( message )
-                            textout( _( "  you gained %1 \n" ) , para_name );
+                            win_msg.textout( _( "  you gained %1 \n" ) , para_name );
                     }
                 }
             }
@@ -2156,7 +2060,7 @@ public:
         
         if ( vit[ 0 ] <= 2 )
         {
-            textout( _( "The character died of age...\n" ) );
+            win_msg.textout( _( "The character died of age...\n" ) );
             getChar();
             status = STS.LOST;
             return 1;
@@ -2235,7 +2139,7 @@ public:
         // しない？
         // if ( vit[ 0 ] <= 2 )
         // {
-        //     textout( "The character died of age...\n" );
+        //     win_msg.textout( "The character died of age...\n" );
         //     getChar();
         //     status = STS_LOST;
         //     return 1;
@@ -2317,7 +2221,7 @@ public:
         {
             if ( oldknow[ i ] != mspl_know[ i ] )
             {
-                textout( _( "  you've learned new mage spells!\n" ) );
+                win_msg.textout( _( "  you've learned new mage spells!\n" ) );
                 return;
             }
         }
@@ -2363,7 +2267,7 @@ public:
         {
             if ( oldknow[ i ] != pspl_know[ i ] )
             {
-                textout( _( "  you've learned new priest spells!\n" ) );
+                win_msg.textout( _( "  you've learned new priest spells!\n" ) );
                 return;
             }
         }
@@ -2592,12 +2496,11 @@ public:
         int mag;
         string spell_name;
 
-        textout( _( "what spell?\n" ) );
-        /* spell_name = tline_input( 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP ); */
-        spell_name = tline_input_spell( this , 32, text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
-        textout( '>' );
-        textout( spell_name );
-        textout( '\n' );
+        win_msg.textout( _( "what spell?\n" ) );
+        spell_name = win_msg.inputSpell( this , 32 );
+        win_msg.textout( '>' );
+        win_msg.textout( spell_name );
+        win_msg.textout( '\n' );
 
         for ( mag = 0; mag < MAXMAGIC; mag++ )
           if ( spell_name ==  magic_data[ mag ].name )
@@ -2608,17 +2511,17 @@ public:
                 || spell_know( mag ) !=0 )  // 0 : know  , 1 : don't know , 3 : no such spell 
         {
             if ( mag == MAXMAGIC )
-                textout( _( "no such spell\n" ) );
+                win_msg.textout( _( "no such spell\n" ) );
             else if ( magic_data[ mag ].camp == 0 )
-                textout( _( "cannot cast now\n" ) );
+                win_msg.textout( _( "cannot cast now\n" ) );
             else
-                textout( _( "don't know the spell\n" ) );
+                win_msg.textout( _( "don't know the spell\n" ) );
             getChar();
             return;
         }
         if ( consume_spell( mag ) == 2 )    // 2 : have used up 
         {
-            textout( _( "you've used that up\n" ) );
+            win_msg.textout( _( "you've used that up\n" ) );
             getChar();
             return;
         }
@@ -2696,7 +2599,7 @@ public:
                 party.x = 1;
                 party.y = 2;
                 party.layer = 0;
-                textout( _( "teleport to the castle!\n" ) );
+                win_msg.textout( _( "teleport to the castle!\n" ) );
                 break;
             case MAG_TYPE.TELEPT :       // teleport
                 spell_telept;
@@ -2720,13 +2623,13 @@ public:
         if ( status != STS.OK )
             return;
 
-        textout( _( "which item will you identify(z:leave(9))? " ) );
+        win_msg.textout( _( "which item will you identify(z:leave(9))? " ) );
         while( true )
         {
             ch = getChar();
             if ( ch == 'z' || ch == '9' )
             {
-              textout( _( "leave\n" ) );
+              win_msg.textout( _( "leave\n" ) );
               return;
             }
             else if ( ch >= '1' && ch <= '8' 
@@ -2734,7 +2637,7 @@ public:
                     && item[ ch - '1' ].undefined )
                 break;
         }
-        textout( ch );
+        win_msg.textout( ch );
         ch -= '1';
         ratio = level * 5;
         if ( ratio > 95 )
@@ -2747,7 +2650,7 @@ public:
                     n = false;
             if ( n )
             {
-                textout( _( "\n * oops! *\n" ) );
+                win_msg.textout( _( "\n * oops! *\n" ) );
                 n = false;
                 switch ( Align )
                 {
@@ -2780,13 +2683,13 @@ public:
             }
             else
             {
-                textout( _( "\nno clue ...\n" ) );
+                win_msg.textout( _( "\nno clue ...\n" ) );
             }
         }
         else
         {
             item[ ch ].undefined = false;
-            textout( "\n" );
+            win_msg.textout( "\n" );
         }
         inspect;
         party.win_disp();
@@ -2886,7 +2789,7 @@ public:
             }
             else
             {
-                dispCommand( "fight  1)" ~ fill( monParty.top.getDispNameS ,21 ) );
+                dispCommand( "fight  1)" ~ fillL( monParty.top.getDispNameS ,21 ) );
                 action = ACT.FIGHT;
                 target = 0;
                 return true;
@@ -2913,7 +2816,7 @@ public:
             if ( command == 'j' 
                 || command == '1' )
             {
-                dispCommand( "fight  1)" ~ fill( monParty.getDispNameS( 0 ) ,21 ) );
+                dispCommand( "fight  1)" ~ fillL( monParty.getDispNameS( 0 ) ,21 ) );
                 action = ACT.FIGHT;
                 target = 0;
                 return true;
@@ -2921,7 +2824,7 @@ public:
             else if ( ( command == 'h' || command == '2' )
                     && monParty.num >= 2 )
             {
-                dispCommand( "fight  2)" ~ fill( monParty.getDispNameS( 1 ) ,21 ) );
+                dispCommand( "fight  2)" ~ fillL( monParty.getDispNameS( 1 ) ,21 ) );
                 action = ACT.FIGHT;
                 target = 1;
                 return true;
@@ -2929,7 +2832,7 @@ public:
             else if ( ( command == 'n' || command == '3' ) 
                     && monParty.num >= 3 )
             {
-                dispCommand( "fight  3)" ~ fill( monParty.getDispNameS( 2 ) ,21 ) );
+                dispCommand( "fight  3)" ~ fillL( monParty.getDispNameS( 2 ) ,21 ) );
                 action = ACT.FIGHT;
                 target = 2;
                 return true;
@@ -2941,7 +2844,7 @@ public:
                 dispCommand( "fight  " );
                 target = monParty.selectGroup( row );
                 dispTargetInt( target + 1 );
-                printw( ")" ~ fill( monParty.getDispNameS( target ) , 21 ) );
+                printw( ")" ~ fillL( monParty.getDispNameS( target ) , 21 ) );
                 
                 return true;
             }
@@ -2964,17 +2867,17 @@ public:
         else if ( command == 'u'  
                 || command == '8' )
         {
-            textout( _( "you have:\n" ) );
+            win_msg.textout( _( "you have:\n" ) );
             for ( i = 0; i < 8; i++ )
             {
                 if ( ! item[ i ].isNothing )
                 {
-                    textout( to!char( i + 'a' ) );
-                    textout( ")" );
-                    textout( item[ i ].getDispNameA ~ "\n" );
+                    win_msg.textout( to!char( i + 'a' ) );
+                    win_msg.textout( ")" );
+                    win_msg.textout( item[ i ].getDispNameA ~ "\n" );
                 }
             }
-            textout( _( "which item(z:leave(9))? " ) );
+            win_msg.textout( _( "which item(z:leave(9))? " ) );
 
             while ( true )
             {
@@ -2984,8 +2887,8 @@ public:
                         || ( c <= 'h' && c >= 'a' && !item[ c - 'a' ].isNothing ) )
                     break;
             }
-            textout( c );
-            textout( '\n' );
+            win_msg.textout( c );
+            win_msg.textout( '\n' );
             
             if ( c=='z' || c=='9' )
                 return false;
@@ -2994,7 +2897,7 @@ public:
             if ( ( magic & 0x80 ) == 0 
                     || magic_data[ magic & 0x7f ].batl == 0 )
             {
-                textout( _( "you can't use it now\noption? \n" ) );
+                win_msg.textout( _( "you can't use it now\noption? \n" ) );
                 return false;
             }
 
@@ -3011,13 +2914,13 @@ public:
             { /* to a party member */
                 target = party.selectMemberInBattle( row );
                 dispTargetInt( target + 1 );
-                printw( fill( "(" ~ party.mem[ target ].name ~ ")" , 22 ) );
+                printw( fillL( "(" ~ party.mem[ target ].name ~ ")" , 22 ) );
             }
             else if ( magic_data[ magic ].batl == 3 )
             { /* to monsters */
                 target = monParty.selectGroup( row );
                 dispTargetInt( target + 1 );
-                printw( ")" ~ fill( monParty.getDispNameS( target ) , 22 ) );
+                printw( ")" ~ fillL( monParty.getDispNameS( target ) , 22 ) );
             }
             
             action = ACT.USE;
@@ -3069,13 +2972,13 @@ public:
             { /* to a party member */
                 target = party.selectMemberInBattle( row );
                 dispTargetInt( target + 1 );
-                printw( fill( "(" ~ party.mem[ target ].name ~ ")" , 22 ) );
+                printw( fillL( "(" ~ party.mem[ target ].name ~ ")" , 22 ) );
             }
             else if ( magic_data[ mag ].batl == 3 )
             { /* to monsters */
                 target = monParty.selectGroup( row );
                 dispTargetInt( target + 1 );
-                printw( ")" ~ fill( monParty.getDispNameS( target ) , 22 ) );
+                printw( ")" ~ fillL( monParty.getDispNameS( target ) , 22 ) );
             }
             action = mag + 0x80;
             return true;
@@ -3092,7 +2995,7 @@ public:
             dispCommand( "dispel " );
             target = monParty.selectGroup( row );
             dispTargetInt( target + 1 );
-            printw( ")" ~ fill( monParty.getDispNameS( target ) , 22 ) );
+            printw( ")" ~ fillL( monParty.getDispNameS( target ) , 22 ) );
             return true;
         }
 
@@ -3124,7 +3027,7 @@ public:
                 actSpellInBattle();
                 if ( item[ actitem ].broken >= get_rand( 99 ) + 1 )
                 { 
-                    textout( _( "The %1 gets broken!\n" ) , item[ actitem ].getDispName );
+                    win_msg.textout( _( "The %1 gets broken!\n" ) , item[ actitem ].getDispName );
     
                     item[ actitem ].setItem( 0 ); // broken
                 }
@@ -3169,26 +3072,26 @@ public:
         switch ( get_rand( 7 ) )
         {
             case 0:
-                textout( _( "%1 thrusts hard at a %2\n" ) , name , m.getDispNameA );
+                win_msg.textout( _( "%1 thrusts hard at a %2\n" ) , name , m.getDispNameA );
                 break;
             case 1:
-                textout( _( "%1 tries to slice a %2\n" ) , name , m.getDispNameA ) ;
+                win_msg.textout( _( "%1 tries to slice a %2\n" ) , name , m.getDispNameA ) ;
                 break;
             case 2:
-                textout( _( "%1 swings at a %2\n" ), name , m.getDispNameA  );
+                win_msg.textout( _( "%1 swings at a %2\n" ), name , m.getDispNameA  );
                 break;
             case 3:
-                textout( _( "%1 chops savagely at a %2\n" ), name , m.getDispNameA  );
+                win_msg.textout( _( "%1 chops savagely at a %2\n" ), name , m.getDispNameA  );
                 break;
             case 4:
-                textout( _( "%1 tries to bash a %2\n" ), name , m.getDispNameA  );
+                win_msg.textout( _( "%1 tries to bash a %2\n" ), name , m.getDispNameA  );
                 break;
             case 5:
-                textout( _( "%1 attempts to stab a %2\n" ), name , m.getDispNameA  );
+                win_msg.textout( _( "%1 attempts to stab a %2\n" ), name , m.getDispNameA  );
                 break;
             case 7:
             default:
-                textout( _( "%1 lunges at a %2\n" ) , name , m.getDispNameA );
+                win_msg.textout( _( "%1 lunges at a %2\n" ) , name , m.getDispNameA );
                 break;
         }
       
@@ -3288,7 +3191,7 @@ public:
 
         if ( hit_times > 0 )
         {
-            textout( N_( "  and hits once for %1 damage!\n" 
+            win_msg.textout( N_( "  and hits once for %1 damage!\n" 
                        , "  and hits %2 times for %1 damage!\n" , hit_times )
                    , damage , hit_times );
             m.hp -= damage;
@@ -3310,7 +3213,7 @@ public:
 
                 if ( get_rand( 99 ) + 1 <= ratio )
                 {
-                    textout( _( "  The %1 gets the head cut off!\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  The %1 gets the head cut off!\n" ) , m.getDispNameA );
                     get_exp += m.exp;
                     m.marksUp;
                     marks ++;
@@ -3320,7 +3223,7 @@ public:
                 }
                 else if ( m.hp <= 0 )
                 {
-                    textout( _( "    The %1 is killed!\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "    The %1 is killed!\n" ) , m.getDispNameA );
                     get_exp += m.exp;
                     m.marksUp;
                     marks ++;
@@ -3331,7 +3234,7 @@ public:
             }
             else if ( m.hp <= 0 )
             {
-                textout( _( "    The %1 is killed!\n" ) , m.getDispNameA );
+                win_msg.textout( _( "    The %1 is killed!\n" ) , m.getDispNameA );
                 get_exp += m.exp;
                 m.marksUp;
                 marks ++;
@@ -3347,7 +3250,7 @@ public:
                     // sleep
                     if ( get_rand( 99 ) + 1 <= 25 )
                     { // 25%
-                        textout( _( "  The %1 is slept!\n" ) , m.getDispNameA );
+                        win_msg.textout( _( "  The %1 is slept!\n" ) , m.getDispNameA );
                         m.status = STS.SLEEP;
                         getChar();
                     }
@@ -3356,7 +3259,7 @@ public:
         }
         else
         {
-            textout( _( "   ... and misses\n" ) );
+            win_msg.textout( _( "   ... and misses\n" ) );
         }
         getChar();
 
@@ -3398,14 +3301,14 @@ public:
       
         if ( succeed > 0 )
         {
-            textout( N_( "%1 dispels %2 monster\n" 
+            win_msg.textout( N_( "%1 dispels %2 monster\n" 
                        , "%1 dispels %2 monsters\n" , succeed )
                         , name , succeed );
         }
         else
         { // failed
     FAIL:
-            textout( _( "%1 attempts to dispel\n   and fails.\n" ) , name );
+            win_msg.textout( _( "%1 attempts to dispel\n   and fails.\n" ) , name );
         }
         getChar();
       
@@ -3426,11 +3329,11 @@ public:
         mag = action & 0x7f;
 
       
-        textout( _( "%1 casts a %2.\n" ) , name , magic_data[ mag ].name );
+        win_msg.textout( _( "%1 casts a %2.\n" ) , name , magic_data[ mag ].name );
       
         if ( silenced == true)
         {
-            textout( _( "  but, %1 is silenced!\n" ) , name );
+            win_msg.textout( _( "  but, %1 is silenced!\n" ) , name );
             getChar();
             return 0;
         }
@@ -3445,8 +3348,8 @@ public:
                     party.mem[ i ].outflag = OUT_F.CASTLE ; // in castle
                 return 2;
             case MAG_TYPE.TELEPT:                        // escape( random )
-                party.x = to!byte( get_rand( MAP_MAX_X ) + 1 );
-                party.y = to!byte( get_rand( MAP_MAX_Y ) + 1 );
+                party.x = to!byte( get_rand( party.dungeon.width ) + 1 );
+                party.y = to!byte( get_rand( party.dungeon.height ) + 1 );
                 return 2;
             case MAG_TYPE.RCGNIZE:       // identify
                 spell_latuma;
@@ -3470,7 +3373,7 @@ public:
                 spell_healOne( mag , target );
                 break;
             case MAG_TYPE.ACONE: /* ac+(1) */
-                textout("MAG_TYPE.ACONE: まだ作ってないよ!\n");
+                win_msg.textout("MAG_TYPE.ACONE: まだ作ってないよ!\n");
                 break;
             case MAG_TYPE.ACGRP: /* ac+(gr) */
                 spell_acDownGrp( getTargetMonsterTeam , magic_data[ mag ].min );
@@ -3562,7 +3465,7 @@ public:
 
         if ( m.def.magdef >= get_rand( 99 ) + 1 )
         {
-            textout( _( "  %1 resisted the spell.\n" ) , m.getDispNameA );
+            win_msg.textout( _( "  %1 resisted the spell.\n" ) , m.getDispNameA );
             getChar();
             return;
         }
@@ -3590,11 +3493,11 @@ public:
 
         if (damage != 0)
         {
-            textout( _( "  %1 takes %2 damage.\n" ) , m.getDispNameA , damage );
+            win_msg.textout( _( "  %1 takes %2 damage.\n" ) , m.getDispNameA , damage );
             m.hp -= damage;
             if ( m.hp <= 0 )
             {
-                textout( _( "    %1 is dead!\n" ) , m.getDispNameA );
+                win_msg.textout( _( "    %1 is dead!\n" ) , m.getDispNameA );
                 
                 get_exp += m.exp;
                 m.marksUp;
@@ -3653,7 +3556,7 @@ public:
         {
             if ( m.def.level < 8 )
             {
-                textout( _( "  %1 is vanished!\n" ) , m.getDispNameA );
+                win_msg.textout( _( "  %1 is vanished!\n" ) , m.getDispNameA );
 
                 get_exp += m.exp;
                 m.marksUp;
@@ -3664,7 +3567,7 @@ public:
             }
             else
             {
-                textout( _( "  %1 is alive.\n" ) , m.getDispNameA );
+                win_msg.textout( _( "  %1 is alive.\n" ) , m.getDispNameA );
             }
             getChar();
             m = m.next;
@@ -3702,16 +3605,16 @@ public:
 
         nPoints = magic_data[ mag ].min + get_rand( magic_data[ mag ].add );
 
-        textout( "  " );
+        win_msg.textout( "  " );
         if ( mem.hp + nPoints >= mem.maxhp )
         {
             mem.hp = mem.maxhp;
-            textout( _( "%1 is completely healed.\n" ) , mem.name );
+            win_msg.textout( _( "%1 is completely healed.\n" ) , mem.name );
         }
         else
         {
             mem.hp += nPoints;
-            textout( _( "%1 hit points are restored\n  to %2.\n" ) , nPoints , mem.name );
+            win_msg.textout( _( "%1 hit points are restored\n  to %2.\n" ) , nPoints , mem.name );
         }
 
         if( now_mode == HSTS.BATTLE )
@@ -3748,11 +3651,11 @@ public:
         if( mem.poisoned )
         {
             mem.poisoned = false;
-            textout( _( "  %1 is cured.\n" ) , mem.name );
+            win_msg.textout( _( "  %1 is cured.\n" ) , mem.name );
         }
         else
         {
-            textout( _( "  * done *\n" ) );
+            win_msg.textout( _( "  * done *\n" ) );
         }
         if( now_mode == HSTS.BATTLE )
             party.win_disp_noreorder();
@@ -3772,11 +3675,11 @@ public:
         if( mem.status <= STS.PARALY )
         {
             mem.status = STS.OK;
-            textout( _( "  %1 is cured.\n" ) , mem.name );
+            win_msg.textout( _( "  %1 is cured.\n" ) , mem.name );
         }
         else
         {
-            textout( _( "  * done *\n" ) );
+            win_msg.textout( _( "  * done *\n" ) );
         }
         if( now_mode == HSTS.BATTLE )
             party.win_disp_noreorder();
@@ -3803,7 +3706,7 @@ public:
             m = m.next;
         }
 
-        textout( N_( "  %1's AC +%2.\n" 
+        win_msg.textout( N_( "  %1's AC +%2.\n" 
                    , "  %1' AC +%2.\n", mt.num )
                         , mt.getDispNameS , acplus );
         return;
@@ -3864,15 +3767,15 @@ public:
 
         if ( party.mem[ target ].status >= STS.DEAD )
         {
-            textout( _( "  * done *\n" ) );
+            win_msg.textout( _( "  * done *\n" ) );
         }
         else
         {
             party.mem[ target ].status = STS.OK;
 
-            textout( "  " );
+            win_msg.textout( "  " );
             party.mem[ target ].hp = party.mem[ target ].maxhp;
-            textout( _( "%1 is completely healed.\n" ) , party.mem[ target ].name );
+            win_msg.textout( _( "%1 is completely healed.\n" ) , party.mem[ target ].name );
             party.win_disp_noreorder;
         }
         getChar();
@@ -3892,7 +3795,7 @@ public:
 
         if ( ! ( mem.status != STS.DEAD || mem.status != STS.ASHED ) )
         {
-            textout( _( "  what?\n" ) );
+            win_msg.textout( _( "  what?\n" ) );
         }
         else
         {
@@ -3923,13 +3826,13 @@ public:
 
             if ( get_rand( 18 ) <= plus )
             {
-                textout( _( "  * ok *\n" ) );
+                win_msg.textout( _( "  * ok *\n" ) );
                 mem.status = STS.OK;
                 mem.hp = mem.maxhp;
             }
             else
             {
-                textout( _( "  oops!!\n" ) );
+                win_msg.textout( _( "  oops!!\n" ) );
                 if ( mem.status == STS.ASHED )
                     mem.status = STS.LOST;
                 else
@@ -3955,7 +3858,7 @@ public:
 
         if ( mem.status != STS.DEAD )
         {
-            textout( _( "  what?\n" ) );
+            win_msg.textout( _( "  what?\n" ) );
         }
         else
         {
@@ -3977,13 +3880,13 @@ public:
 
             if ( get_rand( 18 ) <= 11 + plus )
             { // possibility of resurrection is 2/3 if plus=0
-                textout( "  * ok *\n" );
+                win_msg.textout( "  * ok *\n" );
                 mem.status = STS.OK;
                 mem.hp = 1;
             }
             else
             {
-                textout( _( "  oops!!\n" ) );
+                win_msg.textout( _( "  oops!!\n" ) );
                 mem.status = STS.ASHED;
             }
             if( get_rand( 3 ) == 0 )
@@ -4010,18 +3913,18 @@ public:
         {
             if ( m.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
+                win_msg.textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
             }
             else if ( ! m.silenced )
             {
                 if ( get_rand( 1 ) == 0 )
                 {
                     m.silenced = true;
-                    textout( _( "  %1 is silenced!\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is silenced!\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( _( "  %1 is not silenced.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is not silenced.\n" ) , m.getDispNameA );
                 }
             }
             getChar();
@@ -4046,18 +3949,18 @@ public:
         {
             if ( m.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
+                win_msg.textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
             }
             else if  ( m.def.isDefefSlpEzy )
             { // sleep easily
                 if ( get_rand( 5 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP ; // sleep
-                    textout( _( "  %1 is slept.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is slept.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( _( "  %1 is not slept.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is not slept.\n" ) , m.getDispNameA );
                 }
             }
             else
@@ -4065,11 +3968,11 @@ public:
                 if ( get_rand( 1 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP  ; // sleep
-                    textout( _( "  %1 is slept.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is slept.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( _( "  %1 is not slept.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is not slept.\n" ) , m.getDispNameA );
                 }
             }
 
@@ -4096,18 +3999,18 @@ public:
         {
             if ( m.magdef >= get_rand( 99 ) + 1 )
             {
-                textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
+                win_msg.textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
             }
             else if ( m.def.isDefefSlpEzy ) // sleep easily
             { // sleep easily
                 if ( get_rand( 5 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP ; // sleep
-                    textout( _( "  %1 is held.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is held.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( _( "  %1 is not held.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is not held.\n" ) , m.getDispNameA );
                 }
             }
             else
@@ -4115,11 +4018,11 @@ public:
                 if ( get_rand( 1 ) != 0 && m.status == MON_STS.OK )
                 {
                     m.status = MON_STS.SLEEP ; // sleep
-                    textout( _( "  %1 is held.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is held.\n" ) , m.getDispNameA );
                 }
                 else
                 {
-                    textout( _( "  %1 is not held.\n" ) , m.getDispNameA );
+                    win_msg.textout( _( "  %1 is not held.\n" ) , m.getDispNameA );
                 }
             }
             getChar();
@@ -4135,11 +4038,11 @@ public:
     {
         if ( m.magdef >= get_rand( 99 ) + 1 )
         {
-            textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
+            win_msg.textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
         }
         else if ( ! m.def.isDefefUndead && get_rand( 3 ) == 0 )
         { // possibility is 1/4
-            textout( _( "  %1 is dead!\n" ) , m.getDispNameA );
+            win_msg.textout( _( "  %1 is dead!\n" ) , m.getDispNameA );
 
             get_exp += m.exp;
             m.marksUp;
@@ -4150,7 +4053,7 @@ public:
         }
         else
         {
-            textout( _( "  %1 is alive!\n" ) , m.getDispNameA );
+            win_msg.textout( _( "  %1 is alive!\n" ) , m.getDispNameA );
         }
         getChar();
         return;
@@ -4166,7 +4069,7 @@ public:
 
         if ( m.magdef >= get_rand( 99 ) + 1 )
         {
-            textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
+            win_msg.textout( _( "  %1 resisted the spell.\n" ) ,m.getDispNameA );
         }
         else
         {
@@ -4174,7 +4077,7 @@ public:
             if ( mon_hp > m.hp )
                 mon_hp = m.hp;
             int damage = m.hp - mon_hp;
-            textout( _( "  %1 gets %2 damage!\n" ) , m.getDispNameA , damage );
+            win_msg.textout( _( "  %1 gets %2 damage!\n" ) , m.getDispNameA , damage );
             m.hp = mon_hp;
         }
         getChar();
@@ -4189,7 +4092,7 @@ public:
         party.setMapper;
         party.setScope;
         party.scopeCount += 1;
-        textout( _( "done.\n" ) );
+        win_msg.textout( _( "done.\n" ) );
         header_disp( HSTS.CAMP );
         return;
     }
@@ -4203,7 +4106,7 @@ public:
         party.lightCount += S_LIGHT_COUNT;
         party.setScope;
         party.scopeCount += S_SCOPE_COUNT;
-        textout( _( "done.\n" ) );
+        win_msg.textout( _( "done.\n" ) );
         header_disp( HSTS.CAMP );
         return;
     }
@@ -4217,7 +4120,7 @@ public:
         party.lightCount += L_LIGHT_COUNT;
         party.setScope;
         party.scopeCount += L_SCOPE_COUNT;
-        textout( _( "done.\n" ) );
+        win_msg.textout( _( "done.\n" ) );
         header_disp(HSTS.CAMP);
         return;
     }
@@ -4228,7 +4131,7 @@ public:
     void spell_floatn()
     {
         party.setFloat;
-        textout( _( "done.\n" ) );
+        win_msg.textout( _( "done.\n" ) );
         header_disp( HSTS.CAMP );
         return;
     }
@@ -4239,7 +4142,7 @@ public:
     void spell_recognize()
     {
         party.setIdentify;
-        textout( _( "done.\n" ) );
+        win_msg.textout( _( "done.\n" ) );
         header_disp( HSTS.CAMP );
         return;
     }
@@ -4253,67 +4156,67 @@ public:
         string numtext;
 
 
-        textout( _( "\n*** where do you want to teleport? ***\n" ) );
+        win_msg.textout( _( "\n*** where do you want to teleport? ***\n" ) );
 
     XPOS:
-        textout( _( "enter xpos(z:leave): \n" ) );
-        numtext = tline_input(  3 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
-        textout( ">%1\n" , numtext );
+        win_msg.textout( _( "enter xpos(z:leave): \n" ) );
+        numtext = win_msg.input( 3 );
+        win_msg.textout( ">%1\n" , numtext );
 
         if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
         {
-            textout( _( "quit.\n" ) );
+            win_msg.textout( _( "quit.\n" ) );
             return;
         }
 
         if( ! isNumeric( numtext ) )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             goto XPOS;
         }
 
         xpos = to!int( numtext );
 
-        if( xpos < 0 || xpos >= MAP_MAX_X )
+        if( xpos < 0 || xpos >= party.dungeon.width )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             goto XPOS;
         }
 
     YPOS:
-        textout( _("enter ypos(z:enter xpos again): \n") );
+        win_msg.textout( _("enter ypos(z:enter xpos again): \n") );
 
-        numtext = tline_input(  3 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
-        textout( ">%1\n" , numtext );
+        numtext = win_msg.input( 3 );
+        win_msg.textout( ">%1\n" , numtext );
 
         if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
             goto XPOS;
 
         if( ! isNumeric( numtext ) )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             goto YPOS;
         }
 
         ypos = to!int( numtext );
 
-        if( ypos < 0 || ypos >= MAP_MAX_Y )
+        if( ypos < 0 || ypos >= party.dungeon.height )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             goto YPOS;
         }
 
     LAYER:
-        textout( _( "enter layer(z:enter ypos again): \n" ) );
-        numtext = tline_input(  3 , text_cury + TXTW_Y_TOP, text_curx + TXTW_X_TOP );
-        textout( ">%1\n" ,  numtext );
+        win_msg.textout( _( "enter layer(z:enter ypos again): \n" ) );
+        numtext = win_msg.input( 3 );
+        win_msg.textout( ">%1\n" ,  numtext );
 
         if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
             goto YPOS;
 
         if( ! isNumeric( numtext ) )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             goto LAYER;
         }
 
@@ -4321,7 +4224,7 @@ public:
 
         if( layer < 0 || layer >= MAXLAYER )
         {
-            textout( _( "what?\n" ) );
+            win_msg.textout( _( "what?\n" ) );
             goto LAYER;
         }
 
@@ -4337,7 +4240,7 @@ public:
             party.dungeon.initDisp;
         }
 
-        textout( _( "done.\n" ) );
+        win_msg.textout( _( "done.\n" ) );
         header_disp( HSTS.CAMP );
         party.win_disp();
         return;
