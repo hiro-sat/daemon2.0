@@ -11,6 +11,7 @@ import std.ascii : toLower ;
 
 // mysource 
 import cTextarea;
+import cTextareaMap;
 
 import cParty;
 import cMember;
@@ -25,12 +26,13 @@ import app;
 /* import lib_sdl; */
 
 
-class Map
+class Map   // -> Map dungeon;
 {
 
 private:
     int layer;
     Event event;
+    MapTextarea mapmsg;
 
     int MAP_MAX_X;
     int MAP_MAX_Y;
@@ -47,7 +49,6 @@ private:
     /* char vram1[ 29 * 15 ]; */
     char[ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vram;
     int [ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vramCl;
-
 
     int disp_scr_x;
     int disp_scr_y;
@@ -120,6 +121,8 @@ public:
 
     @property int width(){ return MAP_MAX_X; }
     @property int height(){ return MAP_MAX_Y; }
+    @property int dispPartyX(){ return disp_party_x; }
+    @property int dispPartyY(){ return disp_party_y; }
 
     /**--------------------
        this - コンストラクタ
@@ -127,6 +130,9 @@ public:
     this( int l )
     {
         layer = l; // 1 - xx
+
+        mapmsg = new MapTextarea( MAPMSG_X_SIZ , MAPMSG_Y_SIZ );
+
         return;
     }
 
@@ -590,10 +596,8 @@ public:
         if (ratio < 0)
             ratio = 0;
 
-        win_msg.textout( _( "unlock door.\nwhich side? " ) );
+        mapmsg.textoutNow( _( "\nunlock door. which side? " ) );
         c = getChar();
-        win_msg.textout( c );
-        win_msg.textout( '\n' );
 
         if ( c=='h' || c=='4' ) 
         {
@@ -618,13 +622,15 @@ public:
 
         if( orgmap[ party.y + dy ][ party.x + dx ] != '=' )
         {
-            win_msg.textout( _( "what ?\n" ) );
+            mapmsg.textoutNow( _( "\nwhat ?" ) );
+            getChar;
             return false;
         }
 
         if ( ratio == 0 )
         {
-            win_msg.textout( _( "locks around here is too complicated!\n" ) );
+            mapmsg.textoutNow( _( "\ntoo complicated!" ) );
+            getChar;
             return false;
         }
 
@@ -727,7 +733,7 @@ public:
         {
             if ( orgmap[ party.y + dy ][ party.x + dx ] == '*' )
             {
-                win_msg.textout( _( "you found a hidden door!\n" ) );
+                mapmsg.textoutNow( _( "\nyou found a hidden door!" ) );
                 /* orgmap[ party.y + dy ][ party.x + dx ] = '+'; */
                 map[ party.y + dy ][ party.x + dx ] = '+';
             }
@@ -781,6 +787,22 @@ public:
 
         return;
     }
+
+    /*--------------------
+       textout - マップ用メッセージ設定
+       --------------------*/
+    void textout( string msg )
+    {
+        mapmsg.textout( msg );
+        return;
+    }
+
+    void textoutNow( string msg )
+    {
+        mapmsg.textoutNow( msg );
+        return;
+    }
+
 
     /*--------------------
        disp - マップ表示
@@ -995,12 +1017,18 @@ public:
                 mvprintw( y + SCRW_Y_TOP, x + SCRW_X_TOP, vram[ x ][ y ] );
             }
 
+        // プレイヤー表示
         int color = MAP_CL.PARTY;
         setColor( color );
         /* mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2, SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 , '@' ); */
         mvprintw( SCRW_Y_TOP + disp_party_y , SCRW_X_TOP + disp_party_x , '@' );
         setColor( CL.NORMAL );
 
+
+        // マップ用メッセージ表示
+        mapmsg.disp( disp_party_x , disp_party_y );
+
+        // ヘッダ情報表示
         header_disp( now_mode );
 
         rewriteOn;

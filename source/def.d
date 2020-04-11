@@ -159,12 +159,15 @@ enum STSW_Y_TOP = 1;
 enum STSW_X_SIZ = 30;
 enum STSW_Y_SIZ = 15;
 
-
 enum CHRW_X_SIZ = WIN_X_SIZ;
 enum CHRW_Y_SIZ = 7;
 enum CHRW_X_TOP = 0;
 enum CHRW_Y_TOP = SCRW_Y_TOP + SCRW_Y_SIZ;
 
+enum MAPMSG_X_SIZ = 30;
+enum MAPMSG_Y_SIZ = 1;
+enum MAPMSG_X_MARGIN = 3;
+enum MAPMSG_Y_MARGIN = 3;
 
 /* textarea */
 Textarea win_msg;

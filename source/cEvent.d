@@ -66,7 +66,8 @@ class Event
     {
         if( m != '<' )
         {
-            win_msg.textout( _( "what?\n" ) );
+            party.dungeon.textoutNow( _( "what?\n" ) );
+            getChar;
             return 0;
         }
 
@@ -101,7 +102,8 @@ class Event
 
         if( m != '>' )
         {
-            win_msg.textout( _( "what?\n" ) );
+            party.dungeon.textoutNow( _( "\nwhat?" ) );
+            getChar;
             return 0;
         }
 
@@ -131,12 +133,13 @@ class Event
         // pit! but floating.
         if ( party.isFloat )
         {
-            win_msg.textout( _( "a pit, but floating.\n" ) );
+            party.dungeon.textout( _( "\na pit, but floating." ) );
             return 0;
         }
 
         // pit!
-        win_msg.textout( _( "\n*** a pit! ***\n\n" ) );
+        party.dungeon.textoutNow( _( "\n*** a pit! ***" ) );
+        getChar;
         for ( i = 0; i < party.num; i++ )
         {
             if ( party.mem[ i ].status < STS.DEAD )
@@ -162,7 +165,9 @@ class Event
 
         party.num = 0;
         party.layer = 0;
-        win_msg.textout( _( "\n*** your party is lost...\n<push space bar(5)>\n" ) );
+        party.dungeon.textoutNow( _( "\n*** your party is lost..." ) );
+        getChar;
+        party.dungeon.textoutNow( _( "\n<push space bar(5)>" ) );
 
         while ( true )
         {

@@ -72,7 +72,7 @@ bool dungeon_main()
         // in rock check
         if ( party.dungeon.checkInRock )
         {
-            win_msg.textout( _( "\n*** in rock! ***\n" ) );
+            party.dungeon.textoutNow( _( "\n*** in rock! ***\n" ) );
             for ( i = 0; i < party.num; i++ )
                 party.mem[ i ].status = STS.LOST;
             party.win_disp();
@@ -153,8 +153,7 @@ bool dungeon_main()
                 if( ! doorflg )
                 {
                     doorflg = true;
-                    win_msg.textout( _( "which door? " ) );
-                    win_msg.textout( "\n" );
+                    party.dungeon.textoutNow( _( "\nwhich door? " ) );
                 }
                 break;
             case 'h':
@@ -183,18 +182,19 @@ bool dungeon_main()
                 break;
             case 'u': // unlock a door
                 if ( ! party.dungeon.unlockDoor )
-                    win_msg.textout( _( "failed.\n" ) );
+                    party.dungeon.textoutNow( _( "\nfailed." ) );
                 else
-                    win_msg.textout( _( "click!\n" ) );
+                    party.dungeon.textoutNow( _( "\nclick!" ) );
                 break;
             case 's': // search a hidden door (and members in maze)
-                win_msg.textout( _( "searching" ) );
+                party.dungeon.textoutNow( _( "\nsearching" ) );
                 for ( i = 0; i < get_rand( 7 ) + 3; i++ )
                 {
-                    win_msg.textout( '.' );
+                    party.dungeon.textoutNow( "." );
                     getChar();
                 }
-                win_msg.textout( _( "done\n" ) );
+                getChar();
+                party.dungeon.textoutNow( _( "done" ) );
 
                 party.dungeon.searchMember;
                 party.dungeon.searchHiddenDoor;
@@ -223,10 +223,23 @@ bool dungeon_main()
 
             if( ! party.dungeon.isPassable( party.y + dy , party.x + dx , doorflg  ) )
             {
-                win_msg.textout( _( "      ... ouch!\n" ) );
+                party.dungeon.textoutNow( _( "\n      ... ouch!" ) );
             }
             else
             {
+
+                if( doorflg )
+                {
+                    if (dx > 0)
+                        party.dungeon.textout( _( "\neast" ) );
+                    else if (dx < 0)
+                        party.dungeon.textout( _( "\nwest" ) );
+                    else if (dy < 0)
+                        party.dungeon.textout( _( "\nnorth" ) );
+                    else if (dy > 0)
+                        party.dungeon.textout( _( "\nsouth" ) );
+                }
+
                 party.olayer = party.layer;
                 party.ox = party.x;
                 party.oy = party.y;
@@ -249,11 +262,6 @@ bool dungeon_main()
                 /* header_disp( HSTS.DUNGEON ); */
             }
 
-
-            /////////////////
-            //debug 用
-            if( party.x < -99 )
-            /////////////////
             // check encounter
             if ( rate_encount > 0 && ( get_rand( rate_encount ) == 0 ) )
                 switch( party.dungeon.encounter( 0 ) )
@@ -267,7 +275,6 @@ bool dungeon_main()
                     default:
                         assert( 0 );
                 }
-
 
             if ( doorflg )
                 doorflg = false;

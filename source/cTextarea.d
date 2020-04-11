@@ -35,6 +35,10 @@ private:
     --------------------*/
     void line_disp( int winline , int lineno )
     {
+
+        if( !dispflg )
+            return;
+
         int i , pos ;
         string buf;
 
@@ -153,7 +157,7 @@ public:
         text_curx = 0;
         text_top  = 0;
 
-        dispflg = false;
+        dispflg = true;
 
         return;
 
@@ -168,9 +172,16 @@ public:
 
     void disp()
     {
+        bool _flg = dispflg;
+
         dispflg = true;
-        /* for( int i = 0 ; i < txt.length ; i++ ) */
-        /*     line_disp( text_cury, ( text_top + text_cury ) % Y_SIZ ); */
+        for( int i = 0 ; i < text_win_buffer.length ; i++ )
+        {
+            /* line_disp( text_top + i , i ); */
+            line_disp( i , ( text_top + i ) % Y_SIZ );
+        }
+
+        dispflg = _flg;
         return;
     }
 

@@ -57,7 +57,6 @@ bool castle_main()
   
     header_disp( HSTS.CASTLE );
     party.win_disp();
-    /* win_status.clear; */
     scrClear;
   
     // ending check
