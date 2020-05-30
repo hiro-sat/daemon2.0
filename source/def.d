@@ -169,10 +169,14 @@ enum MAPMSG_Y_SIZ = 1;
 enum MAPMSG_X_MARGIN = 3;
 enum MAPMSG_Y_MARGIN = 3;
 
+enum EVENT_X_SIZ = 44;
+enum EVENT_Y_SIZ = 6;
+enum EVENT_X_MARGIN = 1;
+enum EVENT_Y_MARGIN = 1;
+
 /* textarea */
 Textarea win_msg;
 Textarea win_status;
-Textarea win_event;
 int text_color;
 
 

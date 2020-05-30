@@ -726,7 +726,7 @@ public:
                                     , fillR( mspl_pt[ 4 ] , 1 )
                                     , fillR( mspl_pt[ 5 ] , 1 )
                                     , fillR( mspl_pt[ 6 ] , 1 ) );
-        win_status.print( 12 , 11 , " max %1/%2/%3/%4/%5/%6/%7" 
+        win_status.print( 12 , 10 , " max %1/%2/%3/%4/%5/%6/%7" 
                                     , fillR( mspl_max[ 0 ] , 1 ) 
                                     , fillR( mspl_max[ 1 ] , 1 ) 
                                     , fillR( mspl_max[ 2 ] , 1 ) 
@@ -742,7 +742,7 @@ public:
                                     , fillR( pspl_pt[ 4 ] , 1 )
                                     , fillR( pspl_pt[ 5 ] , 1 )
                                     , fillR( pspl_pt[ 6 ] , 1 ) );
-        win_status.print( 14 , 11 , " max %1/%2/%3/%4/%5/%6/%7" 
+        win_status.print( 14 , 10 , " max %1/%2/%3/%4/%5/%6/%7" 
                                     , fillR( pspl_max[ 0 ] , 1 ) 
                                     , fillR( pspl_max[ 1 ] , 1 ) 
                                     , fillR( pspl_max[ 2 ] , 1 ) 
@@ -1304,7 +1304,7 @@ public:
         win_msg.textout( _( "  %1 read priest spells\n" ) , name  );
         disp_pspell();
         getChar();
-        party.dungeon.disp();
+        party.dungeon.disp( true );
         return;
     }
 

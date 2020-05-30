@@ -193,6 +193,11 @@ public:
 
     void clear()
     {
+        /+
+        for( int i = 0 ; i < Y_SIZ ; i ++ )
+            textout( "\n" );
+        +/
+
         int x, y , i;
         string spc;
         
@@ -207,9 +212,9 @@ public:
         for( i = 0 ; i < text_win_buffer.length ; i ++  )
             text_win_buffer[ i ] = "";
         for( i = 0 ; i < text_win_buffer_size.length ; i ++  )
-            text_win_buffer_size.length  = 0;
+            text_win_buffer_size[ i ] = 0;
         for( i = 0 ; i < text_win_buffer_color.length ; i ++  )
-            text_win_buffer_color.length = CL.NORMAL;
+            text_win_buffer_color[ i ] = CL.NORMAL;
         
         text_color = CL.NORMAL;
         text_cury = 0;

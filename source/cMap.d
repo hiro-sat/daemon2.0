@@ -397,7 +397,7 @@ public:
     }
 
     /**--------------------
-       encounter - 移動後のイベントチェック
+       encounter - 移動後のエンカウントチェック
        t = TRE gold / treasure / alarm
        --------------------*/
     BATTLE_RESULT encounter( int t )
@@ -431,11 +431,13 @@ public:
     {
 
 
+        /+
         /////////////////////////
         // debug 用 
         if( party.x > -99 )
             return 0;
         /////////////////////////
+        +/
 
         bool encount;
         int dx , dy;
@@ -803,11 +805,17 @@ public:
         return;
     }
 
+    void textoutOff()
+    {
+        mapmsg.count = 0;
+        return;
+    }
+
 
     /*--------------------
        disp - マップ表示
        --------------------*/
-    void disp()
+    void disp( bool win_msg_disp = false )
     {
 
         int x,y;
@@ -1027,6 +1035,10 @@ public:
 
         // マップ用メッセージ表示
         mapmsg.disp( disp_party_x , disp_party_y );
+
+        // 通常メッセージ表示
+        if( win_msg_disp )
+            win_msg.disp;
 
         // ヘッダ情報表示
         header_disp( now_mode );

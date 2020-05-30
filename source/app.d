@@ -1156,7 +1156,6 @@ char answerYN()
     return c;
 }
 
-
 /*-------------------- 
    tline_input - 文字列入力
    size_max : 入力文字列 全角2バイト換算

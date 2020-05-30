@@ -133,9 +133,11 @@ bool castle_main()
         win_status.clear;
     }
     EXIT:
+    win_msg.clear;
     return false;  /* leave game */
   
     MAZE:
+    win_msg.clear;
     return true;
 }
 

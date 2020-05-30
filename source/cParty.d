@@ -879,8 +879,8 @@ public:
                 }
                 else if ( c == 'i' )
                 {
-                    monParty.dispMonsterInfo;
                     setColor( CL.MONSTER );
+                    monParty.dispMonsterInfo;
                     win_msg.textout( "****** encounter ****** - push any key -" );
                     getChar();
                     win_msg.textout( "\n" );
@@ -925,6 +925,7 @@ public:
                 {
                     if( pl.inputAction( row , c ) )
                         break;
+                    win_msg.textout( _( "input action...\n" ) );
                 }
             }
         }

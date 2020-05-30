@@ -38,6 +38,8 @@ BATTLE_RESULT battle_main()
     int rtncode = 0;
     char c;
   
+    win_msg.clear;
+
     party.calcAtkAC;
 
     get_exp = 0;
@@ -103,6 +105,7 @@ BATTLE_RESULT battle_main()
 
         if ( c == 'z' || c == '7' )
         {
+            win_msg.textout( _( "leaved...\n" ) ) ; 
             rtncode = BATTLE_RESULT.LEAVE;
             goto EXIT;
         }

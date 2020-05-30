@@ -194,7 +194,7 @@ bool dungeon_main()
                     getChar();
                 }
                 getChar();
-                party.dungeon.textoutNow( _( "done" ) );
+                party.dungeon.textoutNow( _( "done." ) );
 
                 party.dungeon.searchMember;
                 party.dungeon.searchHiddenDoor;
@@ -285,6 +285,7 @@ EXIT:
     party.ac = 0;
   
     party.win_disp();
+    win_msg.clear;
     if( leave_game )
         return false;   // leave game
     else

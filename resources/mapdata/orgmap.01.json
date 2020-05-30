@@ -63,11 +63,14 @@
       "002": { "command": "if_yn",
           "result": {
             "y": {
-              "001": { "command": "battle", "monster": [ 77 ] },
-              "002": { "command": "ret", "value": 1 }
+              "001": { "command": "msg", "text": "何者かがあらわれた！！\n" },
+              "002": { "command": "getkey" },
+              "003": { "command": "battle", "monster": [ 77 ] },
+              "004": { "command": "ret", "value": 1 }
             },
             "n": {
-              "001": { "command": "ret", "value": 1 }
+              "001": { "command": "msg", "text": "立ち去った……\n" },
+              "002": { "command": "ret", "value": 1 }
             }
           }
       }
