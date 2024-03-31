@@ -1,0 +1,58 @@
+0	1	sleep	0	3	0	0	0	敵を1グループ眠らせる
+0	1	fire	0	3	1	1	7	敵一体に小火炎のダメージ
+0	1	map	1	0	0	0	0	座標表示(永続)
+0	1	harden	0	1	0	-2	0	自分のAC-2
+0	2	flames	0	3	1	1	7	敵1グループに小火炎ダメージ
+0	2	panic	0	3	0	2	0	敵1グループのAC+2
+0	2	xharden	0	1	0	-4	0	自分のAC-4
+0	3	xflames	0	3	1	4	20	敵1グループに火炎ダメージ
+0	3	spark	0	1	3	-3	9	敵全体に火花の雨
+0	4	xpanic	0	3	0	4	0	敵1グループのAC+4
+0	4	floatn	1	0	0	0	0	パーティーを浮遊させる(永続)
+0	4	icestm	0	3	2	6	30	敵1グループに冷気ダメージ
+0	4	firstm	0	3	1	6	30	敵1グループに強火炎ダメージ
+0	5	gpanic	0	1	0	4	0	全敵のAC+4
+0	5	vanish	0	3	0	0	0	敵1グループレベル8未満全滅
+0	5	blizard	0	3	2	8	56	敵1グループに強冷気ダメージ
+0	6	gharden	0	1	0	-4	0	パーティーAC-4
+0	6	burial	0	3	4	10	1990	undead1体に強烈ダメージ
+0	6	gvanish	0	1	0	0	0	全敵レベル8未満全滅
+0	7	noilatm	0	3	0	50	250	最強の単体攻撃魔法
+0	7	telept	1	1	0	0	0	座標指定のテレポート。戦闘中に使うと<ランダムにジャンプする
+0	7	nuclear	0	1	0	10	140	全敵に核融合ダメージ
+1	1	heal	2	2	0	1	7	回復魔法(激弱)
+1	1	shild	0	1	0	-1	0	パーティーAC-1
+1	1	curse	0	3	0	1	7	敵単体を呪いの言葉で攻撃(激弱)
+1	1	light	1	0	0	0	0	30歩の間darkzoneで周囲が見える
+1	1	protct	0	1	0	-4	0	自分のAC-4
+1	2	mshild	0	1	0	-2	0	パーティーのAC-2
+1	2	inspct	0	0	0	0	0	宝箱の罠を95%の確率で判別。最高レベルの盗賊に匹敵。
+1	2	bind	0	3	0	0	0	敵1グループを金縛りにする
+1	2	silenc	0	3	0	0	0	敵1グループを沈黙させる
+1	3	cure	2	2	0	0	0	paralized, sleep, afraid回復
+1	3	identfy	1	1	0	0	0	敵の正体を識別する(永続)
+1	3	xlight	1	0	0	0	0	darkzoneで周囲が見える(999歩)
+1	3	xshild	0	1	0	-4	0	パーティーのAC-4
+1	4	mheal	2	2	0	2	14	回復魔法(弱)
+1	4	mcurse	0	3	0	2	14	敵単体を呪いの言葉で攻撃(弱)
+1	4	detxify	2	2	0	0	0	解毒
+1	4	guard	1	1	0	0	0	パーティーのAC-2(永続)
+1	5	xheal	2	2	0	3	21	回復魔法(中)
+1	5	xcurse	0	3	0	3	21	敵単体を呪いの言葉で攻撃(中)
+1	5	holyfla	0	3	0	3	21	敵1グループを炎の塔で攻撃
+1	5	breathe	2	2	0	0	0	HP=1で蘇生(確率低)
+1	5	death	0	3	0	0	0	敵単体を脳血栓で死に至らしめる
+1	6	bless	2	2	0	0	0	最高の回復魔法。dead,ashed,lost以外のステータスも回復
+1	6	dyng	0	3	0	0	0	敵単体を瀕死にさせる
+1	6	ndlstm	0	3	0	6	30	敵1グループをかまいたちで攻撃
+1	6	return	1	0	0	0	0	(なんと!)ペナルティー無しで城に戻る
+1	7	scourge	0	1	0	12	60	僧侶版のxyamoet(tiltowait)
+1	7	grace	2	2	0	0	0	死や灰からも蘇生(HP全回復)
+1	7	healer	1	1	0	6	14	グループ回復魔法(弱)
+9								
+								
+class 	level	name	camp	battle	attr	min	add	
+								
+    byte camp; /* 0:can't,1:no target,2:sel mem */								
+    byte batl; /* 0:can't,1:no target,2:sel mem,3:sel mon */								
+    byte attr; /* 0:no,1:fire,2:ice,3:small fire,4:undead only */								

@@ -1,0 +1,157 @@
+{
+  "encount" : 
+  {
+      "id" : "2" ,
+      "special_rate" : 0
+  },
+  "event": {
+    "a":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「悪いことは言わない。\n　とりあえず北からにしろ S.」\n" }
+     ], 
+    "b":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「bishopのCynthiaも何か気づいてるみてぇだ\n" },
+      { "command": "msg", "text": "　dispelのかかりが悪いと言ってる。 S.」\n" }
+     ],
+    "c":[ 
+      { "command": "msg", "text": "*** ここはかつて宝物庫であったらしい。\n" },
+      { "command": "msg", "text": "    しかし、荒らされて貴重な物は何も\n    残っていないようだ。\n" }
+     ],
+    "d":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「へへへ。いただき! S.」\n" }
+     ],
+    "e":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「ここ、コーヒーの臭いがしねぇか? S.」\n" },
+      { "command": "msg", "text": "探しますか(y/n)? " },
+      { "command": "if",
+          "data": {
+            "yn": 0 ,
+            "n": [ 
+              { "command": "msg", "text": "気のせいだったようだ。\n" },
+              { "command": "ret", "value": 0 }
+             ],
+            "y": [ 
+              { "command": "if" , 
+                "data": {
+                  "flg": "coffee" ,
+                  "on": [ 
+                    { "command": "msg", "text": "気のせいだったようだ。\n" },
+                    { "command": "ret", "value": 0 }
+                   ],
+                  "off": [ 
+                    { "command": "setflg", "flg": "coffee" },
+                    { "command": "if", 
+                      "data": {
+                        "monster": [ 12,12,12,12 ] ,
+                        "win": [ 
+                          { "command": "getitem", "item": 19 },
+                          { "command": "getkey" },
+                          { "command": "ret", "value": 1 }
+                         ],
+                        "lose": [ 
+                          { "command": "ret", "value": 1 }
+                         ],
+                        "escape": [ 
+                          { "command": "ret", "value": 1 }
+                         ]
+                      }
+                    }
+                   ]
+                }
+              }
+             ] 
+          }
+      }
+     ],
+    "f":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「vorpal_toothは持ったかい? S.」\n" }
+     ],
+    "g":[ 
+      { "command": "if" , 
+        "data": {
+          "item": 170 ,
+          "have": [ 
+            { "command": "msg", "text": "持ち物のvorpal_toothがぼんやりと輝いた。\n" },
+            { "command": "ret", "value": 0 }
+           ],
+          "dont": [ 
+            { "command": "msg", "text": "*** 頭の中で声が響いた:\n" },
+            { "command": "getkey" },
+            { "command": "msg", "text": "「お前達にはここに来る資格が無い!」\n" },
+            { "command": "getkey" },
+            { "command": "move", "dx": 0, "dy": -2 },
+            { "command": "notpresskey" },
+            { "command": "ret", "value": 0 }
+           ]
+        }
+      }
+     ],
+    "h":[ 
+      { "command": "msg", "text": "*** なんだかウサギ臭い。。。。\n" },
+      { "command": "msg", "text": "探しますか(y/n)? " },
+      { "command": "if",
+          "data": {
+            "yn" : 0,
+            "n": [ 
+              { "command": "msg", "text": "気のせいだったようだ。\n" },
+              { "command": "ret", "value": 0 }
+            ],
+            "y": [ 
+              { "command": "if" , 
+                "data": {
+                  "flg": "rabbit" ,
+                  "on": [ 
+                    { "command": "msg", "text": "気のせいだったようだ。\n" },
+                    { "command": "ret", "value": 0 }
+                   ],
+                  "off": [ 
+                    { "command": "setflg", "flg": "rabbit" },
+                    { "command": "if", 
+                      "data": {
+                        "monster": [ 14,14,14,14 ] ,
+                        "win": [ 
+                          { "command": "getitem", "item": 170 },
+                          { "command": "getkey" },
+                          { "command": "ret", "value": 1 }
+                         ],
+                        "lose": [ 
+                          { "command": "ret", "value": 1 }
+                        ],
+                        "escape": [ 
+                          { "command": "ret", "value": 1 }
+                        ]
+                      }
+                    }
+                   ]
+                }
+              }
+            ] 
+          }
+       }
+     ],
+    "i":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「darkzoneってのは歩きにくいよな。\n" },
+      { "command": "msg", "text": "　shineとmapperを唱えておけよ。 S.」\n" }
+     ],
+    "j":[ 
+      { "command": "msg", "text": "*** ひんやりとした冷気が漂っている\n" },
+      { "command": "msg", "text": "    ここはかつて冷暗所だったのだろうか。\n" }
+     ],
+    "k":[ 
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「floatを覚えてりゃpitは怖く\n　ないんだが。 S.」\n" }
+     ]
+  }
+}

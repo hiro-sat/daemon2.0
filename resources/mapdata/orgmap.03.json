@@ -1,0 +1,85 @@
+
+{
+  "encount" : 
+  {
+      "id" : "3" ,
+      "special_rate" : 0
+  },
+  "event": {
+    "a":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「危険!南に行くな」\n" }
+    ],
+    "b":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「危険!北に行くな」\n" }
+    ],
+    "c":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「右を向け」\n" }
+    ],
+    "d":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「左を向け」\n" }
+    ],
+    "e":[
+      { "command": "msg", "text": "焚き火をした跡がある。\n" },
+      { "command": "msg", "text": "まだ暖かい。他の冒険者達が\n" },
+      { "command": "msg", "text": "キャンプを張っていたのだろうか。\n" }
+    ],
+    "f":[
+      { "command": "msg", "text": "息苦しい空気の立ち込めた部屋だ。\n" },
+      { "command": "msg", "text": "足元には赤みがかった苔がむしている。\n" }
+    ],
+    "g":[
+      { "command": "msg", "text": "壁に小さな人影が焼きついている。\n" },
+      { "command": "msg", "text": "おそらくfireかflamesで焼かれた\n" },
+      { "command": "msg", "text": "モンスターであろう。\n" }
+    ],
+    "h":[
+      { "command": "msg", "text": "真っ暗な部屋の一部の壁が\n" },
+      { "command": "msg", "text": "ぼうっと青白く光っている。\n" }
+    ],
+    "i":[
+      { "command": "msg", "text": "壁の向こうをガシャガシャと、数名の冒険者\n" },
+      { "command": "msg", "text": "(モンスターか?)が通る音が聞こえた。\n" }
+    ],
+    "j":[
+      { "command": "msg", "text": "何体かのモンスターの死体が横たわってる。\n" },
+      { "command": "msg", "text": "一体はまっぷたつに切り裂かれ、別の一体は\n" },
+      { "command": "msg", "text": "上半身が黒こげだ。その横に、蓋の開いた宝箱\n" },
+      { "command": "msg", "text": "がある。中には何も残っていないようだ。\n" }
+    ],
+    "k":[
+      { "command": "msg", "text": "暗闇の中に、ぶきみな二つの目が光った。\n" },
+      { "command": "msg", "text": "それは君たちに襲い掛かってくることもなく、\n" },
+      { "command": "msg", "text": "数秒して消えてしまった。\n" }
+    ],
+    "l":[
+      { "command": "msg", "text": "突然けたたましい音が鳴り響いた!\n" },
+      { "command": "msg", "text": "が、その音に集まってくるモンスターは\n" },
+      { "command": "msg", "text": "いなかった。\n" }
+    ],
+    "m":[
+      { "command": "msg", "text": "ビュン! \n" },
+      { "command": "msg", "text": "目の前を何本かの矢が風きり音をたてて\n" },
+      { "command": "msg", "text": "横切った。。トラップだ! \n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "しかし、作動が少し早すぎたようだ。\n" }
+    ],
+    "n":[
+      { "command": "msg", "text": "床が動いている!\n" },
+      { "command": "msg", "text": "と思ったら、それは大量のゴキブリだった。\n" }
+    ],
+    "o":[
+      { "command": "msg", "text": "邪悪な気配に満ちた部屋だ。\n" }
+    ],
+    "p":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「このダンジョンのヌシは相当あぶねぇ\n" },
+      { "command": "msg", "text": "　奴のようだ。こんなに上層にwerebearが\n" },
+      { "command": "msg", "text": "　うろついているとは。 S.」\n" }
+    ]
+  }
+}

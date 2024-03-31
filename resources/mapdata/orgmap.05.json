@@ -1,0 +1,38 @@
+
+{
+    "encount" : 
+    {
+        "id" : "5" ,
+        "special_rate" : 0
+    },
+  "event": {
+    "a":[
+      { "command": "msg", "text": "このフロアは壁が磨き上げられた大理石で\n" },
+      { "command": "msg", "text": "できているようだ。カツカツと足音が響く。\n" }
+    ],
+    "b":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「Cynthiaを宿屋に預けてきた。\n" },
+      { "command": "msg", "text": "　ずいぶんと時間をロスしちまったぜ。 S.」\n" }
+    ],
+    "c":[
+      { "command": "msg", "text": "!! モンスターが!\n" },
+      { "command": "msg", "text": "・・と思ったら、壁に映った自分たちだった。\n" }
+    ],
+    "d":[
+      { "command": "msg", "text": "ポロンポロン、とピアノを弾く音が聞こえて\n" },
+      { "command": "msg", "text": "くる。なぜこのようなダンジョンにピアノが??\n" }
+    ],
+    "e":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「やはり一人欠けると厳しいか。。\n" },
+      { "command": "msg", "text": "　回復魔法の残りが気になる。 S.」\n" }
+    ],
+    "f":[
+      { "command": "msg", "text": "グランドピアノが置いてある。\n" },
+      { "command": "msg", "text": "モンスターがピアノを・・・?\n" }
+    ]
+  }
+}

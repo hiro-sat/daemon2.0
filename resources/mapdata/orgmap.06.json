@@ -1,0 +1,91 @@
+
+{
+  "encount" : 
+  {
+      "id" : "6" ,
+      "special_rate" : 0
+  },
+  "event": {
+    "a":[
+      { "command": "if",
+        "data": {
+          "flg": "lord",
+          "on": [ 
+            { "command": "msg", "text": "突然、目の前に黒い影が現れた!\n" },
+            { "command": "msg", "text": "「おや、珍しい。お客さんだ。」\n" },
+            { "command": "getkey" },
+            { "command": "if", 
+              "data": {
+                "remark": "vampire lordとvampire",
+                "monster": [ 99,86,86,86 ] , 
+                "win": [ 
+                  { "command": "setflg", "flg": "lord" },
+                  { "remark": "amulet of muomoe(makanito) " } ,
+                  { "command": "getitem", "item": 102 },  
+                  { "command": "getkey" },
+                  { "command": "ret", "value": 1 }
+                 ],
+                "friendly": [ 
+                  { "command": "setflg", "flg": "lord" },
+                  { "command": "ret", "value": 1 }
+                 ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "b":[
+      { "command": "msg", "text": "ふわふわと風船のような物が漂っている。\n" },
+      { "command": "msg", "text": "特に何もしないようだ。\n" }
+    ],
+    "c":[
+      { "command": "msg", "text": "ちろちろと水が流れている。\n" },
+      { "command": "msg", "text": "ひんやりとしたきれいな水だ。\n" }
+    ],
+    "d":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「やべぇ。\n" },
+      { "command": "msg", "text": "　モンスターがかなり手強くなってきた。 S.」\n" }
+    ],
+    "e":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「くそっ。\n" },
+      { "command": "msg", "text": "　なんだ、この部屋の数は!? S.」\n" }
+    ],
+    "f":[
+      { "command": "msg", "text": "耳鳴りがする。圧迫されたダンジョンの\n" },
+      { "command": "msg", "text": "空気で、気が変になりそうだ。。\n" }
+    ],
+    "g":[
+      { "command": "msg", "text": "冒険者とみられる死体が6体倒れている。\n" },
+      { "command": "msg", "text": "こうはなりたくないものだ。。。\n" }
+    ],
+    "h":[
+      { "command": "msg", "text": "フランス人形が笑い声をたてている。\n" },
+      { "command": "msg", "text": "剣でまっぷたつに切ったら笑い声は止んだ。\n" }
+    ],
+    "i":[
+      { "command": "msg", "text": "壁に大きな字で｢6｣と書いてある。\n" },
+      { "command": "msg", "text": "何かの意味があるのだろうか?\n" }
+    ],
+    "j":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「危険!回れ右をせよ」\n" }
+    ],
+    "k":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「危険!立ち止まるな」\n" }
+    ],
+    "l":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「危険!右に行け」\n" }
+    ],
+    "m":[
+      { "command": "msg", "text": "たて看板がある:\n" },
+      { "command": "msg", "text": "「危険!南に行くな」\n" }
+    ]
+  }
+}

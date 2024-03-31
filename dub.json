@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"hiro.sat"
+	],
+	"copyright": "Copyright © 2020, hiro.sat",
+	"dependencies": {
+		"derelict-sdl2": "~>2.1.4",
+		"mofile": "~>0.2.1"
+	},
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "daemon2"
+}

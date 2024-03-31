@@ -1,0 +1,71 @@
+
+{
+  "encount" : 
+  {
+      "id" : "7" ,
+      "special_rate" : 0
+  },
+  "event": {
+    "a":[
+      { "command": "msg", "text": "\n*** 突然、床が崩れた！\n"},
+      { "command": "msg", "text": "    真っ逆さまに落ちていく！！ ***\n" },
+      { "command": "getkey" },
+      { "command": "jump", "layer": 8, "x": 1, "y": 2 },
+      { "command": "ret", "value": 1 }
+    ],
+    "b":[
+      { "command": "msg", "text": "壁に大きな看板がかかっている。\n" },
+      { "command": "msg", "text": "「引き返せ!さもないと、」\n" },
+      { "command": "msg", "text": "その続きは汚れて読めない。\n" }
+    ],
+    "c":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「地下1Fに似ているな。\n" },
+      { "command": "msg", "text": "　しかし、陰険な罠だらけのフロアだ。 S.」\n" }
+    ],
+    "d":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「やべぇ。前衛の一人が倒れて、\n" },
+      { "command": "msg", "text": "　盗賊が前衛に立つことになった。 S.」\n" }
+    ],
+    "e":[
+      { "command": "if" , 
+        "data": {
+          "flg": "maelific" ,
+          "off": [ 
+            { "command": "msg", "text": "*** 異常な妖気が満ちている。\n  探しますか(y/n)? " },
+            { "command": "if",
+              "data": {
+                "yn": 0 ,
+                "n": [ 
+                  { "command": "ret", "value": 1 }
+                 ],
+                "y": [ 
+                  { "command": "msg", "text": "地鳴りがする。。。来るぞ!!!\n" },
+                  { "command": "if", 
+                    "data": {
+                      "remark": "maelificとdoragon zombies",
+                      "monster": [ 98,89,89,89 ],  
+                      "win": [ 
+                        { "command": "setflg", "flg": "maelific" },
+                        { "remark" : "dragon slayer" },
+                        { "command": "getitem", "item": 96 }, 
+                        { "command": "ret", "value": 1 }
+                      ],
+                      "friendly" : [
+                        { "command": "setflg", "flg": "maelific" },
+                        { "command": "ret", "value": 1 }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

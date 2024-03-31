@@ -1,0 +1,75 @@
+
+{
+  "encount" : 
+  {
+      "id" : "4" ,
+      "special_rate" : 0
+  },
+  "event": {
+    "a":[
+      { "command": "msg", "text": "焼け付くように熱い部屋だ。\n" },
+      { "command": "msg", "text": "何者かがflamoeでも使ったあとか?\n" }
+    ],
+    "b":[
+      { "command": "msg", "text": "バナナの皮が落ちている。\n" },
+      { "command": "msg", "text": "それで滑って転んだ時にちょうど頭が\n" },
+      { "command": "msg", "text": "来る位置に、硬そうな石が置いてある。\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "・・・罠だ!\n" }
+    ],
+    "c":[
+      { "command": "msg", "text": "首のない死体が3体横たわっている。\n" },
+      { "command": "msg", "text": "忍者に殺された冒険者か?\n" }
+    ],
+    "d":[
+      { "command": "msg", "text": "操り人形が落ちている。\n" },
+      { "command": "msg", "text": "どうやら生きているらしいが、糸がからまって\n" },
+      { "command": "msg", "text": "身動きができないようだ。\n" }
+    ],
+    "e":[
+      { "command": "msg", "text": "壊れた機械らしきものが置いてある。\n" },
+      { "command": "msg", "text": "蹴ってみたが反応は無かった。\n" }
+    ],
+    "f":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「しくじった!\n" },
+      { "command": "msg", "text": "　Cynthiaの奴が呪いのメイスに取り付かれ\n" },
+      { "command": "msg", "text": "　ちまった。進むべきか、いったん引き上げ\n" },
+      { "command": "msg", "text": "　るか。。。 S.」\n" }
+    ],
+    "h":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「まいった。。。\n" },
+      { "command": "msg", "text": "　Cynthiaの奴、ショック状態から回復しねぇ。\n" },
+      { "command": "msg", "text": "　ここでは呪いが強くなっているのか。。 S.」\n" }
+    ],
+    "i":[
+      { "command": "if",
+          "data": {
+            "flg": "vampire" ,
+            "off": [ 
+              { "command": "msg", "text": "突然、目の前に黒い影が現れた!\n" },
+              { "command": "msg", "text": "「グルルル・・・ガガガッ」\n" },
+              { "command": "getkey" },
+              { "command": "if", 
+                "data": {
+                  "remark" : "vampireとwerewolf",
+                  "monster": [ 86,59 ] ,  
+                  "win": [ 
+                    { "command": "setflg", "flg": "vampire" },
+                    { "command": "getitem", "item": 43 },
+                    { "command": "ret", "value": 1 }
+                  ],
+                  "friendly": [
+                    { "command": "setflg", "flg": "vampire" }
+                  ]
+                }
+              }
+            ]
+          }
+      }
+    ]
+  }
+}

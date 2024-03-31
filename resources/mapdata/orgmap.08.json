@@ -1,0 +1,160 @@
+
+{
+  "encount" : 
+  {
+      "id" : "8" ,
+      "special_rate" : 10
+  },
+  "event": {
+    "a":[
+      {"remark": "L8 start 地点" }
+    ],
+    "b":[
+      { "command": "msg", "text": "\n*** jump to the castle! ***\n" },
+      { "command": "getkey" },
+      { "remark" : "// in castle" },
+      { "command": "notpresskey" },
+      { "command": "ret", "value": 2 }  
+    ],
+    "c":[
+      { "command": "msg", "text": "\n*** teleporter! ***\n" },
+      { "command": "getkey" },
+      { "command": "jump", "x": 1, "y": 2 },
+      { "command": "ret", "value": 1 }
+    ],
+    "d":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「俺は見た!\n" },
+      { "command": "msg", "text": "　50回攻撃し、最後には首を刎ねるという\n" },
+      { "command": "msg", "text": "　伝説の魔神を! S.」\n" }
+    ],
+    "e":[
+      { "command": "msg", "text": "頭の中に声が響いた。\n" },
+      { "command": "msg", "text": "「お前たちは来てはいけない領域に迷い混んで\n" },
+      { "command": "msg", "text": "　しまった。引き返すがよい。今のうちに。。」\n" }
+    ],
+    "f":[
+      { "command": "msg", "text": "壁にmessageが書かれている:\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "「俺たちはもうボロボロだ。\n" },
+      { "command": "msg", "text": "　最強のpurple beretがこんなにも簡単に\n" },
+      { "command": "msg", "text": "　やられるとは。。。。 S.」\n" },
+      { "command": "getkey" },
+      { "command": "msg", "text": "その下に、白骨化した死体が転がっている。\n" }
+    ],
+    "g":[
+      { "command": "if" , 
+        "data": {
+          "flg": "warning" ,
+          "off": [ 
+            { "command": "setflg", "flg": "warning" },
+            { "command": "msg", "text": "頭の中に声が響いた。\n" },
+            { "command": "msg", "text": "「私の忠告を無視したようだな。\n" },
+            { "command": "msg", "text": "　あの世で後悔するがいい。。。」\n" }
+          ]
+        }
+      }
+    ],
+    "h":[
+      { "command": "if" , 
+        "data": {
+          "flg": "masters" ,
+          "off": [ 
+            { "command": "msg", "text": "一筋の風が吹いた。\n" },
+            { "command": "getkey" },
+            { "command": "if", 
+              "data": {
+                "remark" : "the_high_masters" ,
+                "monster": [ 91,91,91,91 ] ,  
+                "win": [ 
+                  { "command": "setflg", "flg": "masters" }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "i":[
+      { "command": "if" , 
+        "data": {
+          "flg": "warning-02" ,
+          "off": [ 
+            { "command": "setflg", "flg": "warning-02" },
+            { "command": "msg", "text": "頭の中に声が響いた。\n" },
+            { "command": "msg", "text": "「思ったよりやるようだ。\n" },
+            { "command": "msg", "text": "　楽しみになってきたよ。。。」\n" }
+          ]
+        }
+      }
+    ],
+    "j":[
+      { "command": "if" , 
+        "data": {
+          "flg": "damonlord" ,
+          "off": [ 
+            { "command": "msg", "text": "暗闇に雷が轟いた!!\n" },
+            { "command": "getkey" },
+            { "command": "if", 
+              "data": {
+                "remark" : "// damon loerd" ,
+                "monster": [ 102,97,87,68 ] ,  
+                "win": [ 
+                  { "command": "setflg", "flg": "damonlord" }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "k":[
+      { "command": "if" , 
+        "data": {
+          "flg": "warning-03" ,
+          "off": [ 
+            { "command": "setflg", "flg": "warning-03" },
+            { "command": "msg", "text": "頭の中に声が響いた。\n" },
+            { "command": "msg", "text": "「ほほう。よかろう。\n" },
+            { "command": "msg", "text": "　来るがいい、私の元へ。。。」\n" }
+          ]
+        }
+      }
+    ],
+    "l":[
+      { "command": "if" , 
+        "data": {
+          "flg": "dameon" ,
+          "off": [ 
+            { "command": "msg", "text": "長身の男が立ったまま瞑想している。\n" },
+            { "command": "getkey" },
+            { "command": "if", 
+              "data": {
+                "remark" : "// DAEMON, petit_daemon" ,
+                "monster": [ 108,101,91,91 ] ,
+                "win": [ 
+                  { "command": "setflg", "flg": "dameon" }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "m":[
+      { "command": "if" , 
+        "data": {
+          "item": 171 ,
+          "dont": [
+            { "command": "msg", "text": "一冊の本が落ちている。\n" },
+            { "command": "getkey" },
+            { "remark" : "// diary" },
+            { "command": "getitem", "item": 171 }
+          ]
+        }
+      }
+    ]
+  }
+}
+
