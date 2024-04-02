@@ -75,19 +75,15 @@ public:
         {
 
             // in rock check
-            if ( party.dungeon.checkInRock )
+            if ( party.layer >= MAXLAYER || party.dungeon.checkInRock  )
             {
                 party.dungeon.textoutNow( _( "\n*** in rock! ***\n" ) );
                 foreach( p ; party )
-                {
-                    p.status = STS.LOST;
-                    p.outflag = OUT_F.BAR;
-                }
+                    p.isLost;
                 party.dispPartyWindow();
                 getChar();
                 party.layer = 0;
                 party.olayer = 0;
-                party.setDungeon;
                 goto EXIT;
             }
 
@@ -96,9 +92,9 @@ public:
             encountRate = ENCOUNT_RATE;
 
             if( debugmode || debugmodeOffFlg )
-                keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 " ~ "DEMFIL<>");   // debug
+                keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 " ~ CURSOR_KEY ~ "DEMFIL<>");   // debug
             else
-                keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 ");
+                keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 " ~ CURSOR_KEY);
 
             switch ( keycode )
             {
@@ -108,7 +104,7 @@ public:
                     txtMessage.textout( _( "************* dungeon help *************\n" ) );
                     txtMessage.textout( _( "--- assigned keys ---\n" ) );
                     txtMessage.textout( _( "h/4:west, j/2:south, k/8:north, l/6:east\n" ) );
-                    txtMessage.textout( _( "c/9:camp, o/5:open door, u:unlock door\n" ) );
+                    txtMessage.textout( _( "c/9:camp, o/5/' ':open door, u:unlock door\n" ) );
                     txtMessage.textout( _( "./3:look for monsters, S:protect all\n" ) );
                     txtMessage.textout( _( "s:search hidden doors, Q:heal all\n" ) );
                     txtMessage.textout( _( "--- map info ---\n" ) );
@@ -165,6 +161,7 @@ public:
                     break;
                 case 'o':
                 case '5':
+                case ' ':
                     if( ! doorflg )
                     {
                         doorflg = true;
@@ -173,21 +170,24 @@ public:
                     break;
                 case 'h':
                 case '4':
+                case LEFT_ARROW:
                     dx = -1;
                     break;
                 case 'l':
                 case '6':
+                case RIGHT_ARROW:
                     dx = 1;
                     break;
                 case 'k':
                 case '8':
+                case UP_ARROW:
                     dy =  -1;
                     break;
                 case 'j':
                 case '2':
+                case DOWN_ARROW:
                     dy = 1;
                     break;
-                case ' ':
                 case '.':
                 case '3':
                     party.ox = party.x;
@@ -495,10 +495,10 @@ public:
                     // disarm
                     if( inputTrapName )
                     {
-                        txtMessage.textout( ">\n" );
-                        trapname = txtMessage.input( MAX_TRAP_NAME );
+                        trapname = txtMessage.input( MAX_TRAP_NAME , "> " );
                         if( trapname == "" )
                             continue;
+                        txtMessage.textout( "> " ~ trapname ~ "\n" );
                         if( trapname != TRAP_NAME[ trap ] )
                             goto FAIL;
                     }
@@ -638,8 +638,8 @@ public:
             case TRAP.TELEPORT: /* teleporter */
                 party.ox = party.x;
                 party.oy = party.y;
-                party.x = to!byte( get_rand( party.dungeon.width - 4 ) + 1 );
-                party.y = to!byte( get_rand( party.dungeon.height - 4 ) + 1 );
+                party.x = get_rand( party.dungeon.width - 4 ) + 1;
+                party.y = get_rand( party.dungeon.height - 4 ) + 1;
                 party.dungeon.disp();
                 dispHeader( HSTS.DUNGEON );
                 break;
@@ -904,6 +904,7 @@ private:
         bool first_disp = true;
 
         txtMessage.clear;
+        party.dungeon.textoutOff;
 
         while ( true )
         {
@@ -1054,10 +1055,7 @@ private:
         {
             txtMessage.textout( _( "\n*** in rock! ***\n" ) );
             foreach( p ; party )
-            {
-                p.status = STS.LOST;
-                p.outflag = OUT_F.BAR;
-            }
+                p.isLost;
             party.dispPartyWindow();
             getChar();
             party.layer=0;

@@ -232,8 +232,8 @@ public:
     bool silenced; // 1:silenced, 0:not
     
     byte outflag; /* 0:in bar, 1:in castle, 3:in maze */
-    byte x;
-    byte y;
+    int x;
+    int y;
     byte layer;
 
     // for treasure ( not saved )
@@ -352,8 +352,8 @@ public:
 
         age     = to!int( data[ i++ ] );
         day     = to!int( data[ i++ ] );
-        x       = to!byte( data[ i++ ] );
-        y       = to!byte( data[ i++ ] ); 
+        x       = to!int( data[ i++ ] );
+        y       = to!int( data[ i++ ] ); 
         layer   = to!byte( data[ i++ ] );
         outflag = to!byte( data[ i++ ] );
 
@@ -1496,13 +1496,13 @@ public:
 
         // 表示位置
         int[ 7 ] x ,y;
-        x[ 0 ] =  0 ; y[ 0 ] = 1;
-        x[ 1 ] = 10 ; y[ 1 ] = 1;
-        x[ 2 ] = 20 ; y[ 2 ] = 1;
-        x[ 3 ] =  0 ; y[ 3 ] = 6;
-        x[ 4 ] = 10 ; y[ 4 ] = 6;
-        x[ 5 ] = 20 ; y[ 5 ] = 6;
-        x[ 6 ] =  0 ; y[ 6 ] = 0;
+        x[ 0 ] =  0 ; y[ 0 ] =  1;
+        x[ 1 ] = 10 ; y[ 1 ] =  1;
+        x[ 2 ] = 20 ; y[ 2 ] =  1;
+        x[ 3 ] =  0 ; y[ 3 ] =  6;
+        x[ 4 ] = 10 ; y[ 4 ] =  6;
+        x[ 5 ] = 20 ; y[ 5 ] =  6;
+        x[ 6 ] =  0 ; y[ 6 ] = 11;
 
         int lv;         // 表示レベル
         byte[ 7 ] flg;  // フラグ 何個目の呪文？
@@ -2268,8 +2268,8 @@ public:
         string spell;
 
         txtMessage.textout( _( "what spell?\n" ) );
-        spell = txtMessage.inputSpell( this , 32 );
-        txtMessage.textout( '>' );
+        spell = txtMessage.inputSpell( this , 32 , "> " );
+        txtMessage.textout( "> " );
         txtMessage.textout( spell );
         txtMessage.textout( '\n' );
 
@@ -2632,7 +2632,7 @@ public:
                 setStatusColor;     // 毒の場合は色変更
 
                 dispCommand( "spell  ?                      " );
-                spell_name = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 );
+                spell_name = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 , "> " );
 
                 if( ! ( spell_name in magic_all ) )
                 {
@@ -3082,6 +3082,20 @@ public:
             list ~= ( i + 1 ).to!string;
         }
         return list;
+    }
+
+    /*--------------------
+       isLost - ロスト→アイテム没収
+       --------------------*/
+    void isLost()
+    {
+        status = STS.LOST;
+        outflag = OUT_F.BAR;
+        gold = 0;
+        foreach( i ; 0 .. MAXCARRY )
+            item[ i ].setNull;
+        calcAtkAC;
+        return;
     }
 
 }

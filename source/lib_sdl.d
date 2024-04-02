@@ -300,6 +300,7 @@ public:
 
             switch( e.key.keysym.sym )
             {
+
                 case SDLK_RSHIFT:
                 case SDLK_LSHIFT:
                     shiftkey = true;
@@ -308,6 +309,13 @@ public:
                 case SDLK_LCTRL:
                     ctrlkey = true;
                     break;
+
+
+                case SDLK_RIGHT:    ch ~= RIGHT_ARROW   ; break;
+                case SDLK_LEFT:     ch ~= LEFT_ARROW    ; break;
+                case SDLK_DOWN:     ch ~= DOWN_ARROW    ; break;
+                case SDLK_UP:       ch ~= UP_ARROW      ; break;
+
                 case SDLK_a: ch ~= shiftkey ? "A" : "a" ; break;
                 case SDLK_b: ch ~= shiftkey ? "B" : "b" ; break;
                 case SDLK_c: ch ~= shiftkey ? "C" : "c" ; break;

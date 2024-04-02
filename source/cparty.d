@@ -31,11 +31,11 @@ public:
 
 
     int step;
-    byte x;
-    byte y;
+    int x;
+    int y;
     byte layer; // 0:castle , 1-8:dungeon
-    byte ox;
-    byte oy;
+    int ox;
+    int oy;
     byte olayer;
     byte status;  // bit7:i, latumapic
                   // bit6:f, litofeit

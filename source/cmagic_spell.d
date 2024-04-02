@@ -246,6 +246,7 @@ class BaseSpell
         txtMessage.textout( N_( "  %1's AC +%2.\n" 
                    , "  %1' AC +%2.\n", mt.count )
                         , mt.getDispNameS , acplus );
+        getChar;
         return;
     }
 
@@ -530,7 +531,6 @@ class SpellFire : BaseSpell
         return;
     }
 
-
 }
 alias SpellAttackOne = SpellFire;
 
@@ -552,8 +552,8 @@ class SpellMap : BaseSpell
             txtMessage.textout( _( "You are in ...\n" ) );
             txtMessage.textout( _( "Floor: B%1F , X: %2 , Y: %3 \n" )
                                 , party.layer
-                                , party.dungeon.relativePositionX( party.x )
-                                , party.dungeon.relativePositionY( party.y ) );
+                                , party.dungeon.convertRelativePositionX( party.x )
+                                , party.dungeon.convertRelativePositionY( party.y ) );
             getChar();
             dispHeader( HSTS.CAMP );
         }
@@ -618,15 +618,15 @@ class SpellPanic : BaseSpell
 }
 
 
-alias SpellXharden = SpellHarden;
+alias SpellXharden = SpellAcDownPlayer;     // SpellHarden;
 // class SpellXharden : BaseSpell
 
 
-alias SpellXflames = SpellAttackGroup;
+alias SpellXflames = SpellAttackGroup;      // SpellFlames
 // class SpellXflames : BaseSpell
 
 
-alias SpellSpark = SpellAttackAll;
+alias SpellSpark = SpellAttackAll;          // SpellNuclear
 // class SpellSpark : BaseSpell
 
 
@@ -650,11 +650,11 @@ class SpellFloatn : BaseSpell
 }
 
 
-alias SpellIcestm = SpellAttackGroup;
+alias SpellIcestm = SpellAttackGroup;       // SpellFlames
 // class SpellIcestm : BaseSpell
 
 
-alias SpellFirstm = SpellAttackGroup;
+alias SpellFirstm = SpellAttackGroup;       // SpellFlames
 // class SpellFirstm : BaseSpell
 
 
@@ -695,7 +695,7 @@ class SpellVanish : BaseSpell
 }
 
 
-alias SpellBlizard = SpellAttackGroup;
+alias SpellBlizard = SpellAttackGroup;      // SpellFlames
 // class SpellBlizard : BaseSpell
 
 
@@ -717,7 +717,7 @@ class SpellGharden : BaseSpell
 alias SpellAcDownParty = SpellGharden;
 
 
-alias SpellBurial = SpellAttackOne;
+alias SpellBurial = SpellAttackOne;     // SpellFire
 // class SpellBurial : BaseSpell
 
 
@@ -747,7 +747,7 @@ class SpellGvanish : BaseSpell
 }
 
 
-alias SpellNoilatm = SpellAttackOne;
+alias SpellNoilatm = SpellAttackOne;    // SpellFire
 // class SpellNoilatm : BaseSpell
 
 
@@ -757,75 +757,83 @@ class SpellTelept : BaseSpell
     {
 
         int xpos, ypos, layer;
-        bool cancel;
 
         if( ! camp )
         {
             //battle;
             // escape( random )
-            party.x = to!byte( get_rand( party.dungeon.width ) + 1 );
-            party.y = to!byte( get_rand( party.dungeon.height ) + 1 );
+            party.x = get_rand( party.dungeon.width ) ;
+            party.y = get_rand( party.dungeon.height ) ;
             return 2;
         }
         else    // camp
         {
             txtMessage.textout( _( "\n*** where do you want to teleport? ***\n" ) );
 
-            xpos = -1;
-            ypos = -1;
-            layer = -1;
-
-            while( layer == -1 )
+            bool inputTeleptPosition( string msg , ref int pos )
             {
-                // xpos
-                if( xpos == -1 )
-                {
-                    xpos = inputPosition( _( "enter xpos(z:leave): \n" ) , cancel );
-                    if( cancel  )
-                    {
-                        txtMessage.textout( _( "quit.\n" ) );
-                        return 0;
-                    }
-                    continue;
-                }
-
-                // ypos
-                if( ypos == -1 )
-                {
-                    ypos = inputPosition( _( "enter ypos(z:enter xpos again): \n" ) , cancel );
-                    if( cancel  )
-                    {
-                        cancel = false;
-                        xpos = -1;
-                    }
-                    continue;
-                }
-
-                // layer
-                if( layer == -1 )
-                {
-                    layer = inputPosition( _( "enter layer(z:enter ypos again): \n" ) , cancel );
-                    if( cancel  )
-                    {
-                        cancel = false;
-                        ypos = -1;
-                    }
-                    continue;
-                }
+                bool cancel = false;
+                pos = inputPosition( msg , cancel );
+                if( cancel )
+                    return false;
+                else 
+                    return true;
             }
 
-            party.x     = to!byte( xpos );
-            party.y     = to!byte( ypos );
+
+            layer = 0;
+            while( layer == 0 ) 
+            {
+                if( ! inputTeleptPosition( _( "enter xpos(z:leave): \n" ) , xpos ) )
+                {
+                    txtMessage.textout( _( "quit.\n" ) );
+                    return 0;
+                }
+
+                if( ! inputTeleptPosition( _( "enter ypos(z:enter xpos again): \n" ) , ypos ) )
+                    continue;
+                
+                if( ! inputTeleptPosition( _( "enter layer(z:enter xpos again): \n" ) , layer ) )
+                    continue;
+
+            }
+
+
+            if( layer < 1 || layer >= MAXLAYER )
+            {
+                // in rock
+                party.layer = to!byte( layer );
+                txtMessage.textout( _( "done.\n" ) );
+                getChar;
+                return 2;
+            }
+
 
             if( party.layer != layer )
             {
                 party.layer = to!byte( layer );
                 party.setDungeon;
-                /* party.dungeon.setEndPos; */
+            }
+
+            party.x = party.dungeon.convertAbsolutePositionX( xpos );
+            party.y = party.dungeon.convertAbsolutePositionY( ypos );
+
+            if( ! party.dungeon.checkMapRange( party.x , party.y ) )
+            {
+                // in rock
+                txtMessage.textout( _( "done.\n" ) );
+                getChar;
+                return 2;
+            }
+            else
+            {
+                party.dungeon.setDispPos;
                 party.dungeon.initDisp;
+                party.dungeon.disp;
             }
 
             txtMessage.textout( _( "done.\n" ) );
+            getChar;
             dispHeader( HSTS.CAMP );
             party.dispPartyWindow();
             return 0;
@@ -842,8 +850,8 @@ class SpellTelept : BaseSpell
         while( true )
         {
             txtMessage.textout( msg );
-            numtext = txtMessage.input( 3 );
-            txtMessage.textout( ">%1\n" , numtext );
+            numtext = txtMessage.input( 4 , "> " );
+            txtMessage.textout( "> %1\n" , numtext );
 
             if ( numtext.length == 0 || numtext[ 0 ] == 'z' )
             {
@@ -858,11 +866,6 @@ class SpellTelept : BaseSpell
             }
 
             pos = to!int( numtext );
-            if( pos < 0 )
-            {
-                txtMessage.textout( _( "what?\n" ) );
-                continue;
-            }
 
             break;
         }
@@ -886,7 +889,6 @@ class SpellNuclear : BaseSpell
     }
 
 }
-
 alias SpellAttackAll = SpellNuclear;
 
 
@@ -908,13 +910,14 @@ class SpellHeal : BaseSpell
         return 0;
     }
 }
+alias SpellHealOne = SpellHeal;
 
 
-alias SpellShild = SpellAcDownParty;
+alias SpellShild = SpellAcDownParty;    // SpellGharden
 // class SpellShild : BaseSpell
 
 
-alias SpellCurse = SpellAttackOne;
+alias SpellCurse = SpellAttackOne;      // SpellFire
 // class SpellCurse : BaseSpell
 
 
@@ -935,12 +938,12 @@ class SpellLight : BaseSpell
 }
 
 
-alias SpellProtct = SpellAcDownPlayer;
+alias SpellProtct = SpellAcDownPlayer;  // SpellHarden
 // class SpellProtct : BaseSpell
 
 
 
-alias SpellMshild = SpellShild;
+alias SpellMshild = SpellShild;     // SpellShild -> SpellGharden
 // class SpellMshild : BaseSpell
 
 
@@ -1170,21 +1173,22 @@ class SpellXlight : BaseSpell
         {
             txtMessage.textout( _( "done.\n" ) );
             dispHeader(HSTS.CAMP);
+
         }
         return 0;
     }
 }
 
 
-alias SpellXshild = SpellShild;
+alias SpellXshild = SpellAcDownParty;   // SpellGharden
 // class SpellXshild : BaseSpell
 
 
-alias SpellMheal = SpellHeal;
+alias SpellMheal = SpellHealOne;        // SpellHeal
 // class SpellMheal : BaseSpell
 
 
-alias SpellMcurse = SpellAttackOne;
+alias SpellMcurse = SpellAttackOne;     // SpellFire
 // class SpellMcurse : BaseSpell
 
 
@@ -1244,16 +1248,16 @@ class SpellGuard : BaseSpell
 }
 
 
-alias SpellXheal = SpellHeal;
+alias SpellXheal = SpellHealOne;        // SpellHeal
 // class SpellXheal : BaseSpell
 
 
 
-alias SpellXcurse = SpellAttackOne;
+alias SpellXcurse = SpellAttackOne;     // SpellFire
 // class SpellXcurse : BaseSpell
 
 
-alias SpellHolyfla = SpellAttackGroup;
+alias SpellHolyfla = SpellAttackGroup;  // SpellFlames
 // class SpellHolyfla : BaseSpell
 
 
@@ -1470,7 +1474,7 @@ class SpellDyng : BaseSpell
 }
 
 
-alias SpellNdlstm = SpellAttackGroup;
+alias SpellNdlstm = SpellAttackGroup;       // SpellNuclear
 // class SpellNdlstm : BaseSpell
 
 
@@ -1499,7 +1503,7 @@ class SpellReturn : BaseSpell
 }
 
 
-alias SpellScourge = SpellAttackAll;
+alias SpellScourge = SpellAttackAll;        // SpellNuclear
 // class SpellScourge : BaseSpell
 
 

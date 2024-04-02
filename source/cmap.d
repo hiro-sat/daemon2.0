@@ -34,11 +34,11 @@ private:
     Event event;
     MapTextarea mapmsg;
 
-    int MAP_MAX_X;
-    int MAP_MAX_Y;
+    int mapWidth;
+    int mapHeight;
 
-    /* char[ MAP_MAX_X ][ MAP_MAX_Y ] map; */
-    /* char[ MAP_MAX_X ][ MAP_MAX_Y ] orgmap; */
+    /* char[ mapWidth ][ mapHeight ] map; */
+    /* char[ mapWidth ][ mapHeight ] orgmap; */
     char[][] map;
     char[][] orgmap;
     MapEncountRoom encountRoom;
@@ -50,10 +50,10 @@ private:
     char[ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vram;
     int [ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vramCl;
 
-    int disp_scr_x;
-    int disp_scr_y;
-    int disp_party_x;
-    int disp_party_y;
+    int dispScrX;
+    int dispScrY;
+    int dispPartyX;
+    int dispPartyY;
 
 
     /*-------------------- 
@@ -119,10 +119,8 @@ private:
 
 public:
 
-    @property int width(){ return MAP_MAX_X; }
-    @property int height(){ return MAP_MAX_Y; }
-    @property int dispPartyX(){ return disp_party_x; }
-    @property int dispPartyY(){ return disp_party_y; }
+    @property int width(){ return mapWidth; }
+    @property int height(){ return mapHeight; }
 
     /**--------------------
        this - コンストラクタ
@@ -141,9 +139,9 @@ public:
        --------------------*/
     void testOutputEncountRoom()
     {
-        for( int y = 0 ; y < MAP_MAX_Y ; y++ )
+        for( int y = 0 ; y < mapHeight ; y++ )
         {
-            for( int x = 0 ; x < MAP_MAX_X ; x++ )
+            for( int x = 0 ; x < mapWidth ; x++ )
             {
                 if( encountRoom.isEncount( y , x ) )
                     writef( "X" );
@@ -181,8 +179,8 @@ public:
        --------------------*/
     void setStartPos()
     {
-        party.x = to!byte( startX );
-        party.y = to!byte( startY );
+        party.x = startX;
+        party.y = startY;
         setDispPos;
         return;
     }
@@ -192,8 +190,8 @@ public:
        --------------------*/
     void setEndPos()
     {
-        party.x = to!byte( endX );
-        party.y = to!byte( endY );
+        party.x = endX;
+        party.y = endY;
         setDispPos;
         return;
     }
@@ -203,10 +201,10 @@ public:
        --------------------*/
     void setDispPos()
     {
-        disp_party_x = SCRW_X_SIZ / 2;
-        disp_party_y = SCRW_Y_SIZ / 2;
-        disp_scr_x = party.x - disp_party_x;
-        disp_scr_y = party.y - disp_party_y;
+        dispPartyX = SCRW_X_SIZ / 2;
+        dispPartyY = SCRW_Y_SIZ / 2;
+        dispScrX = party.x - dispPartyX;
+        dispScrY = party.y - dispPartyY;
         return;
     }
 
@@ -234,12 +232,12 @@ public:
         }
 
         // 初期化
-        MAP_MAX_X = to!int( line[ 0 ].length );
-        MAP_MAX_Y = to!int( line.length );
-        map    = new char[][]( MAP_MAX_Y , MAP_MAX_X );
-        orgmap = new char[][]( MAP_MAX_Y , MAP_MAX_X );
-        for ( int y = 0 ; y < MAP_MAX_Y ; y++ )
-            for( int x = 0 ; x < MAP_MAX_X ; x++ )
+        mapWidth = to!int( line[ 0 ].length );
+        mapHeight = to!int( line.length );
+        map    = new char[][]( mapHeight , mapWidth );
+        orgmap = new char[][]( mapHeight , mapWidth );
+        for ( int y = 0 ; y < mapHeight ; y++ )
+            for( int x = 0 ; x < mapWidth ; x++ )
             {
                 map[ y ][ x ] = '^';
                 orgmap[ y ][ x ] = '.';
@@ -247,15 +245,15 @@ public:
 
 
         // 初期化(エンカウントエリア)
-        encountRoom = new MapEncountRoom( MAP_MAX_X , MAP_MAX_Y );
+        encountRoom = new MapEncountRoom( mapWidth , mapHeight );
 
 
         foreach ( y , ln ; line )
         {
-            if( y < MAP_MAX_Y )
+            if( y < mapHeight )
             {
                 // map情報
-                for( int x = 0 ; x < MAP_MAX_X ; x++ )
+                for( int x = 0 ; x < mapWidth ; x++ )
                 {
                     /* writef( "map : x , %d / y , %d \n" , x , y ); */
 
@@ -322,8 +320,8 @@ public:
 
         if( ! exists( formatText( MAPFILE , fill0( layer , 2 ) ) ) )
         {
-            for ( int y = 0; y < MAP_MAX_Y; y++ )
-                for ( int x = 0; x < MAP_MAX_X; x++ )
+            for ( int y = 0; y < mapHeight; y++ )
+                for ( int x = 0; x < mapWidth; x++ )
                     map[ y ][ x ] = '^';
         }
         else
@@ -333,7 +331,7 @@ public:
 
             foreach( l ; fin2.byLine )
             {
-                for( int x = 0 ; x < MAP_MAX_X ; x++ )
+                for( int x = 0 ; x < mapWidth ; x++ )
                     map[ y ][ x ] = to!char( l[ x .. x + 1 ] );
                 y++;
             }
@@ -355,10 +353,10 @@ public:
         auto fout = File( formatText( MAPFILE , fill0( layer , 2 ) ) , "w" );
 
         string line = "";
-        for ( y = 0; y < MAP_MAX_Y ; y++ )
+        for ( y = 0; y < mapHeight ; y++ )
         {
 
-            for ( x = 0; x < MAP_MAX_X; x++ )
+            for ( x = 0; x < mapWidth; x++ )
                line ~= map[ y ][ x ];
 
             fout.writef( line ~ "\n" );
@@ -447,8 +445,8 @@ public:
         {
             if( party.x + _x < 0 ) return false;
             if( party.y + _y < 0 ) return false;
-            if( party.x + _x >= MAP_MAX_X ) return false;
-            if( party.y + _y >= MAP_MAX_Y ) return false;
+            if( party.x + _x >= mapWidth ) return false;
+            if( party.y + _y >= mapHeight ) return false;
 
             return encountRoom.isEncount( party.y + _y , party.x + _x );
         }
@@ -514,19 +512,35 @@ public:
     }
 
     /*--------------------
-       relativePositionX - spell Map用
+       convertRelativePositionX - spell Map用
        --------------------*/
-    int relativePositionX( int x )
+    int convertRelativePositionX( int x )
     {
-        return x - MAP_MAX_X / 2;
+        return x - mapWidth / 2;
     }
 
     /*--------------------
-       relativePositionY - spell Map用
+       convertRelativePositionY - spell Map用
        --------------------*/
-    int relativePositionY( int y )
+    int convertRelativePositionY( int y )
     {
-        return y - MAP_MAX_Y / 2;
+        return y - mapHeight / 2;
+    }
+
+    /*--------------------
+       convertAbsolutePositionX - spell teleport用
+       --------------------*/
+    int convertAbsolutePositionX( int x )
+    {
+        return x + mapWidth / 2;
+    }
+
+    /*--------------------
+       convertAbsolutePositionY - spell teleport用
+       --------------------*/
+    int convertAbsolutePositionY( int y )
+    {
+        return y + mapHeight / 2;
     }
 
     /*--------------------
@@ -598,6 +612,10 @@ public:
        --------------------*/
     bool checkInRock()
     {
+
+        if( ! checkMapRange( party.x , party.y ) )
+            return true;
+
         char c = orgmap[ party.y ][ party.x ];
         return ( ( c == '-' || c == '|' || c == 'X' || c == '.' ) && ! debugmode );
     }
@@ -845,6 +863,27 @@ public:
         return;
     }
 
+    void dispInRock()
+    {
+
+        rewriteOff; 
+
+        setColor( MAP_CL.NUL );
+        for ( int y = 0; y < SCRW_Y_SIZ ; y++ )     // 15
+            for ( int x = 0; x < SCRW_X_SIZ - 1 ; x++ )       // 29
+                mvprintw( y + SCRW_Y_TOP, x + SCRW_X_TOP, '^' );
+
+        // プレイヤー表示
+        setColor( MAP_CL.PARTY );
+        mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2 , SCRW_X_TOP + SCRW_X_SIZ / 2 , '@' );
+        setColor( CL.NORMAL );
+
+        // ヘッダ情報表示
+        dispHeader( now_mode );
+
+        rewriteOn;
+        return;
+    }
 
     /*--------------------
        disp - マップ表示
@@ -858,29 +897,37 @@ public:
         char c;
         
 
-        // scroll check
-        disp_party_x = party.x - disp_scr_x;
-        disp_party_y = party.y - disp_scr_y;
-        if( disp_party_x < SCR_X_MARGIN )
+        // in rock
+        if ( party.layer < 1 || party.layer >= MAXLAYER 
+                || ! party.dungeon.checkMapRange( party.x , party.y ) )
         {
-            disp_scr_x --;
-            disp_party_x ++; 
-        }
-        else if( SCRW_X_SIZ - disp_party_x - 2 < SCR_X_MARGIN )
-        {
-            disp_scr_x ++;
-            disp_party_x --; 
+            dispInRock;
+            return;
         }
 
-        if( disp_party_y < SCR_Y_MARGIN )
+        // scroll check
+        dispPartyX = party.x - dispScrX;
+        dispPartyY = party.y - dispScrY;
+        if( dispPartyX < SCR_X_MARGIN )
         {
-            disp_scr_y --;
-            disp_party_y++; 
+            dispScrX --;
+            dispPartyX ++; 
         }
-        else if( SCRW_Y_SIZ - disp_party_y - 1 < SCR_Y_MARGIN )
+        else if( SCRW_X_SIZ - dispPartyX - 2 < SCR_X_MARGIN )
         {
-            disp_scr_y ++;
-            disp_party_y --; 
+            dispScrX ++;
+            dispPartyX --; 
+        }
+
+        if( dispPartyY < SCR_Y_MARGIN )
+        {
+            dispScrY --;
+            dispPartyY++; 
+        }
+        else if( SCRW_Y_SIZ - dispPartyY - 1 < SCR_Y_MARGIN )
+        {
+            dispScrY ++;
+            dispPartyY --; 
         }
 
 
@@ -894,8 +941,8 @@ public:
         else
             xmin = party.x - SCRW_X_SIZ / 2;
 
-        if ( party.x + SCRW_X_SIZ / 2 > MAP_MAX_X - 2 )    // -2 ??? -> 78
-            xmax = MAP_MAX_X - 2;
+        if ( party.x + SCRW_X_SIZ / 2 > mapWidth - 2 )    // -2 ??? -> 78
+            xmax = mapWidth - 2;
         else
             xmax = party.x + SCRW_X_SIZ / 2;
 
@@ -905,8 +952,8 @@ public:
         else
             ymin = party.y - SCRW_Y_SIZ / 2;
 
-        if ( party.y + SCRW_Y_SIZ / 2 > MAP_MAX_Y - 1 )
-            ymax = MAP_MAX_Y - 1;
+        if ( party.y + SCRW_Y_SIZ / 2 > mapHeight - 1 )
+            ymax = mapHeight - 1;
         else
             ymax = party.y + SCRW_Y_SIZ / 2;
 
@@ -945,14 +992,8 @@ public:
         for ( y = 0; y < SCRW_Y_SIZ; y++ )
             for ( x = 0; x < SCRW_X_SIZ - 1 ; x++ )
             {
-                /* if ( party.x - SCRW_X_SIZ / 2 + x + 1 < 0  */
-                /*   || party.x - SCRW_X_SIZ / 2 + x + 1 >= MAP_MAX_X */
-                /*   || party.y - SCRW_Y_SIZ / 2 + y < 0  */
-                /*   || party.y - SCRW_Y_SIZ / 2 + y >= MAP_MAX_Y ) */
-                if ( disp_scr_x + x < 0 
-                  || disp_scr_x + x >= MAP_MAX_X
-                  || disp_scr_y + y < 0
-                  || disp_scr_y + y >= MAP_MAX_Y )
+
+                if( ! checkMapRange( dispScrX + x , dispScrY + y ) )
                 {
                     vram[ x ][ y ] = '^';
                     continue;
@@ -972,7 +1013,7 @@ public:
 
                     /* c = map[ party.y - ( SCRW_Y_SIZ / 2 ) + y ] */
                     /*        [ party.x - ( SCRW_X_SIZ / 2 ) + x + 1 ]; */
-                    c = map[ disp_scr_y + y ][ disp_scr_x + x ];
+                    c = map[ dispScrY + y ][ dispScrX + x ];
 
                     if (c == '_' && ! debugmode )  // pit
                         c = ' ';
@@ -1001,7 +1042,7 @@ public:
                 }
 
                 // 可視チェック
-                if( ! checkViewVram( disp_party_x , disp_party_y , x , y ) )
+                if( ! checkViewVram( dispPartyX , dispPartyY , x , y ) )
                 {
                     if( party.isMapper )
                     {
@@ -1064,12 +1105,12 @@ public:
         int color = MAP_CL.PARTY;
         setColor( color );
         /* mvprintw( SCRW_Y_TOP + SCRW_Y_SIZ / 2, SCRW_X_TOP + SCRW_X_SIZ / 2 - 1 , '@' ); */
-        mvprintw( SCRW_Y_TOP + disp_party_y , SCRW_X_TOP + disp_party_x , '@' );
+        mvprintw( SCRW_Y_TOP + dispPartyY , SCRW_X_TOP + dispPartyX , '@' );
         setColor( CL.NORMAL );
 
 
         // マップ用メッセージ表示
-        mapmsg.disp( disp_party_x , disp_party_y );
+        mapmsg.disp( dispPartyX , dispPartyY );
 
         // 通常メッセージ表示
         if( txtMessageDispFlg )
@@ -1219,6 +1260,21 @@ public:
         
         return true;
 
+    }
+
+    /+
+        マップ範囲内かどうかチェック
+        +/
+    bool checkMapRange( int x , int y )
+    {
+        if ( x < 0 
+          || x >= mapWidth
+          || y < 0
+          || y >= mapHeight )
+            return false;
+        else
+            return true;
+                        
     }
 
 }

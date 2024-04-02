@@ -400,8 +400,8 @@ class Event
                 presskey = false;
                 break;
             case "jump":
-                party.x = to!byte( ev[ "x" ].integer );
-                party.y = to!byte( ev[ "y" ].integer );
+                party.x = to!int( ev[ "x" ].integer );
+                party.y = to!int( ev[ "y" ].integer );
                 if( "layer" in ev)
                 {
                     party.layer = to!byte( ev[ "layer" ].integer );
@@ -413,8 +413,8 @@ class Event
                 dispHeader( HSTS.DUNGEON );
                 break;
             case "move":
-                party.x += to!byte( ev[ "dx" ].integer );
-                party.y += to!byte( ev[ "dy" ].integer );
+                party.x += ev[ "dx" ].integer;
+                party.y += ev[ "dy" ].integer;
                 party.dungeon.initDisp;
                 party.dungeon.disp;
                 dispHeader( HSTS.DUNGEON );

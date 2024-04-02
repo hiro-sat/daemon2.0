@@ -575,8 +575,8 @@ private:
             return;
         mem = member[ c - 'a' ];
         txtMessage.textout( _( " %1 will be:\n" ) , mem.name );
-        name = txtMessage.input( MAX_MEMBER_NAME );
-        txtMessage.textout( ">" );
+        name = txtMessage.input( MAX_MEMBER_NAME , "> " );
+        txtMessage.textout( "> " );
         txtMessage.textout( name );
         txtMessage.textout( "\n" );
         if ( strip( name ) == "" )
@@ -813,9 +813,9 @@ private:
         setColor( CL.MENU );
         txtMessage.textout( _( "*** enter a name for your character\n" ) );
         setColor( CL.NORMAL );
-        mem.name = txtMessage.input( MAX_MEMBER_NAME );
+        mem.name = txtMessage.input( MAX_MEMBER_NAME , "> " );
 
-        txtMessage.textout( ">" );
+        txtMessage.textout( "> " );
         txtMessage.textout( mem.name );
         txtMessage.textout( "\n" );
         if ( mem.name == "" )
@@ -982,6 +982,7 @@ private:
             {
                 case 'h':
                 case '4':
+                case LEFT_ARROW:
                     para1 = mem.getParaPtr( pnt , para0 );
                     if ( *para1 > 0)
                     {
@@ -992,6 +993,7 @@ private:
                     break;
                 case 'l':
                 case '6':
+                case RIGHT_ARROW:
                     para1 = mem.getParaPtr( pnt , para0 );
                     if ( ( *para1 + para0 < 18 ) && bonus > 0 )
                     {
@@ -1002,12 +1004,14 @@ private:
                     break;
                 case 'k':
                 case '8':
+                case UP_ARROW:
                     if (pnt > 0)
                         pnt--;
                     classnum = bonus_disp( bonus, pnt, mem );
                     break;
                 case 'j':
                 case '2':
+                case DOWN_ARROW:
                     if (pnt < 5)
                         pnt++;
                     classnum = bonus_disp( bonus, pnt, mem );

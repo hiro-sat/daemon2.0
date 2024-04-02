@@ -311,14 +311,14 @@ public:
         return;
     }
 
-    string input( int size_max )
+    string input( int size_max , string prompt = "" )
     {
-        return tline_input( size_max , text_cury + disp_y, text_curx + disp_x );
+        return tline_input( size_max , text_cury + disp_y, text_curx + disp_x , prompt );
     }
 
-    string inputSpell( Member mem , int size_max )
+    string inputSpell( Member mem , int size_max , string prompt = "" )
     {
-        return tline_input_spell( mem , size_max , text_cury + disp_y, text_curx + disp_x );
+        return tline_input_spell( mem , size_max , text_cury + disp_y, text_curx + disp_x , prompt );
     }
 
 }

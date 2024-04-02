@@ -29,10 +29,8 @@ class MapTextarea : Textarea
     {
         textout( s );
         party.dungeon.disp;
-        /* disp( party.dungeon.dispPartyX , party.dungeon.dispPartyY ); */
         return;
     }
-
 
     /*-------------------- 
        disp - マップ用一次メッセージ表示

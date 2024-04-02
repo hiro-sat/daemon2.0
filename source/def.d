@@ -5,6 +5,7 @@ import std.stdio;
 import std.file;
 import std.random;
 import std.datetime;
+import std.conv;
 
 // dub
 import mofile;
@@ -73,6 +74,20 @@ MySDL    gsdl;
 Screen   scr;
 ReadLine readline;
 ReadLine readline_spell;
+
+// left arrow: 37
+// up arrow: 38
+// right arrow: 39
+// down arrow: 40
+const char LEFT_ARROW   = 37;
+const char UP_ARROW     = 38;
+const char RIGHT_ARROW  = 39;
+const char DOWN_ARROW   = 40;
+const string CURSOR_KEY = LEFT_ARROW.to!string 
+                        ~ UP_ARROW.to!string 
+                        ~ RIGHT_ARROW.to!string 
+                        ~ DOWN_ARROW.to!string;
+
 
 enum FPS=60;
 
