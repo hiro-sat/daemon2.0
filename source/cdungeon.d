@@ -44,9 +44,7 @@ public:
 
         char keycode;
       
-        /* static char dummy_test_cnt[4]; */
-        /* strcpy (&(dummy_test_cnt[0]),"00¥n"); */
-      
+
         foreach( Map d ; dungeonMap )
             d.resetEncounterArea;
 
@@ -409,7 +407,6 @@ public:
 
         int getgold;
       
-      
         trap = get_rand( MAXTRAP );
 
         foreach( p ; party )
@@ -638,8 +635,19 @@ public:
             case TRAP.TELEPORT: /* teleporter */
                 party.ox = party.x;
                 party.oy = party.y;
-                party.x = get_rand( party.dungeon.width - 4 ) + 1;
-                party.y = get_rand( party.dungeon.height - 4 ) + 1;
+                while( party.ox == party.x && party.oy == party.y )
+                {
+                    party.x = get_rand( party.dungeon.width - 2 ) + 1;
+                    party.y = get_rand( party.dungeon.height - 2 ) + 1;
+                    if( ! party.dungeon.isPassableOrgmap( party.y , party.x ) )
+                    {
+                        party.x = party.ox;
+                        party.y = party.oy;
+                        continue;
+                    }
+                }
+                party.dungeon.setDispPos;
+                party.dungeon.initDisp;
                 party.dungeon.disp();
                 dispHeader( HSTS.DUNGEON );
                 break;

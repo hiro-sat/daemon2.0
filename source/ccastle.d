@@ -291,7 +291,6 @@ private:
             setColor( CL.MENU );
             txtMessage.textout( "\n" );
             txtMessage.textout( _( "*** ginger's forest bar ***\n"  ));
-            /* txtMessage.textout( _( "a)dd  r)emove  i)inspect\n"  )); */
             txtMessage.textout( _( "f)orm a party  i)inspect\n"  ));
             txtMessage.textout( _( "d)ivvy gold  z)leave(9)\n"  ));
             txtMessage.textout( _( "e)quip #)see character\n"  ));
