@@ -324,6 +324,8 @@ class Event
         
         // txtEventMessage.disp( party.dungeon.dispPartyX , party.dungeon.dispPartyY );
 
+        party.dungeon.textoutOff;
+
         JSONValue[] list;
         list = event[ to!string( m ) ].array;
         
