@@ -3085,9 +3085,9 @@ public:
     }
 
     /*--------------------
-       isLost - ロスト→アイテム没収
+       getLost - ロスト→アイテム没収
        --------------------*/
-    void isLost()
+    void getLost()
     {
         status = STS.LOST;
         outflag = OUT_F.BAR;

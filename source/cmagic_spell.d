@@ -1562,7 +1562,7 @@ class SpellGrace : BaseSpell
             {
                 txtMessage.textout( _( "  oops!!\n" ) );
                 if ( mem.status == STS.ASHED )
-                    mem.status = STS.LOST;
+                    mem.getLost;
                 else
                     mem.status = STS.ASHED;
             }
@@ -1587,6 +1587,8 @@ class SpellHealer : BaseSpell
     {
         foreach( target ; party )
             healOne( target , camp );
+        if( camp )
+            getChar;
         return 0;
     }
 }
