@@ -145,7 +145,9 @@ public:
         bool flg;
         bool escape;
         bool autoFlg;
+        BattleTurn bt;
       
+
         txtMessage.clear;
         party.calcAtkAC;
         get_exp = 0;
@@ -232,7 +234,8 @@ public:
             /+ -------------------- 
                 In combat !!!
                -------------------- +/
-            foreach( bt ; battleManager )
+            bt = battleManager.top;
+            while( true )
             {
                 scope(exit) messageNoWait = false;
                 if( autoFlg )
@@ -245,7 +248,7 @@ public:
                     break;
 
                 bt.act();
-
+                bt = bt.next;
             }
 
             /+ -------------------- 
