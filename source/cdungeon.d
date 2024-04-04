@@ -108,24 +108,39 @@ public:
 
             switch( keycode )
             {
+                case LEFT_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'H';
                 case 'H':
                     automode = 'h';
                     keycode = 'h';
                     automodeCheckFlg01 = party.dungeon.isPassable( party.y - 1 , party.x - 1, true );
                     automodeCheckFlg02 = party.dungeon.isPassable( party.y + 1 , party.x - 1, true );
                     break;
+
+                case DOWN_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'J';
                 case 'J':
                     automode = 'j';
                     keycode = 'j';
                     automodeCheckFlg01 = party.dungeon.isPassable( party.y + 1 , party.x - 1 , true );
                     automodeCheckFlg02 = party.dungeon.isPassable( party.y + 1 , party.x + 1 , true );
                     break;
+
+                case UP_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'K';
                 case 'K':
                     automode = 'k';
                     keycode = 'k';
                     automodeCheckFlg01 = party.dungeon.isPassable( party.y - 1 , party.x - 1 , true );
                     automodeCheckFlg02 = party.dungeon.isPassable( party.y - 1 , party.x + 1 , true );
                     break;
+
+                case RIGHT_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'L';
                 case 'L':
                     automode = 'l';
                     keycode = 'l';

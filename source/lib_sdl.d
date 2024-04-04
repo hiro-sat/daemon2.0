@@ -33,14 +33,13 @@ private:
     ubyte color_b = 20;
     ubyte color_a = 0;
 
-    // keyboard stasus
-    bool shiftkey = false;
-    bool ctrlkey = false;
-
     SDL_Window*     Window;
     SDL_Renderer*   renderer;
 
 public:
+    // keyboard stasus
+    bool shiftkey = false;
+    bool ctrlkey = false;
 
     this()
     {
