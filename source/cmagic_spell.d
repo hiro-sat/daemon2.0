@@ -1525,7 +1525,7 @@ class SpellGrace : BaseSpell
         int total;
         int plus;
 
-        if ( ! ( mem.status != STS.DEAD || mem.status != STS.ASHED ) )
+        if ( ! ( mem.status == STS.DEAD || mem.status == STS.ASHED ) )
         {
             txtMessage.textout( _( "  what?\n" ) );
         }

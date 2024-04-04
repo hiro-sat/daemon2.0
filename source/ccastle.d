@@ -1292,7 +1292,7 @@ private:
             getChar();
 
             int dice = get_rand( 99 ) + 1;
-            foreach( dot ; 0 .. dice ) 
+            foreach( dot ; 0 .. dice / 10 ) 
             {
                 txtMessage.textout( "." );
                 getChar( 50 );

@@ -402,6 +402,7 @@ class Event
                 presskey = false;
                 break;
             case "jump":
+                presskey = false;
                 party.x = to!int( ev[ "x" ].integer );
                 party.y = to!int( ev[ "y" ].integer );
                 if( "layer" in ev)
@@ -415,6 +416,7 @@ class Event
                 dispHeader( HSTS.DUNGEON );
                 break;
             case "move":
+                presskey = false;
                 party.x += ev[ "dx" ].integer;
                 party.y += ev[ "dy" ].integer;
                 party.dungeon.initDisp;
