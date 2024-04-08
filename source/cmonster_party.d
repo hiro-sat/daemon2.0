@@ -17,111 +17,79 @@ import cmonster;
 import cparty;
 
 
-class MonsterParty
+class MonsterParty : ListManager!( MonsterParty , MonsterTeam )
 {
-
-    ListManager!MonsterTeam list;
 
     char treasure; /* treasure level */
     bool suprised;
 
-
-    void top( MonsterTeam mt ){ list.top = mt ; }
-    void end( MonsterTeam mt ){ list.end = mt ; }
-    MonsterTeam top(){ return list.top; }
-    MonsterTeam end(){ return list.end; }
+    // MonsterTeam[] details;   // template
+    // MonsterTeam top;         // template
+    // MonsterTeam end;         // template
 
     this()
     {
-        list = new ListManager!MonsterTeam;
-        list.initListDetails( MAX_MONSTER_TEAM ); 
+        super( MAX_MONSTER_TEAM );
         return;
     }
 
 
     /*--------------------
-       foreach -> MonsterTeam を返す
-       http://ddili.org/ders/d.en/foreach_opapply.html
+       set encount monsters
        --------------------*/
-    int opApply( int delegate( ref MonsterTeam ) operations )  
-    {
-
-        int result = 0;
-
-        foreach( mt ; list )
-            operations( mt );
-        return result;
-    }
-    int opApply( int delegate( ref size_t ,
-                               ref MonsterTeam ) operations )  
-    {
-
-        int result = 0;
-
-        foreach( i , mt ; list )
-            operations( i , mt );
-        return result;
-    }
-
-
-
-    /*--------------------
-       encounter
-       --------------------*/
-    void encounter( int[] monsterDefNo )
+    void setEncounterMonsters( int[] monsterDefNo )
     {
 
         assert( monsterDefNo.length <= 4 );
 
         MonsterDef mondef;
         MonsterTeam mt;
-        MonsterTeam prev;
 
-        int moncount , sum;
-
-        foreach( MonsterTeam mt_ ; list )
-            mt_.initialize;
+        reset;      // clistmanager.reset -> monster team all reset
+        foreach( MonsterTeam mt_ ; details )
+            mt_.initialize;     // monsterTeam.initialize -> monster.initialize
 
         assert( (  monsterDefNo.length  >= 1 &&  monsterDefNo.length <= 4  ) 
                 , "err : count : " ~ to!string( monsterDefNo.length  ) );
 
-        top = list.details[ 0 ];
-
-        prev = null;
+        top = null;
+        end = null;
         foreach( i , d ; monsterDefNo )
-        {
-            mt = list.details[ i ];
-            mt.partyAdd( monster_data[ d ] );
-
-            if( prev is null ) 
-            {
-                // top
-                mt.previous = null;
-                mt.next = null;
-            }
-            else
-            {
-                prev.insertNext( mt );
-            }
-
-            end = mt;
-            prev = mt;
-
-        }
+            generateMonsterTeam( monster_data[ d ] );
 
         return;
     }
 
 
     /*--------------------
-       count - 登録モンスターチーム数
+       generateMonsterTeam - MonsterTeam 追加
        --------------------*/
-    int count()
+    MonsterTeam generateMonsterTeam( MonsterDef df )
     {
-        int n = 0;
-        foreach( MonsterTeam mt ; list )
-            n ++ ;
-        return n;
+
+        MonsterTeam mt;
+
+        // get empty slot
+        mt = add;
+        if( mt is null )
+            return null;
+
+        mt.addParty( df );
+        if( end is null )
+        {
+            // top
+            top = mt;
+            mt.previous = null;
+            mt.next = null;
+        }
+        else
+        {
+            end.insertNext( mt );
+        }
+        end = mt;
+
+        return mt;
+
     }
 
 
@@ -132,6 +100,7 @@ class MonsterParty
     {
         return top.def;
     }
+
 
     /*--------------------
        ident - モンスター識別（先頭）
@@ -146,6 +115,7 @@ class MonsterParty
         return;
     }
 
+
     /*--------------------
        getDispNameA - モンスター名称（先頭）（単数）
        --------------------*/
@@ -153,6 +123,8 @@ class MonsterParty
     {
         return top.getDispNameA;
     }
+
+
     /*--------------------
        getDispName - モンスター名称（先頭）（複数確認）
        --------------------*/
@@ -169,6 +141,8 @@ class MonsterParty
     {
         return getGroup( target ).getDispNameA;
     }
+
+
     /*--------------------
        getDispName - モンスター名称（指定）（複数確認）
        --------------------*/
@@ -183,11 +157,12 @@ class MonsterParty
        --------------------*/
     void updateIdentify()
     {
-        foreach( MonsterTeam mt ; list )
+        foreach( MonsterTeam mt ; this )
             if ( ! mt.ident )
               mt.ident = ( get_rand( 1 ) == 0 );
         return;
     }
+
 
     /*--------------------
        disp - モンスター表示
@@ -202,7 +177,7 @@ class MonsterParty
         monteam = top;
         actCount = 0;
 
-        foreach( no , MonsterTeam mt ; list )
+        foreach( no , MonsterTeam mt ; this )
             txtMessage.textout( "%1)%2 %3 (%4)\n" 
                             , no + 1 
                             , mt.count 
@@ -211,6 +186,7 @@ class MonsterParty
         return;
     }
 
+
     /*--------------------
        dispMonsterInfo - モンスター詳細表示
        --------------------*/
@@ -218,7 +194,7 @@ class MonsterParty
     {
         MonsterDef   monDef;    // mdefp
 
-        foreach( MonsterTeam mt ; list )
+        foreach( MonsterTeam mt ; this )
         {
             if ( ! mt.ident )
             { // unidentified
@@ -342,6 +318,7 @@ class MonsterParty
 
     }
 
+
     /*--------------------
        getGroup - グループ取得 ( 0 - 3 )
        --------------------*/
@@ -371,5 +348,26 @@ class MonsterParty
         return mt;
 
     }
+
+    void debugList()
+    {
+        writeln("/+---------------");
+        foreach( mt ; monParty )
+        {
+            writeln( "team: (" ~ mt.manager.count.to!string ~ ")" ~ mt.getDispNameA ~ "," ~ (mt.previous !is null).to!string ~ "/" ~ (mt.next !is null).to!string );
+            foreach( Monster m ; mt.manager )
+                writeln( "  monster: " ~ m.getDispNameA ~ "," ~ (m.previous !is null).to!string ~ "/" ~ (m.next !is null).to!string ~ " HP:" ~ m.hp.to!string ) ;
+        }
+        writeln("---------------+/");
+    }
+
+
+    // debug
+    override void delDetail()
+    {
+        super.delDetail;
+    }
+
+
 }
 

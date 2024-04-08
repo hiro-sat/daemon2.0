@@ -19,39 +19,33 @@ import cbattleturn;
 /**
   Battle Turn Manager
   */
-class BattleTurnManager
+class BattleTurnManager : ListManager!( BattleTurnManager , BattleTurn )
 {
 
-    ListManager!BattleTurn  list;
-    // BattleTurn top;      // template
-    // BattleTurn end;      // template
+    // BattleTurn[] details;    // template
+    // BattleTurn top;          // template
+    // BattleTurn end;          // template
 
-    BattleTurn top(){ return list.top; }
-    BattleTurn end(){ return list.end; }
-    void top( BattleTurn b ){ list.top = b; }
-    void end( BattleTurn b ){ list.end = b; }
-
-
-    this()
+    this( int length )
     {
-        list = new ListManager!BattleTurn;
-        list.initListDetails( 9 * 4 + 6 + 2 ); 
-        foreach( bt ; list.details )
-            bt.initialize( this );
-        return ;
+        super( length );
+        return;
     }
 
-    /*--------------------
-       foreach -> BattleTurn を返す
-       http://ddili.org/ders/d.en/foreach_opapply.html
-       --------------------*/
-    int opApply( int delegate( ref BattleTurn ) operations )  
+    override void reset()
     {
-        int result = 0;
+        foreach( MonsterTeam mt ; monParty )
+            foreach( Monster m ; mt.manager )
+                m.turn = null;
 
-        foreach( bt ; list )
-            operations( bt );
-        return result;
+        foreach( BattleTurn bt ; details )
+        {
+            bt.agi = 0;
+            bt.member = null;
+            bt.monster = null;
+        }
+        super.reset;
+        return;
     }
 
     /*--------------------
@@ -62,24 +56,26 @@ class BattleTurnManager
         BattleTurn  bt;
         BattleTurn  myturn;
 
-        top = list.details[ 0 ];
+        reset;
+
+        // top
+        top = add;   
         top.agi = 127; /* max */
         top.previous = null;
         top.next = null;
 
-        end = list.details[ 1 ];         
+        // end
+        end = add;
         end.agi = 0;   /* min */
         top.insertNext( end );
       
-        int index = 2;      // index 0 , 1 -> 2
-
-
         /* party member */
         if( ! party.suprised )
             foreach( p ; party )
                 if ( p.status == STS.OK )
                 {
-                    myturn = list.details[ index ++ ].setActor( p , p.agi[ 0 ] + p.agi[ 1 ] + get_rand( 4 ) );
+                    myturn = add;
+                    myturn.setActor( p , p.agi[ 0 ] + p.agi[ 1 ] + get_rand( 4 ) );
                     
                     bt = top;
                     while( true )
@@ -111,9 +107,10 @@ class BattleTurnManager
         /* monster */
         if( ! monParty.suprised )
             foreach( MonsterTeam mt ; monParty )
-                foreach( Monster m ; mt )
+                foreach( Monster m ; mt.manager )
                 {
-                    myturn = list.details[ index ++ ].setActor( m , m.def.agi + get_rand( 4 ) );
+                    myturn = add;
+                    myturn.setActor( m , m.def.agi + get_rand( 4 ) );
 
                     bt = top;
                     while( true )
@@ -137,6 +134,31 @@ class BattleTurnManager
         if( bt is end )
             return true;
         return false;
+    }
+
+
+    void debugList()
+    {
+        int i;
+        BattleTurn bt;
+
+        writeln("/+---------------");
+        i = 0 ;
+        bt = top;
+        while( bt !is null )
+        {
+            i++;
+            if( bt.member !is null )
+                writeln( i.to!string ~ ":" ~ bt.member.name ~ "," ~ (bt.previous !is null).to!string ~ "/" ~ (bt.next !is null).to!string ~ " / " ~ bt.agi.to!string );
+            else if( bt.monster !is null )
+                writeln( i.to!string ~ ":" ~ bt.monster.getDispNameA ~ "," ~ (bt.previous !is null).to!string ~ "/" ~ (bt.next !is null).to!string ~ " / " ~ bt.agi.to!string );
+            else if( bt is top )
+                writeln( i.to!string ~ ": top ," ~ (bt.previous !is null).to!string ~ "/" ~ (bt.next !is null).to!string ~ " / " ~ bt.agi.to!string );
+            else if( bt is end ) 
+                writeln( i.to!string ~ ": end ," ~ (bt.previous !is null).to!string ~ "/" ~ (bt.next !is null).to!string ~ " / " ~ bt.agi.to!string );
+            bt = bt.next;
+        }
+        writeln("---------------+/");
     }
 
 }

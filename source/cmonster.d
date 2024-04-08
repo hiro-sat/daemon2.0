@@ -19,14 +19,15 @@ import cmagic_def;
 /**
   Monster - モンスター1体を管理
   */
-class Monster
+class Monster : ListDetails!( MonsterTeamManager , Monster )
 {
 
-    ListDetails!Monster listDetails;
+    MonsterDef def() { return parent.team.def; }
 
-    /* MonsterDef  def;    // montypep */
-    MonsterDef def() { return team.def; }
-    MonsterTeam team;   // parent
+    // MonsterTeam parent;  // template
+    // Monster next;        // template
+    // Monster previous;    // templatey
+
     int maxhp;
     int hp;
     char status;   /* 0:ok, 1:sleep, 2:paralized, 3:stoned */
@@ -36,13 +37,6 @@ class Monster
     BattleTurn turn;
 
 
-    Monster next()     { return listDetails.next; }
-    Monster previous() { return listDetails.previous; }
-    void next( Monster m )     { listDetails.next     = m; }
-    void previous( Monster m ) { listDetails.previous = m; }
-
-    void insertNext( Monster m )   { listDetails.insertNext  ( this , m ); }
-    void insertBefore( Monster m ) { listDetails.insertBefore( this , m ); }
 
     @property
     {
@@ -52,13 +46,13 @@ class Monster
         byte  magdef(){ assert( def !is null , "magdef:def is null ");  return def.magdef; }
         short level() { assert( def !is null , "level:def is null ");   return def.level; }
         int   exp()   { assert( def !is null , "exp:def is null ");     return def.exp; }
-        bool  ident() { assert( def !is null , "ident:def is null ");   return team.ident; }
+        bool  ident() { assert( def !is null , "ident:def is null ");   return parent.team.ident; }
     }
 
 
-    this()
+    this( MonsterTeamManager teamManager )
     {
-        listDetails = new ListDetails!Monster();
+        super( teamManager );
         return;
     }
 
@@ -97,12 +91,10 @@ class Monster
     }
 
     /*--------------------
-       teamAdd - モンスター新規追加
+       addTeam - モンスター新規追加
        --------------------*/
-    void teamAdd( MonsterTeam mt )
+    void addTeam()
     {
-
-        team = mt;
 
         maxhp = def.minhp + get_rand( def.addhp );
         hp    = maxhp;
@@ -122,7 +114,7 @@ class Monster
     int getTeamNo()
     {
         int no = -1;
-        foreach( i , m ; team )
+        foreach( i , m ; parent )
         /* foreach( i , Monster m ; team.list ) */
         {
 
@@ -130,7 +122,7 @@ class Monster
             {
                 no = to!int( i ); 
                 break;
-                // returnが効かずに全てのforeachが実行されてしまう？
+                // 下記returnが効かずに全てのforeachが実行されてしまう？
                 // opApply の不具合？opApply をネストしてるから？
                 /* return to!int( i ); */   
             }
@@ -146,14 +138,14 @@ class Monster
        --------------------*/
     string getDispNameA()
     {
-        return team.getDispNameA;
+        return parent.team.getDispNameA;
     }
     /*--------------------
        getDispName - モンスター表示名称取得（複数確認）
        --------------------*/
     string getDispNameS()
     {
-        return team.getDispNameS;
+        return parent.team.getDispNameS;
     }
 
     /**--------------------
@@ -188,17 +180,38 @@ class Monster
     bool isDefefSlpEzy()   { return def.isDefefSlpEzy; }
 
     /**--------------------
-       del - Monster 削除
+       escape - Monster 逃げる（Monster 削除）
        --------------------*/
-    void del()
+    void escape()
     {
 
         hp = 0;
 
-        listDetails.del( this , team.list.top );
+        super.del();
 
-        if ( team.count == 0 )
-            team.del;
+        if ( parent.count == 0 )
+            parent.team.del;
+
+        /+  → しない。Loop中の BattleTurnを削除しちゃうので foreach が動かない
+        if( turn !is null )   // monster suprised -> turn is null
+            turn.del;
+        +/
+
+        return;
+    }
+
+    /**--------------------
+       del - Monster 削除
+       --------------------*/
+    override void del()
+    {
+
+        hp = 0;
+
+        super.del();
+
+        if ( parent.count == 0 )
+            parent.team.del;
 
         if( turn !is null )   // monster suprised -> turn is null
             turn.del;
@@ -241,6 +254,7 @@ class Monster
                 spell = magic_all[ monactionDetails ];
         }
 
+
         for ( i = 0; i < 100; i++ )
         {
             if ( monaction == MON_ACT.MGC )
@@ -268,10 +282,9 @@ class Monster
             case MON_ACT.RUN: /* run away */
                 txtMessage.textout( _( "A %1 runs away.\n" ) , getDispNameA );
 
-                if( turn !is null )   // monster suprised -> turn is null
-                    turn.del;
-                del;
-
+                // del;     // del でなく escape で削除する
+                escape;
+                
                 getChar();
                 break;
 
@@ -338,7 +351,7 @@ class Monster
        --------------------*/
     bool help()
     {
-        return team.callHelp;
+        return parent.team.callHelp;
     }
 
     /**--------------------

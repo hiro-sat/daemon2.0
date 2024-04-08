@@ -18,43 +18,30 @@ import clistdetail;
 /**
   Battle Turn
   */
-class BattleTurn
+class BattleTurn : ListDetails!( BattleTurnManager , BattleTurn )
 {
 private:
     char kind; /* 0:player, 1:monster */
-    BattleTurnManager parent;
-
-    ListDetails!BattleTurn  listDetails;
 
 public:
 
     int no;
 
-    BattleTurn next()     { return listDetails.next; }
-    BattleTurn previous() { return listDetails.previous; }
-    void next( BattleTurn bt )     { listDetails.next     = bt; }
-    void previous( BattleTurn bt ) { listDetails.previous = bt; }
-
-    void insertNext( BattleTurn bt )   { listDetails.insertNext  ( this , bt ); }
-    void insertBefore( BattleTurn bt ) { listDetails.insertBefore( this , bt ); }
+    // BattleTurn next;         // template
+    // BattleTurn previous;     // templatey
 
 
-    void initialize( BattleTurnManager manager )
+    this( BattleTurnManager mgr )
     {
-        listDetails = new ListDetails!BattleTurn;
-        parent = manager;
+        super( mgr );
         return;
     }
 
-    bool isPlayer()
-    {
-        return (kind == 0);
-    }
 
-    bool isMonster()
-    {
-        return (kind == 1);
-    }
+    bool isPlayer()  { return (kind == 0); }
+    bool isMonster() { return (kind == 1); }
+    Member  member;
+    Monster monster;
 
     @property
     {
@@ -77,16 +64,11 @@ public:
 
         MonsterTeam monsterTeam()
         {
-            return monster.team;
+            return monster.parent.team;     // MonsterTeamManager.team -> MonsterTeam
         }
     }
 
-    Member  member;
-    Monster monster;
     int agi;
-
-    // BattleTurn previous;     // template
-    // BattleTurn next;         // template
 
     /*--------------------
        act - 戦闘ターン実行
@@ -97,32 +79,25 @@ public:
         if (isPlayer)
         { /* member action */
             setColor( CL.NORMAL );
+            /+
             if (party.suprised)
                 return 0;
             else
-                member.act();
+            +/
+            member.act();
         }
         else if (isMonster)
         { /* monster action */
             setColor( CL.MONSTER );
+            /+
             if (monParty.suprised)
                 return 0;
             else
-                monster.act();
+            +/
+            monster.act();
         }
 
         return 0;
     }
-
-
-    /**--------------------
-       del - BattleTurn 削除
-       --------------------*/
-    void del()
-    {
-        listDetails.del( this , parent.list.top );
-        return;
-    }
-
 
 }

@@ -369,7 +369,7 @@ private bool initialize()
 
     party = new Party;
     monParty = new MonsterParty();
-    battleManager = new BattleTurnManager;
+    battleManager = new BattleTurnManager( 9 * 4 + 6 + 2 );
 
     if( inputTrapName )
     {

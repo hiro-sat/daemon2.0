@@ -2982,9 +2982,9 @@ public:
         int i, chance;
         int succeed;
 
-        chance = 50 + ( 5 * level ) - ( 10 * mt.top.def.level );
+        chance = 50 + ( 5 * level ) - ( 10 * mt.def.level );
       
-        if ( ( mt.top.def.defef & 0x40 ) == 0 )
+        if ( ( mt.def.defef & 0x40 ) == 0 )
             goto FAIL;
       
         if ( Class == CLS.LOR )
@@ -3002,7 +3002,7 @@ public:
               succeed++;
       
         for (i = 0; i < succeed; i++)
-            mt.top.del;
+            mt.getRandMonster.del;
       
         if ( succeed > 0 )
         {
@@ -3064,6 +3064,7 @@ public:
        --------------------*/
     MonsterTeam getTargetMonsterTeam()
     {
+        assert( targetMonster !is null );
         if( ! targetMonster.isExist )
             return monParty.top;
         return targetMonster;

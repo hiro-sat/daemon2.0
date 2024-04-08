@@ -1,48 +1,59 @@
 import std.stdio;
 import std.conv;
 
+import clistmanager;
 
-class ListDetails( T )
+
+class ListDetails( P , T )
 {
 
     /*--------------------
        自分自身が 子メンバの場合の処理
        --------------------*/
+    P parent;
     T previous;
     T next;
+
+    this( P mgr )
+    {
+        parent = mgr;
+        return;
+    }
 
     /*--------------------
        del 
        --------------------*/
-    void del( T me , ref T top )
+    void del()
     {
-
-        if( me is top )
-        {
-            if( me.next is null )
-                top = null;
-            else
-                top = me.next;
-        }
-
 
         if( previous is null && next is null )
         {
-            // nothing to do 
-        }
-        else if( previous !is null && next is null )
-        {
-            previous.next = null;
+            // 最後の１要素を削除
+            parent.top = null;
+            parent.end = null;
         }
         else if( previous is null && next !is null )
         {
+            // top is me
+            parent.top = next;
             next.previous = null;
+        }
+        else if( previous !is null && next is null )
+        {
+            // end is me
+            parent.end = previous;
+            previous.next = null;
         }
         else if( previous !is null && next !is null )
         {
             previous.next = next;
             next.previous = previous;
         }
+
+        previous = null;
+        next = null;
+
+        parent.delDetail();
 
         return;
 
@@ -51,21 +62,22 @@ class ListDetails( T )
     /*--------------------
        insertNext
        --------------------*/
-    void insertNext( T me , T i )
+    void insertNext( T ins )
     {
         if( next is null )
         {
-            next = i;
-            i.previous = me;
-            i.next = null;
+            next = ins;
+            ins.previous = cast(T) this;
+            ins.next = null;
         }
         else
         {
-            next.previous = i;
-            i.previous = me;
+            next.previous = ins;
 
-            i.next = next;
-            next = i;
+            ins.next = next;
+            ins.previous = cast(T) this;
+
+            next = ins;
         }
 
         return;
@@ -74,25 +86,24 @@ class ListDetails( T )
     /*--------------------
        insertBefore
        --------------------*/
-    void insertBefore( T me , T i )
+    void insertBefore( T ins )
     {
         if( previous is null )
         {
-            previous = i;
-            i.next = me;
-            i.previous = null;
+            previous = ins;
+            ins.next = cast(T) this;
+            ins.previous = null;
         }
         else
         {
-            previous.next = i;
-            i.next = me;
+            previous.next = ins;
 
-            i.previous = previous;
-            previous = i;
+            ins.previous = previous;
+            ins.next = cast(T) this;
+
+            previous = ins;
         }
         return;
     }
 
 }
-
-

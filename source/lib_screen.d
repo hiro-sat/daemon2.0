@@ -136,18 +136,15 @@ private:
        --------------------*/
     bool checkBufferDoesNotChange()
     {
-        /* writeln( "checkBufferDoesNotChange." ); */
         for( int y = 0 ; y < TEXT_HEIGHT ; y++ )
             for( int x = 0 ; x < TEXT_WIDTH ; x++ )
             {
                 if(  ( _buffer[ x ][ y ].text != buffer[ x ][ y ].text )
                   || ( _buffer[ x ][ y ].color != buffer[ x ][ y ].color ) )
                 {
-                    /* writeln( "change." ); */
                     return false;
                 }
             }
-        /* writeln( "same." ); */
         return true;
     }
 
@@ -276,8 +273,6 @@ public:
             if( count != 0 )
             {
                 count --;
-                // gsdl.delay( 2 );
-                /* writeln( " same - delay. " ); */
                 return;
             }
 
@@ -293,10 +288,6 @@ public:
                 if( buf.text.length > 1 )
                     x++;    // 全角幅
             }
-
-        /* writef( "disp. %d\n" , counter ); */
-        /* if( counter ++ > 1000 ) */
-        /*     counter = 0; */
 
         saveBuffer;
         count = 3;  // たまに更新されない？

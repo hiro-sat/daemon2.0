@@ -150,8 +150,7 @@ public:
         /* 画面表示 */
         SDL_RenderPresent( renderer );
 
-        gsdl.delay( 1 );
-        /* gsdl.delay( 16 ); */
+        // gsdl.delay( 1 );
 
         return;
     }

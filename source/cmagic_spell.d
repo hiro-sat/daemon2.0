@@ -111,7 +111,7 @@ class BaseSpell
        --------------------*/
     void attackOne( Member p , Monster m )
     {
-        MonsterTeam mt = m.team;
+        MonsterTeam mt = m.parent.team;
 
         int damage;
 
@@ -155,7 +155,6 @@ class BaseSpell
                 m.marksUp;
                 p.marks ++;
           
-                m.turn.del;
                 m.del;
             }
             getChar();
@@ -168,13 +167,14 @@ class BaseSpell
        --------------------*/
     void attackGroup( Member p , MonsterTeam mt )
     {
-        Monster m;
+        Monster m , next ;
 
         m = mt.top;
         while( m !is null )
         {
+            next = m.next;
             attackOne( p , m );
-            m = m.next;
+            m = next;
         }
         return;
     }
@@ -184,13 +184,14 @@ class BaseSpell
        --------------------*/
     void attackAll( Member p )
     {
-        MonsterTeam mt;
+        MonsterTeam mt , next ;
 
         mt = monParty.top;
         while( mt !is null )
         {
+            next = mt.next;
             attackGroup( p , mt );
-            mt = mt.next;
+            mt = next;
         }
         return;
     }
@@ -201,11 +202,12 @@ class BaseSpell
        --------------------*/
     void vanish( Member p , MonsterTeam mt )
     {
-        Monster m;
+        Monster m , next ;
 
         m = mt.top;
         while( m !is null )
         {
+            next = m.next;
             if ( m.def.level < 8 )
             {
                 txtMessage.textout( _( "  %1 is vanished!\n" ) , m.getDispNameA );
@@ -214,7 +216,6 @@ class BaseSpell
                 m.marksUp;
                 p.marks ++;
 
-                m.turn.del;
                 m.del;
             }
             else
@@ -222,7 +223,7 @@ class BaseSpell
                 txtMessage.textout( _( "  %1 is alive.\n" ) , m.getDispNameA );
             }
             getChar();
-            m = m.next;
+            m = next;
         }
         return;
     }
@@ -379,15 +380,15 @@ class BaseSpell
        --------------------*/
     void monsterAcDownAll( Monster m )
     {
-        Monster mon = m.team.top;
+        Monster mon = m.parent.top;
         while( mon !is null )
         {
             mon.acplus += magicDef.min;
             mon = mon.next;
         }
         txtMessage.textout( N_( "  %1's AC -%2.\n" 
-                   , "  %1' AC -%2.\n", m.team.count )
-                        , m.team.getDispNameS , magicDef.min );
+                   , "  %1' AC -%2.\n", m.parent.count )
+                        , m.getDispNameS , magicDef.min );
         party.dispPartyWindow_NoReorder();
         return;
     }
@@ -1343,7 +1344,6 @@ class SpellDeath: BaseSpell
             m.marksUp;
             p.marks ++;
 
-            m.turn.del;
             m.del;
         }
         else
