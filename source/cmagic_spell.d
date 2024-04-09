@@ -189,7 +189,7 @@ class BaseSpell
         mt = monParty.top;
         while( mt !is null )
         {
-            next = mt.next;
+            next = mt.next;     // 倒されたときのために事前に保存
             attackGroup( p , mt );
             mt = next;
         }
@@ -727,10 +727,12 @@ class SpellGvanish : BaseSpell
     // battle only
     override int castSpell( Member p , bool camp = true )
     {
-        MonsterTeam mt = monParty.top;
+        MonsterTeam mt , next;
 
+        mt = monParty.top;
         while( mt !is null )
         {
+            next = mt.next;     // 倒されたときのために事前に保存
             vanish( p , mt );
             mt = mt.next;
         }

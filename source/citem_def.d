@@ -4,6 +4,7 @@
 import std.stdio;
 import std.conv;
 import std.string;
+import std.math;
 
 // mysource 
 import def;
@@ -73,8 +74,28 @@ public:
         unname    = to!string( data[ i++ ] );
 
         kind      = cast( ITM_KIND ) to!byte( data[ i++ ] );
-        Class     = cast( byte ) parse!(int)( data[ i++ ], 16);
-        Align     = cast( byte ) parse!(int)( data[ i++ ], 16);
+
+        /* Class     = cast( byte ) parse!(int)( data[ i++ ], 16); */
+        Class = 0 ;
+        for( int j = 7 ; j >= 0 ; j -- )
+            if( to!int( data[ i++ ] ) == 1 )
+                Class += pow( 2 , j );
+
+        /* Align     = cast( byte ) parse!(int)( data[ i++ ], 16); */
+        Align = 0;
+        if( to!int( data[ i++ ] ) == 1 )
+            Align += pow( 2 , 7);       // Good
+        if( to!int( data[ i++ ] ) == 1 )
+            Align += pow( 2 , 6);       // Evel
+        if( to!int( data[ i++ ] ) == 1 )
+            Align += pow( 2 , 5);       // Neutral
+        if( to!int( data[ i++ ] ) == 1 )
+            Align += pow( 2 , 0);       // Curse Good
+        if( to!int( data[ i++ ] ) == 1 )
+            Align += pow( 2 , 1);       // Curse Evil
+        if( to!int( data[ i++ ] ) == 1 )
+            Align += pow( 2 , 2);       // Curse Neutral
+
         ac        = cast(short) to!int( data[ i++ ] );
         gold      = to!int( data[ i++ ] );
 
@@ -82,8 +103,18 @@ public:
         atk[0]    = cast(short) to!int( data[ i++ ] );
         atk[1]    = cast(short) to!int( data[ i++ ] );
         atk[2]    = cast(short) to!int( data[ i++ ] );
-        atkef     = cast( byte ) parse!(int)( data[ i++ ], 16);
-        defef     = cast( byte ) parse!(int)( data[ i++ ], 16);
+
+        /* atkef     = cast( byte ) parse!(int)( data[ i++ ], 16); */
+        atkef = 0;
+        for( int j = 7 ; j >= 0 ; j -- )
+            if( to!int( data[ i++ ] ) == 1 )
+                 atkef += pow( 2 , j );
+
+        /* defef     = cast( byte ) parse!(int)( data[ i++ ], 16); */
+        defef = 0 ;
+        for( int j = 7 ; j >= 0 ; j -- )
+            if( to!int( data[ i++ ] ) == 1 )
+                defef += pow( 2 , j );
 
         magdef    = to!byte( data[ i++ ] );
         hpPlus    = to!byte( data[ i++ ] );

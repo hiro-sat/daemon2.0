@@ -1,109 +1,118 @@
-0	broken_item	broken	5	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0				0	0
-1	long_sword	sword	0	87	0	0	25	1	1	7	0	0	0	0	0	0	0	0				0	0
-2	short_sword	sword	0	c7	0	0	15	1	1	5	0	0	0	0	0	0	0	0				0	0
-3	mace	staff	0	af	0	0	30	1	2	4	0	0	0	0	0	0	0	0				0	0
-4	flail	staff	0	a7	0	0	150	1	1	6	0	0	0	0	0	0	0	0				0	0
-5	staff	staff	0	ff	0	0	10	1	1	4	0	0	0	0	0	0	0	0				0	0
-6	dagger	dagger	0	d7	0	0	5	1	1	3	0	0	0	0	0	0	0	0				0	0
-7	bow	bow	0	ff	0	0	1800	2	1	3	0	0	0	0	0	0	0	0				0	0
-8	small_shield	shield	2	ef	0	-2	20	1	0	0	0	0	0	0	0	0	0	0				0	0
-9	large_shield	shield	2	a7	0	-3	40	1	0	0	0	0	0	0	0	0	0	0				0	0
-10	robes	clothing	1	ff	0	-1	15	1	0	0	0	0	0	0	0	0	0	0				0	0
-11	robes-1	clothing	1	ff	7	0	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-12	m.howell_shirt	clothing	1	a	0	-2	160	1	0	0	0	0	0	0	0	0	0	0				0	0
-13	leather_armor	armor	1	ef	0	-2	50	1	0	0	0	0	0	0	0	0	0	0				0	0
-14	chain_mail	armor	1	a7	0	-3	90	1	0	0	0	0	0	0	0	0	0	0				0	0
-15	breast_plate	armor	1	a7	0	-4	200	1	0	0	0	0	0	0	0	0	0	0				0	0
-16	plate_mail	armor	1	87	0	-5	750	1	0	0	0	0	0	0	0	0	0	0				0	0
-17	helm	helm	3	87	0	-1	100	1	0	0	0	0	0	0	0	0	0	0				0	0
-18	potion_of_heal	potion	5	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0	heal	heal		100	0
-19	potion_of_detxify	potion	5	0	0	0	300	1	0	0	0	0	0	0	0	0	0	0	detxify	detxify		100	0
-30	long_sword+1	sword	0	87	0	0	10000	1	2	7	2	0	0	0	0	0	0	0				0	0
-31	short_sword+1	sword	0	c7	0	0	15000	1	2	5	2	0	0	0	0	0	0	0				0	0
-32	mace+1	staff	0	af	0	0	12500	1	3	6	2	0	0	0	0	0	0	0				0	0
-33	staff_of_protct	staff	0	18	0	0	3000	1	1	5	0	0	0	0	0	0	0	0		protct		25	0
-34	bow+1	bow	0	ff	0	0	8000	2	2	3	1	0	0	0	0	0	0	0				0	0
-35	whip	whip	0	e7	0	0	1200	2	1	5	0	0	0	0	0	0	0	0				0	0
-36	scroll_of_sleep	scroll	5	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0		sleep		100	0
-37	leather_armor+1	armor	1	ef	0	-3	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-38	chain_mail+1	armor	1	a7	0	-4	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-39	plate_mail+1	armor	1	87	0	-6	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-40	shield+1	shield	2	a7	0	-4	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-41	breast_plate+1	armor	1	a7	0	-5	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-42	antwerp_sweater	clothing	1	a	0	-3	580	1	0	0	0	0	0	0	0	0	0	0				0	0
-43	garcon_jacket(e)	clothing	1	a	45	-4	1200	1	0	0	0	0	0	0	0	0	0	0				0	0
-44	scroll_of_curse	scroll	5	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0		curse		25	0
-45	scroll_of_fire	scroll	5	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0		fire		100	0
-46	long_sword-1	sword	0	87	7	0	1000	1	1	7	0	0	0	0	0	0	0	0				0	0
-47	short_sword-1	sword	0	c7	7	0	1000	1	1	5	1	0	0	0	0	0	0	0				0	0
-48	mace-1	staff	0	af	7	0	1000	1	2	4	1	0	0	0	0	0	0	0				0	0
-49	staff+2	staff	0	ff	0	0	2500	1	3	3	1	0	0	0	0	0	0	0				0	0
-60	bow+2	bow	0	ff	0	0	16000	2	3	4	2	0	0	0	0	0	0	0				0	0
-61	bow-1	bow	0	ff	7	0	8000	2	1	0	0	0	0	0	0	0	0	0				0	0
-62	whip+1	whip	0	cf	0	0	5800	2	2	5	2	0	0	0	0	0	0	0				0	0
-63	helm+1	helm	3	87	0	-2	3000	1	0	0	0	0	0	0	0	0	0	0				0	0
-64	leather_armor-1	armor	1	ee	7	-1	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-65	chain_mail-1	armor	1	a7	7	-2	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-66	breast_plate-1	armor	1	a7	7	-3	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-67	armani_suits	clothing	1	a	0	-5	5600	1	0	0	0	0	0	0	0	0	0	0				0	0
-68	shield-1	shield	2	a7	7	1	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-69	amulet_of_jewels	amulet	5	0	0	0	5000	1	0	0	0	0	0	0	0	0	0	0	map			0	0
-70	scroll_of_curse	scroll	5	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0		curse		25	0
-71	potion_of_xharden	potion	5	0	0	0	1500	1	0	0	0	0	0	0	0	0	0	0		xharden		100	0
-72	long_sword+2	sword	0	87	0	0	4000	1	3	9	3	0	0	0	0	0	0	0				0	0
-73	short_sword+2	sword	0	c7	0	0	4000	1	3	5	3	0	0	0	0	0	0	0				0	0
-74	mace+2	staff	0	af	0	0	4000	1	3	7	2	0	0	0	0	0	0	0				0	0
-75	scroll_of_light	scroll	5	0	0	0	2500	1	0	0	0	0	0	0	0	0	0	0	light			100	0
-76	scroll_of_panic	scroll	5	0	0	0	2500	1	0	0	0	0	0	0	0	0	0	0		panic		100	0
-77	gloves_of_copper	gauntlets	4	87	0	-1	6000	1	0	0	0	0	0	0	0	0	0	0				0	0
-78	leather_armor+2	armor	1	ef	0	-4	6000	1	0	0	0	0	0	0	0	0	0	0				0	0
-79	chain_mail+2	armor	1	a7	0	-5	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-80	plate_mail+2	armor	1	87	0	-7	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-90	shield+2	shield	2	a7	0	-5	7000	1	0	0	0	0	0	0	0	0	0	0				0	0
-91	helm+2(e)	helm	3	87	45	-3	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-92	potion_of_mheal	potion	5	0	0	0	5000	1	0	0	0	0	0	0	0	0	0	0	mheal	mheal		100	0
-93	ring_of_protct	ring	5	0	0	0	10000	1	0	0	0	0	0	0	0	0	0	0		protct		5	0
-94	were_slayer	sword	0	87	0	0	10000	1	2	9	2	8	0	0	0	0	0	0				0	0
-95	demon_slayer	sword	0	87	0	0	16000	1	4	7	2	2	0	0	0	0	0	0				0	0
-96	dragon_slayer	sword	0	87	0	0	18000	1	5	7	3	4	0	0	0	0	0	0				0	0
-97	mace_of_posion	staff	0	af	0	0	10000	1	1	7	2	0	0	0	0	0	0	0				0	0
-98	staff_of_silenc	staff	0	ff	0	0	15000	1	2	4	1	2	0	0	0	0	0	0		silenc		10	5
-99	gradius	sword	0	87	0	0	80000	1	10	2	4	0	0	0	0	0	0	0				0	0
-100	amulet_of_bind	amulet	5	20	0	0	15000	1	0	0	0	0	0	0	0	0	0	0		bind		10	0
-101	rod_of_xflames	rod	5	1c	0	0	25000	1	0	0	0	0	0	0	0	0	0	0		xflames		10	0
-102	amulet_of_vanish	amulet	5	ff	0	0	20000	1	0	0	0	0	0	0	0	0	0	0		vanish		5	0
-103	ring_of_telept	ring	3	ff	0	-2	25000	1	0	0	0	0	0	0	0	0	0	0	telept			100	17
-104	scroll_of_mcurse	scroll	5	0	0	0	8000	1	0	0	0	0	0	0	0	0	0	0		mcurse		100	0
-105	short_sword-2	sword	0	c7	7	0	8000	1	1	5	1	0	0	0	0	0	0	0				0	0
-106	dagger+2	dagger	0	d7	0	0	8000	1	3	3	2	0	0	0	0	0	0	0				0	0
-107	mace-2	staff	0	af	7	0	8000	1	1	7	0	0	0	0	0	0	0	0				0	0
-108	staff-2	staff	0	ff	7	0	8000	1	1	3	1	0	0	0	0	0	0	0				0	0
-109	dagger_of_speed	dagger	0	11	0	3	30000	1	1	3	7	0	0	0	0	0	0	0				0	0
-110	robes-3	clothing	1	ff	7	2	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-111	leather-2	armor	1	eb	7	0	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-112	chain_mail-2	armor	1	a7	7	-1	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-113	breast_plate-2	armor	1	a7	7	-2	1500	1	0	0	0	0	0	0	0	0	0	0				0	0
-114	shield-2	shield	2	e7	7	0	8000	1	0	0	0	0	0	0	0	0	0	0				0	0
-115	helm-3	helm	3	87	7	2	50000	1	0	0	0	0	0	0	0	0	0	0				0	0
-130	giant_slayer	sword	0	87	0	0	18000	1	3	10	3	10	0	0	0	0	0	0				0	0
-131	vampire_killer	whip	0	af	0	0	300000	2	4	9	3	2	0	0	0	0	0	0				0	0
-132	breast_plate+2	armor	1	a7	0	-6	10000	1	0	0	0	0	0	0	0	0	0	0				0	0
-133	battle_suits	armor	1	87	0	-8	28000	1	0	0	0	0	0	0	0	0	0	0				0	0
-134	gloves_of_silver	gauntlets	4	87	0	-3	60000	1	0	0	0	0	0	0	0	0	0	0				0	0
-135	fox_gon's_mittens	mittens	4	ff	a2	-2	80	1	0	0	0	0	3	0	0	0	0	0				0	0
-136	lords'_crown	helm	3	2	0	-4	700000	1	0	0	0	0	80	0	0	0	0	0				0	0
-137	vorpal_weapon	sword	0	82	0	0	240000	1	10	15	2	1d	0	0	0	0	0	0				0	0
-138	dagger_of_thieves	dagger	0	41	0	0	50000	1	1	5	4	0	0	0	0	1	0	0				100	0
-139	breast_plate+3	armor	1	a7	0	-7	100000	1	0	0	0	0	0	0	0	0	0	0				0	0
-140	cold_chain_mail	armor	1	a7	0	-6	150000	1	0	0	0	0	4	0	0	0	0	0				0	0
-141	vader's_cloak(e)	armor	1	87	45	-9	150000	1	0	0	0	0	0	0	0	0	0	0				0	0
-142	shield+3	shield	2	e7	0	-6	250000	1	0	0	0	0	0	0	0	0	0	0				0	0
-143	shurikens	stars	0	1	45	0	50000	1	10	20	3	0	9	0	0	0	0	2				50	0
-144	ring_of_healing	ring	5	ff	0	0	300000	1	0	0	0	0	0	0	1	0	0	0				0	0
-145	priest_ring	ring	5	ff	0	0	500000	1	0	0	0	0	1	0	0	0	0	0				0	0
-146	garb_of_lords	armor	1	2	0	-10	1000000	1	0	0	0	80	89	0	1	4	0	0				100	0
-147	book_of_kaiden	book	5	0	0	0	1000000	1	0	0	0	0	0	0	0	0	0	0				0	0
-148	muramasa_katana	weapon	0	4	0	0	1000000	1	20	40	3	2	0	0	0	0	0	3				50	0
-149	The_Muramasa_Blade!	WEAPON	0	4	0	0	10000000	1	180	40	3	2	ff	0	0	5	0	0				100	0
-170	vorpal_tooth	tooth	5	0	0	0	200	1	0	0	0	0	0	0	0	0	0	0				0	0
-171	diary	book	5	0	0	0	200	1	0	0	0	0	0	0	0	0	0	0				0	0
+0	broken_item	broken	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+1	long_sword	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	25	1	1	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+2	short_sword	sword	0	1	1	0	0	0	1	1	1	0	0	0	0	0	0	0	15	1	1	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+3	mace	staff	0	1	0	1	0	1	1	1	1	0	0	0	0	0	0	0	30	1	2	4	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+4	flail	staff	0	1	0	1	0	0	1	1	1	0	0	0	0	0	0	0	150	1	1	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+5	staff	staff	0	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	10	1	1	4	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+6	dagger	dagger	0	1	1	0	1	0	1	1	1	0	0	0	0	0	0	0	5	1	1	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+7	bow	bow	0	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	1800	2	1	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+8	small_shield	shield	2	1	1	1	0	1	1	1	1	0	0	0	0	0	0	-2	20	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+9	large_shield	shield	2	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-3	40	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+10	robes	clothing	1	1	1	1	1	1	1	1	1	0	0	0	0	0	0	-1	15	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+11	robes-1	clothing	1	1	1	1	1	1	1	1	1	0	0	0	1	1	1	0	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+12	m.howell_shirt	clothing	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	-2	160	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+13	leather_armor	armor	1	1	1	1	0	1	1	1	1	0	0	0	0	0	0	-2	50	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+14	chain_mail	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-3	90	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+15	breast_plate	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-4	200	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+16	plate_mail	armor	1	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-5	750	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+17	helm	helm	3	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-1	100	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+18	potion_of_heal	potion	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	heal	heal		100	0
+19	potion_of_detxify	potion	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	300	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	detxify	detxify		100	0
+30	long_sword+1	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	10000	1	2	7	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+31	short_sword+1	sword	0	1	1	0	0	0	1	1	1	0	0	0	0	0	0	0	15000	1	2	5	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+32	mace+1	staff	0	1	0	1	0	1	1	1	1	0	0	0	0	0	0	0	12500	1	3	6	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+33	staff_of_protct	staff	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	3000	1	1	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		protct		25	0
+34	bow+1	bow	0	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	8000	2	2	3	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+35	whip	whip	0	1	1	1	0	0	1	1	1	0	0	0	0	0	0	0	1200	2	1	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+36	scroll_of_sleep	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		sleep		100	0
+37	leather_armor+1	armor	1	1	1	1	0	1	1	1	1	0	0	0	0	0	0	-3	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+38	chain_mail+1	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-4	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+39	plate_mail+1	armor	1	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-6	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+40	shield+1	shield	2	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-4	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+41	breast_plate+1	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-5	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+42	antwerp_sweater	clothing	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	-3	580	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+43	garcon_jacket(e)	clothing	1	0	0	0	0	1	0	1	0	0	1	0	1	0	1	-4	1200	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+44	scroll_of_curse	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		curse		25	0
+45	scroll_of_fire	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		fire		100	0
+46	long_sword-1	sword	0	1	0	0	0	0	1	1	1	0	0	0	1	1	1	0	1000	1	1	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+47	short_sword-1	sword	0	1	1	0	0	0	1	1	1	0	0	0	1	1	1	0	1000	1	1	5	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+48	mace-1	staff	0	1	0	1	0	1	1	1	1	0	0	0	1	1	1	0	1000	1	2	4	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+49	staff+2	staff	0	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	2500	1	3	3	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+60	bow+2	bow	0	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	16000	2	3	4	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+61	bow-1	bow	0	1	1	1	1	1	1	1	1	0	0	0	1	1	1	0	8000	2	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+62	whip+1	whip	0	1	1	0	0	1	1	1	1	0	0	0	0	0	0	0	5800	2	2	5	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+63	helm+1	helm	3	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-2	3000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+64	leather_armor-1	armor	1	1	1	1	0	1	1	1	0	0	0	0	1	1	1	-1	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+65	chain_mail-1	armor	1	1	0	1	0	0	1	1	1	0	0	0	1	1	1	-2	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+66	breast_plate-1	armor	1	1	0	1	0	0	1	1	1	0	0	0	1	1	1	-3	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+67	armani_suits	clothing	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	-5	5600	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+68	shield-1	shield	2	1	0	1	0	0	1	1	1	0	0	0	1	1	1	1	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+69	amulet_of_jewels	amulet	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	map			0	0
+70	scroll_of_curse	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		curse		25	0
+71	potion_of_xharden	potion	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		xharden		100	0
+72	long_sword+2	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	4000	1	3	9	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+73	short_sword+2	sword	0	1	1	0	0	0	1	1	1	0	0	0	0	0	0	0	4000	1	3	5	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+74	mace+2	staff	0	1	0	1	0	1	1	1	1	0	0	0	0	0	0	0	4000	1	3	7	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+75	scroll_of_light	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	light			100	0
+76	scroll_of_panic	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		panic		100	0
+77	gloves_of_copper	gauntlets	4	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-1	6000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+78	leather_armor+2	armor	1	1	1	1	0	1	1	1	1	0	0	0	0	0	0	-4	6000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+79	chain_mail+2	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-5	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+80	plate_mail+2	armor	1	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-7	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+90	shield+2	shield	2	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-5	7000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+91	helm+2(e)	helm	3	1	0	0	0	0	1	1	1	0	1	0	1	0	1	-3	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+92	potion_of_mheal	potion	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	mheal	mheal		100	0
+93	ring_of_protct	ring	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	10000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		protct		5	0
+94	were_slayer	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	10000	1	2	9	2	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+95	demon_slayer	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	16000	1	4	7	2	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+96	dragon_slayer	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	18000	1	5	7	3	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+97	mace_of_posion	staff	0	1	0	1	0	1	1	1	1	0	0	0	0	0	0	0	10000	1	1	7	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+98	staff_of_silenc	staff	0	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	15000	1	2	4	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0		silenc		10	0
+99	gradius	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	80000	1	10	2	4	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+100	amulet_of_bind	amulet	5	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	15000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		bind		10	0
+101	rod_of_xflames	rod	5	0	0	0	1	1	1	0	0	0	0	0	0	0	0	0	25000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		xflames		10	0
+102	amulet_of_vanish	amulet	5	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	20000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		vanish		5	0
+103	ring_of_telept	ring	3	1	1	1	1	1	1	1	1	0	0	0	0	0	0	-2	25000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	telept			100	0
+104	scroll_of_mcurse	scroll	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		mcurse		100	0
+105	short_sword-2	sword	0	1	1	0	0	0	1	1	1	0	0	0	1	1	1	0	8000	1	1	5	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+106	dagger+2	dagger	0	1	1	0	1	0	1	1	1	0	0	0	0	0	0	0	8000	1	3	3	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+107	mace-2	staff	0	1	0	1	0	1	1	1	1	0	0	0	1	1	1	0	8000	1	1	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+108	staff-2	staff	0	1	1	1	1	1	1	1	1	0	0	0	1	1	1	0	8000	1	1	3	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+109	dagger_of_speed	dagger	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	3	30000	1	1	3	7	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+110	robes-3	clothing	1	1	1	1	1	1	1	1	1	0	0	0	1	1	1	2	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+111	leather-2	armor	1	1	1	1	0	1	0	1	1	0	0	0	1	1	1	0	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+112	chain_mail-2	armor	1	1	0	1	0	0	1	1	1	0	0	0	1	1	1	-1	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+113	breast_plate-2	armor	1	1	0	1	0	0	1	1	1	0	0	0	1	1	1	-2	1500	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+114	shield-2	shield	2	1	1	1	0	0	1	1	1	0	0	0	1	1	1	0	8000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+115	helm-3	helm	3	1	0	0	0	0	1	1	1	0	0	0	1	1	1	2	50000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+130	giant_slayer	sword	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	18000	1	3	10	3	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+131	vampire_killer	whip	0	1	0	1	0	1	1	1	1	0	0	0	0	0	0	0	300000	2	4	9	3	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+132	breast_plate+2	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-6	10000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+133	battle_suits	armor	1	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-8	28000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+134	gloves_of_silver	gauntlets	4	1	0	0	0	0	1	1	1	0	0	0	0	0	0	-3	60000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+135	fox_gon's_mittens	mittens	4	1	1	1	1	1	1	1	1	1	0	1	0	1	0	-2	80	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0				0	0
+136	lords'_crown	helm	3	0	0	0	0	0	0	1	0	0	0	0	0	0	0	-4	700000	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+137	vorpal_weapon	sword	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	240000	1	10	15	2	0	0	0	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+138	dagger_of_thieves	dagger	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	50000	1	1	5	4	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0				100	0
+139	breast_plate+3	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-7	100000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+140	cold_chain_mail	armor	1	1	0	1	0	0	1	1	1	0	0	0	0	0	0	-6	150000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0				0	0
+141	vader's_cloak(e)	armor	1	1	0	0	0	0	1	1	1	0	1	0	1	0	1	-9	150000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+142	shield+3	shield	2	1	1	1	0	0	1	1	1	0	0	0	0	0	0	-6	250000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+143	shurikens	stars	0	0	0	0	0	0	0	0	1	0	1	0	1	0	1	0	50000	1	10	20	3	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	2				50	0
+144	ring_of_healing	ring	5	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	300000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0				0	0
+145	priest_ring	ring	5	1	1	1	1	1	1	1	1	0	0	0	0	0	0	0	500000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0				0	0
+146	garb_of_lords	armor	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	-10	1000000	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	1	0	1	4	0	0				100	0
+147	book_of_kaiden	book	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1000000	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+148	muramasa_katana	weapon	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1000000	1	20	40	3	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	3				50	0
+149	The_Muramasa_Blade!	WEAPON	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	10000000	1	180	40	3	0	0	0	0	0	0	1	0	1	1	1	1	1	1	1	1	0	0	5	0	0				100	0
+170	vorpal_tooth	tooth	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	200	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+171	diary	book	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	200	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0				0	0
+9999
+#	name	unname	ITEM_KIND	FIG	 THI	 PRI	 MAG	 BIS	 SAM	 LOR	 NIN	Good	Evil	Neut	C.Good	C.Evil	C.Neut	ac	gold	range	Atk[0] min	Atk[1] add	Atk[2] add Count	atkef7:critical	atkef6:stone	atkef5:sleep	atkef4:human*2	atkef3:animal*2	atkef2:dragon*2	atkef1:demon*2	atkef0:insect*2	defef7:critical	defef6:stone	defef5:paralize	defef4:sleep	defef3:poison	defef2:fire	defef1:cold	defef0:drain	magdef	hpPlus	Effect[0] camp	Effect[1] battle	Effect[2] equip	EfeMagic[0] camp	EfeMagic[1] battle	EfeMagic[2] equip	brokenk%	brokento
+
+
+ITM_KIND kind; /* 0:weapon,1:armor,2:shield,3:helm,4:gloves,5:item */
+byte Class; /* bit7:FIG, bit6:THI, bit5:PRI, bit4:MAG*/
+            /* bit3:BIS, bit2:SAM, bit1:LOR, bit0:NIN */
+byte Align; /* 0:ok/1:ng, bit7:Good, bit6:Evil, bit5:Newtral */
+            /* curse - bit0:good,bit1:evil,bit2:neutral */
