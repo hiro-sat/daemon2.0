@@ -122,6 +122,8 @@ void appSave()
     saveBoltac();
     saveMarks();
 
+    if( party.layer != 0  )
+        party.saveLocate();
     party.setMemberLocate();
     saveCharacter();
 

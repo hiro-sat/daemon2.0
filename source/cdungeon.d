@@ -1108,7 +1108,7 @@ private:
                     txtMessage.textout( ch );
                     txtMessage.textout( _( "\nquit game ...\n" ) );
 
-                    party.saveLocate;
+                    // party.saveLocate;    appSave内で実行
                     appSave;
 
                     txtMessage.textout( _( "  leave game(y(1)/n(2))? \n" ) );

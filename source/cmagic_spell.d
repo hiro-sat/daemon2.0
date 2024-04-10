@@ -336,6 +336,7 @@ class BaseSpell
                 p.status = STS.DEAD; /* dead */
                 p.rip++;
                 txtMessage.textout( _( "    %1 is killed!\n"  ) , p.name );
+                if( autosave ) appSave;
             }
             else
             {
@@ -424,6 +425,7 @@ class BaseSpell
                 p.status = STS.DEAD;
                 p.hp = 0;
                 p.rip++;
+                if( autosave ) appSave;
                 party.dispPartyWindow_NoReorder;
             }
             else

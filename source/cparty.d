@@ -1048,7 +1048,7 @@ public:
             list ~= ( i + 1 ).to!string;
         return list;
     }
-        
+
     /*--------------------
        saveLocate - ダンジョン位置をメンバークラスに記録
                     セーブ時、全滅時に実行
@@ -1064,4 +1064,5 @@ public:
         }
         return;
     }
+
 }
