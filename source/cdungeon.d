@@ -100,9 +100,9 @@ public:
             else
             {
                 if( debugmode || debugmodeOffFlg )
-                    keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 " ~ "HJKL" ~ CURSOR_KEY ~ "DEMFI<>");   // debug
+                    keycode = getCharFromList( "?S<>o5h4l6k8j2.3usc9 " ~ "HJKL" ~ CURSOR_KEY ~ "DEMFI<>");   // debug
                 else
-                    keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 " ~ "HJKL" ~ CURSOR_KEY);
+                    keycode = getCharFromList( "?S<>o5h4l6k8j2.3usc9 " ~ "HJKL" ~ CURSOR_KEY);
             }
 
 
@@ -159,13 +159,13 @@ public:
                     setColor( CL.MENU );
                     txtMessage.textout( _( "************* dungeon help *************\n" ) );
                     txtMessage.textout( _( "--- assigned keys ---\n" ) );
-                    txtMessage.textout( _( "h/4:west, j/2:south, k/8:north, l/6:east\n" ) );
-                    txtMessage.textout( _( "c/9:camp, o/5/' ':open door, u:unlock door\n" ) );
-                    txtMessage.textout( _( "./3:look for monsters, S:protect all\n" ) );
-                    txtMessage.textout( _( "s:search hidden doors, Q:heal all\n" ) );
+                    txtMessage.textout( _( "h/4:west, j/2:south, k/8:north, l/6:east,\n" ) );
+                    txtMessage.textout( _( "c/9:camp, o/5/' ':open door, u:unlock door,\n" ) );
+                    txtMessage.textout( _( "./3:look for monsters, S:protect all,\n" ) );
+                    txtMessage.textout( _( "s:search hidden doors, Shift+hjkl:run fast\n" ) );
                     txtMessage.textout( _( "--- map info ---\n" ) );
-                    txtMessage.textout( _( "|/-/X:wall, +:door, =:locked door\n" ) );
-                    txtMessage.textout( _( "$:darkzone, </>:stairs, ' ':floor\n" ) );
+                    txtMessage.textout( _( "|/-/X:wall, +:door, =:locked door,\n" ) );
+                    txtMessage.textout( _( "$:darkzone, </>:stairs, ' ':floor,\n" ) );
                     txtMessage.textout( _( "@:your party, ^:unknown\n" ) );
                     txtMessage.textout( _( "*****************************************\n" ) );
                     setColor( CL.NORMAL );
@@ -190,6 +190,7 @@ public:
                 case RIGHT_ARROW:
                     dx = 1;
                     break;
+                /+
                 case 'Q':
                     if ( party.layer > 0 )
                     {
@@ -200,6 +201,7 @@ public:
                         party.dispPartyWindow();
                     }
                     break;
+                +/
                 case 'S':
                     if ( party.layer > 0 )
                     {

@@ -656,6 +656,7 @@ public:
     }
 
 
+    /+ 
     /*--------------------
        heal_all - 全回復
        --------------------*/
@@ -684,6 +685,7 @@ public:
         }
         return;
     }
+    +/
 
 
     // vyzaakt&vyzakt&vetteny&xiang&mapper
@@ -887,11 +889,11 @@ public:
                     setColor( CL.MENU );
                     txtMessage.textout( _( "************ assigned keys ************\n" ) );
                     txtMessage.textout( _( "f/4:fight, p/5:parry, s/c/6:cast spell,\n" ) );
-                    txtMessage.textout( _( "e/7:run, u/8:use, t/9:take back, \n" ) );
-                    txtMessage.textout( _( "d/0:dispell, i:monster info\n" ) );
+                    txtMessage.textout( _( "e/7:run, u/8:use, t/9:take back,\n" ) );
+                    txtMessage.textout( _( "d/0:dispell, i:monster info,\n" ) );
                     txtMessage.textout( _( "r:read spells book, a:auto\n" ) );
                     txtMessage.textout( _( "------ short cut ------\n" ) );
-                    txtMessage.textout( _( "j/1:fight1, h/2:fight2, n/3:fight3\n" ) );
+                    txtMessage.textout( _( "j/1:fight1, h/2:fight2, n/3:fight3,\n" ) );
                     txtMessage.textout( _( "k:parry, l:take back, ;:run\n" ) );
                     txtMessage.textout( _( "***************************************" ) );
                     txtMessage.textout( "\n" );
