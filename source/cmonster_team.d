@@ -12,72 +12,46 @@ import app;
 import clistmanager;
 import clistdetail;
 
+import cmonster_party;
 import cmonster;
 import cmonster_def;
 
 
-
-class MonsterTeam
+class MonsterTeam : ListDetails!( MonsterParty , MonsterTeam )
+// class MonsterTeam : ListManager!( MonsterTeam , Monster )
 {
-
-    ListManager!Monster     list;
-    ListDetails!MonsterTeam listDetails;
 
     bool ident; /* identify flag true:identify, false:not */
                 /* identify flag 0:identify, 1:not  // original*/
-
     MonsterDef def;
 
-    // Monster top;     // template
-    // Monster end;     // template
+    MonsterTeamManager  manager;
+    // manager
+    Monster top() { return manager.top; }
+    Monster end() { return manager.end; }
+    void top( Monster m ) { manager.top = m; }
+    void end( Monster m ) { manager.end = m; }
+    int count() { return manager.count; }
+    void delDetail(){ manager.delDetail; }
 
-    Monster top(){ return list.top; }
-    Monster end(){ return list.end; }
-    void top( Monster m ){ list.top = m; }
-    void end( Monster m ){ list.end = m; }
-    
-    MonsterTeam next()      { return listDetails.next; }
-    MonsterTeam previous()  { return listDetails.previous; }
-    void next( MonsterTeam mt )     { listDetails.next     = mt; }
-    void previous( MonsterTeam mt ) { listDetails.previous = mt; }
-
-    void insertNext( MonsterTeam mt )   { listDetails.insertNext  ( this , mt ); }
-    void insertBefore( MonsterTeam mt ) { listDetails.insertBefore( this , mt ); }
+    /+
+    // details
+    MonsterTeam next()      { return team.next; }
+    MonsterTeam previous()  { return team.previous; }
+    void next( MonsterTeam mt )     { team.next     = mt; }
+    void previous( MonsterTeam mt ) { team.previous = mt; }
+    void insertNext( MonsterTeam mt )   { team.insertNext( mt ); }
+    void insertBefore( MonsterTeam mt ) { team.insertBefore( mt ); }
+    +/
 
 
-    this()
+
+    this( MonsterParty pty )
     {
-        listDetails = new ListDetails!MonsterTeam();
-
-        list = new ListManager!Monster;
-        list.initListDetails( MAX_MONSTER_MEMBER ); 
+        super( pty );                               // ListDetails.this
+        manager = new MonsterTeamManager( this );   // ListManager.this
         return;
     }
-
-
-    /*--------------------
-       foreach -> Monster を返す
-       http://ddili.org/ders/d.en/foreach_opapply.html
-       --------------------*/
-    int opApply( int delegate( ref Monster ) operations )  
-    {
-        int result = 0;
-
-        foreach( m ; list )
-            operations( m );
-        return result;
-    }
-    int opApply( int delegate( ref size_t ,
-                               ref Monster ) operations )  
-    {
-
-        int result = 0;
-
-        foreach( i , m ; list )
-            operations( i , m );
-        return result;
-    }
-
 
     /*--------------------
        init - 初期化
@@ -86,44 +60,23 @@ class MonsterTeam
     {
         def = null;
 
-        foreach( Monster m ; list )
+        manager.reset;
+
+        foreach( Monster m ; manager.details )
             m.initialize;
     }
 
-
     /*--------------------
-       isExist - 設定ある？
+       isExist - いる？
        --------------------*/
     bool isExist()
     {
-        if( count > 0 )
+        if( manager.count > 0 )
             return true;
         else
             return false;
     }
 
-    /*--------------------
-       count - 登録モンスター数
-       --------------------*/
-    int count()
-    {
-        int n = 0;
-        foreach( Monster m ; list )
-            n ++ ;
-        return n;
-    }
-
-    /*--------------------
-       actCount - 動ける数
-       --------------------*/
-    int actCount()
-    {
-        int n = 0;
-        foreach( Monster m ; list )
-            if( m.isActive )
-                n ++ ;
-        return n;
-    }
 
     /*--------------------
        getPartyNo - モンスターNo
@@ -167,7 +120,7 @@ class MonsterTeam
         string name;
         name = getDispNameA;
 
-        if( count == 1 )
+        if( manager.count == 1 )
             return name;
 
         string check;
@@ -222,99 +175,38 @@ class MonsterTeam
 
     }
 
+
+    /*--------------------
+       actCount - 動ける数
+       --------------------*/
+    int actCount()
+    {
+        int n = 0;
+        foreach( Monster m ; manager )
+            if( m.isActive )
+                n ++ ;
+        return n;
+    }
+
+
     /*--------------------
        getRandMonster - モンスター1体ランダム取得
        --------------------*/
     Monster getRandMonster()
     {
         Monster m;
-        int loop;
 
         if( count == 1 )
             return top;
 
-        loop = get_rand( count - 1 );
-
         m = top;
-        for ( int i = 0; i < loop; i++ )
+        foreach( i ; 0 .. get_rand( count - 1 ) )
             m = m.next;
 
         assert( m.def !is null , "getRandMonster : m.def is null" );
         return m;
     }
 
-    /*--------------------
-        partyAdd - MonsterTeam 追加
-       --------------------*/
-    void partyAdd( MonsterDef d )
-    {
-
-        Monster m;
-        Monster prev;
-
-        int num;
-
-
-        def = d;
-
-        num = def.minnum + get_rand( def.addnum );
-        ident = party.isIdentify;  // latumapic invalid?
-
-        top = list.details[ 0 ];     // Monster
-        assert( top !is null );
-
-        prev = null;
-        foreach( i ; 0 .. num )     // Monster追加
-        {
-            m = list.details[ i ];
-            m.teamAdd( this );
-
-            if( prev is null ) 
-            {
-                // top
-                m.previous = null;
-                m.next = null;
-            }
-            else
-            {
-                prev.insertNext( m );
-            }
-
-            end = m;
-            prev = m;
-
-        }
-
-        return;
-    }
-
-    /*--------------------
-       addMonster - Monster 追加
-       --------------------*/
-    Monster addMonster()
-    {
-
-        Monster m;
-
-        // get empty slot
-        m = null;
-        foreach( l ; list )
-            if( l.def is null )
-            {
-                m = l;
-                break;
-            }
-
-        if( m is null )
-            return null;
-
-        m.teamAdd( this );
-        list.end.insertNext( m );
-        list.end = m;
-
-        return m;
-
-    }
 
     /*--------------------
        callHelp - 仲間を呼ぶ
@@ -324,23 +216,93 @@ class MonsterTeam
 
         Monster m;
 
-        if ( count == 9 ) /* max mons in a team */
+        if ( count == MAX_MONSTER_MEMBER ) /* max mons in a team */
             return false;
 
-        m = addMonster();
+        m = generateMonster();
         if( m is null )
             return false;
 
         return true;
     }
 
+
+    /*--------------------
+        addParty - MonsterTeam 追加
+       --------------------*/
+    void addParty( MonsterDef d )
+    {
+
+        Monster m;
+        int num;
+
+        def = d;
+
+        num = def.minnum + get_rand( def.addnum );
+        ident = party.isIdentify;  // latumapic invalid?
+
+        top = null;
+        end = null;
+        foreach( i ; 0 .. num )     // Monster追加
+            generateMonster;
+
+        return;
+    }
+
+
+    /*--------------------
+       generateMonster - Monster 追加
+       --------------------*/
+    Monster generateMonster()
+    {
+
+        Monster m;
+
+        // get empty slot
+        m = manager.add;
+        if( m is null )
+            return null;
+
+        m.addTeam;
+        if( end is null )
+        {
+            // top
+            top = m;
+            m.previous = null;
+            m.next = null;
+        }
+        else
+        {
+            end.insertNext( m );
+        }
+        end = m;
+
+        return m;
+
+    }
+
     /*--------------------
        del - MonsterTeam 削除
        --------------------*/
-    void del()
+    override void del()
     {
         def = null;
-        listDetails.del( this , monParty.list.top );
+        super.del();
+        return;
+    }
+
+}
+
+
+class MonsterTeamManager : ListManager!( MonsterTeamManager , Monster )
+{
+
+    MonsterTeam     team;
+
+    this( MonsterTeam mt )
+    {
+        team = mt;
+        super( MAX_MONSTER_MEMBER );
         return;
     }
 

@@ -122,6 +122,8 @@ void appSave()
     saveBoltac();
     saveMarks();
 
+    if( party.layer != 0  )
+        party.saveLocate();
     party.setMemberLocate();
     saveCharacter();
 
@@ -369,7 +371,7 @@ private bool initialize()
 
     party = new Party;
     monParty = new MonsterParty();
-    battleManager = new BattleTurnManager;
+    battleManager = new BattleTurnManager( 9 * 4 + 6 + 2 );
 
     if( inputTrapName )
     {
@@ -1237,10 +1239,15 @@ string tline_input( int size_max )
    tline_input - 文字列入力
    size_max : 入力文字列 全角2バイト換算
    --------------------*/
-string tline_input( int size_max, int y, int x )
+string tline_input( int size_max, int y, int x , string prompt = "" )
 {
 
     bool quit;
+    if( prompt != "" )
+    {
+        mvprintw( y , x , prompt );
+        x += prompt.length;
+    }
     string ret = readline.input( size_max , y , x , quit );
 
     if( quit )
@@ -1253,7 +1260,7 @@ string tline_input( int size_max, int y, int x )
    tline_input_spell - 文字列入力
    size_max : 入力文字列 全角2バイト換算
    --------------------*/
-string tline_input_spell( Member mem , int size_max, int y, int x )
+string tline_input_spell( Member mem , int size_max, int y, int x , string prompt = "" )
 {
 
     bool quit;
@@ -1264,6 +1271,11 @@ string tline_input_spell( Member mem , int size_max, int y, int x )
     else
         readline_spell.setHotKey( "r" , true , false , null );
 
+    if( prompt != "" )
+    {
+        mvprintw( y , x , prompt );
+        x += prompt.length;
+    }
     string ret = readline_spell.input( size_max , y , x , quit );
 
     if( quit )

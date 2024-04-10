@@ -146,6 +146,7 @@ public:
         bool escape;
         bool autoFlg;
       
+
         txtMessage.clear;
         party.calcAtkAC;
         get_exp = 0;
@@ -232,20 +233,18 @@ public:
             /+ -------------------- 
                 In combat !!!
                -------------------- +/
-            foreach( bt ; battleManager )
+            foreach( BattleTurn bt ; battleManager )
             {
+                if( autoFlg ) messageNoWait = true;
                 scope(exit) messageNoWait = false;
-                if( autoFlg )
-                    messageNoWait = true;
-
-                if ( monParty.count == 0 )
-                    break;
 
                 if( battleManager.isEnd( bt ) ) /* end of turn? */
                     break;
 
-                bt.act();
+                if ( monParty.count == 0 )
+                    break;
 
+                bt.act();
             }
 
             /+ -------------------- 
@@ -256,8 +255,10 @@ public:
 
             setColor( CL.NORMAL );
 
+            // check won
             if ( monParty.count == 0 )
             {
+                // won!
                 result = BATTLE_RESULT.WON;
                 break;
             }
@@ -265,6 +266,7 @@ public:
             // check loose
             if( ! party.checkAlive ) 
             {
+                // loose...
                 party.dispPartyWindow();
                 party.saveLocate;
                 party.layer = 0;
@@ -275,7 +277,7 @@ public:
                 break;
             }
 
-            // wakeup check( party )
+            // check wake up ( party )
             foreach( p ; party )
             {
                 if ( ( p.status == STS.SLEEP )
@@ -283,13 +285,13 @@ public:
                     p.status = STS.OK;
             }
 
-            // wakeup check( monster )
-            foreach( mt ; monParty )
-                foreach( m ; mt )
+            // check wake up ( monster )
+            foreach( MonsterTeam mt ; monParty )
+                foreach( m ; mt.manager )
                     if( m.status == STS.SLEEP && get_rand( 1 ) == 0 )
                         m.status = STS.OK;
 
-            // check poisoned( party )
+            // check poisoned ( party )
             foreach( p ; party )
                 if ( p.poisoned )
                     p.damagedByPoison;

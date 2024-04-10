@@ -248,10 +248,10 @@ class Event
         mon.length = 1;
         mon[ 0 ] = getEncounterMonster();
 
+        // check buddy monsters
         int buddy_no;
         while ( mon.length < 4 )
         {
-            /* if ( monster_data[ mon[ mon.length - 1 ] ].budratio < get_rand( 100 ) ) */
             if ( monster_data[ mon.back ].budratio < get_rand( 100 ) )
                 break;
             buddy_no = monster_data[ mon.back ].buddy;
@@ -259,12 +259,11 @@ class Event
             mon.back = buddy_no;
         }
 
-        monParty.encounter( mon[] );
+        monParty.setEncounterMonsters( mon[] );
 
         // bt_result = 1 : won
         //             2 : ran
         //             3 : lost
-        
         battleResult = sceneBattle.battleMain;
         if ( battleResult == BATTLE_RESULT.WON )
         { /* won */
@@ -323,6 +322,8 @@ class Event
         }
         
         // txtEventMessage.disp( party.dungeon.dispPartyX , party.dungeon.dispPartyY );
+
+        party.dungeon.textoutOff;
 
         JSONValue[] list;
         list = event[ to!string( m ) ].array;
@@ -392,7 +393,7 @@ class Event
             case "battle":
                 foreach( m ; ev[ "monster" ].array )
                     monsterList ~= to!int( m.integer );
-                monParty.encounter( monsterList );
+                monParty.setEncounterMonsters( monsterList );
                 sceneBattle.battleMain;
                 break;
 
@@ -400,8 +401,9 @@ class Event
                 presskey = false;
                 break;
             case "jump":
-                party.x = to!byte( ev[ "x" ].integer );
-                party.y = to!byte( ev[ "y" ].integer );
+                presskey = false;
+                party.x = to!int( ev[ "x" ].integer );
+                party.y = to!int( ev[ "y" ].integer );
                 if( "layer" in ev)
                 {
                     party.layer = to!byte( ev[ "layer" ].integer );
@@ -413,8 +415,9 @@ class Event
                 dispHeader( HSTS.DUNGEON );
                 break;
             case "move":
-                party.x += to!byte( ev[ "dx" ].integer );
-                party.y += to!byte( ev[ "dy" ].integer );
+                presskey = false;
+                party.x += ev[ "dx" ].integer;
+                party.y += ev[ "dy" ].integer;
                 party.dungeon.initDisp;
                 party.dungeon.disp;
                 dispHeader( HSTS.DUNGEON );
@@ -503,7 +506,7 @@ class Event
 
         foreach( m ; ev[ "monster" ].array )
            monsterList ~= to!int( m.integer );
-        monParty.encounter( monsterList );
+        monParty.setEncounterMonsters( monsterList );
 
         switch( sceneBattle.battleMain )
         {

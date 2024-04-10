@@ -232,8 +232,8 @@ public:
     bool silenced; // 1:silenced, 0:not
     
     byte outflag; /* 0:in bar, 1:in castle, 3:in maze */
-    byte x;
-    byte y;
+    int x;
+    int y;
     byte layer;
 
     // for treasure ( not saved )
@@ -352,8 +352,8 @@ public:
 
         age     = to!int( data[ i++ ] );
         day     = to!int( data[ i++ ] );
-        x       = to!byte( data[ i++ ] );
-        y       = to!byte( data[ i++ ] ); 
+        x       = to!int( data[ i++ ] );
+        y       = to!int( data[ i++ ] ); 
         layer   = to!byte( data[ i++ ] );
         outflag = to!byte( data[ i++ ] );
 
@@ -1496,13 +1496,13 @@ public:
 
         // 表示位置
         int[ 7 ] x ,y;
-        x[ 0 ] =  0 ; y[ 0 ] = 1;
-        x[ 1 ] = 10 ; y[ 1 ] = 1;
-        x[ 2 ] = 20 ; y[ 2 ] = 1;
-        x[ 3 ] =  0 ; y[ 3 ] = 6;
-        x[ 4 ] = 10 ; y[ 4 ] = 6;
-        x[ 5 ] = 20 ; y[ 5 ] = 6;
-        x[ 6 ] =  0 ; y[ 6 ] = 0;
+        x[ 0 ] =  0 ; y[ 0 ] =  1;
+        x[ 1 ] = 10 ; y[ 1 ] =  1;
+        x[ 2 ] = 20 ; y[ 2 ] =  1;
+        x[ 3 ] =  0 ; y[ 3 ] =  6;
+        x[ 4 ] = 10 ; y[ 4 ] =  6;
+        x[ 5 ] = 20 ; y[ 5 ] =  6;
+        x[ 6 ] =  0 ; y[ 6 ] = 11;
 
         int lv;         // 表示レベル
         byte[ 7 ] flg;  // フラグ 何個目の呪文？
@@ -1786,33 +1786,28 @@ public:
 
         int i, mag;
 
-      
+   
         txtMessage.textout( _( "which item do you use(z:leave(9))? " ) );
-        while ( true )
+
+        ch = getCharFromList( "z9" ~ getCharItemList );
+
+        if( ch=='z' || ch=='9' )
         {
-            ch = getChar();
-            if ( ch == 'z' || ch == '9' )
-            {
-                txtMessage.textout( _( "leave\n" ) );
-                return;
-            }
-            else if ( ch >= '1' && ch <= '8' )
-            {
-                if ( ! item[ ch - '1' ].isNothing )
-                    break;
-            }
+            txtMessage.textout( _( "leave\n" ) );
+            return;
         }
-        txtMessage.textout( ch );
+
         itm = item[ ch - '1' ];
-        txtMessage.textout( "(" ~ itm.getDispNameA ~ ")" );
         txtMessage.textout( '\n' );
+        txtMessage.textout( ch );
+        txtMessage.textout( "(" ~ itm.getDispNameA ~ ")\n" );
 
 
-      
-        if ( itm.effect[ 0 ] == 0 )
+        if ( itm.effect[ 0 ] == 0 && itm.effectMagic[ 0 ] == "" )   // [ 0 ]:camp
             return; // no effect
 
-        if ( ( itm.effectMagic[ 0 ] ) != "0" )
+        writeln( itm.effectMagic[ 0 ]  );
+        if ( itm.effectMagic[ 0 ] != "" )
         { // spell
             magic_all[ itm.effectMagic[ 0 ] ].castInCamp( this );
         }
@@ -2268,8 +2263,8 @@ public:
         string spell;
 
         txtMessage.textout( _( "what spell?\n" ) );
-        spell = txtMessage.inputSpell( this , 32 );
-        txtMessage.textout( '>' );
+        spell = txtMessage.inputSpell( this , 32 , "> " );
+        txtMessage.textout( "> " );
         txtMessage.textout( spell );
         txtMessage.textout( '\n' );
 
@@ -2577,14 +2572,7 @@ public:
                     }
                 txtMessage.textout( _( "which item(z:leave(9))? " ) );
 
-                while ( true )
-                {
-                    c = getChar();
-                    if ( c == 'z' 
-                            || c == '9' 
-                            || ( c <= 'h' && c >= 'a' && !item[ c - 'a' ].isNothing ) )
-                        break;
-                }
+                c = getCharFromList( "z9" ~ getCharItemListA );
                 txtMessage.textout( c );
                 txtMessage.textout( '\n' );
                 
@@ -2592,34 +2580,36 @@ public:
                     return false;
 
                 spell_name = item[ c - 'a' ].effectMagic[ 1 ];       // 1:battle
-                if ( spell_name != "0"
+                if ( spell_name == ""
                         || magic_all[ spell_name ].batl == TYPE_MAGIC_BATTLEMODE.cant )
                 {
                     txtMessage.textout( _( "you can't use it now\noption? \n" ) );
                     return false;
                 }
 
+                spell = magic_all[ spell_name ];
                 actItem = item[ c - 'a' ];
-                dispCommand( leftB( magic_all[ spell_name ].name , 6 ) ~ " " );
+                dispCommand( leftB( spell_name , 6 ) ~ " " );
 
-                if ( magic_all[ spell_name ].batl == TYPE_MAGIC_BATTLEMODE.notarget )
+                if ( spell.batl == TYPE_MAGIC_BATTLEMODE.notarget )
                 { /* no target */
                     dispTarget( "                        " );
                 }
-                else if ( magic_all[ spell_name ].batl == TYPE_MAGIC_BATTLEMODE.player )
+                else if ( spell.batl == TYPE_MAGIC_BATTLEMODE.player )
                 { /* to a party member */
                     targetPlayer = party.selectMemberInBattle( row );
-                    dispTargetWithNo( targetPlayer.getPartyNo + 1 ,
-                              fillL( "(" ~ targetPlayer.name ~ ")" , 22 ) );
+                    dispTargetWithNo( targetPlayer.getPartyNo + 1 , 
+                            fillL( "(" ~ targetPlayer.name ~ ")" , 22 ) );
                 }
-                else if ( magic_all[ spell_name ].batl == TYPE_MAGIC_BATTLEMODE.monster )
+                else if ( spell.batl == TYPE_MAGIC_BATTLEMODE.monster )
                 { /* to monsters */
                     targetMonster = monParty.selectGroup( row );
-                    dispTargetWithNo( targetMonster.getPartyNo + 1 
-                            , ")" ~ fillL( targetMonster.getDispNameS , 22 ) );
+                    dispTargetWithNo( targetMonster.getPartyNo + 1 , 
+                            ")" ~ fillL( targetMonster.getDispNameS , 22 ) );
                 }
-                
                 action = ACT.use;
+                actMagic = spell;
+
                 return true;
 
             // cast spell
@@ -2632,7 +2622,7 @@ public:
                 setStatusColor;     // 毒の場合は色変更
 
                 dispCommand( "spell  ?                      " );
-                spell_name = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 );
+                spell_name = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 , "> " );
 
                 if( ! ( spell_name in magic_all ) )
                 {
@@ -2722,22 +2712,20 @@ public:
         switch ( action )
         {
             case ACT.magic:     // cast spell
-                castSpellInBattle( escape );
+                castSpellInBattle( escape );    // <- actMagic
                 if( escape )
                     return 2;       // return / telept
                 else
                     return 0;
 
             case ACT.use:  // use item
-                actMagic = magic_all[ actItem.effectMagic[ 1 ] ];
-                castSpellInBattle( escape );
+                castSpellInBattle( escape );    // <- actMagic
                 if( escape )
                     return 2;       // return / telept
                 if ( actItem.broken >= get_rand( 99 ) + 1 )
                 { 
                     txtMessage.textout( _( "The %1 gets broken!\n" ) , actItem.getDispName );
-    
-                    actItem.setItem( 0 ); // broken
+                    actItem.setItem( actItem.brokento ); // broken
                 }
                 break;
 
@@ -2982,9 +2970,9 @@ public:
         int i, chance;
         int succeed;
 
-        chance = 50 + ( 5 * level ) - ( 10 * mt.top.def.level );
+        chance = 50 + ( 5 * level ) - ( 10 * mt.def.level );
       
-        if ( ( mt.top.def.defef & 0x40 ) == 0 )
+        if ( ( mt.def.defef & 0x40 ) == 0 )
             goto FAIL;
       
         if ( Class == CLS.LOR )
@@ -3002,7 +2990,7 @@ public:
               succeed++;
       
         for (i = 0; i < succeed; i++)
-            mt.top.del;
+            mt.getRandMonster.del;
       
         if ( succeed > 0 )
         {
@@ -3064,13 +3052,14 @@ public:
        --------------------*/
     MonsterTeam getTargetMonsterTeam()
     {
+        assert( targetMonster !is null );
         if( ! targetMonster.isExist )
             return monParty.top;
         return targetMonster;
     }
 
     /*--------------------
-       getCharItemList - アイテム選択時の入力可能文字列
+       getCharItemList - アイテム選択時の入力可能文字列 1-8
        --------------------*/
     string getCharItemList()
     {
@@ -3082,6 +3071,35 @@ public:
             list ~= ( i + 1 ).to!string;
         }
         return list;
+    }
+
+    /*--------------------
+       getCharItemListA - アイテム選択時の入力可能文字列 a-h
+       --------------------*/
+    string getCharItemListA()
+    {
+        string list;
+        foreach( i ; 0 .. MAXCARRY )
+        {
+            if( item[ i ].isNothing )
+                break;
+            list ~= ( 'a' + i ).to!char.to!string;
+        }
+        return list;
+    }
+
+    /*--------------------
+       getLost - ロスト→アイテム没収
+       --------------------*/
+    void getLost()
+    {
+        status = STS.LOST;
+        outflag = OUT_F.BAR;
+        gold = 0;
+        foreach( i ; 0 .. MAXCARRY )
+            item[ i ].setNull;
+        calcAtkAC;
+        return;
     }
 
 }

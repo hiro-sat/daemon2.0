@@ -40,13 +40,15 @@ public:
         char c;
         bool doorflg = false;
 
+        char automode = 0;
+        bool automodeCheckFlg01;
+        bool automodeCheckFlg02;
+
         int encountRate;   // -1 : not encount
 
         char keycode;
       
-        /* static char dummy_test_cnt[4]; */
-        /* strcpy (&(dummy_test_cnt[0]),"00¥n"); */
-      
+
         foreach( Map d ; dungeonMap )
             d.resetEncounterArea;
 
@@ -75,19 +77,15 @@ public:
         {
 
             // in rock check
-            if ( party.dungeon.checkInRock )
+            if ( party.layer >= MAXLAYER || party.dungeon.checkInRock  )
             {
                 party.dungeon.textoutNow( _( "\n*** in rock! ***\n" ) );
                 foreach( p ; party )
-                {
-                    p.status = STS.LOST;
-                    p.outflag = OUT_F.BAR;
-                }
+                    p.getLost;
                 party.dispPartyWindow();
                 getChar();
                 party.layer = 0;
                 party.olayer = 0;
-                party.setDungeon;
                 goto EXIT;
             }
 
@@ -95,10 +93,64 @@ public:
             dy = 0;
             encountRate = ENCOUNT_RATE;
 
-            if( debugmode || debugmodeOffFlg )
-                keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 " ~ "DEMFIL<>");   // debug
+            if( automode != 0 )
+            {
+                keycode = automode;
+            }
             else
-                keycode = getCharFromList( "?QS<>o5h4l6k8j2.3usc9 ");
+            {
+                if( debugmode || debugmodeOffFlg )
+                    keycode = getCharFromList( "?S<>o5h4l6k8j2.3usc9 " ~ "HJKL" ~ CURSOR_KEY ~ "DEMFI<>");   // debug
+                else
+                    keycode = getCharFromList( "?S<>o5h4l6k8j2.3usc9 " ~ "HJKL" ~ CURSOR_KEY);
+            }
+
+
+            switch( keycode )
+            {
+                case LEFT_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'H';
+                case 'H':
+                    automode = 'h';
+                    keycode = 'h';
+                    automodeCheckFlg01 = party.dungeon.isPassable( party.y - 1 , party.x - 1, true );
+                    automodeCheckFlg02 = party.dungeon.isPassable( party.y + 1 , party.x - 1, true );
+                    break;
+
+                case DOWN_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'J';
+                case 'J':
+                    automode = 'j';
+                    keycode = 'j';
+                    automodeCheckFlg01 = party.dungeon.isPassable( party.y + 1 , party.x - 1 , true );
+                    automodeCheckFlg02 = party.dungeon.isPassable( party.y + 1 , party.x + 1 , true );
+                    break;
+
+                case UP_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'K';
+                case 'K':
+                    automode = 'k';
+                    keycode = 'k';
+                    automodeCheckFlg01 = party.dungeon.isPassable( party.y - 1 , party.x - 1 , true );
+                    automodeCheckFlg02 = party.dungeon.isPassable( party.y - 1 , party.x + 1 , true );
+                    break;
+
+                case RIGHT_ARROW:
+                    if( ! gsdl.shiftkey ) break;
+                    goto case 'L';
+                case 'L':
+                    automode = 'l';
+                    keycode = 'l';
+                    automodeCheckFlg01 = party.dungeon.isPassable( party.y - 1 , party.x + 1, true );
+                    automodeCheckFlg02 = party.dungeon.isPassable( party.y + 1 , party.x + 1, true );
+                    break;
+                default:
+                    break;
+            }
+
 
             switch ( keycode )
             {
@@ -107,17 +159,38 @@ public:
                     setColor( CL.MENU );
                     txtMessage.textout( _( "************* dungeon help *************\n" ) );
                     txtMessage.textout( _( "--- assigned keys ---\n" ) );
-                    txtMessage.textout( _( "h/4:west, j/2:south, k/8:north, l/6:east\n" ) );
-                    txtMessage.textout( _( "c/9:camp, o/5:open door, u:unlock door\n" ) );
-                    txtMessage.textout( _( "./3:look for monsters, S:protect all\n" ) );
-                    txtMessage.textout( _( "s:search hidden doors, Q:heal all\n" ) );
+                    txtMessage.textout( _( "h/4:west, j/2:south, k/8:north, l/6:east,\n" ) );
+                    txtMessage.textout( _( "c/9:camp, o/5/' ':open door, u:unlock door,\n" ) );
+                    txtMessage.textout( _( "./3:look for monsters, S:protect all,\n" ) );
+                    txtMessage.textout( _( "s:search hidden doors, Shift+hjkl:run fast\n" ) );
                     txtMessage.textout( _( "--- map info ---\n" ) );
-                    txtMessage.textout( _( "|/-/X:wall, +:door, =:locked door\n" ) );
-                    txtMessage.textout( _( "$:darkzone, </>:stairs, ' ':floor\n" ) );
+                    txtMessage.textout( _( "|/-/X:wall, +:door, =:locked door,\n" ) );
+                    txtMessage.textout( _( "$:darkzone, </>:stairs, ' ':floor,\n" ) );
                     txtMessage.textout( _( "@:your party, ^:unknown\n" ) );
                     txtMessage.textout( _( "*****************************************\n" ) );
                     setColor( CL.NORMAL );
                     break;
+                case 'h':
+                case '4':
+                case LEFT_ARROW:
+                    dx = -1;
+                    break;
+                case 'j':
+                case '2':
+                case DOWN_ARROW:
+                    dy = 1;
+                    break;
+                case 'k':
+                case '8':
+                case UP_ARROW:
+                    dy =  -1;
+                    break;
+                case 'l':
+                case '6':
+                case RIGHT_ARROW:
+                    dx = 1;
+                    break;
+                /+
                 case 'Q':
                     if ( party.layer > 0 )
                     {
@@ -128,6 +201,7 @@ public:
                         party.dispPartyWindow();
                     }
                     break;
+                +/
                 case 'S':
                     if ( party.layer > 0 )
                     {
@@ -165,29 +239,13 @@ public:
                     break;
                 case 'o':
                 case '5':
+                case ' ':
                     if( ! doorflg )
                     {
                         doorflg = true;
                         party.dungeon.textoutNow( _( "\nwhich door? " ) );
                     }
                     break;
-                case 'h':
-                case '4':
-                    dx = -1;
-                    break;
-                case 'l':
-                case '6':
-                    dx = 1;
-                    break;
-                case 'k':
-                case '8':
-                    dy =  -1;
-                    break;
-                case 'j':
-                case '2':
-                    dy = 1;
-                    break;
-                case ' ':
                 case '.':
                 case '3':
                     party.ox = party.x;
@@ -239,19 +297,25 @@ public:
 
                 if( ! party.dungeon.isPassable( party.y + dy , party.x + dx , doorflg  ) )
                 {
-                    party.dungeon.textoutNow( _( "\n      ... ouch!" ) );
+                    if( automode != 0 )
+                        automode = 0;   // not disp ouchi!
+                    else
+                        party.dungeon.textoutNow( _( "\n      ... ouch!" ) );
                 }
                 else
                 {
 
-                    if (dx > 0)
-                        party.dungeon.textout( _( "\neast" ) );
-                    else if (dx < 0)
-                        party.dungeon.textout( _( "\nwest" ) );
-                    else if (dy < 0)
-                        party.dungeon.textout( _( "\nnorth" ) );
-                    else if (dy > 0)
-                        party.dungeon.textout( _( "\nsouth" ) );
+                    if( automode == 0 )
+                    {
+                        if (dx > 0)
+                            party.dungeon.textout( _( "\neast" ) );
+                        else if (dx < 0)
+                            party.dungeon.textout( _( "\nwest" ) );
+                        else if (dy < 0)
+                            party.dungeon.textout( _( "\nnorth" ) );
+                        else if (dy > 0)
+                            party.dungeon.textout( _( "\nsouth" ) );
+                    }
 
                     party.olayer = party.layer;
                     party.ox = party.x;
@@ -262,12 +326,16 @@ public:
 
                     switch( party.dungeon.checkEvent() )
                     {
+                        case 0:    // not event
+                            break;
                         case 2: /* exit from maze */
                             goto EXIT;
-                        case 1: /* not encount */
+                        case 1: /* not encount -> event or encount done */
+                            automode = 0;
                             encountRate = -1;
                             break;
                         default:
+                            automode = 0;
                             break;
                     }
 
@@ -280,6 +348,8 @@ public:
                     encountRate = recalculateEncountRate( encountRate );
 
                     if ( get_rand( encountRate ) == 0 )
+                    {
+                        automode = 0;
                         switch( party.dungeon.encounter( 0 ) )
                         {
                             case BATTLE_RESULT.WON:
@@ -291,10 +361,49 @@ public:
                             default:
                                 assert( 0 );
                         }
+                    }
                 }
 
                 if ( doorflg )
                     doorflg = false;
+
+                switch( automode )
+                {
+                    case 'h':
+                        if( automodeCheckFlg01 != party.dungeon.isPassable( party.y - 1 , party.x , true )
+                         || automodeCheckFlg02 != party.dungeon.isPassable( party.y + 1 , party.x , true ) )
+                            automode = 0;
+                        break;
+                    case 'j':
+                        if( automodeCheckFlg01 != party.dungeon.isPassable( party.y , party.x - 1 , true )
+                         || automodeCheckFlg02 != party.dungeon.isPassable( party.y , party.x + 1 , true ) )
+                            automode = 0;
+                        break;
+                    case 'k':
+                        if( automodeCheckFlg01 != party.dungeon.isPassable( party.y , party.x - 1 , true )
+                         || automodeCheckFlg02 != party.dungeon.isPassable( party.y , party.x + 1 , true ) )
+                            automode = 0;
+                        break;
+                    case 'l':
+                        if( automodeCheckFlg01 != party.dungeon.isPassable( party.y - 1 , party.x , true )
+                         || automodeCheckFlg02 != party.dungeon.isPassable( party.y + 1 , party.x , true ) )
+                            automode = 0;
+                        break;
+                    default:
+                        break;
+                }
+
+                if( automode != 0 )
+                    switch( party.dungeon.getMapTile( party.y , party.x ) )
+                    {
+                        case '<':
+                        case '>':
+                            automode = 0;
+                            break;
+                        default:
+                            break;
+                    }
+
             }
         }
 
@@ -409,7 +518,6 @@ public:
 
         int getgold;
       
-      
         trap = get_rand( MAXTRAP );
 
         foreach( p ; party )
@@ -495,10 +603,10 @@ public:
                     // disarm
                     if( inputTrapName )
                     {
-                        txtMessage.textout( ">\n" );
-                        trapname = txtMessage.input( MAX_TRAP_NAME );
+                        trapname = txtMessage.input( MAX_TRAP_NAME , "> " );
                         if( trapname == "" )
                             continue;
+                        txtMessage.textout( "> " ~ trapname ~ "\n" );
                         if( trapname != TRAP_NAME[ trap ] )
                             goto FAIL;
                     }
@@ -638,8 +746,19 @@ public:
             case TRAP.TELEPORT: /* teleporter */
                 party.ox = party.x;
                 party.oy = party.y;
-                party.x = to!byte( get_rand( party.dungeon.width - 4 ) + 1 );
-                party.y = to!byte( get_rand( party.dungeon.height - 4 ) + 1 );
+                while( party.ox == party.x && party.oy == party.y )
+                {
+                    party.x = get_rand( party.dungeon.width - 2 ) + 1;
+                    party.y = get_rand( party.dungeon.height - 2 ) + 1;
+                    if( ! party.dungeon.isPassableOrgmap( party.y , party.x ) )
+                    {
+                        party.x = party.ox;
+                        party.y = party.oy;
+                        continue;
+                    }
+                }
+                party.dungeon.setDispPos;
+                party.dungeon.initDisp;
                 party.dungeon.disp();
                 dispHeader( HSTS.DUNGEON );
                 break;
@@ -712,7 +831,7 @@ private:
     {
         switch( keycode )
         {
-            case 'D':
+            case 'D':   // debug モード切替
                 if( debugmode || debugmodeOffFlg )
                 {
                     if( debugmode )
@@ -733,7 +852,7 @@ private:
                 if ( debugmode && party.layer > 0 )
                     party.dungeon.testOutputEncountRoom;
                 break;
-            case 'M':
+            case 'M':   // マップ表示
                 if ( debugmode && party.layer > 0 )
                 {
                     if( ! party.isMapper )
@@ -750,7 +869,7 @@ private:
                     party.dungeon.disp;
                 }
                 break;
-            case 'F':
+            case 'F':   // float 切替
                 if ( debugmode && party.layer > 0 )
                 {
                     if( ! party.isFloat )
@@ -760,7 +879,7 @@ private:
                     dispHeader( HSTS.DUNGEON );
                 }
                 break;
-            case 'I':
+            case 'I':   // identify 切替
                 if ( debugmode && party.layer > 0 )
                 {
                     if( ! party.isIdentify )
@@ -768,38 +887,6 @@ private:
                     else
                         party.resetIdentify;
                     dispHeader( HSTS.DUNGEON );
-                }
-                break;
-            /* case 'H': */
-            /*     if ( debugmode && party.layer > 0 ) */
-            /*     { */
-            /*         if( ! party.isScope ) */
-            /*         { */
-            /*             party.setScope; */
-            /*             party.scopeCount = 999; */
-            /*         } */
-            /*         else */
-            /*         { */
-            /*             party.resetScope; */
-            /*         } */
-            /*         dispHeader( HSTS.DUNGEON ); */
-            /*         party.dungeon.disp; */
-            /*     } */
-            /*     break; */
-            case 'L':
-                if ( debugmode && party.layer > 0 )
-                {
-                    if( ! party.isLight )
-                    {
-                        party.setLight;
-                        party.lightCount = 999;
-                    }
-                    else
-                    {
-                        party.resetLight;
-                    }
-                    dispHeader( HSTS.DUNGEON );
-                    party.dungeon.disp;
                 }
                 break;
             case '<':
@@ -904,6 +991,7 @@ private:
         bool first_disp = true;
 
         txtMessage.clear;
+        party.dungeon.textoutOff;
 
         while ( true )
         {
@@ -1020,7 +1108,7 @@ private:
                     txtMessage.textout( ch );
                     txtMessage.textout( _( "\nquit game ...\n" ) );
 
-                    party.saveLocate;
+                    // party.saveLocate;    appSave内で実行
                     appSave;
 
                     txtMessage.textout( _( "  leave game(y(1)/n(2))? \n" ) );
@@ -1054,10 +1142,7 @@ private:
         {
             txtMessage.textout( _( "\n*** in rock! ***\n" ) );
             foreach( p ; party )
-            {
-                p.status = STS.LOST;
-                p.outflag = OUT_F.BAR;
-            }
+                p.getLost;
             party.dispPartyWindow();
             getChar();
             party.layer=0;

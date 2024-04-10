@@ -291,7 +291,7 @@ private:
             setColor( CL.MENU );
             txtMessage.textout( "\n" );
             txtMessage.textout( _( "*** ginger's forest bar ***\n"  ));
-            txtMessage.textout( _( "a)dd  r)emove  i)inspect\n"  ));
+            txtMessage.textout( _( "f)orm a party  i)inspect\n"  ));
             txtMessage.textout( _( "d)ivvy gold  z)leave(9)\n"  ));
             txtMessage.textout( _( "e)quip #)see character\n"  ));
             txtMessage.textout( _( "s)ee monster marks\n"  ));
@@ -311,7 +311,7 @@ private:
 
         while( true )
         {
-            keycode = getCharFromList( "aridz9es" ~ party.getCharList );
+            keycode = getCharFromList( "fidz9es" ~ party.getCharList );
 
             if( keycode >= '1' && keycode <= party.memCount + '0')
             {
@@ -322,20 +322,9 @@ private:
 
             switch( keycode )
             {
-                case 'a': /* add */
-                    if( party.memCount == 6 )
-                        break;
-                    txtMessage.textout( _( "add\n"  ));
-                    barAddMember();
-                    txtStatus.clear();
-                    dispBarMenu;
-                    break;
-
-                case 'r': /* remove */
-                    if( party.memCount < 1 )
-                        break;
-                    txtMessage.textout( _( "remove\n"  ));
-                    barRemoveMember();
+                case 'f': /* form a party */
+                    txtMessage.textout( _( "form a party\n"  ));
+                    barFormParty();
                     txtStatus.clear();
                     dispBarMenu;
                     break;
@@ -388,56 +377,69 @@ private:
     }
 
 
+
     /*--------------------
-       barAddMember - パーティーにメンバー追加`
+       barFormParty - パーティー編成
        --------------------*/
-    void barAddMember()
+    void barFormParty()
     {
-
         char keycode;
-
-        if( party.memCount == 6 )
-            return;
-
-        barAddMemberDisp();
-
-        txtMessage.textout( _( "select members(a,b,... ,z:leave(9))\n" ) );
-        while ( true )
+        char c;
+        
+        barMemberDisp();
+        txtMessage.textout( _( "select members(1,..,6,a,b,... ,z:leave(9))\n" ) );
+        while( true )
         {
+            keycode = getCharFromList( "abcdefghijklmnopqrstuvwx" ~ party.getCharList ~ "z9" );
 
-            keycode = getChar();
             if ( keycode == 'z' || keycode == '9' )
                 break;
-            if ( keycode >= 'a' && keycode <= 'a' + MAXMEMBER
-                && member[ keycode - 'a' ].name != ""
-                && member[ keycode - 'a' ].outflag == 0 )
-            {
 
-                if( member[ keycode - 'a' ].status == STS.LOST )
-                {
-                    txtMessage.textout( _( "  ...You must be joking!\n"  ));
+            // add member
+            if ( keycode >= 'a' && keycode <= 'a' + MAXMEMBER )
+            {
+                if ( party.memCount == 6 )
                     continue;
+
+                if( member[ keycode - 'a' ].name != ""
+                        && member[ keycode - 'a' ].outflag == 0 )
+                {
+                    if( member[ keycode - 'a' ].status == STS.LOST )
+                    {
+                        txtMessage.textout( _( "  ...You must be joking!\n"  ));
+                        continue;
+                    }
+
+                    member[ keycode - 'a' ].outflag = OUT_F.CASTLE;
+                    party.add( member[ keycode - 'a' ] );
+
+                    barMemberDisp();
+                    party.dispPartyWindowSub();
                 }
 
-                member[ keycode - 'a' ].outflag = OUT_F.CASTLE;
-                party.add( member[ keycode - 'a' ] );
+            }
+            else
+            // remove member    1-6   
+            {
+                if ( party.memCount == 0 )
+                    continue;
 
-                barAddMemberDisp();
+                c = to!char( keycode - '1' );
+                party.mem[ c ].outflag = OUT_F.BAR;
+                party.remove( party.mem[ c ] );
+
+                barMemberDisp();
                 party.dispPartyWindowSub();
-                if ( party.memCount == 6 )
-                    break;
             }
         }
-
-        party.dispPartyWindow();
         return;
     }
 
 
     /*--------------------
-       barAddMemberDisp - 追加メンバーリスト表示
+       barMemberDisp - 追加メンバーリスト表示
        --------------------*/
-    void barAddMemberDisp()
+    void barMemberDisp()
     {
         int i, j, dispCount;
         int x;
@@ -478,42 +480,6 @@ private:
         return;
 
     }
-
-    /*--------------------
-       barRemoveMember - 指定したメンバーを外す
-       --------------------*/
-    void barRemoveMember()
-    {
-
-        char keycode , c;
-
-        if ( party.memCount == 0 )
-            return;
-
-        barAddMemberDisp();
-        txtMessage.textout( _( "remove who(z:leave(9))?\n" ) );
-
-        while( true )
-        {
-            if ( party.memCount == 0)
-                break;
-
-            keycode = getCharFromList( "z9" ~ party.getCharList );
-            if( keycode == 'z' || keycode == '9')
-                return;
-
-            c = to!char( keycode - '1' );
-            party.mem[ c ].outflag = OUT_F.BAR;
-            party.remove( party.mem[ c ] );
-
-            barAddMemberDisp();
-            party.dispPartyWindowSub();
-        }
-
-        return;
-    }
-
-
 
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -1326,7 +1292,7 @@ private:
             getChar();
 
             int dice = get_rand( 99 ) + 1;
-            foreach( dot ; 0 .. dice ) 
+            foreach( dot ; 0 .. dice / 10 ) 
             {
                 txtMessage.textout( "." );
                 getChar( 50 );

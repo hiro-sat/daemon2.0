@@ -2,21 +2,76 @@ import std.stdio;
 import std.conv;
 
 
-class ListManager( T )
+class ListManager( P , T )
 {
 
-public:
+private:
+    int detailsCount;
 
+public:
+   
     T[] details;
     T top;
     T end;
 
-    void initListDetails( int length )
+    this( int length )
     {
         details.length = length;
         foreach( i ; 0 .. details.length )
-            details[ i ] = new T();
+            details[ i ] = new T( cast(P) this );
         return ;
+    }
+
+    int count() { return detailsCount; }
+
+    void reset()
+    {
+        foreach( d ; details )
+        {
+            d.previous  = null;
+            d.next      = null;
+        }
+        top = null;
+        end = null;
+        detailsCount = 0;
+        return;
+    }
+
+
+    T add()
+    {
+        if( detailsCount == 0 )
+        {
+            detailsCount ++;
+            return details[ 0 ];
+        }
+
+        // detailsCount >= 1
+        foreach( i , d ; details )
+        {
+            if( detailsCount == 1 && i == 0 )
+            {
+                // 要素が1つのとき、( d.previous is null && d.next is null )
+                detailsCount ++;
+                return details[ 1 ];
+            }
+
+            // i >= 1
+            if( d.previous is null && d.next is null )
+            {
+                detailsCount ++;
+                return d;
+            }
+        }
+
+        return null;
+    }
+
+    void delDetail()     // clistdetail からの呼出のみ
+    {
+        detailsCount --;   // del
+        assert( detailsCount >= 0 , detailsCount.to!string );
+        return;
     }
 
     /*--------------------
