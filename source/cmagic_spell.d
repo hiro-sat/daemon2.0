@@ -333,10 +333,9 @@ class BaseSpell
             if ( p.hp <= damage )
             { // dead
                 p.hp = 0;
-                p.status = STS.DEAD; /* dead */
                 p.rip++;
+                p.status = STS.DEAD; /* dead */
                 txtMessage.textout( _( "    %1 is killed!\n"  ) , p.name );
-                if( autosave ) appSave;
             }
             else
             {
@@ -422,10 +421,9 @@ class BaseSpell
             if ( p.level < 8 )
             {
                 txtMessage.textout( _( "  %1 is suffocated.\n" ) , p.name );
-                p.status = STS.DEAD;
                 p.hp = 0;
                 p.rip++;
-                if( autosave ) appSave;
+                p.status = STS.DEAD;
                 party.dispPartyWindow_NoReorder;
             }
             else
@@ -1566,7 +1564,7 @@ class SpellGrace : BaseSpell
             {
                 txtMessage.textout( _( "  oops!!\n" ) );
                 if ( mem.status == STS.ASHED )
-                    mem.getLost;
+                    mem.status = STS.LOST;
                 else
                     mem.status = STS.ASHED;
             }

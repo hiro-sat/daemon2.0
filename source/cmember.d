@@ -23,6 +23,10 @@ private:
     enum BIT_STS_POISONED           = 0x80;
     enum BIT_STS_EXCEPTING_POISONED = 0x7f;
 
+
+    byte status_;   /* 0:Ok,1:Sleep,2:Afraid,3:Pararized,4:Stoned */
+                    /* 5:Dead,6:Ashed,7:Lost, and bit7:Poisoned */
+
     /+ 
     enum ITM_KIND : WEAPON = 0, ARMOR  = 1, SHIELD = 2, HELM   = 3, GLOVES = 4, ITEM   = 5
     +/
@@ -164,8 +168,44 @@ public:
     byte[7] pspl_pt;
 
     string name; /* name (Max32chr) */
-    byte status; /* 0:Ok,1:Sleep,2:Afraid,3:Pararized,4:Stoned */
-                 /* 5:Dead,6:Ashed,7:Lost, and bit7:Poisoned */
+    // byte status; /* 0:Ok,1:Sleep,2:Afraid,3:Pararized,4:Stoned */
+                    /* 5:Dead,6:Ashed,7:Lost, and bit7:Poisoned */
+    @property
+    {
+        ubyte status() { return status_; }
+        void statusNoSave( STS sts ) 
+        {
+            status_ = sts.to!ubyte;
+        }
+        void status( STS sts ) 
+        {
+
+            status_ = sts.to!ubyte;
+
+            switch( sts )
+            {
+                case STS.OK:
+                case STS.SLEEP:
+                case STS.AFRAID:
+                    break;
+
+                case STS.LOST:
+                    // ロスト→アイテム没収
+                    outflag = OUT_F.BAR;
+                    gold = 0;
+                    foreach( i ; 0 .. MAXCARRY )
+                        item[ i ].setNull;
+                    calcAtkAC;
+                    goto default;   // fall through
+
+                default:
+                    if( autosave ) 
+                        appSave;
+                    break;
+            }
+            return;
+        }
+    }
     bool poisoned; // class 時でのみ利用。保存時は statusとマージ
     byte race; /* 0:Human,1:Elf,2:Dwarf,3:Gnome,4:Hobbit */
     byte Class; /* (int) 0:FIG,1:THI,2:PRI,3:MAG,4:BIS,5:SAM,6:LOR,7:NIN */
@@ -267,8 +307,8 @@ public:
         marks  = to!int( data[ i++ ] );
         rip    = to!int( data[ i++ ] );
 
-        ubyte sts  = to!ubyte( data[ i++ ] ); 
-        status   = sts & BIT_STS_EXCEPTING_POISONED;
+        ubyte sts  = to!ubyte( data[ i++ ] ) & BIT_STS_EXCEPTING_POISONED ; 
+        statusNoSave   = to!STS( sts );
         poisoned = ( ( sts & BIT_STS_POISONED ) != 0 );
 
         race   = to!byte( data[ i++ ] );
@@ -3086,20 +3126,6 @@ public:
             list ~= ( 'a' + i ).to!char.to!string;
         }
         return list;
-    }
-
-    /*--------------------
-       getLost - ロスト→アイテム没収
-       --------------------*/
-    void getLost()
-    {
-        status = STS.LOST;
-        outflag = OUT_F.BAR;
-        gold = 0;
-        foreach( i ; 0 .. MAXCARRY )
-            item[ i ].setNull;
-        calcAtkAC;
-        return;
     }
 
 }

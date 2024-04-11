@@ -413,10 +413,9 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                 if ( p.hp <= 0 )
                 {
                     p.hp = 0;
-                    p.status = STS.DEAD; /* dead */
                     p.rip++;
+                    p.status = STS.DEAD; /* dead */
                     txtMessage.textout( _( "    %1 is killed!\n" ) , p.name );
-                    if( autosave ) appSave;
                 }
                 else if ( def.breef != 0 )
                 {
@@ -443,7 +442,6 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                         {
                             p.status = STS.PARALY;
                             txtMessage.textout( _( "    and is paralized!\n" ) );
-                            if( autosave ) appSave;
                         }
                 
                     /* stone effect */
@@ -452,18 +450,16 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                         {
                             p.status = STS.STONED;
                             txtMessage.textout( _( "    and is petrified!\n" ) );
-                            if( autosave ) appSave;
                         }
                 
                     /* critical effect */
                     if( def.isBreEfCritical )
                         if( !p.isDefefCritical && p.status < STS.DEAD && checkBreathEffect( p ) ) 
                         {
-                            p.status = STS.DEAD;
                             p.hp = 0;
                             p.rip++;
+                            p.status = STS.DEAD;
                             txtMessage.textout( _( "    and is killed instantly!\n" ) );
-                            if( autosave ) appSave;
                         }
                 
                     /* Level drain  effect */
@@ -595,7 +591,6 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                     {
                         mem.status = STS.PARALY;
                         txtMessage.textout( _( "  %1 is paralized!\n" ) , mem.name );
-                        if( autosave ) appSave;
                         party.dispPartyWindow_NoReorder();
                         getChar();
                     }
@@ -611,7 +606,6 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                     {
                         mem.status = STS.STONED;
                         txtMessage.textout( _( "  %1 is petrified!\n" ) , mem.name );
-                        if( autosave ) appSave;
                         party.dispPartyWindow_NoReorder();
                         getChar();
                     }
@@ -625,11 +619,10 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                     }
                     else
                     {
-                        mem.status = STS.DEAD;
                         mem.hp = 0;
                         mem.rip++;
+                        mem.status = STS.DEAD;
                         txtMessage.textout( _( "  %1 gets the head cut off!\n" ) , mem.name );
-                        if( autosave ) appSave;
                         party.dispPartyWindow_NoReorder();
                         getChar();
                     }
@@ -649,9 +642,8 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
                 if ( mem.hp <= 0 )
                 {
                     mem.hp = 0;
-                    mem.status = STS.DEAD; /* dead */
                     mem.rip++;
-                    if( autosave ) appSave;
+                    mem.status = STS.DEAD; /* dead */
                     txtMessage.textout( _( "  %1 is killed!\n" ) , mem.name );
                     party.dispPartyWindow_NoReorder();
                     getChar();
@@ -670,10 +662,9 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
         txtMessage.textout( _( "  %1 gets %2 level drained!\n" ) , mem.name , def.getAtkDrainLv );
         if ( mem.level - def.getAtkDrainLv < 1 )
         {
-            mem.status = STS.LOST;
             mem.hp = 0;
+            mem.status = STS.LOST;
             txtMessage.textout( _( "  %1 is killed!\n" ) , mem.name );
-            if( autosave ) appSave;
             getChar();
         }
         else
@@ -703,10 +694,9 @@ class Monster : ListDetails!( MonsterTeamManager , Monster )
 
             if ( mem.vit[ 0 ] < 3 )
             {
-                mem.status = STS.LOST;
                 mem.hp = 0;
+                mem.status = STS.LOST;
                 txtMessage.textout( _( "  %1 is killed!\n" ) , mem.name );
-                if( autosave ) appSave;
                 getChar();
             }
         }
