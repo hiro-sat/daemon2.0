@@ -325,6 +325,10 @@ private bool initialize()
     if( ( INPUT_TRAPNAME in json ) && ( json[ INPUT_TRAPNAME ].integer == 1 ) )
         inputTrapName = true;
 
+    // 呪文入力
+    if( ( INPUT_SPELLNAME in json ) && ( json[ INPUT_SPELLNAME ].integer == 1 ) )
+        inputSpellName = true;
+
     setRndSeed;
 
     // データ保存フォルダ確認

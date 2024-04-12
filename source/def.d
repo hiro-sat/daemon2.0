@@ -36,11 +36,13 @@ import cmonster_encount;
 import cbattleturnmanager;
 
 // json設定ファイル
-string JSONFILE = "resources/daemon.json";
+string JSONFILE = "daemon.json";
 const AUTOSAVE = "autosave";
 const INPUT_TRAPNAME = "inputtrapname";
+const INPUT_SPELLNAME = "inputspellname";
 bool autosave       = false;
 bool inputTrapName  = false;
+bool inputSpellName = false;
 
 // 言語ファイル
 string LANGUAGEFILE = "resources/%1.mo";
