@@ -37,8 +37,8 @@ private:
     int mapWidth;
     int mapHeight;
 
-    /* char[ mapWidth ][ mapHeight ] map; */
-    /* char[ mapWidth ][ mapHeight ] orgmap; */
+    /* char[ mapHeight ][ mapWidth ] map; */
+    /* char[ mapHeight ][ mapWidth ] orgmap; */
     char[][] map;
     char[][] orgmap;
     MapEncountRoom encountRoom;
@@ -47,8 +47,8 @@ private:
     int endX , endY;
 
     /* char vram1[ 29 * 15 ]; */
-    char[ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vram;
-    int [ SCRW_Y_SIZ ][ ( SCRW_X_SIZ - 1 ) ] vramCl;
+    char[ ( SCRW_X_SIZ - 1 ) ][ SCRW_Y_SIZ ] vram;
+    int [ ( SCRW_X_SIZ - 1 ) ][ SCRW_Y_SIZ ] vramCl;
 
     int dispScrX;
     int dispScrY;
@@ -61,7 +61,7 @@ private:
        --------------------*/
     bool isVisibleVram( int x , int y )
     {
-        switch( vram[ x ][ y ] )
+        switch( vram[ y ][ x ] )
         {
             case ' ':
             case '<':
@@ -816,8 +816,8 @@ public:
         for ( y = 0; y < SCRW_Y_SIZ; y++ )
             for ( x = 0; x < SCRW_X_SIZ - 1; x++ )
             {
-                vram[ x ][ y ] = 0;
-                vramCl[ x ][ y ] = 0;
+                vram[ y ][ x ] = 0;
+                vramCl[ y ][ x ] = 0;
             }
 
         return;
@@ -995,7 +995,7 @@ public:
 
                 if( ! checkMapRange( dispScrX + x , dispScrY + y ) )
                 {
-                    vram[ x ][ y ] = '^';
+                    vram[ y ][ x ] = '^';
                     continue;
                 }
                 else
@@ -1006,7 +1006,7 @@ public:
                         /* if( ! party.isLight && ! party.isScope  ) */
                         if( ! party.isLight )
                         {
-                            vram[ x ][ y ] = '^';
+                            vram[ y ][ x ] = '^';
                             continue;
                         }
                     }
@@ -1025,7 +1025,7 @@ public:
                     if ( ( c >= '0' && c <= '9' ) && ! debugmode )
                         c = '#';
 
-                    vram[ x ][ y ] = c;
+                    vram[ y ][ x ] = c;
 
                 }
             }
@@ -1035,9 +1035,9 @@ public:
             for ( x = 0; x < SCRW_X_SIZ - 1 ; x++ )     // 29
             {
 
-                if( vram[ x ][ y ] == '^' ) 
+                if( vram[ y ][ x ] == '^' ) 
                 {
-                    vramCl[ x ][ y ] = MAP_CL.NUL;
+                    vramCl[ y ][ x ] = MAP_CL.NUL;
                     continue;
                 }
 
@@ -1046,42 +1046,42 @@ public:
                 {
                     if( party.isMapper )
                     {
-                        vramCl[ x ][ y ] = MAP_CL.NUL;
+                        vramCl[ y ][ x ] = MAP_CL.NUL;
                         continue;
                     }
                     else
                     {
-                        vram[ x ][ y ] = '^';
-                        vramCl[ x ][ y ] = MAP_CL.NUL;
+                        vram[ y ][ x ] = '^';
+                        vramCl[ y ][ x ] = MAP_CL.NUL;
                         continue;
                     }
                 }
 
-                switch( vram[ x ][ y ] )
+                switch( vram[ y ][ x ] )
                 {
                     case '-':
                     case '|':
-                        vramCl[ x ][ y ] = MAP_CL.WALL;
+                        vramCl[ y ][ x ] = MAP_CL.WALL;
                         break;
                     case 'X':
-                        vramCl[ x ][ y ] = MAP_CL.WALL2;
+                        vramCl[ y ][ x ] = MAP_CL.WALL2;
                         break;
                     case '$':
-                        vramCl[ x ][ y ] = MAP_CL.DARKZONE;
+                        vramCl[ y ][ x ] = MAP_CL.DARKZONE;
                         break;
                     case '+':
                     case '=':
-                        vramCl[ x ][ y ] = MAP_CL.DOOR;
+                        vramCl[ y ][ x ] = MAP_CL.DOOR;
                         break;
                     case '>':
                     case '<':
-                        vramCl[ x ][ y ] = MAP_CL.STAIRS;
+                        vramCl[ y ][ x ] = MAP_CL.STAIRS;
                         break;
                     case '#':
-                        vramCl[ x ][ y ] = MAP_CL.NUL;
+                        vramCl[ y ][ x ] = MAP_CL.NUL;
                         break;
                     default:
-                        vramCl[ x ][ y ] = CL.NORMAL;
+                        vramCl[ y ][ x ] = CL.NORMAL;
                         break;
                 }
             }
@@ -1093,12 +1093,12 @@ public:
         for ( y = 0; y < SCRW_Y_SIZ ; y++ )     // 15
             for ( x = 0; x < SCRW_X_SIZ - 1 ; x++ )       // 29
             {
-                if( tmp != vramCl[ x ][ y ] )
+                if( tmp != vramCl[ y ][ x ] )
                 {
-                    tmp = vramCl[ x ][ y ];
+                    tmp = vramCl[ y ][ x ];
                     setColor( tmp );
                 }
-                mvprintw( y + SCRW_Y_TOP, x + SCRW_X_TOP, vram[ x ][ y ] );
+                mvprintw( y + SCRW_Y_TOP, x + SCRW_X_TOP, vram[ y ][ x ] );
             }
 
         // プレイヤー表示

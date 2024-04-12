@@ -734,7 +734,7 @@ class SpellGvanish : BaseSpell
         {
             next = mt.next;     // 倒されたときのために事前に保存
             vanish( p , mt );
-            mt = mt.next;
+            mt = next;
         }
         return 0;
 
