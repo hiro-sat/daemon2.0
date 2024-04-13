@@ -386,8 +386,8 @@ class BaseSpell
             mon.acplus += magicDef.min;
             mon = mon.next;
         }
-        txtMessage.textout( N_( "  %1's AC -%2.\n" 
-                   , "  %1' AC -%2.\n", m.parent.count )
+        txtMessage.textout( N_( "  %1's AC %2.\n" 
+                   , "  %1' AC %2.\n", m.parent.count )
                         , m.getDispNameS , magicDef.min );
         party.dispPartyWindow_NoReorder();
         return;
