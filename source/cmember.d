@@ -2538,6 +2538,9 @@ public:
         /*--------------------
            start inputAction - 戦闘時コマンド入力
            --------------------*/
+
+        setStatusColor;     // 毒の場合は色変更
+
         switch( command )
         {
             case ' ':
@@ -2614,6 +2617,7 @@ public:
             // use item
             case 'u':
             case '8':
+                setColor( CL.NORMAL );
                 txtMessage.textout( _( "you have:\n" ) );
                 foreach( j , itm ; item )
                     if ( ! itm.isNothing )
@@ -2638,6 +2642,8 @@ public:
                     txtMessage.textout( _( "you can't use it now\noption? \n" ) );
                     return false;
                 }
+
+                setStatusColor; 
 
                 spell = magic_all[ spellName ];
                 actItem = item[ c - 'a' ];
@@ -2670,8 +2676,6 @@ public:
             case '6':  
                 if( monParty.suprised )
                     return false;
-
-                setStatusColor;     // 毒の場合は色変更
 
                 dispCommand( "spell  ?                      " );
 
