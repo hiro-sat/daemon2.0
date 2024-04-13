@@ -307,9 +307,9 @@ public:
         marks  = to!int( data[ i++ ] );
         rip    = to!int( data[ i++ ] );
 
-        ubyte sts  = to!ubyte( data[ i++ ] ) & BIT_STS_EXCEPTING_POISONED ; 
-        statusNoSave   = to!STS( sts );
-        poisoned = ( ( sts & BIT_STS_POISONED ) != 0 );
+        ubyte sts  = to!ubyte( data[ i++ ] );
+        statusNoSave  = to!STS( sts & BIT_STS_EXCEPTING_POISONED );
+        poisoned      = ( ( sts & BIT_STS_POISONED ) != 0 );
 
         race   = to!byte( data[ i++ ] );
         Class  = to!byte( data[ i++ ] );
