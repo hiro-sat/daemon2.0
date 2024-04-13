@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-10 22:24+0900\n"
-"PO-Revision-Date: 2024-04-10 22:26+0900\n"
+"POT-Creation-Date: 2024-04-10 22:29+0900\n"
+"PO-Revision-Date: 2024-04-10 22:36+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -535,32 +535,32 @@ msgid "--- assigned keys ---\n"
 msgstr "--- 操作方法 ---\n"
 
 #: ../source/cdungeon.d:162
-msgid "h/4:west, j/2:south, k/8:north, l/6:east\n"
-msgstr "h/4:西, j/2:南, k/8:北, l/6:東\n"
+msgid "h/4:west, j/2:south, k/8:north, l/6:east,\n"
+msgstr "h/4:西, j/2:南, k/8:北, l/6:東,\n"
 
 #: ../source/cdungeon.d:163
-msgid "c/9:camp, o/5/' ':open door, u:unlock door\n"
-msgstr "c/9:キャンプ, o/5/' ':ドアを開ける, u:鍵を開ける\n"
+msgid "c/9:camp, o/5/' ':open door, u:unlock door,\n"
+msgstr "c/9:キャンプ, o/5/' ':ドア開ける, u:鍵開け,\n"
 
 #: ../source/cdungeon.d:164
-msgid "./3:look for monsters, S:protect all\n"
-msgstr "./3:モンスターを探す, u:鍵を開ける\n"
+msgid "./3:look for monsters, S:protect all,\n"
+msgstr "./3:モンスターを探す, S:魔法補助,\n"
 
 #: ../source/cdungeon.d:165
 msgid "s:search hidden doors, Shift+hjkl:run fast\n"
-msgstr "s:ドア、仲間を探す, S:魔法補助\n"
+msgstr "s:ドア、仲間を探す, Shift+hjkl:走る\n"
 
 #: ../source/cdungeon.d:166
 msgid "--- map info ---\n"
 msgstr "--- マップ情報 ---\n"
 
 #: ../source/cdungeon.d:167
-msgid "|/-/X:wall, +:door, =:locked door\n"
-msgstr "|,-,X:壁, +:扉, =:鍵のかかった扉\n"
+msgid "|/-/X:wall, +:door, =:locked door,\n"
+msgstr "|,-,X:壁, +:扉, =:鍵のかかった扉,\n"
 
 #: ../source/cdungeon.d:168
-msgid "$:darkzone, </>:stairs, ' ':floor\n"
-msgstr "$:暗闇, </>:階段, ' ‘:フロア\n"
+msgid "$:darkzone, </>:stairs, ' ':floor,\n"
+msgstr "$:暗闇, </>:階段, ' ':フロア,\n"
 
 #: ../source/cdungeon.d:169
 msgid "@:your party, ^:unknown\n"
@@ -2088,12 +2088,12 @@ msgid "f/4:fight, p/5:parry, s/c/6:cast spell,\n"
 msgstr "f/4:戦う, p/5:避ける, s/c/6:呪文を唱える,\n"
 
 #: ../source/cparty.d:892
-msgid "e/7:run, u/8:use, t/9:take back, \n"
+msgid "e/7:run, u/8:use, t/9:take back,\n"
 msgstr "e/7:逃げる, u/8:アイテム使用, t/9:再入力, \n"
 
 #: ../source/cparty.d:893
-msgid "d/0:dispell, i:monster info\n"
-msgstr "d/0:呪いを解く, i:モンスター情報\n"
+msgid "d/0:dispell, i:monster info,\n"
+msgstr "d/0:呪いを解く, i:モンスター情報,\n"
 
 #: ../source/cparty.d:894
 msgid "r:read spells book, a:auto\n"
@@ -2104,8 +2104,8 @@ msgid "------ short cut ------\n"
 msgstr "------ ショートカット ------\n"
 
 #: ../source/cparty.d:896
-msgid "j/1:fight1, h/2:fight2, n/3:fight3\n"
-msgstr "j/1:戦う#1, h/2:戦う#2, n/3:戦う#3\n"
+msgid "j/1:fight1, h/2:fight2, n/3:fight3,\n"
+msgstr "j/1:戦う#1, h/2:戦う#2, n/3:戦う#3,\n"
 
 #: ../source/cparty.d:897
 msgid "k:parry, l:take back, ;:run\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-10 22:29+0900\n"
+"POT-Creation-Date: 2024-04-13 17:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,83 +18,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../source/app.d:376 ../source/app.d:389
+#: ../source/app.d:382 ../source/app.d:395
 msgid "no trap"
 msgstr ""
 
-#: ../source/app.d:390
+#: ../source/app.d:396
 msgid "poison needle"
 msgstr ""
 
-#: ../source/app.d:391
+#: ../source/app.d:397
 msgid "gas bomb"
 msgstr ""
 
-#: ../source/app.d:392
+#: ../source/app.d:398
 msgid "crossbow bolt"
 msgstr ""
 
-#: ../source/app.d:393
+#: ../source/app.d:399
 msgid "exploding box"
 msgstr ""
 
-#: ../source/app.d:394
+#: ../source/app.d:400
 msgid "stunner"
 msgstr ""
 
-#: ../source/app.d:395
+#: ../source/app.d:401
 msgid "teleporter"
 msgstr ""
 
-#: ../source/app.d:396
+#: ../source/app.d:402
 msgid "mage blaster"
 msgstr ""
 
-#: ../source/app.d:397
+#: ../source/app.d:403
 msgid "priest blaster"
 msgstr ""
 
-#: ../source/app.d:398
+#: ../source/app.d:404
 msgid "alarm"
 msgstr ""
 
-#: ../source/app.d:931
+#: ../source/app.d:937
 msgid "- dungeon -              [push '?' key for help]"
 msgstr ""
 
-#: ../source/app.d:934
+#: ../source/app.d:940
 msgid "- battle -               [push '?' key for help]"
 msgstr ""
 
-#: ../source/app.d:937
+#: ../source/app.d:943
 msgid "- camp mode -         [#:inspect,?:help,z:leave]"
 msgstr ""
 
-#: ../source/app.d:940
+#: ../source/app.d:946
 msgid "- castle -       [g:bar,s:hotel,t:temple,a:shop,e:leave]"
 msgstr ""
 
-#: ../source/app.d:943
+#: ../source/app.d:949
 msgid "- edge of town -   [c:astle,t:raining,d:angeon,r:estart]"
 msgstr ""
 
-#: ../source/app.d:946
+#: ../source/app.d:952
 msgid "- ginger's forest bar -      for your quality time      "
 msgstr ""
 
-#: ../source/app.d:949
+#: ../source/app.d:955
 msgid "- yankee flipper hotel -      satisfaction guaranteed!  "
 msgstr ""
 
-#: ../source/app.d:952
+#: ../source/app.d:958
 msgid "- temple of dice -       you can always count on us.    "
 msgstr ""
 
-#: ../source/app.d:955
+#: ../source/app.d:961
 msgid "- albertsan's mart -      we love to see you smile.     "
 msgstr ""
 
-#: ../source/app.d:958
+#: ../source/app.d:964
 msgid "- training ground -   wanna get a job? you'll find one! "
 msgstr ""
 
@@ -354,8 +354,8 @@ msgstr ""
 msgid "leave"
 msgstr ""
 
-#: ../source/ccastle.d:613 ../source/cmember.d:1664 ../source/cmember.d:1743
-#: ../source/cmember.d:1796 ../source/cmember.d:2326
+#: ../source/ccastle.d:613 ../source/cmember.d:1704 ../source/cmember.d:1783
+#: ../source/cmember.d:1836 ../source/cmember.d:2378
 msgid "leave\n"
 msgstr ""
 
@@ -457,7 +457,7 @@ msgstr ""
 msgid "uncursed and %1 is vanished...\n"
 msgstr ""
 
-#: ../source/ccastle.d:1084 ../source/cmember.d:1687 ../source/cmember.d:2573
+#: ../source/ccastle.d:1084 ../source/cmember.d:1727 ../source/cmember.d:2629
 msgid "which item(z:leave(9))? "
 msgstr ""
 
@@ -1456,285 +1456,305 @@ msgid ""
 "you found a hidden door!"
 msgstr ""
 
-#: ../source/cmember.d:67
+#: ../source/cmember.d:71
 msgid "you are cursed...\n"
 msgstr ""
 
-#: ../source/cmember.d:82
+#: ../source/cmember.d:86
 msgid "*** oops! you got cursed ...\n"
 msgstr ""
 
-#: ../source/cmember.d:91
+#: ../source/cmember.d:95
 msgid "you cannot equip it.\n"
 msgstr ""
 
-#: ../source/cmember.d:107
+#: ../source/cmember.d:111
 msgid ""
 "do you want to use the special power\n"
 "  of %1 (y/n)?"
 msgstr ""
 
-#: ../source/cmember.d:934
+#: ../source/cmember.d:974
 msgid "  push any key to see items\n"
 msgstr ""
 
-#: ../source/cmember.d:938
+#: ../source/cmember.d:978
 msgid "  push any key to read mage spells\n"
 msgstr ""
 
-#: ../source/cmember.d:942
+#: ../source/cmember.d:982
 msgid "  push any key to read priest spells\n"
 msgstr ""
 
-#: ../source/cmember.d:946
+#: ../source/cmember.d:986
 msgid "  push any key to return\n"
 msgstr ""
 
-#: ../source/cmember.d:1456
+#: ../source/cmember.d:1496
 msgid "  %1 read mage spells\n"
 msgstr ""
 
-#: ../source/cmember.d:1459
+#: ../source/cmember.d:1499
 msgid "  %1 read priest spells\n"
 msgstr ""
 
-#: ../source/cmember.d:1574
+#: ../source/cmember.d:1614
 msgid "which weapon(1,2,...,l:leave)?\n"
 msgstr ""
 
-#: ../source/cmember.d:1579
+#: ../source/cmember.d:1619
 msgid "which armor(1,2,...,l:leave)?\n"
 msgstr ""
 
-#: ../source/cmember.d:1584
+#: ../source/cmember.d:1624
 msgid "which shield(1,2,...,l:leave)?\n"
 msgstr ""
 
-#: ../source/cmember.d:1589
+#: ../source/cmember.d:1629
 msgid "which helm(1,2,...,l:leave)?\n"
 msgstr ""
 
-#: ../source/cmember.d:1594
+#: ../source/cmember.d:1634
 msgid "which gloves(1,2,...,l:leave)?\n"
 msgstr ""
 
-#: ../source/cmember.d:1599
+#: ../source/cmember.d:1639
 msgid "which item(1,2,...,l:leave)?\n"
 msgstr ""
 
-#: ../source/cmember.d:1658
+#: ../source/cmember.d:1698
 msgid "to whom(z:leave(9))? "
 msgstr ""
 
-#: ../source/cmember.d:1683
+#: ../source/cmember.d:1723
 msgid "full...\n"
 msgstr ""
 
-#: ../source/cmember.d:1708
+#: ../source/cmember.d:1748
 msgid ""
 "\n"
 "cursed ...\n"
 msgstr ""
 
-#: ../source/cmember.d:1712
+#: ../source/cmember.d:1752
 msgid ""
 "\n"
 "equipped ...\n"
 msgstr ""
 
-#: ../source/cmember.d:1724
+#: ../source/cmember.d:1764
 msgid ""
 "\n"
 "done.\n"
 msgstr ""
 
-#: ../source/cmember.d:1737
+#: ../source/cmember.d:1777
 msgid "which item will you drop(z:leave(9))? "
 msgstr ""
 
-#: ../source/cmember.d:1759
+#: ../source/cmember.d:1799
 msgid "cursed item ...\n"
 msgstr ""
 
-#: ../source/cmember.d:1764
+#: ../source/cmember.d:1804
 msgid "equipped ...\n"
 msgstr ""
 
-#: ../source/cmember.d:1770
+#: ../source/cmember.d:1810
 msgid "dropped.\n"
 msgstr ""
 
-#: ../source/cmember.d:1790
+#: ../source/cmember.d:1830
 msgid "which item do you use(z:leave(9))? "
 msgstr ""
 
-#: ../source/cmember.d:1870
+#: ../source/cmember.d:1910
 msgid "you made the next level!\n"
 msgstr ""
 
-#: ../source/cmember.d:1888
+#: ../source/cmember.d:1928
 msgid "  you gained %1 h.p.\n"
 msgstr ""
 
-#: ../source/cmember.d:1897
+#: ../source/cmember.d:1937
 msgid ""
 "you need %1 more\n"
 "  ep to make the next level.\n"
 msgstr ""
 
-#: ../source/cmember.d:1991
+#: ../source/cmember.d:2031
 msgid "  you lost %1 \n"
 msgstr ""
 
-#: ../source/cmember.d:2000
+#: ../source/cmember.d:2040
 msgid "  you gained %1 \n"
 msgstr ""
 
-#: ../source/cmember.d:2016
+#: ../source/cmember.d:2056
 msgid "The character died of age...\n"
 msgstr ""
 
-#: ../source/cmember.d:2196
+#: ../source/cmember.d:2236
 msgid "  you've learned new mage spells!\n"
 msgstr ""
 
-#: ../source/cmember.d:2198
+#: ../source/cmember.d:2238
 msgid "  you've learned new priest spells!\n"
 msgstr ""
 
-#: ../source/cmember.d:2265
+#: ../source/cmember.d:2305
 msgid "what spell?\n"
 msgstr ""
 
-#: ../source/cmember.d:2276
-msgid "cannot cast now\n"
+#: ../source/cmember.d:2328
+msgid " cannot cast now\n"
 msgstr ""
 
-#: ../source/cmember.d:2283
-msgid "don't know the spell\n"
+#: ../source/cmember.d:2335
+msgid " don't know the spell\n"
 msgstr ""
 
-#: ../source/cmember.d:2290
-msgid "you've used that up\n"
+#: ../source/cmember.d:2342
+msgid " you've used that up\n"
 msgstr ""
 
-#: ../source/cmember.d:2300
+#: ../source/cmember.d:2352
 msgid "no such spell\n"
 msgstr ""
 
-#: ../source/cmember.d:2320
+#: ../source/cmember.d:2372
 msgid "which item will you identify(z:leave(9))? "
 msgstr ""
 
-#: ../source/cmember.d:2347
+#: ../source/cmember.d:2399
 msgid ""
 "\n"
 " * oops! *\n"
 msgstr ""
 
-#: ../source/cmember.d:2380
+#: ../source/cmember.d:2432
 msgid ""
 "\n"
 "no clue ...\n"
 msgstr ""
 
-#: ../source/cmember.d:2565
+#: ../source/cmember.d:2621
 msgid "you have:\n"
 msgstr ""
 
-#: ../source/cmember.d:2586
+#: ../source/cmember.d:2642
 msgid ""
 "you can't use it now\n"
 "option? \n"
 msgstr ""
 
-#: ../source/cmember.d:2629
+#: ../source/cmember.d:2700
 msgid " no such spell"
 msgstr ""
 
-#: ../source/cmember.d:2638
+#: ../source/cmember.d:2709 ../source/cmember.d:2896
 msgid " cannot cast now"
 msgstr ""
 
-#: ../source/cmember.d:2646
+#: ../source/cmember.d:2717
 msgid " don't know the spell"
 msgstr ""
 
-#: ../source/cmember.d:2654
+#: ../source/cmember.d:2725
 msgid " you've used that up"
 msgstr ""
 
-#: ../source/cmember.d:2727
+#: ../source/cmember.d:2809 ../source/cmember.d:2872
+msgid " don't know the spell.\n"
+msgstr ""
+
+#: ../source/cmember.d:2818
+msgid " m)age or p)riest spells (z:leave(9))?\n"
+msgstr ""
+
+#: ../source/cmember.d:2858
+msgid " spell level? (1-7) (z:leave(9))?\n"
+msgstr ""
+
+#: ../source/cmember.d:2878
+msgid " you've used that up.\n"
+msgstr ""
+
+#: ../source/cmember.d:2903
+msgid "which spell(z:leave(9))?\n"
+msgstr ""
+
+#: ../source/cmember.d:2956
 msgid "The %1 gets broken!\n"
 msgstr ""
 
-#: ../source/cmember.d:2772
+#: ../source/cmember.d:3001
 msgid "%1 thrusts hard at a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2775
+#: ../source/cmember.d:3004
 msgid "%1 tries to slice a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2778
+#: ../source/cmember.d:3007
 msgid "%1 swings at a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2781
+#: ../source/cmember.d:3010
 msgid "%1 chops savagely at a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2784
+#: ../source/cmember.d:3013
 msgid "%1 tries to bash a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2787
+#: ../source/cmember.d:3016
 msgid "%1 attempts to stab a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2791
+#: ../source/cmember.d:3020
 msgid "%1 lunges at a %2\n"
 msgstr ""
 
-#: ../source/cmember.d:2891 ../source/cmonster.d:540
+#: ../source/cmember.d:3120 ../source/cmonster.d:540
 msgid "  and hits once for %1 damage!\n"
 msgid_plural "  and hits %2 times for %1 damage!\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../source/cmember.d:2913
+#: ../source/cmember.d:3142
 msgid "  The %1 gets the head cut off!\n"
 msgstr ""
 
-#: ../source/cmember.d:2922 ../source/cmember.d:2932
+#: ../source/cmember.d:3151 ../source/cmember.d:3161
 msgid "    The %1 is killed!\n"
 msgstr ""
 
-#: ../source/cmember.d:2947
+#: ../source/cmember.d:3176
 msgid "  The %1 is slept!\n"
 msgstr ""
 
-#: ../source/cmember.d:2956 ../source/cmonster.d:534
+#: ../source/cmember.d:3185 ../source/cmonster.d:534
 msgid "   ... and misses\n"
 msgstr ""
 
-#: ../source/cmember.d:2997
+#: ../source/cmember.d:3226
 msgid "%1 dispels %2 monster\n"
 msgid_plural "%1 dispels %2 monsters\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../source/cmember.d:3004
+#: ../source/cmember.d:3233
 msgid ""
 "%1 attempts to dispel\n"
 "   and fails.\n"
 msgstr ""
 
-#: ../source/cmember.d:3019
+#: ../source/cmember.d:3248
 msgid "%1 casts a %2.\n"
 msgstr ""
 
-#: ../source/cmember.d:3023 ../source/cmonster.d:334
+#: ../source/cmember.d:3252 ../source/cmonster.d:334
 msgid "  but, %1 is silenced!\n"
 msgstr ""
 
@@ -1826,7 +1846,7 @@ msgstr ""
 msgid "  %1 gets the head cut off!\n"
 msgstr ""
 
-#: ../source/cmonster.d:647 ../source/cmonster.d:667 ../source/cmonster.d:696
+#: ../source/cmonster.d:647 ../source/cmonster.d:667 ../source/cmonster.d:699
 msgid "  %1 is killed!\n"
 msgstr ""
 
