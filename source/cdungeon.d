@@ -81,7 +81,7 @@ public:
             {
                 party.dungeon.textoutNow( _( "\n*** in rock! ***\n" ) );
                 foreach( p ; party )
-                    p.getLost;
+                    p.status = STS.LOST;
                 party.dispPartyWindow();
                 getChar();
                 party.layer = 0;
@@ -1142,7 +1142,7 @@ private:
         {
             txtMessage.textout( _( "\n*** in rock! ***\n" ) );
             foreach( p ; party )
-                p.getLost;
+                p.status = STS.LOST;
             party.dispPartyWindow();
             getChar();
             party.layer=0;

@@ -23,6 +23,10 @@ private:
     enum BIT_STS_POISONED           = 0x80;
     enum BIT_STS_EXCEPTING_POISONED = 0x7f;
 
+
+    byte status_;   /* 0:Ok,1:Sleep,2:Afraid,3:Pararized,4:Stoned */
+                    /* 5:Dead,6:Ashed,7:Lost, and bit7:Poisoned */
+
     /+ 
     enum ITM_KIND : WEAPON = 0, ARMOR  = 1, SHIELD = 2, HELM   = 3, GLOVES = 4, ITEM   = 5
     +/
@@ -164,8 +168,44 @@ public:
     byte[7] pspl_pt;
 
     string name; /* name (Max32chr) */
-    byte status; /* 0:Ok,1:Sleep,2:Afraid,3:Pararized,4:Stoned */
-                 /* 5:Dead,6:Ashed,7:Lost, and bit7:Poisoned */
+    // byte status; /* 0:Ok,1:Sleep,2:Afraid,3:Pararized,4:Stoned */
+                    /* 5:Dead,6:Ashed,7:Lost, and bit7:Poisoned */
+    @property
+    {
+        ubyte status() { return status_; }
+        void statusNoSave( STS sts ) 
+        {
+            status_ = sts.to!ubyte;
+        }
+        void status( STS sts ) 
+        {
+
+            status_ = sts.to!ubyte;
+
+            switch( sts )
+            {
+                case STS.OK:
+                case STS.SLEEP:
+                case STS.AFRAID:
+                    break;
+
+                case STS.LOST:
+                    // ロスト→アイテム没収
+                    outflag = OUT_F.BAR;
+                    gold = 0;
+                    foreach( i ; 0 .. MAXCARRY )
+                        item[ i ].setNull;
+                    calcAtkAC;
+                    goto default;   // fall through
+
+                default:
+                    if( autosave ) 
+                        appSave;
+                    break;
+            }
+            return;
+        }
+    }
     bool poisoned; // class 時でのみ利用。保存時は statusとマージ
     byte race; /* 0:Human,1:Elf,2:Dwarf,3:Gnome,4:Hobbit */
     byte Class; /* (int) 0:FIG,1:THI,2:PRI,3:MAG,4:BIS,5:SAM,6:LOR,7:NIN */
@@ -267,9 +307,9 @@ public:
         marks  = to!int( data[ i++ ] );
         rip    = to!int( data[ i++ ] );
 
-        ubyte sts  = to!ubyte( data[ i++ ] ); 
-        status   = sts & BIT_STS_EXCEPTING_POISONED;
-        poisoned = ( ( sts & BIT_STS_POISONED ) != 0 );
+        ubyte sts  = to!ubyte( data[ i++ ] );
+        statusNoSave  = to!STS( sts & BIT_STS_EXCEPTING_POISONED );
+        poisoned      = ( ( sts & BIT_STS_POISONED ) != 0 );
 
         race   = to!byte( data[ i++ ] );
         Class  = to!byte( data[ i++ ] );
@@ -1430,7 +1470,7 @@ public:
 
 
     /*--------------------
-       dispSpellsInCamp - 戦闘中呪文表示
+       dispSpellsInCamp - キャンプ中呪文表示
        --------------------*/
     void dispSpellsInCamp()
     {
@@ -2260,34 +2300,46 @@ public:
     void castSpellInCamp()
     {
         int mag;
-        string spell;
+        string spellName;
 
         txtMessage.textout( _( "what spell?\n" ) );
-        spell = txtMessage.inputSpell( this , 32 , "> " );
-        txtMessage.textout( "> " );
-        txtMessage.textout( spell );
-        txtMessage.textout( '\n' );
+
+        if( inputSpellName )
+        {
+            // 呪文タイピング
+            spellName = txtMessage.inputSpell( this , 32 , "> " );
+            txtMessage.textout( "> " );
+            txtMessage.textout( spellName );
+            txtMessage.textout( '\n' );
+        }
+        else
+        {
+            spellName = selectSpellToCast;
+            if( spellName == "" )
+                return;
+        }
+
 
         foreach( MagicDef m ; magic_all )
-            if( spell == m.name ) 
+            if( spellName == m.name ) 
             {
                 if( m.camp == TYPE_MAGIC_CAMPMODE.cant ) 
                 {
-                    txtMessage.textout( _( "cannot cast now\n" ) );
+                    txtMessage.textout( _( " cannot cast now\n" ) );
                     getChar();
                     return;
                 }
 
                 if( ! isSpellKnown( m ) )
                 {
-                    txtMessage.textout( _( "don't know the spell\n" ) );
+                    txtMessage.textout( _( " don't know the spell\n" ) );
                     getChar();
                     return;
                 }
 
                 if ( ! consumeSpell( m ) )    // 2 : have used up 
                 {
-                    txtMessage.textout( _( "you've used that up\n" ) );
+                    txtMessage.textout( _( " you've used that up\n" ) );
                     getChar();
                     return;
                 }
@@ -2463,7 +2515,7 @@ public:
         char c;
         int i;
         int row = getPartyNo;
-        string spell_name;
+        string spellName;
         MagicDef spell;
 
         void dispCommand( string com )
@@ -2486,6 +2538,9 @@ public:
         /*--------------------
            start inputAction - 戦闘時コマンド入力
            --------------------*/
+
+        setStatusColor;     // 毒の場合は色変更
+
         switch( command )
         {
             case ' ':
@@ -2562,6 +2617,7 @@ public:
             // use item
             case 'u':
             case '8':
+                setColor( CL.NORMAL );
                 txtMessage.textout( _( "you have:\n" ) );
                 foreach( j , itm ; item )
                     if ( ! itm.isNothing )
@@ -2579,17 +2635,19 @@ public:
                 if ( c=='z' || c=='9' )
                     return false;
 
-                spell_name = item[ c - 'a' ].effectMagic[ 1 ];       // 1:battle
-                if ( spell_name == ""
-                        || magic_all[ spell_name ].batl == TYPE_MAGIC_BATTLEMODE.cant )
+                spellName = item[ c - 'a' ].effectMagic[ 1 ];       // 1:battle
+                if ( spellName == ""
+                        || magic_all[ spellName ].batl == TYPE_MAGIC_BATTLEMODE.cant )
                 {
                     txtMessage.textout( _( "you can't use it now\noption? \n" ) );
                     return false;
                 }
 
-                spell = magic_all[ spell_name ];
+                setStatusColor; 
+
+                spell = magic_all[ spellName ];
                 actItem = item[ c - 'a' ];
-                dispCommand( leftB( spell_name , 6 ) ~ " " );
+                dispCommand( leftB( spellName , 6 ) ~ " " );
 
                 if ( spell.batl == TYPE_MAGIC_BATTLEMODE.notarget )
                 { /* no target */
@@ -2619,12 +2677,25 @@ public:
                 if( monParty.suprised )
                     return false;
 
-                setStatusColor;     // 毒の場合は色変更
-
                 dispCommand( "spell  ?                      " );
-                spell_name = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 , "> " );
 
-                if( ! ( spell_name in magic_all ) )
+                if( inputSpellName )
+                {
+                    // 呪文タイピング
+                    spellName = tline_input_spell( this , 20, CHRW_Y_TOP + row + 1, CHRW_X_TOP + 55 , "> " );
+                }
+                else
+                {
+                    spellName = selectSpellToCast;
+                    setStatusColor;     // 毒の場合は色変更
+                    if( spellName == "" )
+                    {
+                        dispCommand( "what?  ???????????????????????" );
+                        return false;
+                    }
+                }
+
+                if( ! ( spellName in magic_all ) )
                 {
                     dispTarget( _( " no such spell" ) );
                     getChar();
@@ -2632,7 +2703,7 @@ public:
                     return false;
                 }
 
-                spell = magic_all[ spell_name ];
+                spell = magic_all[ spellName ];
                 if( spell.batl == TYPE_MAGIC_BATTLEMODE.cant )
                 {
                     dispTarget( _( " cannot cast now" ) );
@@ -2657,7 +2728,7 @@ public:
                     return false;
                 }
 
-                dispCommand( leftB( spell_name , 6 ) ~ " " );
+                dispCommand( leftB( spellName , 6 ) ~ " " );
                 if ( spell.batl == TYPE_MAGIC_BATTLEMODE.notarget )
                 { /* no target */
                     dispTarget( "                        " );
@@ -2674,7 +2745,7 @@ public:
                     targetMonster = monParty.selectGroup( row );
                     dispTargetWithNo( targetMonster.getPartyNo + 1 , 
                             ")" ~ fillL( targetMonster.getDispNameS , 22 ) );
-                }
+                } 
                 action = ACT.magic ;
                 actMagic = spell;
                 return true;
@@ -2696,6 +2767,164 @@ public:
                 return false;   // not inputAction...
         }
     }
+
+
+    /*--------------------
+       selectSpellToCast - 呪文選択コマンド表示
+       --------------------*/
+    string selectSpellToCast()
+    {
+        byte msplFlg , psplFlg;
+        char ch;
+        string list;
+        int lv;
+
+        byte[ 7 ] known;
+        byte[ 7 ] pt;
+        MagicDef[] spl;
+        string[] castList;
+
+        void dispSpell()
+        {
+            if( now_mode == HSTS.CAMP )
+                dispSpellsInCamp;
+            else if( now_mode == HSTS.BATTLE )
+                dispSpellsInBattle;
+            else
+                assert( 0 , "now_mode" );
+            return;
+        }
+
+        setColor( CL.NORMAL );
+
+        msplFlg = false;
+        foreach( know ; mspl_know )
+            msplFlg |= know;
+        psplFlg = false;
+        foreach( know ; pspl_know )
+            psplFlg |= know;
+
+        if( ! ( msplFlg || psplFlg ) )
+        {
+            txtMessage.textout( _( " don't know the spell.\n" ) );
+            getChar;
+            return "";
+        }
+
+        if( msplFlg != 0 && psplFlg != 0)
+        {
+            while( true )
+            {
+                txtMessage.textout( _( " m)age or p)riest spells (z:leave(9))?\n" ) );
+                ch = getCharFromList( "mpz9r" );
+                if( ch == 'r' )
+                {
+                    dispSpell;
+                    continue;
+                }
+                break;
+            }
+
+            if( ch == 'z' || ch == '9' )
+                return "";
+            switch( ch )
+            {
+                case 'm':
+                    psplFlg = 0;
+                    break;
+                case 'p':
+                    msplFlg = 0;
+                    break;
+                default:
+                    assert(0);
+            }
+        }
+
+        if( msplFlg != 0 )
+        {
+            known = mspl_know;
+            pt = mspl_pt;
+            spl = mspl;
+        }
+        else    // psplFlg != 0
+        {
+            known = pspl_know;
+            pt = pspl_pt;
+            spl = pspl;
+        }
+
+        while( true )
+        {
+            txtMessage.textout( _( " spell level? (1-7) (z:leave(9))?\n" ) );
+            ch = getCharFromList( "1234567z9r" );
+            if( ch == 'r' )
+            {
+                dispSpell;
+                continue;
+            }
+            break;
+        }
+
+        if( ch == 'z' || ch == '9' )
+            return "";
+        if( known[ ch - '1' ] == 0 )
+        {
+            txtMessage.textout( _( " don't know the spell.\n" ) );
+            getChar;
+            return "";
+        }
+        if( pt[ ch - '1' ] == 0 )
+        {
+            txtMessage.textout( _( " you've used that up.\n" ) );
+            getChar;
+            return "";
+        }
+
+        lv = ch - '1';
+        list = "";
+
+        foreach( i , MagicDef s ; spl )
+            if( s.level == lv )
+                if( ( now_mode == HSTS.BATTLE && s.batl != TYPE_MAGIC_BATTLEMODE.cant ) || 
+                    ( now_mode == HSTS.CAMP   && s.camp != TYPE_MAGIC_CAMPMODE.cant ) )
+                {
+                    castList ~= s.name;
+                }
+
+        if( castList.length == 0 )
+        {
+            txtMessage.textout( _( " cannot cast now" ) );
+            getChar;
+            return "";
+        }
+
+        while( true )
+        {
+            txtMessage.textout( _( "which spell(z:leave(9))?\n" ) );
+            list = "";
+            foreach( i , s ; castList )
+            {
+                txtMessage.textout( " " );
+                txtMessage.textout( ( i + 'a' ).to!char );
+                txtMessage.textout( ") " ~ s ~ "\n");
+                list ~= ( i + 'a' ).to!char.to!string;
+            }
+
+            ch = getCharFromList( list ~ "z9" );
+            if( ch == 'r' )
+            {
+                dispSpell;
+                continue;
+            }
+            break;
+        }
+
+        if( ch == 'z' || ch == '9' )
+            return "";
+
+        return castList[ ch - 'a' ];
+    }
+
 
     /*--------------------
        act - 戦闘ターン実行
@@ -3086,20 +3315,6 @@ public:
             list ~= ( 'a' + i ).to!char.to!string;
         }
         return list;
-    }
-
-    /*--------------------
-       getLost - ロスト→アイテム没収
-       --------------------*/
-    void getLost()
-    {
-        status = STS.LOST;
-        outflag = OUT_F.BAR;
-        gold = 0;
-        foreach( i ; 0 .. MAXCARRY )
-            item[ i ].setNull;
-        calcAtkAC;
-        return;
     }
 
 }
